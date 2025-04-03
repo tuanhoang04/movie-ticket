@@ -1,5 +1,5 @@
 # CINEMA WEBSITE PROJECT (FRONTEND)
 
-npm install (chỉ cần chạy cái này một lần sau khi clone repo)
+npm install
 
 npm run dev
