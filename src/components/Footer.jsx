@@ -14,17 +14,17 @@ export default function Footer() {
             Starlight Cinema
           </Typography>
         </div>
-        <p className="text-[#5D6A81] font-extralight text-xl">
+        <p className="text-[#5D6A81] font-normal text-xl">
           Starlight Cinema Co., Ltd.
         </p>
-        <p className="text-[#5D6A81] font-extralight text-xl">
+        <p className="text-[#5D6A81] font-normal text-xl">
           Business Registration Number: 0123456789
         </p>
-        <p className="text-[#5D6A81] font-extralight text-xl mb-5">
+        <p className="text-[#5D6A81] font-normal text-xl mb-5">
           Address: Goldsilk Complex, 430 Cau Am, Van Phuc, Ha Dong, Hanoi,
           Vietnam
         </p>
-        <p className="text-[#5D6A81] font-extralight text-xl">
+        <p className="text-[#5D6A81] font-normal text-xl">
           Grab your tickets now and dive into an unforgettable cinematic
           adventure! Whether you crave heart-pounding drama or
           laugh-out-loudcomedy, the perfect movie awaits!
@@ -44,16 +44,28 @@ export default function Footer() {
           <p className="text-white font-medium text-xl inline-flex mb-2 mt-5">
             NAVIGATION
           </p>
-          <a href="#" className="text-[#7f92b3] font-light text-xl inline-flex">
+          <a
+            href="#"
+            className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
+          >
             Homepage
           </a>
-          <a href="#" className="text-[#7f92b3] font-light text-xl inline-flex">
+          <a
+            href="#"
+            className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
+          >
             Buy Tickets
           </a>
-          <a href="#" className="text-[#7f92b3] font-light text-xl inline-flex">
+          <a
+            href="#"
+            className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
+          >
             Theaters
           </a>
-          <a href="#" className="text-[#7f92b3] font-light text-xl inline-flex">
+          <a
+            href="#"
+            className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
+          >
             News
           </a>
         </div>

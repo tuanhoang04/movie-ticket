@@ -3,8 +3,11 @@ const withMT = require("@material-tailwind/react/utils/withMT");
 export default withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Inter", "sans-serif"], // Replace with your font
+      },
+    },
   },
   plugins: [],
 });
-
