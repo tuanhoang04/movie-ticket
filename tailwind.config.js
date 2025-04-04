@@ -8,6 +8,8 @@ export default withMT({
         sans: ["Inter", "sans-serif"], // Replace with your font
       },
     },
+    color:{
+    }
   },
   plugins: [],
 });
