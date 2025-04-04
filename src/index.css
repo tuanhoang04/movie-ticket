@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+  .skeleton-bg {
+    @apply rounded-md bg-gray-100 bg-opacity-50;
+  }
+  .skeleton-img {
+    @apply  text-gray-600;
+  }
+}

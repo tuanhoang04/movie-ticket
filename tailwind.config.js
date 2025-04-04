@@ -9,7 +9,7 @@ export default withMT({
       },
     },
     color:{
-    }
+    },
   },
   plugins: [],
 });
