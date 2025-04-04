@@ -41,7 +41,7 @@ export default function TicketFilms() {
 
   return (
     <>
-      <div className="my-6 w-60 justify-self-center">
+      {!isLoading&&<div className="my-6 w-60 justify-self-center">
         <Select
           value={showing}
           className="text-white text-xl w-60 bg-[#313035] border-none after:border-none before:border-none"
@@ -57,7 +57,7 @@ export default function TicketFilms() {
             Upcoming Movies
           </Option>
         </Select>
-      </div>
+      </div>}
       {data && (
         <div className="flex flex-wrap px-6 lg:px-24 gap-[5%]">
           {currentFilms.map((item) => {
