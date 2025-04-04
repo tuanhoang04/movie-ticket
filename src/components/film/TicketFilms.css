@@ -1,0 +1,6 @@
+label::after{
+    border: none;
+}
+label::before{
+    border: none;
+}

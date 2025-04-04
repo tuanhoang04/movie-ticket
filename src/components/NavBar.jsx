@@ -76,7 +76,7 @@ export default function NavBar() {
               type="search"
               placeholder="Search"
               size="lg"
-              className="border-none !outline-none rounded-3xl text-md pl-6 placeholder:text-black focus:!border-blue-gray-300  bg-white"
+              className="border-none after:border-none before:border-none rounded-3xl text-md pl-6 placeholder:text-black focus:!border-blue-gray-300  bg-white"
             />
           </div>
           <Button

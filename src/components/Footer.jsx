@@ -27,7 +27,7 @@ export default function Footer() {
         <p className="text-[#5D6A81] font-normal text-xl">
           Grab your tickets now and dive into an unforgettable cinematic
           adventure! Whether you crave heart-pounding drama or
-          laugh-out-loudcomedy, the perfect movie awaits!
+          laugh-out-loud comedy, the perfect movie awaits!
         </p>
       </div>
 

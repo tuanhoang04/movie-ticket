@@ -18,7 +18,7 @@ export default function FirstScreen() {
 
             <div class="absolute w-[530px] h-[410px] bg-[#11CEDA] rounded-full blur-[180px] opacity-60 bottom-[-100px] left-1/2 transform -translate-x-1/2 z-1"></div>
 
-            <div class="relative z-2">
+            <div class="relative z-2">  
               <img
                 src="/popcorn.png"
                 width="600"
