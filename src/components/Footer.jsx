@@ -1,7 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 export default function Footer() {
   return (
-    <footer className="bg-[#1C1B21] grid grid-cols-10 px-12 py-12">
+    <footer className="bg-[#1C1B21] grid grid-cols-10 px-6 lg:px-24 py-12">
       <div className="col-span-5 flex flex-col justify-start">
         <div className="flex flex-row items-center mb-5">
           <img src="/ico.png" className="w-10 mr-1" />
@@ -26,8 +26,8 @@ export default function Footer() {
         </p>
         <p className="text-[#5D6A81] font-normal text-xl">
           Grab your tickets now and dive into an unforgettable cinematic
-          adventure! Whether you crave heart-pounding drama or
-          laugh-out-loud comedy, the perfect movie awaits!
+          adventure! Whether you crave heart-pounding drama or laugh-out-loud
+          comedy, the perfect movie awaits!
         </p>
       </div>
 
@@ -45,7 +45,7 @@ export default function Footer() {
             NAVIGATION
           </p>
           <a
-            href="#"
+            href="/home"
             className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
           >
             Homepage

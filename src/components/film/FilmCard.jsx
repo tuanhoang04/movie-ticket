@@ -1,8 +1,14 @@
 export default function FilmCard({ image, name, date }) {
   return (
-    <div className="col-span-1 row-span-1 flex flex-col items-center content-center justify-center">
-      <img src={image} className="rounded-lg w-64" />
-      <p className="text-white w-56">{name}</p>
+    <div className="flex w-[16%] flex-col justify-start mb-5">
+      <div className="w-full flex flex-col justify-start box-border">
+        <img
+          src={image}
+          className="rounded-lg object-cover w-full"
+        />
+        <p className="text-[#5D6A81] text-lg w-full">{date}</p>
+        <p className="text-white font-bold text-xl w-full">{name}</p>
+      </div>
     </div>
   );
 }

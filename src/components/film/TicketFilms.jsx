@@ -8,7 +8,7 @@ export default function TicketFilms() {
   const [data, setData] = useState([[]]);
   const [showing, setShowing] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const filmsPerPage = 12;
+  const filmsPerPage = 15;
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,25 +41,25 @@ export default function TicketFilms() {
 
   return (
     <>
-      <div className="my-6 w-36 justify-self-center">
+      <div className="my-6 w-60 justify-self-center">
         <Select
           value={showing}
-          className="text-white text-base bg-[#313035] border-none after:border-none before:border-none"
+          className="text-white text-xl w-60 bg-[#313035] border-none after:border-none before:border-none"
           onChange={(val) => {
             setShowing(val);
             setCurrentPage(1);
           }}
         >
-          <Option className="text-base" value={true}>
+          <Option className="text-xl" value={true}>
             Now Showing
           </Option>
-          <Option className="text-base" value={false}>
+          <Option className="text-xl" value={false}>
             Upcoming Movies
           </Option>
         </Select>
       </div>
       {data && (
-        <div className="grid grid-cols-4 grid-rows-3">
+        <div className="flex flex-wrap px-6 lg:px-24 gap-[5%]">
           {currentFilms.map((item) => {
             const date = item.Release_date.substring(0, 10);
             const day = date.substring(8, 10);
@@ -83,6 +83,7 @@ export default function TicketFilms() {
       {!isLoading && (
         <div>
           <CircularPagination
+            key={totalPages}
             pagesNumber={totalPages}
             handleChange={handlePageChange}
           />

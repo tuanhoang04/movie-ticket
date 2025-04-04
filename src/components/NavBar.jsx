@@ -23,7 +23,7 @@ export default function NavBar() {
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-8">
       <Typography as="li" variant="h4" className="p-1 font-extralight ">
         <a
-          href="#"
+          href="/home"
           className="flex items-center text-white underline underline-offset-8 hover:text-purple-100"
         >
           Home
@@ -57,13 +57,13 @@ export default function NavBar() {
   );
 
   return (
-    <Navbar className="max-w-full px-4 py-2 lg:px-12 lg:py-4 rounded-none border-none bg-[#502A50] ">
+    <Navbar className="max-w-full py-2 px-6 lg:px-24 lg:py-4 rounded-none border-none bg-[#502A50] ">
       <div className="mx-auto flex flex-wrap items-center justify-between text-white">
         <div className="flex flex-row justify-center items-center">
           <img src="/ico.png" className="w-10 mr-3" />
           <Typography
             as="a"
-            href="#"
+            href="/home"
             variant="h3"
             className="mr-4 cursor-pointer py-1.5 font-medium"
           >
