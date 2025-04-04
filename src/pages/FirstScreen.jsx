@@ -6,7 +6,10 @@ export default function FirstScreen() {
           <div>
             <p className="text-7xl text-white font-bold">Movie Ticket</p>
             <p className="text-7xl text-white font-bold mb-5">Order App</p>
-            <button className=" border focus:outline-none focus:ring-4 font-medium text-2xl flex items-center rounded-full px-6 py-3 me-2 mb-2 bg-[#1A191F] text-white border-gray-600 hover:bg-gray-800 hover:border-gray-600 focus:ring-gray-700">
+            <button
+              className=" border focus:outline-none focus:ring-4 font-medium text-2xl flex items-center rounded-full px-6 py-3 me-2 mb-2 bg-[#1A191F] text-white border-gray-600 hover:bg-gray-800 hover:border-gray-600 focus:ring-gray-700"
+              onClick={() => (window.location = "/home")}
+            >
               <img src="/icons/star.png" className="h-6 w-auto pr-2" />
               <p>Explore</p>
             </button>
@@ -18,7 +21,7 @@ export default function FirstScreen() {
 
             <div class="absolute w-[530px] h-[410px] bg-[#11CEDA] rounded-full blur-[180px] opacity-60 bottom-[-100px] left-1/2 transform -translate-x-1/2 z-1"></div>
 
-            <div class="relative z-2">  
+            <div class="relative z-2">
               <img
                 src="/popcorn.png"
                 width="600"
