@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import {
   Navbar,
   Collapse,
@@ -8,11 +8,36 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
-  const [openNav, setOpenNav] = React.useState(false);
+  const [openNav, setOpenNav] = useState(false);
+  const [login, setLogin] = useState(true);
+  const [userInfo, setUserInfo] = useState([]);
+  const navigate = useNavigate();
+  const jwt = localStorage.getItem("jwt");
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/userInfo`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ jwt: jwt }),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData.success) {
+          setLogin(true);
+          setUserInfo(responseData.userInfo[0]);
+        } else {
+          setLogin(false);
+        }
+        console.log(responseData);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
@@ -57,53 +82,100 @@ export default function NavBar() {
   );
 
   return (
-    <Navbar className="max-w-full py-2 px-6 lg:px-24 lg:py-4 rounded-none border-none bg-[#502A50] ">
-      <div className="mx-auto flex flex-wrap items-center justify-between text-white">
-        <div className="flex flex-row justify-center items-center">
-          <img src="/ico.png" className="w-10 mr-3" />
-          <Typography
-            as="a"
-            href="/home"
-            variant="h3"
-            className="mr-4 cursor-pointer py-1.5 font-medium"
-          >
-            Starlight Cinema
-          </Typography>
-        </div>
-        <div className="hidden items-center gap-x-2 lg:flex">
-          <div className="relative flex w-full gap-2 md:w-max">
-            <Input
-              type="search"
-              placeholder="Search"
-              size="lg"
-              className="border-none after:border-none before:border-none rounded-3xl text-md pl-6 placeholder:text-black focus:!border-blue-gray-300  bg-white"
-            />
+    <>
+      <Navbar className="max-w-full relative py-2 px-6 lg:px-24 lg:py-4 rounded-none border-none bg-[#502A50]">
+        <div className="mx-auto flex flex-wrap items-center justify-between text-white">
+          <div className="flex flex-row justify-center items-center">
+            <img src="/ico.png" className="w-10 mr-3" />
+            <Typography
+              as="a"
+              href="/home"
+              variant="h3"
+              className="mr-4 cursor-pointer py-1.5 font-medium"
+            >
+              Starlight Cinema
+            </Typography>
           </div>
-          <Button
-            size="md"
-            color="deep-purple"
-            className="rounded-3xl text-white text-md"
+          <div className="hidden items-center gap-x-2 lg:flex">
+            <div className="relative flex w-full gap-2 md:w-max">
+              <Input
+                type="search"
+                placeholder="Search"
+                size="lg"
+                className="border-none after:border-none before:border-none rounded-3xl text-md pl-6 placeholder:text-black focus:!border-blue-gray-300  bg-white"
+              />
+            </div>
+            <Button
+              size="md"
+              color="deep-purple"
+              className="rounded-3xl text-white text-md"
+            >
+              Search
+            </Button>
+          </div>
+
+          <hr className="mt-5 hidden w-full lg:block lg:invisible" />
+
+          <IconButton
+            variant="text"
+            className="lg:hidden"
+            onClick={() => setOpenNav(!openNav)}
           >
-            Search
-          </Button>
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" stroke="white" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" stroke="white" strokeWidth={2} />
+            )}
+          </IconButton>
+          <div className="hidden lg:flex lg:justify-between w-screen">
+            {navList}
+            {login ? (
+              <div
+                className="flex flex-row items-center cursor-pointer"
+                onClick={() => navigate("/profile")}
+              >
+                <img className="w-8 h-8 mr-1" src="/icons/account.png" />
+                <p className="text-xl">{userInfo.full_name}</p>
+              </div>
+            ) : (
+              <div>
+                <Button
+                  variant="outlined"
+                  className="text-white text-md rounded-3xl mr-4 border-white border-[0.8]"
+                  onClick={() => (window.location = "/sign-up")}
+                >
+                  Sign up
+                </Button>
+                <Button
+                  variant="gradient"
+                  color="red"
+                  className="text-white text-md rounded-3xl"
+                  onClick={() => (window.location = "/sign-in")}
+                >
+                  Sign in
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
-
-        <hr className="mt-5 hidden w-full lg:block lg:invisible" />
-
-        <IconButton
-          variant="text"
-          className="lg:hidden"
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" stroke="white" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" stroke="white" strokeWidth={2} />
-          )}
-        </IconButton>
-        <div className="hidden lg:flex lg:justify-between w-screen">
-          {navList}
+        <Collapse className="bg-[#502A50]" open={openNav}>
           <div>
+            {navList}
+            <div className="flex flex-col gap-x-2 sm:flex-row sm:items-center sm: mb-4">
+              <div className="relative w-full gap-2 md:w-max">
+                <Input
+                  type="search"
+                  placeholder="Search"
+                  className="border-none rounded-3xl text-lg pl-6 placeholder:text-black  bg-white"
+                />
+              </div>
+              <Button
+                color="deep-purple"
+                className="text-white text-md rounded-3xl"
+              >
+                Search
+              </Button>
+            </div>
             <Button
               variant="outlined"
               className="text-white text-md rounded-3xl mr-4 border-white border-[0.8]"
@@ -118,41 +190,8 @@ export default function NavBar() {
               Sign in
             </Button>
           </div>
-        </div>
-      </div>
-      <Collapse open={openNav}>
-        <div>
-          {navList}
-          <div className="flex flex-col gap-x-2 sm:flex-row sm:items-center sm: mb-4">
-            <div className="relative w-full gap-2 md:w-max">
-              <Input
-                type="search"
-                placeholder="Search"
-                className="border-none rounded-3xl text-lg pl-6 placeholder:text-black  bg-white"
-              />
-            </div>
-            <Button
-              color="deep-purple"
-              className="text-white text-md rounded-3xl"
-            >
-              Search
-            </Button>
-          </div>
-          <Button
-            variant="outlined"
-            className="text-white text-md rounded-3xl mr-4 border-white border-[0.8]"
-          >
-            Sign up
-          </Button>
-          <Button
-            variant="gradient"
-            color="red"
-            className="text-white text-md rounded-3xl"
-          >
-            Sign in
-          </Button>
-        </div>
-      </Collapse>
-    </Navbar>
+        </Collapse>
+      </Navbar>
+    </>
   );
 }
