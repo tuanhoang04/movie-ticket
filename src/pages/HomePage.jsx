@@ -1,13 +1,13 @@
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
-import TicketFilms from "../components/film/TicketFilms";
+import Movies from "../components/movie/Movies";
 
 export default function HomePage() {
   return (
     <div className="bg-[#1C1B21] min-h-screen flex flex-col">
       <NavBar />
       <div className="flex-grow">
-        <TicketFilms />
+        <Movies />
         {/* <NewNews /> */}
       </div>
       <Footer />
