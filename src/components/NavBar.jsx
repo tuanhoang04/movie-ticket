@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
+import { ProfileMenu } from "./ProfileMenu";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
@@ -130,13 +131,7 @@ export default function NavBar() {
           <div className="hidden lg:flex lg:justify-between w-screen">
             {navList}
             {login ? (
-              <div
-                className="flex flex-row items-center cursor-pointer"
-                onClick={() => navigate("/profile")}
-              >
-                <img className="w-8 h-8 mr-1" src="/icons/account.png" />
-                <p className="text-xl">{userInfo.full_name}</p>
-              </div>
+              <ProfileMenu fullname={userInfo.full_name}/>
             ) : (
               <div>
                 <Button
