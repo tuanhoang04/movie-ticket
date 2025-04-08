@@ -8,7 +8,9 @@ export default withMT({
         sans: ["Inter", "sans-serif"], // Replace with your font
       },
     },
-    color: {},
+    color: {
+      itemHover: "#757575",
+    },
   },
   plugins: [require("@tailwindcss/line-clamp")],
 });

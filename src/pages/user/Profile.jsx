@@ -122,7 +122,7 @@ export default function Profile() {
   }, []);
 
   const tabStyles = {
-    headerText: "text-white w-32",
+    headerText: "text-white w-48 hover:text-lg",
     postAndTicketContainer: "grid place-items-center p-10 gap-20 h-fit",
     likedMoviesContainer:
       "grid grid-cols-3 lg:grid-cols-5 p-20 md:gap-20 lg:gap-20 h-fit",
@@ -180,7 +180,7 @@ export default function Profile() {
           className="w-full mt-32 bg-white bg-opacity-10 rounded-3xl "
         >
           <TabsHeader
-            className=" text-white h-[66px] bg-transparent gap-20 flex justify-start border-b-2 rounded-none p-2 pl-10"
+            className=" text-white h-[66px] bg-transparent gap-10 flex justify-start border-b-2 rounded-none p-2 pl-10"
             indicatorProps={{
               className: "bg-transparent border-2 rounded-full",
             }}
@@ -216,7 +216,7 @@ export default function Profile() {
                 ) : datas.length > 0 ? (
                   <div>
                     {value == "posts" ? (
-                      <Button className="flex gap-2 m-10 mb-0 p-3 border-2 text-sm bg-white text-black rounded-full">
+                      <Button className="flex gap-2 m-10 mb-0 p-3 border-2 text-sm bg-white text-black rounded-full hover:bg-gray-400">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"

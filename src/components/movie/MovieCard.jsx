@@ -1,6 +1,6 @@
 export default function MovieCard({ image, name, date, data }) {
   return (
-    <div className="flex flex-col justify-start w-[250px]">
+    <div className="flex flex-col justify-start w-[250px] hover:cursor-pointer hover:outline outline-gray-600 rounded-md p-4">
       <img
         src={image || data.film_img}
         className="rounded-2xl object-cover w-full"
