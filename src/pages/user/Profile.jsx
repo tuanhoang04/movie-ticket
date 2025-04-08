@@ -15,6 +15,7 @@ import {
   TabsBody,
   Tab,
   TabPanel,
+  Button,
 } from "@material-tailwind/react";
 
 export default function Profile() {
@@ -121,10 +122,10 @@ export default function Profile() {
   }, []);
 
   const tabStyles = {
-    headerText: "text-white w-fit",
-    postAndTicketContainer: "grid place-items-center p-10 gap-10 h-fit",
+    headerText: "text-white w-32",
+    postAndTicketContainer: "grid place-items-center p-10 gap-20 h-fit",
     likedMoviesContainer:
-      "grid grid-cols-3 lg:grid-cols-4 p-10 md:gap-20 lg:gap-30 h-fit",
+      "grid grid-cols-3 lg:grid-cols-5 p-20 md:gap-20 lg:gap-20 h-fit",
   };
 
   const tabData = [
@@ -157,8 +158,8 @@ export default function Profile() {
   return (
     <div className="bg-[#1C1B21] flex flex-col justify-center ">
       <NavBar />
-      <div className="grid place-items-center lg:p-32">
-        <div className="relative w-fit">
+      <div className="grid place-items-center lg:px-24 lg:pt-10">
+        <div className="relative w-full">
           <img src="profile-cover.webp" alt="cover" className=" w-full " />
           <img
             src={
@@ -175,14 +176,13 @@ export default function Profile() {
         </div>
 
         <Tabs
-          value="profile"
-          className="w-11/12 mt-32 bg-white bg-opacity-10 rounded-3xl "
+          value="posts"
+          className="w-full mt-32 bg-white bg-opacity-10 rounded-3xl "
         >
           <TabsHeader
-            className=" text-white h-[66px] bg-transparent gap-20 flex justify-start p-5 pl-10"
+            className=" text-white h-[66px] bg-transparent gap-20 flex justify-start border-b-2 rounded-none p-2 pl-10"
             indicatorProps={{
-              className:
-                "bg-transparent border-b-2 border-[rgba(255,255,255,0.5)] rounded-none",
+              className: "bg-transparent border-2 rounded-full",
             }}
           >
             {tabData.map(({ label, value }) => (
@@ -191,17 +191,19 @@ export default function Profile() {
               </Tab>
             ))}
           </TabsHeader>
-          <TabsBody className=" text-white bg-transparent lg:p-10 lg:pt-5">
+          <TabsBody
+            animate={{
+              initial: { x: 0 },
+              mount: { x: 0 },
+              unmount: { x: 0 },
+            }}
+          >
             {tabData.map(({ value, skeleton, datas, emptyText, component }) => (
-              <TabPanel
-                key={value}
-                value={value}
-                className={tabStyles.skeleton}
-              >
+              <TabPanel key={value} value={value} className="p-0">
                 {isloading ? (
                   <div
                     className={
-                      value == "likedMovies"
+                      value === "likedMovies"
                         ? tabStyles.likedMoviesContainer
                         : tabStyles.postAndTicketContainer
                     }
@@ -212,14 +214,36 @@ export default function Profile() {
                     {skeleton}
                   </div>
                 ) : datas.length > 0 ? (
-                  <div
-                    className={
-                      value == "likedMovies"
-                        ? tabStyles.likedMoviesContainer
-                        : tabStyles.postAndTicketContainer
-                    }
-                  >
-                    {datas.map((data, index) => component(index, data))}
+                  <div>
+                    {value == "posts" ? (
+                      <Button className="flex gap-2 m-10 mb-0 p-3 border-2 text-sm bg-white text-black rounded-full">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="black"
+                          class="bi bi-plus-lg"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                          />
+                        </svg>
+                        New Post
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                    <div
+                      className={
+                        value === "likedMovies"
+                          ? tabStyles.likedMoviesContainer
+                          : tabStyles.postAndTicketContainer
+                      }
+                    >
+                      {datas.map((data, index) => component(index, data))}
+                    </div>
                   </div>
                 ) : (
                   <div className="text-white p-3">{emptyText}</div>

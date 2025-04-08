@@ -10,11 +10,11 @@ export default function TicketCard({ data }) {
   const time = data.show_time.substring(0, 5);
 
   return (
-    <div className="w-full flex flex-nowrap items-center gap-8 text-white ">
-      <div className="grid h-36 w-24 place-items-center rounded-lg ">
+    <div className="w-full h-fit flex flex-nowrap items-center gap-8 text-white ">
+      <div className="grid  place-items-center rounded-lg overflow-hidden">
         <img
           src={data.film_img}
-          className="w-full h-full  object-cover"
+          className="w-full h-[160px]  object-cover"
           alt=""
         />
       </div>
