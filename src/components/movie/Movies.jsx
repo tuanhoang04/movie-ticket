@@ -62,7 +62,7 @@ export default function Movies() {
           <div>
             <p className="text-white text-3xl mb-4">Now Showing</p>
           </div>
-          <div className="flex flex-wrap gap-[10.666%]">
+          <div className="flex flex-wrap lg:gap-[10.666%] md:gap-[4%] gap-[4%]">
             {currentNowShowings.map((item) => {
               const date = item.Release_date.substring(0, 10);
               const day = date.substring(8, 10);
@@ -70,7 +70,10 @@ export default function Movies() {
               const year = date.substring(0, 4);
               const exactDate = `${day}/${month}/${year}`;
               return (
-                <div className="mb-6 w-[17%]" key={item.film_id}>
+                <div
+                  className="mb-6 lg:w-[17%] md:w-[22%] w-[22%]"
+                  key={item.film_id}
+                >
                   <MovieCard
                     index={item.film_id}
                     image={item.film_img}
@@ -100,7 +103,7 @@ export default function Movies() {
             <p className="text-white text-3xl mb-4">Upcoming Movies</p>
           </div>
 
-          <div className="flex flex-wrap lg:gap-[10.666%] md:gap-[4%] ">
+          <div className="flex flex-wrap lg:gap-[10.666%] md:gap-[4%] gap-[4%]">
             {currentUpcomings.map((item) => {
               const date = item.Release_date.substring(0, 10);
               const day = date.substring(8, 10);
@@ -108,7 +111,10 @@ export default function Movies() {
               const year = date.substring(0, 4);
               const exactDate = `${day}/${month}/${year}`;
               return (
-                <div className="mb-6 lg:w-[17%] md:w-[22%]" key={item.film_id}>
+                <div
+                  className="mb-6 lg:w-[17%] md:w-[22%] w-[22%]"
+                  key={item.film_id}
+                >
                   <MovieCard
                     index={item.film_id}
                     image={item.film_img}
