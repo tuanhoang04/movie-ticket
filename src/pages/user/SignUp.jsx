@@ -39,7 +39,7 @@ export default function SignUp() {
     // console.log('Thông tin form:', formData)
 
     if (formData.password !== formData.rePassword) {
-      alert("Mật khẩu không khớp");
+      alert("Password and re-entered password do not match!");
       return;
     }
 

@@ -29,7 +29,7 @@ export function CircularPagination({ pagesNumber, handleChange }) {
   };
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="flex items-center justify-center gap-4 mt-3">
       <Button
         variant="text"
         className="flex items-center gap-2 rounded-full text-white text-base"
