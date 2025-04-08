@@ -84,7 +84,7 @@ export default function NavBar() {
 
   return (
     <>
-      <Navbar className="max-w-full relative py-2 px-6 lg:px-24 lg:py-4 rounded-none border-none bg-[#502A50]">
+      <Navbar className="max-w-full relative py-2 px-7 lg:px-32 lg:py-4 rounded-none border-none bg-[#502A50]">
         <div className="mx-auto flex flex-wrap items-center justify-between text-white">
           <div className="flex flex-row justify-center items-center">
             <img src="/ico.png" className="w-10 mr-3" />
@@ -103,16 +103,9 @@ export default function NavBar() {
                 type="search"
                 placeholder="Search"
                 size="lg"
-                className="border-none after:border-none before:border-none rounded-3xl text-md pl-6 placeholder:text-black focus:!border-blue-gray-300  bg-white"
+                className="border-none after:border-none before:border-none rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
               />
             </div>
-            <Button
-              size="md"
-              color="deep-purple"
-              className="rounded-3xl text-white text-md"
-            >
-              Search
-            </Button>
           </div>
 
           <hr className="mt-5 hidden w-full lg:block lg:invisible" />
@@ -131,7 +124,7 @@ export default function NavBar() {
           <div className="hidden lg:flex lg:justify-between w-screen">
             {navList}
             {login ? (
-              <ProfileMenu fullname={userInfo.full_name}/>
+              <ProfileMenu fullname={userInfo.full_name} />
             ) : (
               <div>
                 <Button
@@ -153,11 +146,11 @@ export default function NavBar() {
             )}
           </div>
         </div>
-        <Collapse className="bg-[#502A50]" open={openNav}>
+        <Collapse open={openNav}>
           <div>
             {navList}
-            <div className="flex flex-col gap-x-2 sm:flex-row sm:items-center sm: mb-4">
-              <div className="relative w-full gap-2 md:w-max">
+            <div className="flex gap-x-2 flex-row sm: mb-4">
+              <div className="w-full gap-2 md:w-max">
                 <Input
                   type="search"
                   placeholder="Search"
@@ -171,19 +164,23 @@ export default function NavBar() {
                 Search
               </Button>
             </div>
-            <Button
-              variant="outlined"
-              className="text-white text-md rounded-3xl mr-4 border-white border-[0.8]"
-            >
-              Sign up
-            </Button>
-            <Button
-              variant="gradient"
-              color="red"
-              className="text-white text-md rounded-3xl"
-            >
-              Sign in
-            </Button>
+            {login ? (
+              <ProfileMenu fullname={userInfo.full_name} />
+            ) : (<div>
+              <Button
+                variant="outlined"
+                className="text-white text-md rounded-3xl mr-4 border-white border-[0.8] mb-4"
+              >
+                Sign up
+              </Button>
+              <Button
+                variant="gradient"
+                color="red"
+                className="text-white text-md rounded-3xl mb-4"
+              >
+                Sign in
+              </Button>
+            </div>)}
           </div>
         </Collapse>
       </Navbar>

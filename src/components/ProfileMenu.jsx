@@ -21,7 +21,7 @@ export function ProfileMenu({ fullname }) {
   };
   return (
     <>
-      <Menu>
+      <Menu placement="bottom-start" >
         <MenuHandler>
           <div className="flex flex-row items-center cursor-pointer">
             <img className="w-8 h-8 mr-1" src="/icons/account.png" />

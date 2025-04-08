@@ -5,9 +5,8 @@ import { CircularPagination } from "../CircularPagination";
 import MovieCard from "./MovieCard";
 
 export default function Movies() {
-  const [data, setData] = useState([[]]);
-  const [currentPageNowShowing, setCurrentPageNowShowing] = useState(1);
-  const [currentPageUpcoming, setCurrentPageUpcoming] = useState(1);
+  const [nowShowing, setNowShowing] = useState([]);
+  const [upcomings, setUpcomings] = useState([]);
   const filmsPerCate = 8;
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,46 +19,50 @@ export default function Movies() {
     })
       .then((response) => response.json())
       .then((responseData) => {
-        setData(responseData);
+        setNowShowing(responseData[0].filter((item) => item.film_type === 1));
+        setUpcomings(responseData[0].filter((item) => item.film_type === 2));
         setIsLoading(false);
       })
       .catch((error) => console.error("Error:", error));
   }, []);
-  const nowShowing = data[0].filter((item) => item.film_type === 1);
-  const upcoming = data[0].filter((item) => item.film_type === 2);
 
-  const indexOfLastFilmNowShowing = currentPageNowShowing * filmsPerCate;
-  const indexOfFirstFilmNowShowing = indexOfLastFilmNowShowing - filmsPerCate;
+  const [currentPageNowShowing, setCurrentPageNowShowing] = useState(1);
+  const [currentNowShowings, setCurrentNowShowing] = useState([]);
+  const [totalPagesNowShowing, setTotalPagesNowShowing] = useState(1);
+  useEffect(() => {
+    const indexOfLastFilmNowShowing = currentPageNowShowing * filmsPerCate;
+    const indexOfFirstFilmNowShowing = indexOfLastFilmNowShowing - filmsPerCate;
+    setCurrentNowShowing(
+      nowShowing.slice(indexOfFirstFilmNowShowing, indexOfLastFilmNowShowing)
+    );
+    setTotalPagesNowShowing(
+      Math.max(Math.ceil(nowShowing.length / filmsPerCate), 1)
+    );
+  }, [currentPageNowShowing, nowShowing]);
 
-  const indexOfLastFilmUpcoming = currentPageUpcoming * filmsPerCate;
-  const indexOfFirstFilmUpcoming = indexOfLastFilmUpcoming - filmsPerCate;
+  const [currentPageUpcoming, setCurrentPageUpcoming] = useState(1);
+  const [currentUpcomings, setCurrentUpcomings] = useState([]);
+  const [totalPagesUpcoming, setTotalPagesUpcoming] = useState(1);
 
-  const currentNowShowings = nowShowing.slice(
-    indexOfFirstFilmNowShowing,
-    indexOfLastFilmNowShowing
-  );
-  const totalPagesNowShowing = Math.max(
-    Math.ceil(nowShowing.length / filmsPerCate),
-    1
-  );
-
-  const currentUpcomings = upcoming.slice(
-    indexOfFirstFilmUpcoming,
-    indexOfLastFilmUpcoming
-  );
-  const totalPagesUpcoming = Math.max(
-    Math.ceil(upcoming.length / filmsPerCate),
-    1
-  );
+  useEffect(() => {
+    const indexOfLastFilmUpcoming = currentPageUpcoming * filmsPerCate;
+    const indexOfFirstFilmUpcoming = indexOfLastFilmUpcoming - filmsPerCate;
+    setCurrentUpcomings(
+      upcomings.slice(indexOfFirstFilmUpcoming, indexOfLastFilmUpcoming)
+    );
+    setTotalPagesUpcoming(
+      Math.max(Math.ceil(upcomings.length / filmsPerCate), 1)
+    );
+  }, [currentPageUpcoming, upcomings]);
 
   return (
-    <div className="px-6 lg:px-24">
-      {data && (
-        <div className="flex flex-col w-[90%] mt-7 mb-20">
+    <div className="px-7 lg:px-32">
+      {!isLoading && (
+        <div className="flex flex-col mt-7 mb-20">
           <div>
             <p className="text-white text-3xl mb-4">Now Showing</p>
           </div>
-          <div className="grid grid-cols-4 grid-rows-2">
+          <div className="flex flex-wrap gap-[10.666%]">
             {currentNowShowings.map((item) => {
               const date = item.Release_date.substring(0, 10);
               const day = date.substring(8, 10);
@@ -67,9 +70,8 @@ export default function Movies() {
               const year = date.substring(0, 4);
               const exactDate = `${day}/${month}/${year}`;
               return (
-                <div className="row-span-1 col-span-1 mb-6 w-[75%]">
+                <div className="mb-6 w-[17%]" key={item.film_id}>
                   <MovieCard
-                    key={item.film_id}
                     index={item.film_id}
                     image={item.film_img}
                     name={item.film_name}
@@ -92,13 +94,13 @@ export default function Movies() {
         </div>
       )}
 
-      {data && (
-        <div className="flex flex-col w-[90%] mb-20">
+      {!isLoading && (
+        <div className="flex flex-col mb-20">
           <div>
             <p className="text-white text-3xl mb-4">Upcoming Movies</p>
           </div>
 
-          <div className="grid grid-cols-4 grid-rows-2">
+          <div className="flex flex-wrap lg:gap-[10.666%] md:gap-[4%] ">
             {currentUpcomings.map((item) => {
               const date = item.Release_date.substring(0, 10);
               const day = date.substring(8, 10);
@@ -106,9 +108,8 @@ export default function Movies() {
               const year = date.substring(0, 4);
               const exactDate = `${day}/${month}/${year}`;
               return (
-                <div className="row-span-1 col-span-1 mb-6 w-[75%]">
+                <div className="mb-6 lg:w-[17%] md:w-[22%]" key={item.film_id}>
                   <MovieCard
-                    key={item.film_id}
                     index={item.film_id}
                     image={item.film_img}
                     name={item.film_name}
