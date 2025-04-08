@@ -101,7 +101,7 @@ export default function Movies() {
         <div className="flex flex-col mb-20">
           <div>
             <p className="text-white text-3xl mb-4">Upcoming Movies</p>
-          </div>
+          </div> 
 
           <div className="flex flex-wrap lg:gap-[10.666%] md:gap-[4%] gap-[4%]">
             {currentUpcomings.map((item) => {
