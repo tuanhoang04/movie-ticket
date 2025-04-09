@@ -24,7 +24,7 @@ export default function Footer() {
         </p>
       </div>
 
-      <div className="lg:col-span-3 flex flex-col items-center">
+      <div className="col-span-3 flex flex-col items-center">
         <div className="flex flex-col ">
           <div className="flex flex-row mb-5 invisible">
             <img src="/ico.png" className="w-10 mr-3" />

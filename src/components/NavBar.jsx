@@ -105,7 +105,7 @@ export default function NavBar() {
                 type="search"
                 placeholder="Search"
                 size="lg"
-                className="border-none after:border-none before:border-none rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
+                className="border-none after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
               />
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function NavBar() {
                   variant="gradient"
                   color="red"
                   className="text-white text-md rounded-3xl"
-                  onClick={() => (setOpenSignIn(true))}
+                  onClick={() => setOpenSignIn(true)}
                 >
                   Sign in
                 </Button>
@@ -156,7 +156,7 @@ export default function NavBar() {
                 <Input
                   type="search"
                   placeholder="Search"
-                  className="border-none rounded-3xl text-lg pl-6 placeholder:text-black  bg-white"
+                  className="border-none rounded-3xl text-lg pl-6 placeholder:text-black bg-white"
                 />
               </div>
               <Button
@@ -168,24 +168,31 @@ export default function NavBar() {
             </div>
             {login ? (
               <ProfileMenu fullname={userInfo.full_name} />
-            ) : (<div>
-              <Button
-                variant="outlined"
-                className="text-white text-md rounded-3xl mr-4 border-white border-[0.8] mb-4"
-              >
-                Sign up
-              </Button>
-              <Button
-                variant="gradient"
-                color="red"
-                className="text-white text-md rounded-3xl mb-4"
-              >
-                Sign in
-              </Button>
-            </div>)}
+            ) : (
+              <div>
+                <Button
+                  variant="outlined"
+                  className="text-white text-md rounded-3xl mr-4 border-white border-[0.8] mb-4"
+                >
+                  Sign up
+                </Button>
+                <Button
+                  variant="gradient"
+                  color="red"
+                  className="text-white text-md rounded-3xl mb-4"
+                >
+                  Sign in
+                </Button>
+              </div>
+            )}
           </div>
         </Collapse>
-        <SignIn openDialog={openSignIn} handleOpenDialog={()=>{setOpenSignIn(!openSignIn)}} />
+        <SignIn
+          openDialog={openSignIn}
+          handleOpenDialog={() => {
+            setOpenSignIn(!openSignIn);
+          }}
+        />
       </Navbar>
     </>
   );

@@ -4,9 +4,6 @@ export default withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ["Inter", "sans-serif"], // Replace with your font
-      },
     },
     color: {
       itemHover: "#757575",

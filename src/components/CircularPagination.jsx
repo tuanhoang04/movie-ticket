@@ -1,14 +1,14 @@
-import React from "react";
+import {useState} from "react";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export function CircularPagination({ pagesNumber, handleChange }) {
-  const [active, setActive] = React.useState(1);
-
+  const [active, setActive] = useState(1);
   const getItemProps = (index) => ({
     variant: active === index ? "filled" : "text",
     color: "white",
-    onClick: () => {setActive(index);
+    onClick: () => {
+      setActive(index);
       handleChange(index);
     },
     className: "rounded-full",
