@@ -99,7 +99,7 @@ export default function SignIn({openDialog, handleOpenDialog}) {
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 py-4 my-3 bg-gray-800 mx-auto w-[90%] md:w-[30%]"
+      className="px-6 py-4 my-3 bg-gray-800 mx-auto w-[90%] md:w-[30%] gap-5"
     >
       <DialogHeader className="text-white pb-0">
         Log in to your account
@@ -107,34 +107,37 @@ export default function SignIn({openDialog, handleOpenDialog}) {
       {errorMessage && <AlertWithIcon message={errorMessage} />}
       <DialogBody className="mt-3 mb-1">
         <form onSubmit={handleSubmit} className="flex flex-col w-[100%] gap-5">
-          <Typography variant="h5" color="white" className="-mb-4 font-light">
-            Username
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Enter your username"
-            name="user__name"
-            onChange={handleChange}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-
-          <Typography variant="h5" color="white" className="-mb-4 font-light">
-            Password
-          </Typography>
-          <Input
-            type="password"
-            size="lg"
-            placeholder="Enter your password"
-            name="password"
-            onChange={handleChange}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
+          <div>
+            <Typography variant="h5" color="white" className="mb-1 font-light">
+              Username
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Enter your username"
+              name="user__name"
+              onChange={handleChange}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
+          <div>
+            <Typography variant="h5" color="white" className="mb-1 font-light">
+              Password
+            </Typography>
+            <Input
+              type="password"
+              size="lg"
+              placeholder="Enter your password"
+              name="password"
+              onChange={handleChange}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
           <div className="flex flex-row justify-center items-center">
             <Button
               color="red"
@@ -149,7 +152,7 @@ export default function SignIn({openDialog, handleOpenDialog}) {
           </div>
         </form>
       </DialogBody>
-      <DialogFooter className="flex-col items-center pt-0 px-20">
+      <DialogFooter className="flex-col items-center pt-0">
         <div>
           <Typography color="gray" className="text-white font-normal">
             Forgot your password?{" "}
