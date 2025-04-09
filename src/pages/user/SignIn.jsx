@@ -8,10 +8,14 @@ import {
   Button,
   Typography,
   Radio,
+  Dialog,
+  DialogHeader,
+  DialogFooter,
+  DialogBody,
 } from "@material-tailwind/react";
 import AlertWithIcon from "../../components/Alert";
 
-export default function SignIn() {
+export default function SignIn({openDialog, handleOpenDialog}) {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [okMessage, setOkMessage] = useState("");
@@ -92,74 +96,75 @@ export default function SignIn() {
   }, [okMessage]);
 
   return (
-    <div className="bg-[#1C1B21] flex flex-col min-h-screen">
-      <NavBar />
-      <div className="flex-grow items-center justify-center px-6 lg:px-24">
-        <Card className="px-6 py-4 my-3 bg-gray-600 mx-auto max-w-md" shadow={false}>
-          <Typography variant="h4" color="white">
-            Log in to your account
+    <Dialog
+      open={openDialog}
+      handleOpen={handleOpenDialog}
+      className="px-6 py-4 my-3 bg-gray-800 mx-auto w-[90%] md:w-[30%]"
+    >
+      <DialogHeader className="text-white pb-0">
+        Log in to your account
+      </DialogHeader>
+      {errorMessage && <AlertWithIcon message={errorMessage} />}
+      <DialogBody className="mt-3 mb-1">
+        <form onSubmit={handleSubmit} className="flex flex-col w-[100%] gap-5">
+          <Typography variant="h5" color="white" className="-mb-4 font-light">
+            Username
           </Typography>
-          {errorMessage && <AlertWithIcon message={errorMessage} />}
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-          >
-            <div className="mb-1 flex flex-col gap-5">
-              <Typography
-                variant="h5"
-                color="white"
-                className="-mb-4 font-light"
-              >
-                Username
-              </Typography>
-              <Input
-                size="lg"
-                placeholder="Enter your username"
-                name="user__name"
-                onChange={handleChange}
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-              
-              
-              
-              <Typography
-                variant="h5"
-                color="white"
-                className="-mb-4 font-light"
-              >
-                Password
-              </Typography>
-              <Input
-                type="password"
-                size="lg"
-                placeholder="Enter your password"
-                name="password"
-                onChange={handleChange}
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>
-            <Button type="submit" className="mt-6" fullWidth>
+          <Input
+            size="lg"
+            placeholder="Enter your username"
+            name="user__name"
+            onChange={handleChange}
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+          />
+
+          <Typography variant="h5" color="white" className="-mb-4 font-light">
+            Password
+          </Typography>
+          <Input
+            type="password"
+            size="lg"
+            placeholder="Enter your password"
+            name="password"
+            onChange={handleChange}
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+          />
+          <div className="flex flex-row justify-center items-center">
+            <Button
+              color="red"
+              className="w-28 mr-3"
+              onClick={handleOpenDialog}
+            >
+              cancel
+            </Button>
+            <Button type="submit" color="green" className="w-28">
               sign in
             </Button>
-            <Typography
-              color="gray"
-              className="mt-4 text-center text-white font-normal"
-            >
-              Don't have an account?{" "}
-              <a href="/sign-up" className="font-medium text-white">
-                Sign Up
-              </a>
-            </Typography>
-          </form>
-        </Card>
-      </div>
-      <Footer />
-    </div>
+          </div>
+        </form>
+      </DialogBody>
+      <DialogFooter className="flex-col items-center pt-0 px-20">
+        <div>
+          <Typography color="gray" className="text-white font-normal">
+            Forgot your password?{" "}
+            <a href="/change-password" className="font-medium text-white">
+              Change password
+            </a>
+          </Typography>
+          <Typography color="gray" className="text-white font-normal mr-3">
+            Don't have an account?{" "}
+            <a href="/sign-up" className="font-medium text-white">
+              Sign Up
+            </a>
+          </Typography>
+        </div>
+      </DialogFooter>
+    </Dialog>
   );
 }

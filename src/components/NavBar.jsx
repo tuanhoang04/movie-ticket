@@ -10,11 +10,13 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
+import SignIn from "../pages/user/SignIn";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
   const [login, setLogin] = useState(true);
   const [userInfo, setUserInfo] = useState([]);
+  const [openSignIn, setOpenSignIn] = useState(false);
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   useEffect(() => {
@@ -138,7 +140,7 @@ export default function NavBar() {
                   variant="gradient"
                   color="red"
                   className="text-white text-md rounded-3xl"
-                  onClick={() => (window.location = "/sign-in")}
+                  onClick={() => (setOpenSignIn(true))}
                 >
                   Sign in
                 </Button>
@@ -183,6 +185,7 @@ export default function NavBar() {
             </div>)}
           </div>
         </Collapse>
+        <SignIn openDialog={openSignIn} handleOpenDialog={()=>{setOpenSignIn(!openSignIn)}} />
       </Navbar>
     </>
   );

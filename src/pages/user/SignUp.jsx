@@ -102,14 +102,14 @@ export default function SignUp() {
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar />
       <div className="flex items-center justify-center px-6 lg:px-24">
-        <Card className="px-6 py-4 my-3 bg-gray-600" shadow={false}>
+        <Card className="px-6 py-4 my-3 bg-gray-600 w-[50%]" shadow={false}>
           <Typography variant="h4" color="white">
             Create an account
           </Typography>
           {errorMessage && <AlertWithIcon message={errorMessage} />}
           <form
             onSubmit={handleSubmit}
-            className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+            className="mt-8 mb-2 min-w-[100%] max-w-screen-lg sm:w-96"
           >
             <div className="mb-1 flex flex-col gap-5">
               <Typography

@@ -28,7 +28,7 @@ export default function Footer() {
         <div className="flex flex-col ">
           <div className="flex flex-row mb-5 invisible">
             <img src="/ico.png" className="w-10 mr-3" />
-            <p className="text-white font-medium text-3xl">Starlight Cinema</p>
+            <p className="text-white font-medium text-3xl">S</p>
           </div>
           <p className="text-white font-medium text-xl inline-flex mb-2">
             NAVIGATION
@@ -63,7 +63,7 @@ export default function Footer() {
         <div className="flex flex-col">
           <div className="flex flex-row mb-5 invisible">
             <img src="/ico.png" className="w-10 mr-3" />
-            <p className="text-white font-medium text-3xl">Starlight Cinema</p>
+            <p className="text-white font-medium text-3xl">S</p>
           </div>
           <p className="text-white font-medium md:text-xl mb-2">
             OFFICIAL PARTNERS
