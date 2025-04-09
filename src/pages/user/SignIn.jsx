@@ -50,18 +50,18 @@ export default function SignIn({openDialog, handleOpenDialog}) {
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
-          setOkMessage(`Đăng nhập thành công: ${data.message}`);
+          setOkMessage(`Sign in successfully: ${data.message}`);
+          setErrorMessage(null);
           localStorage.setItem("jwt", data.jwt);
           localStorage.setItem("user_id", data.user_id);
           if (data.message == "user") {
             setTimeout(() => {
               window.location.reload();
-            }, 1500);
+            }, 1700); // 1.7 giây
           } else {
             setTimeout(() => {
-              window.location.href = "/admin";
-              location.window.reload();
-            }, 1500);
+              navigate("/admin");
+            }, 1700);
           }
         } else {
           const error__alert = `Sign in failed: ${data.message}`;
@@ -76,24 +76,6 @@ export default function SignIn({openDialog, handleOpenDialog}) {
       console.error("Lỗi mạng:", error);
     }
   };
-//   useEffect(() => {
-//     if (errorMessage) {
-//       const timer = setTimeout(() => {
-//         setErrorMessage("");
-//       }, 2000); // 2 giây
-
-//       return () => clearTimeout(timer);
-//     }
-//   }, [errorMessage]);
-  useEffect(() => {
-    if (okMessage) {
-      const timer = setTimeout(() => {
-        navigate("/home");
-      }, 500);
-
-      return () => clearTimeout(timer);
-    }
-  }, [okMessage]);
 
   return (
     <Dialog
@@ -105,6 +87,7 @@ export default function SignIn({openDialog, handleOpenDialog}) {
         Log in to your account
       </DialogHeader>
       {errorMessage && <AlertWithIcon message={errorMessage} />}
+      {okMessage && <AlertWithIcon message={okMessage} />}
       <DialogBody className="mt-3 mb-1">
         <form onSubmit={handleSubmit} className="flex flex-col w-[100%] gap-5">
           <div>

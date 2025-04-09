@@ -63,9 +63,10 @@ export default function SignUp() {
         if (data.success) {
           console.log("Sign up successfully:", data.message);
           setOkMessage(`Sign up successfully: ${data.message}`);
+          setErrorMessage("");
           setTimeout(() => {
-            window.location.reload();
-          }, 2500);
+            navigate("/home");
+          }, 1700);
         } else {
           const error_alert = `Sign up failed:, ${data.message}`;
           console.log(error_alert);
@@ -79,24 +80,6 @@ export default function SignUp() {
       setErrorMessage(`Network error: ${error}`);
     }
   };
-  //   useEffect(() => {
-  //     if (errorMessage) {
-  //       const timer = setTimeout(() => {
-  //         setErrorMessage("");
-  //       }, 1000); // 1 giây
-
-  //       return () => clearTimeout(timer);
-  //     }
-  //   }, [errorMessage]);
-  useEffect(() => {
-    if (okMessage) {
-      const timer = setTimeout(() => {
-        navigate("/sign-in");
-      }, 500); // 0.5 giây
-
-      return () => clearTimeout(timer);
-    }
-  }, [okMessage]);
 
   return (
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
@@ -107,6 +90,7 @@ export default function SignUp() {
             Create an account
           </Typography>
           {errorMessage && <AlertWithIcon message={errorMessage} />}
+          {okMessage && <AlertWithIcon message={errorMessage} />}
           <form
             onSubmit={handleSubmit}
             className="mt-8 mb-2 min-w-[100%] max-w-screen-lg sm:w-96"
