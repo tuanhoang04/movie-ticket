@@ -62,7 +62,7 @@ export default function Movies() {
           <div>
             <p className="text-white text-3xl mb-4">Now Showing</p>
           </div>
-          <div className="flex flex-wrap lg:gap-[10.666%] gap-[4%]">
+          <div className="flex flex-wrap lg:gap-[13.33%] gap-[4%]">
             {currentNowShowings.map((item) => {
               const date = item.Release_date.substring(0, 10);
               const day = date.substring(8, 10);
@@ -70,7 +70,7 @@ export default function Movies() {
               const year = date.substring(0, 4);
               const exactDate = `${day}/${month}/${year}`;
               return (
-                <div className="mb-6 lg:w-[17%] w-[22%]" key={item.film_id}>
+                <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
                   <MovieCard
                     index={item.film_id}
                     image={item.film_img}
@@ -84,7 +84,7 @@ export default function Movies() {
           </div>
           {currentNowShowings.length <= 4 && (
             <div>
-              <div className="mb-6 lg:w-[17%] w-[22%] aspect-[2/3] flex-grow-1" />
+              <div className="mb-6 lg:w-[15%] w-[22%] aspect-[2/3] flex-grow-1" />
               <p className="text-[#5D6A81] lg:text-xl text-base w-full invisible">
                 a
               </p>
@@ -98,6 +98,7 @@ export default function Movies() {
             <CircularPagination
               key={totalPagesNowShowing}
               pagesNumber={totalPagesNowShowing}
+              currentPage={currentPageNowShowing}
               handleChange={(value) => {
                 setCurrentPageNowShowing(value);
               }}
@@ -112,7 +113,7 @@ export default function Movies() {
             <p className="text-white text-3xl mb-4">Upcoming Movies</p>
           </div>
 
-          <div className="flex flex-wrap lg:gap-[10.666%] gap-[4%]">
+          <div className="flex flex-wrap lg:gap-[13.33%] gap-[12%]">
             {currentUpcomings.map((item) => {
               const date = item.Release_date.substring(0, 10);
               const day = date.substring(8, 10);
@@ -120,7 +121,7 @@ export default function Movies() {
               const year = date.substring(0, 4);
               const exactDate = `${day}/${month}/${year}`;
               return (
-                <div className="mb-6 lg:w-[17%] w-[22%]" key={item.film_id}>
+                <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
                   <MovieCard
                     index={item.film_id}
                     image={item.film_img}
@@ -134,7 +135,7 @@ export default function Movies() {
           </div>
           {currentUpcomings.length <= 4 && (
             <div>
-              <div className="mb-6 lg:w-[17%] w-[22%] aspect-[2/3] flex-grow-1" />
+              <div className="mb-6 lg:w-[15%] w-[22%] aspect-[2/3] flex-grow-1" />
               <p className="text-[#5D6A81] lg:text-xl text-base w-full invisible">
                 a
               </p>
@@ -147,6 +148,7 @@ export default function Movies() {
             <CircularPagination
               key={totalPagesUpcoming}
               pagesNumber={totalPagesUpcoming}
+              currentPage={currentPageUpcoming}
               handleChange={(value) => {
                 setCurrentPageUpcoming(value);
               }}

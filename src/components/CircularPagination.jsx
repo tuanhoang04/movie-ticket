@@ -2,29 +2,25 @@ import {useState} from "react";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-export function CircularPagination({ pagesNumber, handleChange }) {
-  const [active, setActive] = useState(1);
+export function CircularPagination({ pagesNumber, handleChange, currentPage }) {
   const getItemProps = (index) => ({
-    variant: active === index ? "filled" : "text",
+    variant: currentPage === index ? "filled" : "text",
     color: "white",
     onClick: () => {
-      setActive(index);
       handleChange(index);
     },
     className: "rounded-full",
   });
 
   const next = () => {
-    if (active < pagesNumber) {
-      setActive(active + 1);
-      handleChange(active + 1);
+    if (currentPage < pagesNumber) {
+      handleChange(currentPage + 1);
     }
   };
 
   const prev = () => {
-    if (active > 1) {
-      setActive(active - 1);
-      handleChange(active - 1);
+    if (currentPage > 1) {
+      handleChange(currentPage - 1);
     }
   };
 
@@ -34,7 +30,7 @@ export function CircularPagination({ pagesNumber, handleChange }) {
         variant="text"
         className="flex items-center gap-2 rounded-full text-white text-base"
         onClick={prev}
-        disabled={active === 1}
+        disabled={currentPage === 1}
       >
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" color="white" />
         Previous
@@ -50,7 +46,7 @@ export function CircularPagination({ pagesNumber, handleChange }) {
         variant="text"
         className="flex items-center gap-2 rounded-full text-white text-base"
         onClick={next}
-        disabled={active === pagesNumber}
+        disabled={currentPage === pagesNumber}
       >
         Next
         <ArrowRightIcon strokeWidth={2} className="h-4 w-4" color="white" />
