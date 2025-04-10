@@ -10,11 +10,13 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
+import SignIn from "../pages/user/SignIn";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
   const [login, setLogin] = useState(true);
   const [userInfo, setUserInfo] = useState([]);
+  const [openSignIn, setOpenSignIn] = useState(false);
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   useEffect(() => {
@@ -103,8 +105,7 @@ export default function NavBar() {
                 type="search"
                 placeholder="Search"
                 size="lg"
-                style={{ borderRadius: "9999px" }}
-                className="border-none after:border-none before:border-none !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
+                className="border-none after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
               />
             </div>
           </div>
@@ -139,7 +140,7 @@ export default function NavBar() {
                   variant="gradient"
                   color="red"
                   className="text-white text-md rounded-3xl"
-                  onClick={() => (window.location = "/sign-in")}
+                  onClick={() => setOpenSignIn(true)}
                 >
                   Sign in
                 </Button>
@@ -155,7 +156,7 @@ export default function NavBar() {
                 <Input
                   type="search"
                   placeholder="Search"
-                  className="border-none rounded-3xl text-lg pl-6 placeholder:text-black  bg-white"
+                  className="border-none rounded-3xl text-lg pl-6 placeholder:text-black bg-white"
                 />
               </div>
               <Button
@@ -186,6 +187,12 @@ export default function NavBar() {
             )}
           </div>
         </Collapse>
+        <SignIn
+          openDialog={openSignIn}
+          handleOpenDialog={() => {
+            setOpenSignIn(!openSignIn);
+          }}
+        />
       </Navbar>
     </>
   );
