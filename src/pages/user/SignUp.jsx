@@ -85,7 +85,7 @@ export default function SignUp() {
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar />
       <div className="flex items-center justify-center px-6 lg:px-24">
-        <Card className="px-6 py-4 my-3 bg-gray-600 w-[50%]" shadow={false}>
+        <Card className="px-6 py-4 my-3 bg-[#58565f] w-[50%]" shadow={false}>
           <Typography variant="h4" color="white">
             Create an account
           </Typography>
@@ -227,7 +227,12 @@ export default function SignUp() {
                 }}
               />
             </div>
-            <Button type="submit" className="mt-6" fullWidth>
+            <Button
+              type="submit"
+              className="mt-6 !bg-[#502A50]"
+              color="purple"
+              fullWidth
+            >
               sign up
             </Button>
             <Typography
@@ -235,7 +240,10 @@ export default function SignUp() {
               className="mt-4 text-center text-white font-normal"
             >
               Already have an account?{" "}
-              <a href="/sign-in" className="font-medium text-white">
+              <a
+                href="/sign-in"
+                className="font-medium text-green-300 hover:underline hover:underline-offset-2"
+              >
                 Sign In
               </a>
             </Typography>

@@ -1,6 +1,23 @@
-export default function MovieCard({ image, name, date, data }) {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function createSlug(name) {
+  return name.trim().replace(/\s+/g, "-").replace(/-+/g, "-");
+}
+
+export default function MovieCard({ image, name, date, data, index }) {
+  const navigate = useNavigate();
+  const handleNavigate = (film_name, film_id) => {
+    localStorage.setItem("film_id", film_id);
+    navigate(`/movie/${film_name}`);
+  };
   return (
-    <div className="flex flex-col justify-start hover:cursor-pointer hover:outline outline-gray-600 rounded-md p-4">
+    <div
+      className="flex flex-col justify-start hover:cursor-pointer hover:outline outline-gray-600 rounded-md p-4"
+      onClick={() =>
+        handleNavigate(encodeURIComponent(createSlug(name)), index)
+      }
+    >
       <img
         src={image || data.film_img}
         className="rounded-2xl object-cover w-full"

@@ -81,7 +81,7 @@ export default function SignIn({openDialog, handleOpenDialog}) {
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 py-4 my-3 bg-gray-700 mx-auto w-[90%] md:w-[30%] gap-5"
+      className="px-6 py-4 my-3 bg-[#58565f] mx-auto w-[90%] md:w-[30%] gap-5"
     >
       <DialogHeader className="text-white pb-0">
         Log in to your account
@@ -129,7 +129,7 @@ export default function SignIn({openDialog, handleOpenDialog}) {
             >
               cancel
             </Button>
-            <Button type="submit" className="w-28 bg-[#502A50]">
+            <Button type="submit" className="w-28 !bg-[#502A50]" color="purple">
               sign in
             </Button>
           </div>
@@ -139,13 +139,19 @@ export default function SignIn({openDialog, handleOpenDialog}) {
         <div>
           <Typography color="gray" className="text-white font-normal">
             Forgot your password?{" "}
-            <a href="/change-password" className="font-medium text-white">
+            <a
+              href="/change-password"
+              className="font-semibold hover:underline hover:underline-offset-2"
+            >
               Change password
             </a>
           </Typography>
           <Typography color="gray" className="text-white font-normal mr-3">
             Don't have an account?{" "}
-            <a href="/sign-up" className="font-medium text-white">
+            <a
+              href="/sign-up"
+              className="font-semibold hover:underline hover:underline-offset-2"
+            >
               Sign Up
             </a>
           </Typography>
