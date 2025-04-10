@@ -3,6 +3,7 @@ export default function PostCard({ data }) {
   const titleClassName = "text-xl text-white";
   const genreClassName = "text-gray-500";
   const contentClassName = "w-full overflow-hidden line-clamp-2 text-white";
+  console.log(data);
 
   return (
     <div className="w-full flex flex-nowrap items-center gap-8 hover:outline p-2 rounded-md hover:cursor-pointer">
@@ -12,6 +13,7 @@ export default function PostCard({ data }) {
       <div className="w-full grid grid-cols-1 gap-2">
         <h1 className={titleClassName}>{data.new_header}</h1>
 
+        <h2 className={titleClassName}>{data.film_name}</h2>
         <div className={genreClassName}>
           {/* {data.genres.map((index,value)=>{
                     value

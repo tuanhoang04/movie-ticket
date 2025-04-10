@@ -98,12 +98,13 @@ export default function NavBar() {
             </Typography>
           </div>
           <div className="hidden items-center gap-x-2 lg:flex">
-            <div className="relative flex w-full gap-2 md:w-max">
+            <div className="relative flex w-full gap-2 md:w-max ">
               <Input
                 type="search"
                 placeholder="Search"
                 size="lg"
-                className="border-none after:border-none before:border-none rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
+                style={{ borderRadius: "9999px" }}
+                className="border-none after:border-none before:border-none !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
               />
             </div>
           </div>
@@ -166,21 +167,23 @@ export default function NavBar() {
             </div>
             {login ? (
               <ProfileMenu fullname={userInfo.full_name} />
-            ) : (<div>
-              <Button
-                variant="outlined"
-                className="text-white text-md rounded-3xl mr-4 border-white border-[0.8] mb-4"
-              >
-                Sign up
-              </Button>
-              <Button
-                variant="gradient"
-                color="red"
-                className="text-white text-md rounded-3xl mb-4"
-              >
-                Sign in
-              </Button>
-            </div>)}
+            ) : (
+              <div>
+                <Button
+                  variant="outlined"
+                  className="text-white text-md rounded-3xl mr-4 border-white border-[0.8] mb-4"
+                >
+                  Sign up
+                </Button>
+                <Button
+                  variant="gradient"
+                  color="red"
+                  className="text-white text-md rounded-3xl mb-4"
+                >
+                  Sign in
+                </Button>
+              </div>
+            )}
           </div>
         </Collapse>
       </Navbar>

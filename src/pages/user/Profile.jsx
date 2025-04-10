@@ -8,6 +8,7 @@ import MovieSkeleton from "../../components/skeleton/MovieSkeleton";
 import ProfilePostCard from "../../components/post/ProfilePostCard";
 import TicketCard from "../../components/ticket/TicketCard";
 import MovieCard from "../../components/movie/MovieCard";
+import CreateNewPost from "../../components/post/CreateNewPost";
 
 import {
   Tabs,
@@ -24,6 +25,7 @@ export default function Profile() {
   const [bookedTickets, setBookedTickets] = useState([]);
   const [likedMovies, setLikedMovies] = useState([]);
   const [isloading, setIsLoading] = useState(false);
+  const [createPostVisible, setCreatePostVisible] = useState(false);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/userInfo`, {
@@ -53,8 +55,6 @@ export default function Profile() {
       .then((response) => response.json())
       .then((responseData) => {
         if (responseData) {
-          console.log(responseData);
-
           setBookedTickets(responseData);
         } else {
           console.error("Failed to fetch booked tickets");
@@ -122,8 +122,9 @@ export default function Profile() {
   }, []);
 
   const tabStyles = {
-    headerText: "text-white w-48 hover:text-lg",
-    postAndTicketContainer: "grid place-items-center p-10 gap-20 h-fit",
+    headerText:
+      "text-white text-lg w-fit px-5 hover:outline outline-1 outline-gray-400 rounded-full",
+    postAndTicketContainer: "grid place-items-center p-10 gap-10 h-fit",
     likedMoviesContainer:
       "grid grid-cols-3 lg:grid-cols-5 p-20 md:gap-20 lg:gap-20 h-fit",
   };
@@ -136,6 +137,7 @@ export default function Profile() {
       skeleton: <PostSkeleton />,
       component: (index, data) => <ProfilePostCard key={index} data={data} />,
       emptyText: "You have no posts yet.",
+      onclick: () => {},
     },
     {
       label: "Booked tickets",
@@ -144,6 +146,7 @@ export default function Profile() {
       skeleton: <TicketBookedSkeleton />,
       component: (index, data) => <TicketCard key={index} data={data} />,
       emptyText: "You have no booked tickets yet.",
+      onclick: () => {},
     },
     {
       label: "Liked movies",
@@ -152,8 +155,13 @@ export default function Profile() {
       skeleton: <MovieSkeleton />,
       component: (index, data) => <MovieCard key={index} data={data} />,
       emptyText: "You have no liked movies yet.",
+      onclick: () => {},
     },
   ];
+
+  function handleCreatePost() {
+    setCreatePostVisible(!createPostVisible);
+  }
 
   return (
     <div className="bg-[#1C1B21] flex flex-col justify-center ">
@@ -174,6 +182,13 @@ export default function Profile() {
             {userInfor.full_name}
           </p>
         </div>
+        {createPostVisible ? (
+          <div className="w-full mt-32 bg-white bg-opacity-10 rounded-3xl text-white">
+            <CreateNewPost />
+          </div>
+        ) : (
+          ""
+        )}
 
         <Tabs
           value="posts"
@@ -198,43 +213,10 @@ export default function Profile() {
               unmount: { x: 0 },
             }}
           >
-            {tabData.map(({ value, skeleton, datas, emptyText, component }) => (
-              <TabPanel key={value} value={value} className="p-0">
-                {isloading ? (
-                  <div
-                    className={
-                      value === "likedMovies"
-                        ? tabStyles.likedMoviesContainer
-                        : tabStyles.postAndTicketContainer
-                    }
-                  >
-                    {skeleton}
-                    {skeleton}
-                    {skeleton}
-                    {skeleton}
-                  </div>
-                ) : datas.length > 0 ? (
-                  <div>
-                    {value == "posts" ? (
-                      <Button className="flex gap-2 m-10 mb-0 p-3 border-2 text-sm bg-white text-black rounded-full hover:bg-gray-400">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="black"
-                          class="bi bi-plus-lg"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                          />
-                        </svg>
-                        New Post
-                      </Button>
-                    ) : (
-                      ""
-                    )}
+            {tabData.map(
+              ({ value, skeleton, datas, emptyText, component, onclick }) => (
+                <TabPanel key={value} value={value} className="p-0">
+                  {isloading ? (
                     <div
                       className={
                         value === "likedMovies"
@@ -242,14 +224,53 @@ export default function Profile() {
                           : tabStyles.postAndTicketContainer
                       }
                     >
-                      {datas.map((data, index) => component(index, data))}
+                      {skeleton}
+                      {skeleton}
+                      {skeleton}
+                      {skeleton}
                     </div>
-                  </div>
-                ) : (
-                  <div className="text-white p-3">{emptyText}</div>
-                )}
-              </TabPanel>
-            ))}
+                  ) : datas.length > 0 ? (
+                    <div>
+                      {value == "posts" ? (
+                        <Button
+                          onClick={handleCreatePost}
+                          className="flex gap-2 m-10 mb-0 p-3 border-2 text-sm bg-white text-black rounded-full hover:bg-gray-400"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="black"
+                            class="bi bi-plus-lg"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                            />
+                          </svg>
+                          New Post
+                        </Button>
+                      ) : (
+                        ""
+                      )}
+                      <div
+                        className={
+                          value === "likedMovies"
+                            ? tabStyles.likedMoviesContainer
+                            : tabStyles.postAndTicketContainer
+                        }
+                        onclick={onclick}
+                      >
+                        {datas.map((data, index) => component(index, data))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-white p-3">{emptyText}</div>
+                  )}
+                </TabPanel>
+              )
+            )}
           </TabsBody>
         </Tabs>
       </div>

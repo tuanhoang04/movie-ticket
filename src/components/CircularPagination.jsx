@@ -8,7 +8,8 @@ export function CircularPagination({ pagesNumber, handleChange }) {
   const getItemProps = (index) => ({
     variant: active === index ? "filled" : "text",
     color: "white",
-    onClick: () => {setActive(index);
+    onClick: () => {
+      setActive(index);
       handleChange(index);
     },
     className: "rounded-full",
@@ -39,9 +40,13 @@ export function CircularPagination({ pagesNumber, handleChange }) {
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" color="white" />
         Previous
       </Button>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 ">
         {Array.from({ length: pagesNumber }, (_, i) => (
-          <IconButton key={i + 1} {...getItemProps(i + 1)}>
+          <IconButton
+            key={i + 1}
+            style={{ fontSize: "1em" }}
+            {...getItemProps(i + 1)}
+          >
             {i + 1}
           </IconButton>
         ))}
