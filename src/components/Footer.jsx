@@ -1,7 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 export default function Footer() {
   return (
-    <footer className="bg-[#1C1B21] grid grid-cols-11 px-7 lg:px-32 py-12">
+    <footer className="bg-[#1C1B21] grid grid-cols-11 px-8 lg:px-36 py-12">
       <div className="col-span-4 flex flex-col justify-start">
         <div className="flex flex-row items-center mb-5">
           <img src="/ico.png" className="w-10 mr-3" />

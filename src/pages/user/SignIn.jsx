@@ -81,7 +81,7 @@ export default function SignIn({openDialog, handleOpenDialog}) {
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 py-4 my-3 bg-gray-800 mx-auto w-[90%] md:w-[30%] gap-5"
+      className="px-6 py-4 my-3 bg-gray-700 mx-auto w-[90%] md:w-[30%] gap-5"
     >
       <DialogHeader className="text-white pb-0">
         Log in to your account
@@ -129,7 +129,7 @@ export default function SignIn({openDialog, handleOpenDialog}) {
             >
               cancel
             </Button>
-            <Button type="submit" color="green" className="w-28">
+            <Button type="submit" className="w-28 bg-[#502A50]">
               sign in
             </Button>
           </div>

@@ -56,7 +56,7 @@ export default function Movies() {
   }, [currentPageUpcoming, upcomings]);
 
   return (
-    <div className="px-7 lg:px-32">
+    <div className="px-8 lg:px-36">
       {!isLoading && (
         <div className="flex flex-col mt-7 mb-20">
           <div>

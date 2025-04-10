@@ -166,7 +166,7 @@ export default function Profile() {
   return (
     <div className="bg-[#1C1B21] flex flex-col justify-center ">
       <NavBar />
-      <div className="grid place-items-center px-7 lg:px-32 lg:pt-10">
+      <div className="grid place-items-center px-8 lg:px-36 lg:pt-10">
         <div className="relative w-full">
           <img src="profile-cover.webp" alt="cover" className=" w-full " />
           <img

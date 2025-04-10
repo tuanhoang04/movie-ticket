@@ -86,7 +86,7 @@ export default function NavBar() {
 
   return (
     <>
-      <Navbar className="max-w-full relative py-2 px-7 lg:px-32 lg:py-4 rounded-none border-none bg-[#502A50]">
+      <Navbar className="max-w-full relative py-2 px-8 lg:px-36 lg:py-4 rounded-none border-none bg-[#502A50]">
         <div className="mx-auto flex flex-wrap items-center justify-between text-white">
           <div className="flex flex-row justify-center items-center">
             <img src="/ico.png" className="w-10 mr-3" />
