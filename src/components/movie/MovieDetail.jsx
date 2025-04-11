@@ -84,19 +84,60 @@ export default function MovieDetail() {
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar />
       <div className="flex-grow px-8 lg:px-36 flex">
-        <div className="bg-[#323137] w-full flex-grow my-7 rounded-3xl">
+        <div className="bg-[#323137] w-full py-6 px-20 flex-grow my-7 rounded-3xl">
           {data && (
-            <div className="flex flex-row">
-              <img src={data.info.film[0].film_img} className="w-72" />
-              <div>
-                <p className="text-white">{data.info.film[0].film_name}</p>
-                <p className="text-white">
+            <div className="grid grid-cols-11 grid-rows-1">
+              <img
+                src={data.info.film[0].film_img}
+                className="col-span-2 row-span-1 rounded-3xl w-full"
+              />
+              <div className="col-span-7 row-span-1 flex flex-col justify-center px-10">
+                <p className="text-white text-3xl pb-1 font-bold">
+                  {data.info.film[0].film_name}
+                </p>
+                <p className="text-white text-xl pb-5 font-light">
                   {data.info.categorys
                     .map((item) => {
                       return item.category_name;
                     })
                     .join(", ")}
                 </p>
+                <p className="text-white text-xl pb-5 font-normal text-justify">
+                  {data.info.film[0].film_describe}
+                </p>
+                <p className="text-white text-lg font-normal text-justify">
+                  Actors:{" "}
+                  {data.info.actors
+                    .map((item) => {
+                      return item.actor_name;
+                    })
+                    .join(", ")}
+                </p>
+              </div>
+              <div className="col-span-2 row-span-1 flex flex-col justify-center items-center">
+                {data.info.evaluate[0].sum_rate > 0 && (
+                  <div className="flex flex-row self-center items-center justify-between w-[50%]">
+                    <p className="text-white text-xl">Rating</p>
+                    <div className="flex flex-row ">
+                      <p>{data.info.evaluate[0].film_rate}</p>
+                      <img src="/icons/rating.png" className="w-5 h-5" />
+                    </div>
+                  </div>
+                )}
+                <div className="flex flex-row items-center justify-between w-[50%]">
+                  <p className="text-white text-xl">Age</p>
+
+                  <p className="text-white text-xl">
+                    {data.info.film[0].age_limit}
+                  </p>
+                </div>
+                <div className="flex flex-row items-center justify-between w-[50%]">
+                  <p className="text-white text-xl">Time</p>
+
+                  <p className="text-white text-xl">
+                    {data.info.film[0].duration + "m"}
+                  </p>
+                </div>
               </div>
             </div>
           )}
