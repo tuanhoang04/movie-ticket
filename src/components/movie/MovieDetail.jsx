@@ -4,6 +4,8 @@ import NavBar from "../NavBar";
 import Footer from "../Footer";
 import { Button } from "@material-tailwind/react";
 import AlertWithIcon from "../Alert";
+import Trailer from "./Trailer";
+import RatingForm from "./RatingForm";
 
 function createSlug(name) {
   return name
@@ -21,6 +23,9 @@ export default function MovieDetail() {
   const [dataRelate, setDataRelate] = useState(null);
   const [liked, setLiked] = useState(false);
   const [message, setMessage] = useState(null);
+  const [ratingTitle, setRatingTitle] = useState("");
+  const [openRatingForm, setOpenRatingForm] = useState(false);
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -37,6 +42,15 @@ export default function MovieDetail() {
         if (result.success) {
           console.log(result);
           setData(result);
+          const movieName = result.info.film[0].film_name;
+          const rating = result.info.evaluate[0].film_rate;
+          if (result.info.evaluate[0].sum_rate > 0) {
+            setRatingTitle(
+              `${movieName} has received an average rating of ${rating}/5`
+            );
+          } else {
+            setRatingTitle(`${movieName} has not received any rating.`);
+          }
         } else {
           console.log(`Connected: ${result.message}`);
         }
@@ -118,7 +132,7 @@ export default function MovieDetail() {
           body: JSON.stringify({ jwt: localStorage.getItem("jwt") }),
         }
       );
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -168,7 +182,7 @@ export default function MovieDetail() {
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar />
       <div className="flex-grow px-8 lg:px-36 flex">
-        <div className="bg-[#323137] w-full py-6 px-20 flex-grow my-7 rounded-3xl">
+        <div className="bg-[#323137] w-full h-full py-6 px-20 flex-grow my-7 rounded-3xl">
           {data && (
             <div className="grid grid-cols-11 grid-rows-1">
               <img
@@ -201,21 +215,23 @@ export default function MovieDetail() {
               </div>
               <div className="col-span-2 row-span-1 flex flex-col justify-center items-center">
                 {data.info.evaluate[0].sum_rate > 0 && (
-                  <div className="flex flex-row self-center items-center justify-between w-[57%]">
-                    <p className="text-white text-xl">Rating</p>
-                    <div className="flex flex-row ">
-                      <p>{data.info.evaluate[0].film_rate}</p>
-                      <img src="/icons/rating.png" className="w-5 h-5" />
+                  <div className="flex flex-row self-center items-center justify-between w-[52%] mb-2">
+                    <p className="text-white text-xl font-semibold">Rating</p>
+                    <div className="flex flex-row items-center">
+                      <p className="text-white text-xl font-semibold mr-[2px]">
+                        {data.info.evaluate[0].film_rate}
+                      </p>
+                      <img src="/icons/rating.png" className="w-4 h-4" />
                     </div>
                   </div>
                 )}
-                <div className="flex flex-row items-center justify-between w-[57%] mb-2">
-                  <p className="text-white text-xl font-semibold">Age</p>
+                <div className="flex flex-row items-center justify-between w-[52%] mb-2">
+                  <p className="text-white text-xl font-semibold">Age limit</p>
                   <p className="text-white text-xl font-semibold">
                     {data.info.film[0].age_limit}
                   </p>
                 </div>
-                <div className="flex flex-row items-center justify-between w-[57%] mb-6">
+                <div className="flex flex-row items-center justify-between w-[52%] mb-6">
                   <p className="text-white text-xl font-semibold">Time</p>
 
                   <p className="text-white text-xl font-semibold">
@@ -235,7 +251,7 @@ export default function MovieDetail() {
                 ) : (
                   <Button
                     color="red"
-                    className="bg-[#B44242] rounded-2xl flex flex-row p-2 px-3 items-center w-[52%] mb-3"
+                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%] mb-3"
                     onClick={like}
                   >
                     <img src="/icons/heart.png" className="w-7 mr-2" />
@@ -250,6 +266,53 @@ export default function MovieDetail() {
                   <p className="text-sm font-bold">Buy Ticket</p>
                 </Button>
               </div>
+            </div>
+          )}
+
+          {data?.info?.film[0]?.film_trailer && (
+            <div>
+              <hr className="my-7 opacity-70" />
+              <p className="text-white text-4xl font-bold pb-3">Trailer</p>
+              <Trailer youtubeLink={data.info.film[0].film_trailer} />
+            </div>
+          )}
+
+          {data && (
+            <div className="flex flex-col">
+              <hr className="my-7 opacity-70" />
+              <p className="text-white text-4xl font-bold pb-3">Ratings</p>
+              <div className="bg-[#606060] w-full p-5 rounded-2xl grid grid-cols-12 grid-rows-1">
+                <div className="col-span-2 row-span-1 flex flex-row justify-center items-baseline border-e-2">
+                  <p className="text-white text-7xl">
+                    {data.info.evaluate[0].film_rate}
+                  </p>
+                  <p className="text-white font-extralight text-5xl">/</p>
+                  <p className="text-white text-5xl">5</p>
+                </div>
+
+                <div className="col-span-10 row-span-1 flex flex-row ms-10 justify-start items-center">
+                  <p className="text-white font-light text-3xl">
+                    {ratingTitle}
+                  </p>
+                </div>
+              </div>
+
+              {!openRatingForm && (
+                <Button
+                  color="purple"
+                  onClick={() => setOpenRatingForm(!openRatingForm)}
+                  className="!bg-[#773e77] text-base mt-5 self-start w-auto"
+                >
+                  Leave a rating
+                </Button>
+              )}
+              {openRatingForm && (
+                <RatingForm
+                  handleOpen={() => {
+                    setOpenRatingForm(!openRatingForm);
+                  }}
+                />
+              )}
             </div>
           )}
         </div>
