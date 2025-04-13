@@ -67,7 +67,7 @@ export default function RatingForm({ handleOpen }) {
   };
 
   return (
-    <div className="bg-[#606060] mt-5 p-8 rounded-2xl lg:w-[35%] w-[75%] self-center flex flex-col">
+    <div className="bg-[#606060] mt-5 p-8 rounded-2xl lg:w-[35%] w-[75%] self-start flex flex-col">
       <p className="text-white text-2xl mb-1">
         Share your experience watching this movie
       </p>

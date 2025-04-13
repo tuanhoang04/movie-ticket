@@ -296,7 +296,7 @@ export default function MovieDetail() {
                   </p>
                 </div>
               </div>
-
+              
               {!openRatingForm && (
                 <Button
                   color="purple"
