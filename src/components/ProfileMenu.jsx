@@ -21,7 +21,7 @@ export function ProfileMenu({ fullname }) {
   };
   return (
     <>
-      <Menu placement="bottom-start" >
+      <Menu placement="bottom-start">
         <MenuHandler>
           <div className="flex flex-row items-center cursor-pointer">
             <img className="w-8 h-8 mr-1" src="/icons/account.png" />
@@ -77,22 +77,25 @@ export function ProfileMenu({ fullname }) {
         </MenuList>
       </Menu>
 
-      <Dialog variant="dark" open={openLogoutConfirm} handler={handleOpen}>
-        <DialogHeader>Sign out confirmation</DialogHeader>
-        <DialogBody className="text-xl text-black py-0">
+      <Dialog
+        className="bg-[#58565f] p-3"
+        open={openLogoutConfirm}
+        handler={handleOpen}
+      >
+        <DialogHeader className="text-white">Sign out confirmation</DialogHeader>
+        <DialogBody className="text-xl text-white py-0">
           Are you sure you want to sign out?
         </DialogBody>
         <DialogFooter>
           <Button
-            variant="text"
             color="green"
             onClick={handleOpen}
-            className="mr-1"
+            className="mr-8"
           >
             <span>Cancel</span>
           </Button>
           <Button
-            variant="text"
+            
             color="red"
             onClick={() => {
               handleOpen();

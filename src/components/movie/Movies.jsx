@@ -19,8 +19,15 @@ export default function Movies() {
     })
       .then((response) => response.json())
       .then((responseData) => {
-        setNowShowing(responseData[0].filter((item) => item.film_type === 1));
-        setUpcomings(responseData[0].filter((item) => item.film_type === 2));
+        const allFilms = responseData[0];
+        // Preload all images
+        allFilms.forEach((film) => {
+          const img = new Image();
+          img.src = film.film_img;
+        });
+
+        setNowShowing(allFilms.filter((item) => item.film_type === 1));
+        setUpcomings(allFilms.filter((item) => item.film_type === 2));
         setIsLoading(false);
       })
       .catch((error) => console.error("Error:", error));
@@ -83,14 +90,18 @@ export default function Movies() {
             })}
           </div>
           {currentNowShowings.length <= 4 && (
-            <div>
-              <div className="mb-6 lg:w-[15%] w-[22%] aspect-[2/3] flex-grow-1" />
-              <p className="text-[#5D6A81] lg:text-xl text-base w-full invisible">
-                a
-              </p>
-              <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem] invisible">
-                a
-              </p>
+            <div className="mb-6 lg:w-[15%] w-[22%]">
+              <div className="flex flex-col justify-start rounded-md p-4">
+                <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
+                <div className="invisible">
+                  <p className="text-[#5D6A81] lg:text-xl text-base w-full">
+                    &nbsp;
+                  </p>
+                  <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem]">
+                    &nbsp;
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
@@ -134,14 +145,18 @@ export default function Movies() {
             })}
           </div>
           {currentUpcomings.length <= 4 && (
-            <div>
-              <div className="mb-6 lg:w-[15%] w-[22%] aspect-[2/3] flex-grow-1" />
-              <p className="text-[#5D6A81] lg:text-xl text-base w-full invisible">
-                a
-              </p>
-              <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem] invisible">
-                a
-              </p>
+            <div className="mb-6 lg:w-[15%] w-[22%]">
+              <div className="flex flex-col justify-start rounded-md p-4">
+                <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
+                <div className="invisible">
+                  <p className="text-[#5D6A81] lg:text-xl text-base w-full">
+                    &nbsp;
+                  </p>
+                  <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem]">
+                    &nbsp;
+                  </p>
+                </div>
+              </div>
             </div>
           )}
           <div>
