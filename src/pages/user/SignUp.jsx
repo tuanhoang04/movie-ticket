@@ -63,7 +63,7 @@ export default function SignUp() {
         if (data.success) {
           console.log("Sign up successfully:", data.message);
           setOkMessage(`Sign up successfully: ${data.message}`);
-          setErrorMessage("");
+          setErrorMessage(null);
           setTimeout(() => {
             navigate("/home");
           }, 1700);
@@ -90,7 +90,7 @@ export default function SignUp() {
             Create an account
           </Typography>
           {errorMessage && <AlertWithIcon message={errorMessage} />}
-          {okMessage && <AlertWithIcon message={errorMessage} />}
+          {okMessage && <AlertWithIcon message={okMessage} />}
           <form
             onSubmit={handleSubmit}
             className="mt-8 mb-2 min-w-[100%] max-w-screen-lg sm:w-96"
