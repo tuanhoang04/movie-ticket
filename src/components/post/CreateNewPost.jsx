@@ -211,6 +211,7 @@ export default function CreateNewPost() {
     if (message) {
       const timer = setTimeout(() => {
         setMessage("");
+        window.location.reload();
       }, 4000);
 
       return () => clearTimeout(timer);

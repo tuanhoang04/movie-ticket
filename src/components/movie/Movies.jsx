@@ -70,24 +70,11 @@ export default function Movies() {
             <p className="text-white text-3xl mb-4">Now Showing</p>
           </div>
           <div className="flex flex-wrap lg:gap-[13.33%] gap-[4%]">
-            {currentNowShowings.map((item) => {
-              const date = item.Release_date.substring(0, 10);
-              const day = date.substring(8, 10);
-              const month = date.substring(5, 7);
-              const year = date.substring(0, 4);
-              const exactDate = `${day}/${month}/${year}`;
-              return (
-                <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
-                  <MovieCard
-                    index={item.film_id}
-                    image={item.film_img}
-                    name={item.film_name}
-                    date={exactDate}
-                    rate={JSON.parse(item.film_rate).toFixed(1)}
-                  />
-                </div>
-              );
-            })}
+            {currentNowShowings.map((item) => (
+              <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
+                <MovieCard data={item} />
+              </div>
+            ))}
           </div>
           {currentNowShowings.length <= 4 && (
             <div className="mb-6 lg:w-[15%] w-[22%]">
@@ -126,20 +113,9 @@ export default function Movies() {
 
           <div className="flex flex-wrap lg:gap-[13.33%] gap-[12%]">
             {currentUpcomings.map((item) => {
-              const date = item.Release_date.substring(0, 10);
-              const day = date.substring(8, 10);
-              const month = date.substring(5, 7);
-              const year = date.substring(0, 4);
-              const exactDate = `${day}/${month}/${year}`;
               return (
                 <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
-                  <MovieCard
-                    index={item.film_id}
-                    image={item.film_img}
-                    name={item.film_name}
-                    date={exactDate}
-                    rate={JSON.parse(item.film_rate).toFixed(1)}
-                  />
+                  <MovieCard data={item} />
                 </div>
               );
             })}

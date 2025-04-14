@@ -3,7 +3,6 @@ export default function PostCard({ data }) {
   const titleClassName = "text-xl text-white";
   const genreClassName = "text-gray-500";
   const contentClassName = "w-full overflow-hidden line-clamp-2 text-white";
-  console.log(data);
 
   return (
     <div className="w-full flex flex-nowrap items-center gap-8 hover:outline p-2 rounded-md hover:cursor-pointer">

@@ -31,7 +31,7 @@ export default function TicketCard({ data }) {
             </p>
           </div>
           <div className="flex flex-col gap-2">
-            <h1 className={keyClassName}>Cinama</h1>
+            <h1 className={keyClassName}>Cinema</h1>
             <p className={valueClassName}>{data.cinema_name}</p>
           </div>
           <div className="flex flex-col gap-2">
