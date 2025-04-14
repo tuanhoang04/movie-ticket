@@ -10,9 +10,12 @@
   .skeleton-img {
     @apply  text-gray-600;
   }
-  
-  
+  .scrollbar{
+    @apply [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-800 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#502A50] ;
+  }
 }
+  
+  
 
 @layer base{
   .ProseMirror  {
