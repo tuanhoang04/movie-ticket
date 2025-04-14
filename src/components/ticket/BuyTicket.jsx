@@ -1,36 +1,20 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import NavBar from "../NavBar";
+import { useEffect, useState } from "react";
 import Footer from "../Footer";
+import NavBar from "../NavBar";
 import { Button } from "@material-tailwind/react";
-import AlertWithIcon from "../Alert";
-import Trailer from "./Trailer";
-import RatingForm from "./RatingForm";
-import MovieRatings from "./MovieRatings";
-
-function createSlug(name) {
-  return name
-    .trim()
-    .replace(/\s*:\s*/g, "-") // Thay thế dấu ":" và các khoảng trắng trước và sau nó bằng dấu gạch ngang
-    .replace(/\s+/g, "-") // Thay thế tất cả khoảng trắng còn lại bằng dấu gạch ngang
-    .replace(/-+/g, "-"); // Thay thế nhiều dấu gạch ngang liên tiếp bằng một dấu gạch ngang
-}
-
-export default function MovieDetail() {
-  const navigate = useNavigate();
-  const { film_name } = useParams();
-  const [data, setData] = useState(null);
+import Dropdown from "../Dropdown";
+export default function BuyTicket() {
   const film_id = localStorage.getItem("film_id");
-  const [dataRelate, setDataRelate] = useState(null);
+  const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
   const [message, setMessage] = useState(null);
-  const [ratingTitle, setRatingTitle] = useState("");
-  const [openRatingForm, setOpenRatingForm] = useState(false);
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(null);
 
-  const fetchData = async () => {
+  const fetchCities = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/film/filmInfo/id=${film_id}`,
+        `${import.meta.env.VITE_API_URL}/api/lichChieu/khuVuc`,
         {
           method: "GET",
           headers: {
@@ -40,36 +24,18 @@ export default function MovieDetail() {
       );
       if (response.ok) {
         const result = await response.json();
-        if (result.success) {
-          console.log(result);
-          setData(result);
-          const movieName = result.info.film[0].film_name;
-          const rating =
-            Math.round(result.info.evaluate[0].film_rate * 10) / 10;
-          if (result.info.evaluate[0].sum_rate > 0) {
-            setRatingTitle(
-              `${movieName} has received an average rating of ${rating}/5`
-            );
-          } else {
-            setRatingTitle(`${movieName} has not received any rating.`);
-          }
+        if (result) {
+          setCities(result);
         } else {
-          console.log(`Connected: ${result.message}`);
+          console.log(`Truy cập: ${result.message}`);
         }
       } else {
-        console.error("Connection failed:", response.statusText);
+        console.error("Lỗi khi truy cập:", response.statusText);
       }
     } catch (error) {
-      console.error("Network failure:", error);
+      console.error("Lỗi mạng:", error);
     }
   };
-
-  useEffect(() => {
-    if (film_id) {
-      fetchData();
-    }
-  }, []);
-
   const fetchLikeStatus = async () => {
     try {
       const response = await fetch(
@@ -93,10 +59,6 @@ export default function MovieDetail() {
       console.error("Error fetching like status:", error);
     }
   };
-
-  useEffect(() => {
-    fetchLikeStatus();
-  }, []);
 
   const unlike = async () => {
     try {
@@ -150,39 +112,44 @@ export default function MovieDetail() {
       console.error("Error fetching likeCheck:", error);
     }
   };
-  const handleNavigate = (film_name, film_id) => {
-    localStorage.setItem("film_id", film_id);
-    navigate(`/movie/buyTicket/${film_name}`);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/film/filmInfo/id=${film_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          console.log(result);
+          setData(result);
+          const movieName = result.info.film[0].film_name;
+          const rating =
+            Math.round(result.info.evaluate[0].film_rate * 10) / 10;
+        } else {
+          console.log(`Connected: ${result.message}`);
+        }
+      } else {
+        console.error("Connection failed:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Network failure:", error);
+    }
   };
-  //   const fetchMovieNews = async (film_id) => {
-  //     try {
-  //       const response = await fetch(
-  //         `${import.meta.env.VITE_API_URL}/api/new/film_id=${film_id}`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-  //       if (response.ok) {
-  //         const result = await response.json();
-  //         setMovieData(result);
-  //         console.log(result);
-  //       } else {
-  //         console.error("Lỗi khi truy cập:", response.statusText);
-  //       }
-  //     } catch (error) {
-  //       console.error("Lỗi mạng:", error);
-  //     }
-  //   };
 
-  //   const clickNews = (news_id, news_header) => {
-  //     localStorage.setItem("news_id", news_id);
-  //     navigate(`/tin_tuc/${encodeURIComponent(createSlug(news_header))}`);
-  //     window.location.reload();
-  //   };
-
+  useEffect(() => {
+    if (film_id) {
+      fetchData();
+      fetchLikeStatus();
+      fetchCities();
+    }
+  }, []);
   return (
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar />
@@ -263,70 +230,24 @@ export default function MovieDetail() {
                     <p className="text-sm font-bold">Save Movie</p>
                   </Button>
                 )}
-                <Button
-                  color="red"
-                  className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%]"
-                  onClick={()=>{navigate("/movie/buyTicket/" + film_name);}}
-                >
-                  <img src="/icons/ticket.png" className="w-7 mr-2" />
-                  <p className="text-sm font-bold">Buy Ticket</p>
-                </Button>
               </div>
             </div>
           )}
 
-          {data?.info?.film[0]?.film_trailer && (
-            <div>
-              <hr className="my-7 opacity-70" />
-              <p className="text-white text-4xl font-bold pb-3">Trailer</p>
-              <Trailer youtubeLink={data.info.film[0].film_trailer} />
-            </div>
-          )}
+          <div>
+            <hr className="my-7 opacity-70" />
 
-          {data && (
-            <div className="flex flex-col">
-              <hr className="my-7 opacity-70" />
-              <p className="text-white text-4xl font-bold pb-3">Ratings</p>
-              <div className="bg-[#606060] w-full p-5 rounded-2xl grid grid-cols-12 grid-rows-1">
-                <div className="col-span-2 row-span-1 flex flex-row justify-center items-baseline border-e-2">
-                  <p className="text-white text-7xl">
-                    {Math.round(data.info.evaluate[0].film_rate * 10) / 10}
-                  </p>
-                  <p className="text-white font-extralight text-5xl">/</p>
-                  <p className="text-white text-5xl">5</p>
-                </div>
-
-                <div className="col-span-10 row-span-1 flex flex-row ms-10 justify-start items-center">
-                  <p className="text-white font-light text-3xl">
-                    {ratingTitle}
-                  </p>
-                </div>
+            {cities && (
+              <div>
+                <p className="text-white text-4xl font-bold pb-3">Buy ticket</p>
+                <Dropdown label="Select a location" options={cities.map((item)=>{return item.region_name})}/>
               </div>
-
-              {!openRatingForm && (
-                <Button
-                  color="purple"
-                  onClick={() => setOpenRatingForm(!openRatingForm)}
-                  className="!bg-[#773e77] text-base my-5 self-start w-auto"
-                >
-                  Leave a rating
-                </Button>
-              )}
-              {openRatingForm && (
-                <RatingForm
-                  handleOpen={() => {
-                    setOpenRatingForm(!openRatingForm);
-                  }}
-                />
-              )}
-
-              {data.info.evaluate[0].sum_rate > 0 && (
-                <MovieRatings film_id={film_id} />
-              )}
-            </div>
-          )}
+              
+            )}
+          </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
