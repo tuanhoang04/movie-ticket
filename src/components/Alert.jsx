@@ -21,6 +21,6 @@ function Icon() {
 
 export default function AlertWithIcon({message}) {
   return (
-    <Alert icon={<Icon />}>{message}</Alert>
+    <Alert className="text-white" icon={<Icon />}>{message}</Alert>
   );
 }

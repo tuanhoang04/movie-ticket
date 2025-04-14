@@ -1,4 +1,10 @@
-import { Button, Input, Rating, Textarea } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  rating,
+  Rating,
+  Textarea,
+} from "@material-tailwind/react";
 import { useRef, useState } from "react";
 import AlertWithIcon from "../Alert";
 
@@ -10,21 +16,19 @@ export default function RatingForm({ handleOpen }) {
     jwt: localStorage.getItem("jwt"),
   });
 
-  console.log(localStorage.getItem("jwt"));
-
   const ratingRef = useRef(null);
-
   const [message, setMessage] = useState(null);
   const [comment, setComment] = useState(null);
   const [stars, setStars] = useState(0);
 
   const textChange = (e) => {
     setComment(e.target.value);
-    console.log(comment);
+    setRatingData((prev) => ({ ...prev, comments: e.target.value }));
   };
 
   const starChange = (value) => {
     setStars(value);
+    setRatingData((prev) => ({ ...prev, star: value }));
   };
 
   const handleSubmit = async () => {
@@ -33,7 +37,6 @@ export default function RatingForm({ handleOpen }) {
         "Your rating is invalid, a rating must consist of at least one star and some text comment!"
       );
     } else if (stars && stars > 0 && comment.trim()) {
-      setRatingData({ ...ratingData, comments: comment, star: stars });
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/film/filmInfo/postComment`,
@@ -68,7 +71,7 @@ export default function RatingForm({ handleOpen }) {
   };
 
   return (
-    <div className="bg-[#606060] mt-5 p-8 rounded-2xl lg:w-[35%] w-[75%] self-start flex flex-col">
+    <div className="bg-[#606060] my-5 p-8 rounded-2xl lg:w-[35%] w-[75%] self-start flex flex-col">
       <p className="text-white text-2xl mb-1">
         Share your experience watching this movie
       </p>

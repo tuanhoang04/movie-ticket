@@ -3,6 +3,7 @@ import { Select, Option } from "@material-tailwind/react";
 import "./Movies.css";
 import { CircularPagination } from "../CircularPagination";
 import MovieCard from "./MovieCard";
+import { useNavigate } from "react-router-dom";
 
 export default function Movies() {
   const [nowShowing, setNowShowing] = useState([]);
@@ -62,91 +63,117 @@ export default function Movies() {
     );
   }, [currentPageUpcoming, upcomings]);
 
-  return (
-    <div className="px-8 lg:px-36">
-      {!isLoading && (
-        <div className="flex flex-col mt-7 mb-20">
-          <div>
-            <p className="text-white text-3xl mb-4">Now Showing</p>
-          </div>
-          <div className="flex flex-wrap lg:gap-[13.33%] gap-[4%]">
-            {currentNowShowings.map((item) => (
-              <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
-                <MovieCard data={item} />
-              </div>
-            ))}
-          </div>
-          {currentNowShowings.length <= 4 && (
-            <div className="mb-6 lg:w-[15%] w-[22%]">
-              <div className="flex flex-col justify-start rounded-md p-4">
-                <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
-                <div className="invisible">
-                  <p className="text-[#5D6A81] lg:text-xl text-base w-full">
-                    &nbsp;
-                  </p>
-                  <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem]">
-                    &nbsp;
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
+  const navigate = useNavigate();
+  const handleNavigate = (film_name, film_id) => {
+    localStorage.setItem("film_id", film_id);
+    navigate(`/movie/${film_name}`);
+  };
 
-          <div>
-            <CircularPagination
-              key={totalPagesNowShowing}
-              pagesNumber={totalPagesNowShowing}
-              currentPage={currentPageNowShowing}
-              handleChange={(value) => {
-                setCurrentPageNowShowing(value);
-              }}
-            />
-          </div>
+
+  function createSlug(name) {
+  return name.trim().replace(/\s+/g, "-").replace(/-+/g, "-");
+}
+  return (
+    <>
+      {!isLoading && (
+        <div>
+          <img
+            className="w-full h-[700px] object-cover object-center cursor-pointer"
+            src={nowShowing[0].film_img}
+            onClick={() => {
+              handleNavigate(
+                createSlug(nowShowing[0].film_name),
+                nowShowing[0].film_id
+              );
+            }}
+          />
         </div>
       )}
-
-      {!isLoading && (
-        <div className="flex flex-col mb-20">
-          <div>
-            <p className="text-white text-3xl mb-4">Upcoming Movies</p>
-          </div>
-
-          <div className="flex flex-wrap lg:gap-[13.33%] gap-[12%]">
-            {currentUpcomings.map((item) => {
-              return (
+      <div className="px-8 lg:px-36">
+        {!isLoading && (
+          <div className="flex flex-col mt-7 mb-20">
+            <div>
+              <p className="text-white text-3xl mb-4">Now Showing</p>
+            </div>
+            <div className="flex flex-wrap lg:gap-[13.33%] gap-[4%]">
+              {currentNowShowings.map((item) => (
                 <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
                   <MovieCard data={item} />
                 </div>
-              );
-            })}
-          </div>
-          {currentUpcomings.length <= 4 && (
-            <div className="mb-6 lg:w-[15%] w-[22%]">
-              <div className="flex flex-col justify-start rounded-md p-4">
-                <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
-                <div className="invisible">
-                  <p className="text-[#5D6A81] lg:text-xl text-base w-full">
-                    &nbsp;
-                  </p>
-                  <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem]">
-                    &nbsp;
-                  </p>
+              ))}
+            </div>
+            {currentNowShowings.length <= 4 && (
+              <div className="mb-6 lg:w-[15%] w-[22%]">
+                <div className="flex flex-col justify-start rounded-md p-4">
+                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
+                  <div className="invisible">
+                    <p className="text-[#5D6A81] lg:text-xl text-base w-full">
+                      &nbsp;
+                    </p>
+                    <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem]">
+                      &nbsp;
+                    </p>
+                  </div>
                 </div>
               </div>
+            )}
+
+            <div>
+              <CircularPagination
+                key={totalPagesNowShowing}
+                pagesNumber={totalPagesNowShowing}
+                currentPage={currentPageNowShowing}
+                handleChange={(value) => {
+                  setCurrentPageNowShowing(value);
+                }}
+              />
             </div>
-          )}
-          <div>
-            <CircularPagination
-              key={totalPagesUpcoming}
-              pagesNumber={totalPagesUpcoming}
-              currentPage={currentPageUpcoming}
-              handleChange={(value) => {
-                setCurrentPageUpcoming(value);
-              }}
-            />
           </div>
-        </div>
-      )}
-    </div>
+        )}
+
+        {!isLoading && (
+          <div className="flex flex-col mb-20">
+            <div>
+              <p className="text-white text-3xl mb-4">Upcoming Movies</p>
+            </div>
+
+            <div className="flex flex-wrap lg:gap-[13.33%] gap-[12%]">
+              {currentUpcomings.map((item) => {
+                return (
+                  <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
+                    <MovieCard data={item} />
+                  </div>
+                );
+              })}
+            </div>
+            {currentUpcomings.length <= 4 && (
+              <div className="mb-6 lg:w-[15%] w-[22%]">
+                <div className="flex flex-col justify-start rounded-md p-4">
+                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
+                  <div className="invisible">
+                    <p className="text-[#5D6A81] lg:text-xl text-base w-full">
+                      &nbsp;
+                    </p>
+                    <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem]">
+                      &nbsp;
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div>
+              <CircularPagination
+                key={totalPagesUpcoming}
+                pagesNumber={totalPagesUpcoming}
+                currentPage={currentPageUpcoming}
+                handleChange={(value) => {
+                  setCurrentPageUpcoming(value);
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }

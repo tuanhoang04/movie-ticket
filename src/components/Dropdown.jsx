@@ -8,7 +8,7 @@ import {
 
 export default function MenuDefault({ label, options, onClick }) {
   return (
-    <Menu className="text-white text-xl w-60 border-none after:border-none before:border-none">
+    <Menu className="text-white text-lg w-60 border-none after:border-none before:border-none">
       <MenuHandler>
         <Button className="text-md bg-transparent">{label}</Button>
       </MenuHandler>

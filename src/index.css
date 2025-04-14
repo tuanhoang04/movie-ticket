@@ -2,13 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer components {
   .skeleton-bg {
     @apply rounded-md bg-gray-100 bg-opacity-50;
   }
   .skeleton-img {
-    @apply  text-gray-600;
+    @apply text-gray-600;
   }
   .scrollbar{
     @apply [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-800 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#502A50] ;
@@ -23,93 +22,95 @@
   width: 100%;
   }
   .ProseMirror:focus {
-  height: 100%;
-  width: 100%;
-  cursor: text;
-  outline: none;
-  display: block;
+    height: 100%;
+    width: 100%;
+    cursor: text;
+    outline: none;
+    display: block;
   }
   .ProseMirror ul,
-.ProseMirror ol {
-  padding-left: 1.25rem; /* Tailwind's pl-5 */
-}
+  .ProseMirror ol {
+    padding-left: 1.25rem; /* Tailwind's pl-5 */
+  }
 
-.ProseMirror ul {
-  list-style-type: disc;
-}
+  .ProseMirror ul {
+    list-style-type: disc;
+  }
 
-.ProseMirror ol {
-  list-style-type: decimal;
-}
+  .ProseMirror ol {
+    list-style-type: decimal;
+  }
 
+  .ProseMirror img {
+    max-width: 100%;
+    height: auto;
+  }
 
-.ProseMirror img {
-  max-width: 100%;
-  height: auto;
-}
+  .ProseMirror table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
 
-.ProseMirror table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-}
+  .ProseMirror th,
+  .ProseMirror td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+  }
 
-.ProseMirror th,
-.ProseMirror td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-}
-
-.ProseMirror a {
-  color: #3b82f6;
-  text-decoration: underline;
-}
-.ProseMirror h1 {
-  font-size: 34px;
-  font-weight: 500;
-  line-height: 34px;
-}
-.ProseMirror h2 {
-  font-size: 30px;
-  line-height: 30px;
-  font-weight: 500;
-}
-
+  .ProseMirror a {
+    color: #3b82f6;
+    text-decoration: underline;
+  }
+  .ProseMirror h1 {
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 34px;
+  }
+  .ProseMirror h2 {
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 500;
+  }
 }
 
 @font-face {
-  font-family: 'Netflix Sans'; 
-  src: url('./assets/fonts/Netflix-Sans/NetflixSans-Light.otf') format('opentype'); 
-  font-weight: 300; 
+  font-family: "Netflix Sans";
+  src: url("./assets/fonts/Netflix-Sans/NetflixSans-Light.otf")
+    format("opentype");
+  font-weight: 300;
   font-style: normal;
-  font-display: swap; 
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Netflix Sans';
-  src: url('./assets/fonts/Netflix-Sans/NetflixSans-Regular.otf') format('opentype');
+  font-family: "Netflix Sans";
+  src: url("./assets/fonts/Netflix-Sans/NetflixSans-Regular.otf")
+    format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Netflix Sans';
-  src: url('./assets/fonts/Netflix-Sans/NetflixSans-Regular.otf') format('opentype');
-  font-weight: 500; 
+  font-family: "Netflix Sans";
+  src: url("./assets/fonts/Netflix-Sans/NetflixSans-Regular.otf")
+    format("opentype");
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Netflix Sans';
-  src: url('./assets/fonts/Netflix-Sans/NetflixSans-Medium.otf') format('otf');
-  font-weight: 700; 
+  font-family: "Netflix Sans";
+  src: url("./assets/fonts/Netflix-Sans/NetflixSans-Medium.otf") format("otf");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 /* Apply the font */
 body {
-  font-family: 'Netflix Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Netflix Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
   font-weight: 400; /* Explicitly set default weight if needed */
 }
