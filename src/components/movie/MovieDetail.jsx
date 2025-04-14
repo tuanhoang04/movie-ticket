@@ -6,6 +6,7 @@ import { Button } from "@material-tailwind/react";
 import AlertWithIcon from "../Alert";
 import Trailer from "./Trailer";
 import RatingForm from "./RatingForm";
+import MovieRatings from "./MovieRatings";
 
 function createSlug(name) {
   return name
@@ -313,6 +314,8 @@ export default function MovieDetail() {
                   }}
                 />
               )}
+
+              {data.info.evaluate[0].sum_rate>0&&<MovieRatings film_id={film_id}/>}
             </div>
           )}
         </div>
