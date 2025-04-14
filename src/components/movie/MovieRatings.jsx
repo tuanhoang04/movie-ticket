@@ -61,7 +61,7 @@ export default function MovieRatings({ film_id }) {
         diffInMinutes === 1 ? "" : "s"
       } ago`;
     if (diffInHours < 2) return "About 1 hour ago";
-    if (diffInHours < 24) return `About 1 day ago`;
+    if (diffInHours < 24) return `About ${diffInHours} hours ago`;
     if (diffInDays < 7)
       return `${diffInDays} day${diffInDays === 1 ? "" : "s"} ago`;
     if (diffInWeeks < 2) return "1 week ago";
@@ -77,7 +77,7 @@ export default function MovieRatings({ film_id }) {
     <div>
       {ratingsData.map((item, index) => {
         return (
-          <div key={index} className="mb-5 flex flex-row">
+          <div key={index} className="mb-9 flex flex-row">
             {item.user_img && <img src={item.user_img} />}
             <div className="flex flex-col">
               <div className="flex flex-row gap-3 items-end">
@@ -91,7 +91,7 @@ export default function MovieRatings({ film_id }) {
                 readonly
                 unratedColor="white"
                 ratedColor="white"
-                className="my-1"
+                className="my-1 [&>span>svg]:w-5 [&>span>svg]:h-5"
               />
               <p className="text-white text-xl">{item.comments}</p>
             </div>

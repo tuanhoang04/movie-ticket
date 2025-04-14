@@ -302,7 +302,7 @@ export default function MovieDetail() {
                 <Button
                   color="purple"
                   onClick={() => setOpenRatingForm(!openRatingForm)}
-                  className="!bg-[#773e77] text-base mt-5 self-start w-auto"
+                  className="!bg-[#773e77] text-base my-5 self-start w-auto"
                 >
                   Leave a rating
                 </Button>
