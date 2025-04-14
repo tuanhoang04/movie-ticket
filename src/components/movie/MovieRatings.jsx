@@ -1,3 +1,4 @@
+import { Rating } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 
 export default function MovieRatings({ film_id }) {
@@ -38,11 +39,65 @@ export default function MovieRatings({ film_id }) {
 
   const loadMore = () => {
     const nextCount = loadedCount + 5;
-    setLoadedRatings(dataComment.slice(0, nextCount));
+    setLoadedRatings(ratingsData.slice(0, nextCount));
     setLoadedCount(nextCount);
   };
 
-  return(<div>
+  const timeAgo = (dateString) => {
+    const now = new Date();
+    const past = new Date(dateString);
+    const diffInMs = now - past;
+    const diffInSeconds = Math.floor(diffInMs / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+    const diffInWeeks = Math.floor(diffInDays / 7);
+    const diffInMonths = Math.floor(diffInDays / 30);
+    const diffInYears = Math.floor(diffInDays / 365);
 
-  </div>)
+    if (diffInMinutes < 1) return "Just now";
+    if (diffInMinutes < 60)
+      return `About ${diffInMinutes} minute${
+        diffInMinutes === 1 ? "" : "s"
+      } ago`;
+    if (diffInHours < 2) return "About 1 hour ago";
+    if (diffInHours < 24) return `About 1 day ago`;
+    if (diffInDays < 7)
+      return `${diffInDays} day${diffInDays === 1 ? "" : "s"} ago`;
+    if (diffInWeeks < 2) return "1 week ago";
+    if (diffInWeeks < 3) return "2 weeks ago";
+    if (diffInWeeks < 4) return "3 weeks ago";
+    if (diffInMonths < 2) return "1 month ago";
+    if (diffInMonths < 12) return `${diffInMonths} months ago`;
+    if (diffInYears < 2) return "1 year ago";
+    return `${diffInYears} years ago`;
+  };
+
+  return (
+    <div>
+      {ratingsData.map((item, index) => {
+        return (
+          <div key={index} className="mb-5 flex flex-row">
+            {item.user_img && <img src={item.user_img} />}
+            <div className="flex flex-col">
+              <div className="flex flex-row gap-3 items-end">
+                <p className="text-white text-2xl">{item.full_name}</p>
+                <p className="text-gray-400 text-lg font-light">
+                  {timeAgo(item.date_posted)}
+                </p>
+              </div>
+              <Rating
+                value={item.star}
+                readonly
+                unratedColor="white"
+                ratedColor="white"
+                className="my-1"
+              />
+              <p className="text-white text-xl">{item.comments}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }

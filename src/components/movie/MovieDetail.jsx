@@ -220,7 +220,7 @@ export default function MovieDetail() {
                     <p className="text-white text-xl font-semibold">Rating</p>
                     <div className="flex flex-row items-center">
                       <p className="text-white text-xl font-semibold mr-[2px]">
-                        {data.info.evaluate[0].film_rate}
+                        {Math.round(data.info.evaluate[0].film_rate*10)/10}
                       </p>
                       <img src="/icons/rating.png" className="w-4 h-4" />
                     </div>
