@@ -32,7 +32,6 @@ export default function MovieRatings({ film_id }) {
   useEffect(() => {
     if (film_id) {
       fetchData();
-      
     }
     setLoadedRatings(ratingsData.slice(0, 5));
   }, []);

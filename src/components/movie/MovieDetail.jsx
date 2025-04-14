@@ -44,7 +44,7 @@ export default function MovieDetail() {
           console.log(result);
           setData(result);
           const movieName = result.info.film[0].film_name;
-          const rating = result.info.evaluate[0].film_rate;
+          const rating = Math.round(result.info.evaluate[0].film_rate * 10) / 10;
           if (result.info.evaluate[0].sum_rate > 0) {
             setRatingTitle(
               `${movieName} has received an average rating of ${rating}/5`
@@ -285,7 +285,7 @@ export default function MovieDetail() {
               <div className="bg-[#606060] w-full p-5 rounded-2xl grid grid-cols-12 grid-rows-1">
                 <div className="col-span-2 row-span-1 flex flex-row justify-center items-baseline border-e-2">
                   <p className="text-white text-7xl">
-                    {data.info.evaluate[0].film_rate}
+                    {Math.round(data.info.evaluate[0].film_rate*10)/10}
                   </p>
                   <p className="text-white font-extralight text-5xl">/</p>
                   <p className="text-white text-5xl">5</p>
