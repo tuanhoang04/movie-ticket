@@ -216,6 +216,31 @@ export default function Profile() {
             {tabData.map(
               ({ value, skeleton, datas, emptyText, component, onclick }) => (
                 <TabPanel key={value} value={value} className="p-0">
+                  {value == "posts" ? (
+                    <div className="w-full">
+                      <Button
+                        onClick={handleCreatePost}
+                        className="flex gap-2 m-10 mb-0 p-5 text-sm bg-[#502A50]  text-white rounded-full hover:bg-[#602A50]"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="white"
+                          class="bi bi-plus-lg"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                          />
+                        </svg>
+                        New Post
+                      </Button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   {isloading ? (
                     <div
                       className={
@@ -231,29 +256,6 @@ export default function Profile() {
                     </div>
                   ) : datas.length > 0 ? (
                     <div>
-                      {value == "posts" ? (
-                        <Button
-                          onClick={handleCreatePost}
-                          className="flex gap-2 m-10 mb-0 p-3 border-2 text-sm bg-white text-black rounded-full hover:bg-gray-400"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="black"
-                            class="bi bi-plus-lg"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                            />
-                          </svg>
-                          New Post
-                        </Button>
-                      ) : (
-                        ""
-                      )}
                       <div
                         className={
                           value === "likedMovies"
@@ -266,7 +268,7 @@ export default function Profile() {
                       </div>
                     </div>
                   ) : (
-                    <div className="text-white p-3">{emptyText}</div>
+                    <div className="text-white p-10 text-xl">{emptyText}</div>
                   )}
                 </TabPanel>
               )

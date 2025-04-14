@@ -10,6 +10,8 @@ export default function RatingForm({ handleOpen }) {
     jwt: localStorage.getItem("jwt"),
   });
 
+  console.log(localStorage.getItem("jwt"));
+
   const ratingRef = useRef(null);
 
   const [message, setMessage] = useState(null);
@@ -43,12 +45,11 @@ export default function RatingForm({ handleOpen }) {
             body: JSON.stringify(ratingData),
           }
         );
-        
+
         if (response.ok) {
           const data = await response.json();
-          
+
           if (data.success) {
-            
             setMessage("You have rated this movie successfully!");
             setTimeout(() => window.location.reload(), 2000);
           } else {
