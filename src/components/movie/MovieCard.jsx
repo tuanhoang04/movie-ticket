@@ -12,7 +12,6 @@ export default function MovieCard({ data }) {
     navigate(`/movie/${film_name}`);
   };
 
-  console.log(data);
 
   return (
     <div

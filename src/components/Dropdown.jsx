@@ -8,14 +8,11 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 
-export default function Dropdown({ label, options }) {
+export default function Dropdown({ label, options, handleChangeOption }) {
   const [openMenu, setOpenMenu] = useState(false);
-  const [dropdownLabel, setDropdownLabel] = useState(label);
-  const handleChooseItem = (option)=>{
-    setDropdownLabel(option)
-  }
-  const height=options.length>3?"290px":"170px";
-  console.log(height);
+  const handleChooseItem = (option) => {
+    handleChangeOption(option);
+  };
   return (
     <Menu
       open={openMenu}
@@ -27,7 +24,7 @@ export default function Dropdown({ label, options }) {
           variant="outlined"
           className="text-white text-lg border-0 border-l-2 rounded-none border-white flex flex-row items-center gap-1"
         >
-          {dropdownLabel}
+          {label}
           <ChevronDownIcon
             strokeWidth={1.9}
             className={`h-8 w-8 transition-transform ${
@@ -40,7 +37,7 @@ export default function Dropdown({ label, options }) {
         {options.map((option, index) => (
           <MenuItem
             key={index}
-            onClick={()=>handleChooseItem(option)}
+            onClick={() => handleChooseItem(option)}
             className="text-white text-lg"
           >
             {option}
