@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import {
   Menu,
   MenuHandler,
@@ -5,20 +6,38 @@ import {
   MenuItem,
   Button,
 } from "@material-tailwind/react";
+import { useState } from "react";
 
-export default function MenuDefault({ label, options, onClick }) {
+export default function Dropdown({ label, options, handleChangeOption }) {
+  const [openMenu, setOpenMenu] = useState(false);
+  const handleChooseItem = (option) => {
+    handleChangeOption(option);
+  };
   return (
-    <Menu className="text-white text-lg w-60 border-none after:border-none before:border-none">
+    <Menu
+      open={openMenu}
+      handler={setOpenMenu}
+      className="text-white text-lg w-64 border-none after:border-none before:border-none"
+    >
       <MenuHandler>
-        <Button className="text-md bg-transparent">{label}</Button>
+        <Button
+          variant="outlined"
+          className="text-white text-lg border-0 border-l-2 rounded-none border-white flex flex-row items-center gap-1"
+        >
+          {label}
+          <ChevronDownIcon
+            strokeWidth={1.9}
+            className={`h-8 w-8 transition-transform ${
+              openMenu ? "rotate-180" : ""
+            }`}
+          />
+        </Button>
       </MenuHandler>
-      <MenuList className="bg-[#313035] text-white border-0 overflow-y-scroll max-h-60 scrollbar">
+      <MenuList className="bg-[#313035] text-white w-56 text-lg border-0 overflow-auto overflow-x-hidden dark-scrollbar max-h-[250px]">
         {options.map((option, index) => (
           <MenuItem
             key={index}
-            name={option.region_name}
-            value={option.region_id}
-            onClick={onClick}
+            onClick={() => handleChooseItem(option)}
             className="text-white text-lg"
           >
             {option.region_name}
