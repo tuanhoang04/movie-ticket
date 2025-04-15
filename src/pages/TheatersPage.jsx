@@ -15,12 +15,18 @@ const theaterImgStyle = "rounded-full w-[40px] h-[40px]";
 
 export default function TheatersPage() {
   const [areas, setAreas] = useState([]);
-  const [currentAreaName, setCurrentAreaName] = useState("");
-  const [currentAreaId, setCurrentAreaId] = useState(-1);
+  const [currentAreaName, setCurrentAreaName] = useState(
+    localStorage.getItem("currentAreaName" || "")
+  );
+  const [currentAreaId, setCurrentAreaId] = useState(
+    localStorage.getItem("currentAreaId") || -1
+  );
   const [theaters, setTheaters] = useState([]);
   const [currentCinema, setCurrentCinema] = useState(null);
 
   const handleOptionClick = (option) => {
+    localStorage.setItem("currentAreaId", option.target.value);
+    localStorage.setItem("currentAreaName", option.target.name);
     setCurrentAreaName(option.target.name);
     setCurrentAreaId(option.target.value);
     console.log(
@@ -158,7 +164,7 @@ export default function TheatersPage() {
         </div>
         {currentAreaName && (
           <div className=" m-20 flex  text-white h-fit min-h-[400px] ">
-            <div className="w-[400px] h-full bg-white bg-opacity-10 rounded-lg ">
+            <div className="w-1/5 h-full bg-white bg-opacity-10 rounded-lg ">
               <p className=" p-2 text-3xl">Theaters in {currentAreaName}</p>
               {theaters.length > 0 && (
                 <div className="flex flex-col mt-4 h-fit max-h-[800px] overflow-y-scroll scrollbar ">
@@ -194,7 +200,7 @@ export default function TheatersPage() {
               )}
             </div>
             {currentCinema && (
-              <div className="w-full ml-10">
+              <div className=" w-4/5 ml-10">
                 <div className="rounded-xl p-5 bg-white bg-opacity-10">
                   <div className="flex justify-between items-center w-full">
                     <div className="flex  items-center gap-3 ">
@@ -296,7 +302,7 @@ export default function TheatersPage() {
                           key={index}
                           value={index}
                         >
-                          {typeof value === "object" ? (
+                          {typeof value !== "object" ? (
                             <p>{value}</p>
                           ) : (
                             <div className="grid grid-cols-3 gap-5">

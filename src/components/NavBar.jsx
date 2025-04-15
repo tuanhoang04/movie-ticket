@@ -75,7 +75,7 @@ export default function NavBar() {
       </Typography>
       <Typography as="li" variant="h4" className="p-1 font-extralight ">
         <a
-          href="#"
+          href="/news"
           className="flex items-center text-white hover:text-purple-100"
         >
           News
