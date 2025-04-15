@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 
 export default function NewsPage() {
+  const [viewdetail, setViewDetail] = useState(false);
   const [dataV, setDataV] = useState([]);
   const [dataA, setDataA] = useState([]);
 
@@ -27,7 +28,7 @@ export default function NewsPage() {
       if (sort === "newest") return new Date(b.new_time) - new Date(a.new_time);
       else return new Date(a.new_time) - new Date(b.new_time);
     });
-    console.log(data);
+    console.log("formatted", data);
 
     setFilteredData(data);
   }, [movie, category, sort]);
@@ -87,32 +88,62 @@ export default function NewsPage() {
     <>
       <NavBar />
       <div id="body" className="flex bg-[#1C1B21] p-32 gap-20 text-white">
-        <div id="lastest" className="w-3/4">
-          <div className="text-5xl border-l-8 px-5 py-4 mb-10">Movie news</div>
-          <div className="flex flex-col gap-4 p-4">
-            {filteredData.map((item) => (
-              <div
-                key={item.new_id}
-                className="flex flex-col gap-2 border-2 p-6 rounded-lg"
-              >
-                <h1 className="text-3xl mb-3">{item.new_header}</h1>
-                <img src={item.new_img} alt="" className="rounded-lg" />
+        {viewdetail ? (
+          <div>
+            <div className="text-5xl border-l-8 px-5 py-4 mb-10">
+              Movie news
+            </div>
+            <div className="flex flex-col gap-10 p-4">
+              <div className="flex flex-col gap-2 border-2 border-opacity-10 p-6 rounded-lg">
+                <h1 className="text-3xl mb-3">{filteredData.new_header}</h1>
+                <img src={filteredData.new_img} alt="" className="rounded-lg" />
                 <div
                   className="line-clamp-5 text-md"
-                  dangerouslySetInnerHTML={{ __html: item.new_content }}
+                  dangerouslySetInnerHTML={{ __html: filteredData.new_content }}
                 ></div>
                 <div className="flex justify-between items-center mt-5">
                   <p>
-                    {item.new_time.substring(0, 10)} ● by {item.username}
+                    {filteredData.new_time.substring(0, 10)} ● by{" "}
+                    {filteredData.username}
                   </p>
                   <a src="#" className="text-xl underline">
                     See full article
                   </a>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div id="lastest" className="w-3/4">
+            <div className="text-5xl border-l-8 px-5 py-4 mb-10">
+              Movie news
+            </div>
+            <div className="flex flex-col gap-10 p-4">
+              {filteredData.map((item) => (
+                <div
+                  key={item.new_id}
+                  className="flex flex-col gap-2 border-2 border-opacity-10 p-6 rounded-lg"
+                >
+                  <h1 className="text-3xl mb-3">{item.new_header}</h1>
+                  <img src={item.new_img} alt="" className="rounded-lg" />
+                  <div
+                    className="line-clamp-5 text-md"
+                    dangerouslySetInnerHTML={{ __html: item.new_content }}
+                  ></div>
+                  <div className="flex justify-between items-center mt-5">
+                    <p>
+                      {item.new_time.substring(0, 10)} ● by {item.username}
+                    </p>
+                    <a src="#" className="text-xl underline">
+                      See full article
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div id="side" className="w-1/4">
           <div className="text-5xl border-l-8 px-5 py-4 mb-14">
             More to explore

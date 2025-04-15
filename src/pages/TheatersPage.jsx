@@ -16,7 +16,7 @@ const theaterImgStyle = "rounded-full w-[40px] h-[40px]";
 export default function TheatersPage() {
   const [areas, setAreas] = useState([]);
   const [currentAreaName, setCurrentAreaName] = useState(
-    localStorage.getItem("currentAreaName" || "")
+    localStorage.getItem("currentAreaName") || ""
   );
   const [currentAreaId, setCurrentAreaId] = useState(
     localStorage.getItem("currentAreaId") || -1
@@ -25,13 +25,10 @@ export default function TheatersPage() {
   const [currentCinema, setCurrentCinema] = useState(null);
 
   const handleOptionClick = (option) => {
-    localStorage.setItem("currentAreaId", option.target.value);
-    localStorage.setItem("currentAreaName", option.target.name);
-    setCurrentAreaName(option.target.name);
-    setCurrentAreaId(option.target.value);
-    console.log(
-      `Selected Area: ${option.target.name}, ID: ${option.target.value}`
-    );
+    localStorage.setItem("currentAreaId", option.region_id);
+    localStorage.setItem("currentAreaName", option.region_name);
+    setCurrentAreaName(option.region_name);
+    setCurrentAreaId(option.region_id);
   };
 
   const getTheaterLogo = (cluster_name) => {
@@ -159,7 +156,7 @@ export default function TheatersPage() {
           <Dropdown
             label="Select a location"
             options={areas}
-            onClick={handleOptionClick}
+            handleChangeOption={handleOptionClick}
           />
         </div>
         {currentAreaName && (
