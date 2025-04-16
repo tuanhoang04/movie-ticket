@@ -40,7 +40,7 @@ export default function Dropdown({ label, options, handleChangeOption }) {
             onClick={() => handleChooseItem(option)}
             className="text-white text-lg"
           >
-            {option}
+            {typeof option == "object" ? option.region_name : option}
           </MenuItem>
         ))}
       </MenuList>
