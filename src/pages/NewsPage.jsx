@@ -86,7 +86,7 @@ export default function NewsPage() {
   }, []);
   return (
     <>
-      <NavBar />
+      <NavBar currentPage={"News"}/>
       <div id="body" className="flex bg-[#1C1B21] p-32 gap-20 text-white">
         {viewdetail ? (
           <div>

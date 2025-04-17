@@ -117,7 +117,7 @@ export default function MoviesFilterPage() {
   };
   return (
     <div className="flex flex-col flex-grow min-h-screen bg-[#1C1B21]">
-      <NavBar />
+      <NavBar currentPage={"Movies"}/>
       <div className="flex flex-col gap-3 flex-grow py-7 px-8 lg:px-36">
         <div className="flex flex-row gap-5">
           <div className="w-fit flex items-center gap-10 bg-gray-800 pl-5 rounded-2xl">
