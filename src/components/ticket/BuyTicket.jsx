@@ -10,6 +10,41 @@ export default function BuyTicket() {
   const [message, setMessage] = useState(null);
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [cityID, setCityID] = useState(null);
+
+  useEffect(() => {
+    const fetchCinemas = async () => {
+      try {
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/film/filmInfo/id=${film_id}/lichChieu/khuVuc_id=${
+            cityID
+          }`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.ok) {
+          const result = await response.json();
+          console.log("fetch cinemas", result);
+          console.log(cityID);
+          console.log(film_id);
+        } else {
+          console.error("Lỗi khi truy cập:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Lỗi mạng:", error);
+      }
+    };
+
+    if (cityID && selectedCity) {
+      fetchCinemas();
+    }
+  }, [cityID, film_id]);
 
   const fetchCities = async () => {
     try {
@@ -127,7 +162,7 @@ export default function BuyTicket() {
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
-          console.log(result);
+          // console.log(result);
           setData(result);
           const movieName = result.info.film[0].film_name;
           const rating =
@@ -240,9 +275,13 @@ export default function BuyTicket() {
             {cities && (
               <div>
                 <p className="text-white text-4xl font-bold pb-3">Buy ticket</p>
-                <Dropdown label="Select a location" options={cities.map((item)=>{return item.region_name})}/>
+                <Dropdown
+                  label={selectedCity||"Select a location"}
+                  options={cities}
+                  handleChangeOption={(city)=>{setSelectedCity(city)}}
+                  handleChangeCityID={(newID)=>{setCityID(newID)}}
+                />
               </div>
-              
             )}
           </div>
         </div>
