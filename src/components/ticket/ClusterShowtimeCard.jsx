@@ -43,7 +43,7 @@ export default function ClusterShowtimeCard({ data }) {
   
   const allSubCinemas = Object.keys(data[theater]);
   return (
-    <div className="bg-[#606060] rounded-lg">
+    <div className="bg-[#606060] rounded-lg mb-8">
       <div className="flex flex-row gap-2 items-center p-2 rounded-t-lg bg-[#65438d]">
         <img src={iconSrc} className="w-8 rounded-full" />
         <p className="text-white text-2xl font-extralight">{theater}</p>
@@ -54,13 +54,13 @@ export default function ClusterShowtimeCard({ data }) {
         <div>
           {allSubCinemas.map((item, index) => {
             return (
-              <div key={index}>
+              <div className="pb-3" key={index}>
                 <p className="text-white font-light text-xl">{item}</p>
                 <p className="text-white text-xl font-medium">
                   {data[theater][item].address}
                 </p>
                 {data[theater][item].show_time.map((item, index) => {
-                    return (<Button className="text-gray-400 bg-black w-fit py-1 text-base px-2 mt-2 rounded-xl">
+                    return (<Button key={index} className="text-gray-400 bg-black w-fit py-1 text-base px-2 mr-2 mt-1 rounded-xl">
                         {formatTimeToAMPM(item.show_time)}
                     </Button>)
                 })}

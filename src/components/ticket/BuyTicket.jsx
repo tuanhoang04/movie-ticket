@@ -312,6 +312,7 @@ export default function BuyTicket() {
                   label={selectedCity || "Select a location"}
                   options={cities}
                   handleChangeOption={(city) => {
+                    setSelectedButtonIndex(null)
                     setSelectedCity(city);
                     setClustersSchedule(null);
                   }}
@@ -322,7 +323,7 @@ export default function BuyTicket() {
               </div>
             )}
             {schedule && (
-              <div className="flex flex-row gap-2 mt-5">
+              <div className="flex flex-row gap-8 my-5">
                 {schedule.map((item, index) => {
                   const [label, date] = Object.entries(item[0])[0];
                   const isSelected = selectedButtonIndex === index;
@@ -336,7 +337,7 @@ export default function BuyTicket() {
                              ? setClustersSchedule(schedule[index][1])
                              : setClustersSchedule(1);
                          }}
-                         className={`text-xl font-thin ${
+                         className={`text-xl font-thin p-0 ${
                            isSelected ? "text-[#B49AFF]" : "text-white"
                          }`}
                        >
