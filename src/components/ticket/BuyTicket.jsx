@@ -315,10 +315,12 @@ export default function BuyTicket() {
                     setSelectedButtonIndex(null)
                     setSelectedCity(city);
                     setClustersSchedule(null);
+                    console.log(city.region_id);
+                    setCityID(city.region_id);
                   }}
-                  handleChangeCityID={(newID) => {
-                    setCityID(newID);
-                  }}
+                  // handleChangeCityID={(newID) => {
+                  //   setCityID(newID);
+                  // }}
                 />
               </div>
             )}
