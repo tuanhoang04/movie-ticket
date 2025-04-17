@@ -3,6 +3,8 @@ import Footer from "../Footer";
 import NavBar from "../NavBar";
 import { Button } from "@material-tailwind/react";
 import Dropdown from "../Dropdown";
+import CinemaShowtimeCard from "./ClusterShowtimeCard";
+import ClusterShowtimeCard from "./ClusterShowtimeCard";
 export default function BuyTicket() {
   const film_id = localStorage.getItem("film_id");
   const [data, setData] = useState(null);
@@ -11,16 +13,16 @@ export default function BuyTicket() {
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   const [cityID, setCityID] = useState(null);
-
+  const [schedule, setSchedule] = useState([]);
+  const [clustersSchedule, setClustersSchedule] = useState([]);
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
   useEffect(() => {
-    const fetchCinemas = async () => {
+    const fetchFilmSchedule = async () => {
       try {
         const response = await fetch(
           `${
             import.meta.env.VITE_API_URL
-          }/api/film/filmInfo/id=${film_id}/lichChieu/khuVuc_id=${
-            cityID
-          }`,
+          }/api/film/filmInfo/id=${film_id}/lichChieu/khuVuc_id=${cityID}`,
           {
             method: "GET",
             headers: {
@@ -30,9 +32,8 @@ export default function BuyTicket() {
         );
         if (response.ok) {
           const result = await response.json();
-          console.log("fetch cinemas", result);
-          console.log(cityID);
-          console.log(film_id);
+          setSchedule(transformSchedule(result));
+          console.log(transformSchedule(result));
         } else {
           console.error("Lỗi khi truy cập:", response.statusText);
         }
@@ -42,7 +43,7 @@ export default function BuyTicket() {
     };
 
     if (cityID && selectedCity) {
-      fetchCinemas();
+      fetchFilmSchedule();
     }
   }, [cityID, film_id]);
 
@@ -119,6 +120,37 @@ export default function BuyTicket() {
     }
   };
 
+  function transformSchedule(data) {
+    const result = [];
+    const keys = Object.keys(data);
+
+    keys.forEach((key, index) => {
+      const [dayName, dateStr] = key.split(" ");
+      const [day, month] = dateStr.split("-");
+
+      const label = index === 0 ? "Today" : index === 1 ? "Tomorrow" : dayName;
+
+      const formattedDate = `${day.padStart(2, "0")}/${month.padStart(2, "0")}`;
+
+      const entry = { [label]: formattedDate };
+
+      const innerArray = [entry];
+
+      if (Object.keys(data[key]).length > 0) {
+        const cinemas = Object.entries(data[key]).map(
+          ([cinemaName, branches]) => ({
+            [cinemaName]: branches,
+          })
+        );
+        innerArray.push(cinemas);
+      }
+
+      result.push(innerArray);
+    });
+
+    return result;
+  }
+
   const like = async () => {
     try {
       const response = await fetch(
@@ -185,6 +217,7 @@ export default function BuyTicket() {
       fetchCities();
     }
   }, []);
+
   return (
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar />
@@ -274,15 +307,59 @@ export default function BuyTicket() {
 
             {cities && (
               <div>
-                <p className="text-white text-4xl font-bold pb-3">Buy ticket</p>
+                <p className="text-white text-4xl font-bold pb-5">Buy ticket</p>
                 <Dropdown
-                  label={selectedCity||"Select a location"}
+                  label={selectedCity || "Select a location"}
                   options={cities}
-                  handleChangeOption={(city)=>{setSelectedCity(city)}}
-                  handleChangeCityID={(newID)=>{setCityID(newID)}}
+                  handleChangeOption={(city) => {
+                    setSelectedCity(city);
+                    setClustersSchedule(null);
+                  }}
+                  handleChangeCityID={(newID) => {
+                    setCityID(newID);
+                  }}
                 />
               </div>
             )}
+            {schedule && (
+              <div className="flex flex-row gap-2 mt-5">
+                {schedule.map((item, index) => {
+                  const [label, date] = Object.entries(item[0])[0];
+                  const isSelected = selectedButtonIndex === index;
+                   return (
+                     <div key={index}>
+                       <Button
+                         variant="text"
+                         onClick={() => {
+                           setSelectedButtonIndex(index);
+                           schedule[index].length > 1
+                             ? setClustersSchedule(schedule[index][1])
+                             : setClustersSchedule(1);
+                         }}
+                         className={`text-xl font-thin ${
+                           isSelected ? "text-[#B49AFF]" : "text-white"
+                         }`}
+                       >
+                         <p>{label}</p>
+                         <p>{date}</p>
+                       </Button>
+                     </div>
+                   );
+                })}
+              </div>
+            )}
+            {clustersSchedule &&
+              (clustersSchedule === 1 ? (
+                <div>
+                  <p className="text-2xl text-white">No showtime is available for this</p>
+                </div>
+              ) : (
+                <div>
+                  {clustersSchedule.map((item, index) => {
+                    return <ClusterShowtimeCard key={index} data={item} />;
+                  })}
+                </div>
+              ))}
           </div>
         </div>
       </div>
