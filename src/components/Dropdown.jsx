@@ -12,7 +12,6 @@ export default function Dropdown({ label, options, handleChangeOption }) {
   const [openMenu, setOpenMenu] = useState(false);
   const handleChooseItem = (option) => {
     handleChangeOption(option.region_name);
-    handleChangeCityID(option.region_id);
   };
   return (
     <Menu
