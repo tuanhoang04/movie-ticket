@@ -148,7 +148,7 @@ export default function TheatersPage() {
 
   return (
     <div className="bg-[#1C1B21] h-fit">
-      <NavBar />
+      <NavBar currentPage={"Theaters"}/>
       <div id="body" className="">
         <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-lg">
           <p className="text-white text-xl p-2 pr-4 border-r-2">Location</p>

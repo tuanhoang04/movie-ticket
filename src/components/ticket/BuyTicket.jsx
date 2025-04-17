@@ -62,6 +62,7 @@ export default function BuyTicket() {
         const result = await response.json();
         if (result) {
           setCities(result);
+          console.log(result);
         } else {
           console.log(`Truy cập: ${result.message}`);
         }
@@ -314,9 +315,13 @@ export default function BuyTicket() {
                   handleChangeOption={(option) => {
                     setSelectedButtonIndex(null);
                     setSelectedCity(option.region_name);
+                    console.log(option.region_name);
                     setClustersSchedule(null);
                     setCityID(option.region_id);
                   }}
+                  // handleChangeCityID={(newID) => {
+                  //   setCityID(newID);
+                  // }}
                 />
               </div>
             )}

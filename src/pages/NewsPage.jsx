@@ -90,7 +90,7 @@ export default function NewsPage() {
   }, []);
   return (
     <>
-      <NavBar />
+      <NavBar currentPage={"News"}/>
       <div id="body" className="flex bg-[#1C1B21] p-32 gap-20 text-white">
         <div id="lastest" className="w-3/4">
           <div className="text-5xl border-l-8 px-5 py-4 mb-10">Movie news</div>

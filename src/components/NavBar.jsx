@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
 import SignIn from "../pages/user/SignIn";
 
-export default function NavBar() {
+export default function NavBar({ currentPage }) {
   const [openNav, setOpenNav] = useState(false);
   const [login, setLogin] = useState(true);
   const [userInfo, setUserInfo] = useState([]);
@@ -52,7 +52,8 @@ export default function NavBar() {
       <Typography as="li" variant="h4" className="p-1 font-extralight ">
         <a
           href="/home"
-          className="flex items-center text-white underline underline-offset-8 hover:text-purple-100"
+          className={`flex items-center text-white hover:text-purple-100
+              ${currentPage === "Home" ? "underline underline-offset-8" : ""}`}
         >
           Home
         </a>
@@ -60,15 +61,34 @@ export default function NavBar() {
       <Typography as="li" variant="h4" className="p-1 font-extralight ">
         <a
           href="/movie/filter"
-          className="flex items-center text-white hover:text-purple-100"
+          className={`flex items-center text-white hover:text-purple-100
+              ${
+                currentPage === "Movies" ? "underline underline-offset-8" : ""
+              }`}
         >
-          Buy Tickets
+          Movies
+        </a>
+      </Typography>
+      <Typography as="li" variant="h4" className="p-1 font-extralight ">
+        <a
+          href="/movie/filter"
+          className={`flex items-center text-white hover:text-purple-100
+              ${
+                currentPage === "Buy Ticket"
+                  ? "underline underline-offset-8"
+                  : ""
+              }`}
+        >
+          Buy Ticket
         </a>
       </Typography>
       <Typography as="li" variant="h4" className="p-1 font-extralight ">
         <a
           href="/theaters"
-          className="flex items-center text-white hover:text-purple-100"
+          className={`flex items-center text-white hover:text-purple-100
+              ${
+                currentPage === "Theaters" ? "underline underline-offset-8" : ""
+              }`}
         >
           Theaters
         </a>
@@ -76,7 +96,8 @@ export default function NavBar() {
       <Typography as="li" variant="h4" className="p-1 font-extralight ">
         <a
           href="/news"
-          className="flex items-center text-white hover:text-purple-100"
+          className={`flex items-center text-white hover:text-purple-100
+              ${currentPage === "News" ? "underline underline-offset-8" : ""}`}
         >
           News
         </a>
