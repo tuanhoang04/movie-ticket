@@ -315,9 +315,9 @@ export default function BuyTicket() {
                   handleChangeOption={(option) => {
                     setSelectedButtonIndex(null);
                     setSelectedCity(option.region_name);
+                    console.log(option.region_name);
                     setClustersSchedule(null);
-                    clg(region)
-                    setCityID(city.region_id);
+                    setCityID(option.region_id);
                   }}
                   // handleChangeCityID={(newID) => {
                   //   setCityID(newID);

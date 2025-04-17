@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function Dropdown({ label, options, handleChangeOption }) {
   const [openMenu, setOpenMenu] = useState(false);
   const handleChooseItem = (option) => {
-    handleChangeOption(option.region_name);
+    handleChangeOption(option);
   };
   return (
     <Menu
