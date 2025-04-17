@@ -311,13 +311,11 @@ export default function BuyTicket() {
                 <Dropdown
                   label={selectedCity || "Select a location"}
                   options={cities}
-                  handleChangeOption={(city) => {
-                    setSelectedButtonIndex(null)
-                    setSelectedCity(city);
+                  handleChangeOption={(option) => {
+                    setSelectedButtonIndex(null);
+                    setSelectedCity(option.region_name);
                     setClustersSchedule(null);
-                  }}
-                  handleChangeCityID={(newID) => {
-                    setCityID(newID);
+                    setCityID(option.region_id);
                   }}
                 />
               </div>
@@ -327,32 +325,34 @@ export default function BuyTicket() {
                 {schedule.map((item, index) => {
                   const [label, date] = Object.entries(item[0])[0];
                   const isSelected = selectedButtonIndex === index;
-                   return (
-                     <div key={index}>
-                       <Button
-                         variant="text"
-                         onClick={() => {
-                           setSelectedButtonIndex(index);
-                           schedule[index].length > 1
-                             ? setClustersSchedule(schedule[index][1])
-                             : setClustersSchedule(1);
-                         }}
-                         className={`text-xl font-thin p-0 ${
-                           isSelected ? "text-[#B49AFF]" : "text-white"
-                         }`}
-                       >
-                         <p>{label}</p>
-                         <p>{date}</p>
-                       </Button>
-                     </div>
-                   );
+                  return (
+                    <div key={index}>
+                      <Button
+                        variant="text"
+                        onClick={() => {
+                          setSelectedButtonIndex(index);
+                          schedule[index].length > 1
+                            ? setClustersSchedule(schedule[index][1])
+                            : setClustersSchedule(1);
+                        }}
+                        className={`text-xl font-thin p-0 ${
+                          isSelected ? "text-[#B49AFF]" : "text-white"
+                        }`}
+                      >
+                        <p>{label}</p>
+                        <p>{date}</p>
+                      </Button>
+                    </div>
+                  );
                 })}
               </div>
             )}
             {clustersSchedule &&
               (clustersSchedule === 1 ? (
                 <div>
-                  <p className="text-2xl text-white">No showtime is available for this</p>
+                  <p className="text-2xl text-white">
+                    No showtime is available for this
+                  </p>
                 </div>
               ) : (
                 <div>

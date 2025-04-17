@@ -8,11 +8,10 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 
-export default function Dropdown({ label, options, handleChangeOption, handleChangeCityID }) {
+export default function Dropdown({ label, options, handleChangeOption }) {
   const [openMenu, setOpenMenu] = useState(false);
   const handleChooseItem = (option) => {
-    handleChangeOption(option.region_name?option.region_name:option);
-    handleChangeCityID&&handleChangeCityID(option.region_id);
+    handleChangeOption(option);
   };
   return (
     <Menu

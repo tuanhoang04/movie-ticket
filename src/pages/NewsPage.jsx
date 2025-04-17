@@ -94,7 +94,7 @@ export default function NewsPage() {
               Movie news
             </div>
             <div className="flex flex-col gap-10 p-4">
-              <div className="flex flex-col gap-2 border-2 border-opacity-10 p-6 rounded-lg">
+              <div className="flex flex-col gap-2 bg-white border-opacity-10 p-6 rounded-lg">
                 <h1 className="text-3xl mb-3">{filteredData.new_header}</h1>
                 <img src={filteredData.new_img} alt="" className="rounded-lg" />
                 <div
@@ -122,7 +122,7 @@ export default function NewsPage() {
               {filteredData.map((item) => (
                 <div
                   key={item.new_id}
-                  className="flex flex-col gap-2 border-2 border-opacity-10 p-6 rounded-lg"
+                  className="flex flex-col gap-2 bg-white text-black p-6 rounded-lg"
                 >
                   <h1 className="text-3xl mb-3">{item.new_header}</h1>
                   <img src={item.new_img} alt="" className="rounded-lg" />
@@ -134,9 +134,7 @@ export default function NewsPage() {
                     <p>
                       {item.new_time.substring(0, 10)} ● by {item.username}
                     </p>
-                    <a src="#" className="text-xl underline">
-                      See full article
-                    </a>
+                    <div className="text-xl underline">See full article</div>
                   </div>
                 </div>
               ))}
@@ -168,11 +166,11 @@ export default function NewsPage() {
             {dataV.slice(0, 5).map((item) => (
               <div
                 key={item.new_id}
-                className="flex  gap-2 border-2 p-3 rounded-lg"
+                className="flex  gap-2 bg-white text-black p-3 rounded-lg"
               >
                 <div className="w-4/5">
-                  <p className="line-clamp-2 text-md mb-3">{item.new_header}</p>
-                  <p className="line-clamp-1 text-sm">
+                  <p className="line-clamp-2 text-lg mb-3">{item.new_header}</p>
+                  <p className="line-clamp-1 text-md">
                     {" "}
                     {item.new_time.substring(0, 10)} ● by {item.username}
                   </p>
@@ -207,11 +205,11 @@ export default function NewsPage() {
             {dataV.slice(0, 5).map((item) => (
               <div
                 key={item.new_id}
-                className="flex  gap-2 border-2 p-3 rounded-lg"
+                className="flex  gap-2 bg-white text-black p-3 rounded-lg"
               >
                 <div className="w-4/5">
-                  <p className="line-clamp-2 text-md mb-3">{item.new_header}</p>
-                  <p className="line-clamp-1 text-sm">
+                  <p className="line-clamp-2 text-lg mb-3">{item.new_header}</p>
+                  <p className="line-clamp-1 text-md">
                     {" "}
                     {item.new_time.substring(0, 10)} ● by {item.username}
                   </p>
