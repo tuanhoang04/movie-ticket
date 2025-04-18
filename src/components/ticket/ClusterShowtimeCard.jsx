@@ -40,7 +40,12 @@ export default function ClusterShowtimeCard({ data }) {
   } else if (theater === "Đống Đa Cinema") {
     iconSrc = "/dongda.png";
   }
-  
+
+  const handleSelectShowtime = (showtime_id) => {
+    localStorage.setItem("showtime_id",showtime_id);
+    console.log(showtime_id);
+  };
+
   const allSubCinemas = Object.keys(data[theater]);
   return (
     <div className="bg-[#606060] rounded-lg mb-8">
@@ -60,9 +65,15 @@ export default function ClusterShowtimeCard({ data }) {
                   {data[theater][item].address}
                 </p>
                 {data[theater][item].show_time.map((item, index) => {
-                    return (<Button key={index} className="text-gray-400 bg-black w-fit py-1 text-base px-2 mr-2 mt-1 rounded-xl">
-                        {formatTimeToAMPM(item.show_time)}
-                    </Button>)
+                  return (
+                    <Button
+                      key={index}
+                      className="text-gray-400 bg-black w-fit py-1 text-base px-2 mr-2 mt-1 rounded-xl"
+                      onClick={()=>{handleSelectShowtime(item.showtime_id)}}
+                    >
+                      {formatTimeToAMPM(item.show_time)}
+                    </Button>
+                  );
                 })}
               </div>
             );

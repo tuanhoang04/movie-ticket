@@ -41,7 +41,6 @@ export default function MovieDetail() {
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
-          console.log(result);
           setData(result);
           const movieName = result.info.film[0].film_name;
           const rating =

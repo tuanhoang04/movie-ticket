@@ -13,6 +13,7 @@ import SignIn from "./pages/user/SignIn";
 import MovieDetail from "./components/movie/MovieDetail";
 import BuyTicket from "./components/ticket/BuyTicket";
 import MoviesFilterPage from "./pages/MoviesFilterPage";
+import BookingTicket from "./components/ticket/BookingTicket";
 function App() {
   return (
     <Router>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/movie/:film_name" element={<MovieDetail />} />
         <Route path="/movie/buyTicket/:film_name" element={<BuyTicket />} />
+        <Route path="/movie/bookTicket/:film_name" element={<BookingTicket />} />
         <Route path="/movie/filter" element={<MoviesFilterPage />} />
       </Routes>
     </Router>
