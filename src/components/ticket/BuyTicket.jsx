@@ -340,7 +340,7 @@ export default function BuyTicket() {
                             ? setClustersSchedule(schedule[index][1])
                             : setClustersSchedule(1);
                         }}
-                        className={`text-xl font-thin p-0 ${
+                        className={`text-xl font-light p-0 ${
                           isSelected ? "text-[#B49AFF]" : "text-white"
                         }`}
                       >

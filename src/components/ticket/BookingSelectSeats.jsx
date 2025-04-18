@@ -1,8 +1,10 @@
 import { Button } from "@material-tailwind/react";
 import { useTicketContext } from "./BookingTicketProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function BookingSelectSeats() {
   const data = useTicketContext();
+  const navigate = useNavigate();
   const selectedSeats = data.selectedSeats;
   const setSelectedSeats = data.setSelectedSeats;
 
@@ -194,7 +196,7 @@ export default function BookingSelectSeats() {
           </div>
 
           <div className="flex flex-row gap-4 justify-center mb-5">
-            <Button variant="text" className="text-white text-base">
+            <Button variant="text" className="text-white text-base" onClick={()=>{navigate(`/movie/${createSlug(seatData.film_name)}`);}}>
               Cancel
             </Button>
             <Button
@@ -209,4 +211,12 @@ export default function BookingSelectSeats() {
       )}
     </div>
   );
+}
+
+function createSlug(name) {
+  return name
+    .trim()
+    .replace(/\s*:\s*/g, "-") // Thay thế dấu ":" và các khoảng trắng trước và sau nó bằng dấu gạch ngang
+    .replace(/\s+/g, "-") // Thay thế tất cả khoảng trắng còn lại bằng dấu gạch ngang
+    .replace(/-+/g, "-"); // Thay thế nhiều dấu gạch ngang liên tiếp bằng một dấu gạch ngang
 }

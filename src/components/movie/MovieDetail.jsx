@@ -291,7 +291,7 @@ export default function MovieDetail() {
                   <p className="text-white text-7xl">
                     {Math.round(data.info.evaluate[0].film_rate * 10) / 10}
                   </p>
-                  <p className="text-white font-extralight text-5xl">/</p>
+                  <p className="text-white font-light text-5xl">/</p>
                   <p className="text-white text-5xl">5</p>
                 </div>
 
