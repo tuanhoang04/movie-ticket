@@ -3,6 +3,18 @@ import { useTicketContext } from "./BookingTicketProvider";
 
 export default function BookingSelectSeats() {
   const data = useTicketContext();
+  const selectedSeats = data.selectedSeats;
+  const setSelectedSeats = data.setSelectedSeats;
+
+  const selectedCombos = data.selectedCombos;
+  const setSelectedCombos = data.setSelectedCombos;
+
+  const seatTotalAmount = data.seatTotalAmount;
+  const setSeatTotalAmount = data.setSeatTotalAmount;
+
+  const popcornTotalAmount = data.popcornTotalAmount;
+  const setPopcornTotalAmount = data.setPopcornTotalAmount;
+
   const seatData = data.seatData;
   console.log(seatData);
   // console.log(data);
@@ -78,15 +90,74 @@ export default function BookingSelectSeats() {
                 {seatData.seats.map((item, index) => {
                   return item.seat_status !== 0 ? (
                     <div
-                      key={index}
-                      onClick={() => {
-                        console.log(item.seat_location);
-                      }}
+                      key={item.seat_location}
                       className="col-span-1 row-span-1 bg-[repeating-linear-gradient(45deg,_#ccc_0px,_#ccc_10px,_#eee_10px,_#eee_20px)]"
+                    ></div>
+                  ) : selectedSeats.includes(item.seat_location) ? (
+                    <div
+                      key={item.seat_location}
+                      onClick={() => {
+                        if (item.seat_location[0] !== "J") {
+                          setSelectedSeats(
+                            selectedSeats.filter(
+                              (curr) => curr !== item.seat_location
+                            )
+                          );
+                          setSeatTotalAmount(seatTotalAmount-item.price);
+                        } else {
+                          if (index % 2 === 0) {
+                            setSelectedSeats(
+                              selectedSeats.filter((curr) => {
+                                return (
+                                  curr !==
+                                    seatData.seats[index].seat_location &&
+                                  curr !==
+                                    seatData.seats[index + 1].seat_location
+                                );
+                              })
+                            );
+                          } else {
+                            setSelectedSeats(
+                              selectedSeats.filter((curr) => {
+                                return (
+                                  curr !==
+                                    seatData.seats[index].seat_location &&
+                                  curr !==
+                                    seatData.seats[index - 1].seat_location
+                                );
+                              })
+                            );
+                          }
+                          setSeatTotalAmount(seatTotalAmount - item.price*2);
+                        }
+                      }}
+                      className="col-span-1 row-span-1 bg-green-700"
                     ></div>
                   ) : (
                     <div
-                      key={index}
+                      key={item.seat_location}
+                      onClick={() => {
+                        if (item.seat_location[0] !== "J") {
+                          setSelectedSeats([
+                            ...selectedSeats,
+                            item.seat_location,
+                          ]);
+                          setSeatTotalAmount(seatTotalAmount + item.price);
+                        } else {
+                          index % 2 == 0
+                            ? setSelectedSeats([
+                                ...selectedSeats,
+                                seatData.seats[index].seat_location,
+                                seatData.seats[index + 1].seat_location,
+                              ])
+                            : setSelectedSeats([
+                                ...selectedSeats,
+                                seatData.seats[index].seat_location,
+                                seatData.seats[index - 1].seat_location,
+                              ]);
+                              setSeatTotalAmount(seatTotalAmount + item.price*2);
+                        }
+                      }}
                       className={`col-span-1 row-span-1  ${
                         item.seat_type === 0
                           ? "bg-[#FFFFFF]"
@@ -118,7 +189,7 @@ export default function BookingSelectSeats() {
               <p className="text-white text-2xl font-light mb-2">
                 Current total:
               </p>
-              <p className="text-white text-xl">abc</p>
+              <p className="text-white text-xl">{data.seatTotalAmount} VND</p>
             </div>
           </div>
 

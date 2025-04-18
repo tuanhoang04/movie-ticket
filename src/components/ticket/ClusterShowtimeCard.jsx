@@ -1,4 +1,5 @@
 import { Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 const sample = {
   "Beta Cinemas": {
@@ -16,7 +17,16 @@ const sample = {
   },
 };
 
-export default function ClusterShowtimeCard({ data }) {
+function createSlug(name) {
+  return name
+    .trim()
+    .replace(/\s*:\s*/g, "-") // Thay thế dấu ":" và các khoảng trắng trước và sau nó bằng dấu gạch ngang
+    .replace(/\s+/g, "-") // Thay thế tất cả khoảng trắng còn lại bằng dấu gạch ngang
+    .replace(/-+/g, "-"); // Thay thế nhiều dấu gạch ngang liên tiếp bằng một dấu gạch ngang
+}
+
+export default function ClusterShowtimeCard({ data, movieName }) {
+  const navigate = useNavigate();
   let iconSrc = "";
   const theater = Object.keys(data)[0];
   if (theater === "Beta Cinemas" || theater === "Cinemax") {
@@ -42,8 +52,8 @@ export default function ClusterShowtimeCard({ data }) {
   }
 
   const handleSelectShowtime = (showtime_id) => {
-    localStorage.setItem("showtime_id",showtime_id);
-    console.log(showtime_id);
+    localStorage.setItem("showtime_id", showtime_id);
+    navigate(`/movie/bookTicket/${createSlug(movieName)}`);
   };
 
   const allSubCinemas = Object.keys(data[theater]);
@@ -69,7 +79,9 @@ export default function ClusterShowtimeCard({ data }) {
                     <Button
                       key={index}
                       className="text-gray-400 bg-black w-fit py-1 text-base px-2 mr-2 mt-1 rounded-xl"
-                      onClick={()=>{handleSelectShowtime(item.showtime_id)}}
+                      onClick={() => {
+                        handleSelectShowtime(item.showtime_id);
+                      }}
                     >
                       {formatTimeToAMPM(item.show_time)}
                     </Button>

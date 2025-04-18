@@ -33,7 +33,7 @@ export default function BuyTicket() {
         if (response.ok) {
           const result = await response.json();
           setSchedule(transformSchedule(result));
-          console.log(transformSchedule(result));
+          // console.log(transformSchedule(result));
         } else {
           console.error("Lỗi khi truy cập:", response.statusText);
         }
@@ -62,9 +62,9 @@ export default function BuyTicket() {
         const result = await response.json();
         if (result) {
           setCities(result);
-          console.log(result);
+          // console.log(result);
         } else {
-          console.log(`Truy cập: ${result.message}`);
+          // console.log(`Truy cập: ${result.message}`);
         }
       } else {
         console.error("Lỗi khi truy cập:", response.statusText);
@@ -315,7 +315,7 @@ export default function BuyTicket() {
                   handleChangeOption={(option) => {
                     setSelectedButtonIndex(null);
                     setSelectedCity(option.region_name);
-                    console.log(option.region_name);
+                    // console.log(option.region_name);
                     setClustersSchedule(null);
                     setCityID(option.region_id);
                   }}
@@ -362,7 +362,13 @@ export default function BuyTicket() {
               ) : (
                 <div>
                   {clustersSchedule.map((item, index) => {
-                    return <ClusterShowtimeCard key={index} data={item} />;
+                    return (
+                      <ClusterShowtimeCard
+                        key={index}
+                        movieName={data.info.film[0].film_name}
+                        data={item}
+                      />
+                    );
                   })}
                 </div>
               ))}

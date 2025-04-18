@@ -9,8 +9,8 @@ export default function BookingTicketProvider({ children }) {
   const [popcornData, setPopcornData] = useState(null);
   const [popcornLoading, setPopcornLoading] = useState(true);
 
-  const [seatTotalAmount, setSeatTotalAmount] = useState(null);
-  const [popcornTotalAmount, setPopcornTotalAmount] = useState(null);
+  const [seatTotalAmount, setSeatTotalAmount] = useState(0);
+  const [popcornTotalAmount, setPopcornTotalAmount] = useState(0);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedCombos, setSelectedCombos] = useState([]);
   if (showtime_id === null) {
