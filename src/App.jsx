@@ -13,7 +13,7 @@ import SignIn from "./pages/user/SignIn";
 import MovieDetail from "./components/movie/MovieDetail";
 import BuyTicket from "./components/ticket/BuyTicket";
 import MoviesFilterPage from "./pages/MoviesFilterPage";
-import BookingTicket from "./components/ticket/BookingTicket";
+import BookingTicket from "./components/ticket/BookingTicketMain";
 function App() {
   return (
     <Router>

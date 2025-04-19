@@ -111,7 +111,7 @@ export default function BookingSelectPopcorn({ setNextStep, setPrevStep }) {
 
           {popcornData.map((item, index)=>{
             return (
-              <div className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1">
+              <div key={index} className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1">
                 <div className="col-span-7 row-span-1 ml-8 py-5">
                   <p className="text-white text-xl font-light">
                     {item.combo_name}

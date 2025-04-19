@@ -14,7 +14,7 @@ export default function TicketCard({ data }) {
       <div className="grid  place-items-center rounded-lg overflow-hidden">
         <img
           src={data.film_img}
-          className="w-full h-[160px]  object-cover"
+          className="w-full h-[160px] object-cover"
           alt=""
         />
       </div>
@@ -46,7 +46,7 @@ export default function TicketCard({ data }) {
             <h1 className={keyClassName}>Seat</h1>
             <div className={valueClassName}>
               {data.tickets.map((seats) => (
-                <span style={{ marginLeft: "3px" }}>{seats.seat}</span>
+                <span key={seats.seat} style={{ marginLeft: "3px" }}>{seats.seat}</span>
               ))}
             </div>
           </div>
@@ -55,8 +55,8 @@ export default function TicketCard({ data }) {
             <div className={valueClassName}>
               {data.popcorn.length > 0 ? (
                 <>
-                  {items.popcorn.map((pop) => (
-                    <p>
+                  {data.popcorn.map((pop) => (
+                    <p key={pop.name}>
                       Combo {pop.name} x{pop.quantity}
                     </p>
                   ))}

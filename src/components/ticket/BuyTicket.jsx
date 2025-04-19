@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function BuyTicket() {
   const film_id = localStorage.getItem("film_id");
   const navigate = useNavigate();
+  const jwt = localStorage.getItem("jwt");
   const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
   const [message, setMessage] = useState(null);
@@ -20,33 +21,31 @@ export default function BuyTicket() {
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
 
   const checkLogin = async () => {
-    if (selectedSeats.length > 0) {
-      try {
-        // Gửi request POST đến endpoint "/api/userInfo"
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/userInfo`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ jwt: jwt }),
+    try {
+      // Gửi request POST đến endpoint "/api/userInfo"
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/userInfo`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ jwt: jwt }),
+        }
+      )
+        .then((response) => response.json())
+        .then((responseData) => {
+          if (responseData.success) {
+            // action to do when login is successful
+          } else {
+            alert("Please login to continue!");
+            navigate(-1);
           }
-        )
-          .then((response) => response.json())
-          .then((responseData) => {
-            if (responseData.success) {
-              // action to do when login is successful
-            } else {
-              alert("Please login to continue!");
-              navigate(-1);
-            }
-          })
-          .catch((error) => console.error("Error:", error));
-      } catch (error) {
-        console.error("Lỗi khi gửi request:", error);
-        alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
-      }
+        })
+        .catch((error) => console.error("Error:", error));
+    } catch (error) {
+      console.error("Lỗi khi gửi request:", error);
+      alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
     }
   };
   useEffect(() => {
