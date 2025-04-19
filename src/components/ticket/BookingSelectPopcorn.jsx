@@ -97,22 +97,25 @@ export default function BookingSelectPopcorn({ setNextStep, setPrevStep }) {
       <div className="py-6 px-20">
         {message && <AlertWithIcon message={message} />}
         <div className={`grid grid-cols-12 grid-rows-${popcornLength + 1}`}>
-          <div className="bg-[#606060] rounded-t-lg col-span-12 row-span-1 grid grid-cols-12 grid-rows-1">
-            <div className="col-span-7 row-span-1 ml-8 py-5">
+          <div className="bg-[#606060] rounded-t-lg col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-gray-700 border-t-2 border-l-2 border-r-2">
+            <div className="col-span-8 flex flex-row items-center row-span-1 ml-8 py-5">
               <p className="text-white text-xl font-light">Snack name</p>
             </div>
             <div className="col-span-2 row-span-1 flex items-center justify-center border-l-2 border-r-2 py-5">
               <p className="text-white text-xl font-light">Price</p>
             </div>
-            <div className="col-span-3 row-span-1 flex items-center justify-center py-5">
+            <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
               <p className="text-white text-xl font-light">Quantity</p>
             </div>
           </div>
 
           {popcornData.map((item, index)=>{
             return (
-              <div key={index} className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1">
-                <div className="col-span-7 row-span-1 ml-8 py-5">
+              <div
+                key={index}
+                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-gray-700 border-l-2 border-r-2 border-b-2"
+              >
+                <div className="col-span-8 flex flex-row items-center row-span-1 ml-8 py-5">
                   <p className="text-white text-xl font-light">
                     {item.combo_name}
                   </p>
@@ -122,8 +125,8 @@ export default function BookingSelectPopcorn({ setNextStep, setPrevStep }) {
                     {numFormat.format(parseInt(item.combo_price)) + "đ"}
                   </p>
                 </div>
-                <div className="col-span-3 row-span-1 flex items-center justify-center py-5">
-                  <div className="flex items-center space-x-4">
+                <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
+                  <div className="flex flex-row w-full justify-around items-center">
                     <Button
                       size="sm"
                       variant="outlined"

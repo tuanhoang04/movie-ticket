@@ -140,8 +140,6 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
     return totalPriceAndQuantity;
   }, {});
 
-
-
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
       <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
@@ -171,14 +169,14 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
       <div className="py-6 px-20">
         {message && <AlertWithIcon message={message} />}
         <div className={`grid grid-cols-12 grid-rows-${groupedSeats.length}`}>
-          <div className="bg-[#606060] rounded-t-lg col-span-12 row-span-1 grid grid-cols-12 grid-rows-1">
-            <div className="col-span-7 row-span-1 ml-8 py-5">
+          <div className="bg-[#606060] rounded-t-lg col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-t-2 border-r-2 border-l-2 border-gray-700 ">
+            <div className="col-span-8 row-span-1 ml-8 py-5 flex flex-row items-center">
               <p className="text-white text-xl font-light">Product name</p>
             </div>
             <div className="col-span-2 row-span-1 flex items-center justify-center border-l-2 border-r-2 py-5">
               <p className="text-white text-xl font-light">Quantity</p>
             </div>
-            <div className="col-span-3 row-span-1 flex items-center justify-center py-5">
+            <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
               <p className="text-white text-xl font-light">Price</p>
             </div>
           </div>
@@ -187,9 +185,9 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
             return (
               <div
                 key={index}
-                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1"
+                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-b-2 border-r-2 border-l-2 border-gray-700"
               >
-                <div className="col-span-7 row-span-1 ml-8 py-5">
+                <div className="col-span-8 row-span-1 ml-8 py-5 flex flex-row items-center">
                   <p className="text-white text-xl font-light">{seatType}</p>
                 </div>
                 <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
@@ -197,7 +195,7 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
                     {details.quantity}
                   </p>
                 </div>
-                <div className="col-span-3 row-span-1 flex items-center justify-center py-5">
+                <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
                   <p className="text-white text-xl font-light">
                     {numFormat.format(parseInt(details.price)) + "đ"}
                   </p>
@@ -207,13 +205,12 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
           })}
 
           {Object.entries(selectedCombos).map(([id, item], index) => {
-            
             return (
               <div
                 key={index}
-                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1"
+                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-b-2 border-r-2 border-l-2 border-gray-700"
               >
-                <div className="col-span-7 row-span-1 ml-8 py-5">
+                <div className="col-span-8 row-span-1 ml-8 py-5 flex flex-row items-center">
                   <p className="text-white text-xl font-light">
                     {item.combo_name}
                   </p>
@@ -223,7 +220,7 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
                     {item.quantity}
                   </p>
                 </div>
-                <div className="col-span-3 row-span-1 flex items-center justify-center py-5">
+                <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
                   <p className="text-white text-xl font-light">
                     {numFormat.format(parseInt(item.price)) + "đ"}
                   </p>
@@ -240,7 +237,9 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
             {numFormat.format(seatTotalAmount + popcornTotalAmount)}đ
           </p>
           <br />
-          <p className="text-white text-xl font-light">Time reserving seat left: <b>{timeLeft} seconds</b></p>
+          <p className="text-white text-xl font-light">
+            Time reserving seat left: <b>{timeLeft} seconds</b>
+          </p>
         </div>
       </div>
 

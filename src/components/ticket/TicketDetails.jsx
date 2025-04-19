@@ -164,7 +164,7 @@ export default function TicketDetails() {
         >
           Download Ticket
         </Button>
-        <Button variant="text" className="text-white text-base mt-8">Return home</Button>
+        <Button variant="text" className="text-white text-base mt-8" onClick={()=>(navigate("/home"))}>Return home</Button>
       </div>
     </div>
   );

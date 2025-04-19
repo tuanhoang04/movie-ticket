@@ -88,7 +88,7 @@ export default function Payment({ setNextStep, setPrevStep }) {
           variant="text"
           className="text-white text-base"
           onClick={() => {
-            navigate(-2);
+            navigate(-1);
           }}
         >
         Cancel

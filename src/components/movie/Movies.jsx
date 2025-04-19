@@ -95,15 +95,15 @@ export default function Movies() {
             <div>
               <p className="text-white text-3xl mb-4">Now Showing</p>
             </div>
-            <div className="flex flex-wrap lg:gap-[13.33%] gap-[4%]">
+            <div className="flex flex-wrap lg:gap-[10.667%] gap-[4%]">
               {currentNowShowings.map((item) => (
-                <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
+                <div className="mb-6 lg:w-[17%] w-[48%]" key={item.film_id}>
                   <MovieCard data={item} />
                 </div>
               ))}
             </div>
             {currentNowShowings.length <= 4 && (
-              <div className="mb-6 lg:w-[15%] w-[22%]">
+              <div className="mb-6 lg:w-[17%] w-[22%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
                   <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
                   <div className="invisible">
@@ -137,17 +137,17 @@ export default function Movies() {
               <p className="text-white text-3xl mb-4">Upcoming Movies</p>
             </div>
 
-            <div className="flex flex-wrap lg:gap-[13.33%] gap-[12%]">
+            <div className="flex flex-wrap lg:gap-[10.667%] gap-[4%]">
               {currentUpcomings.map((item) => {
                 return (
-                  <div className="mb-6 lg:w-[15%] w-[22%]" key={item.film_id}>
+                  <div className="mb-6 lg:w-[17%] w-[22%]" key={item.film_id}>
                     <MovieCard data={item} />
                   </div>
                 );
               })}
             </div>
             {currentUpcomings.length <= 4 && (
-              <div className="mb-6 lg:w-[15%] w-[22%]">
+              <div className="mb-6 lg:w-[17%] w-[22%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
                   <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
                   <div className="invisible">

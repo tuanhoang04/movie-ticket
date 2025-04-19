@@ -118,7 +118,7 @@ export default function BookingSelectSeats({setNextStep}) {
                     return (
                       <div
                         key={`${item.seat_location}-taken`}
-                        className="col-span-1 row-span-1 bg-[repeating-linear-gradient(45deg,_#ccc_0px,_#4c4b4d_10px,_#eee_10px,_#4c4b4d_20px)]"
+                        className="col-span-1 row-span-1 bg-[repeating-linear-gradient(45deg,_#d9d9d9_0px,_#a6a6a6_10px,_#f0f0f0_10px,_#a6a6a6_20px)]"
                       ></div>
                     );
                   }
@@ -127,7 +127,7 @@ export default function BookingSelectSeats({setNextStep}) {
                     return (
                       <div
                         key={`${item.seat_location}-reserved`}
-                        className="col-span-1 row-span-1 bg-[repeating-linear-gradient(to_bottom,_#ccc_0px,_#999999_0px,_#4c4b4d_7px,_#eee_7px)]"
+                        className="col-span-1 row-span-1 bg-[repeating-linear-gradient(to_bottom,_#e0e0e0_0px,_#b0b0b0_2px,_#8a8a8a_6px,_#e0e0e0_8px)]"
                       ></div>
                     );
                   }
@@ -208,11 +208,11 @@ export default function BookingSelectSeats({setNextStep}) {
             </div>
             <div className="flex flex-row justify-between w-[55%] mt-5">
               <div className="flex flex-row items-center">
-                <div className="bg-[repeating-linear-gradient(to_bottom,_#ccc_0px,_#999999_0px,_#4c4b4d_7px,_#eee_7px)] w-[20px] h-[20px] mr-3"></div>
+                <div className="bg-[repeating-linear-gradient(to_bottom,_#e0e0e0_0px,_#b0b0b0_2px,_#8a8a8a_6px,_#e0e0e0_8px)] w-[20px] h-[20px] mr-3"></div>
                 <p className="text-white text-xl">Reserved</p>
               </div>
               <div className="flex flex-row items-center">
-                <div className="bg-[repeating-linear-gradient(45deg,_#ccc_0px,_#4c4b4d_10px,_#eee_10px,_#4c4b4d_20px)] w-[20px] h-[20px] mr-3"></div>
+                <div className="bg-[repeating-linear-gradient(45deg,_#d9d9d9_0px,_#a6a6a6_10px,_#f0f0f0_10px,_#a6a6a6_20px)] w-[20px] h-[20px] mr-3"></div>
                 <p className="text-white text-xl">Taken</p>
               </div>
             </div>
@@ -237,7 +237,7 @@ export default function BookingSelectSeats({setNextStep}) {
                 Current total:
               </p>
               <p className="text-white text-xl">
-                {numFormat.format(seatTotalAmount+popcornTotalAmount)}đ
+                {numFormat.format(seatTotalAmount + popcornTotalAmount)}đ
               </p>
             </div>
           </div>
