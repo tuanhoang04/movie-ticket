@@ -18,6 +18,7 @@ export default function BookingSelectSeats({setNextStep}) {
 
   const popcornTotalAmount = data.popcornTotalAmount;
   const setPopcornTotalAmount = data.setPopcornTotalAmount;
+  const numFormat = new Intl.NumberFormat("de-DE");
   const [message, setMessage] = useState("");
   useEffect(()=>{
     if(seatTotalAmount>0){
@@ -27,7 +28,7 @@ export default function BookingSelectSeats({setNextStep}) {
 
   const seatData = data.seatData;
   // console.log(seatData);
-  // console.log(data);
+  console.log(data);
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
       <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
@@ -98,10 +99,21 @@ export default function BookingSelectSeats({setNextStep}) {
               </div>
               <div className="w-full h-full grid grid-cols-12 grid-rows-10 gap-4">
                 {seatData.seats.map((item, index) => {
-                  const isSelected = selectedSeats.includes(item.seat_location);
+                  const isSelected = selectedSeats.some(
+                    (s) => s.seat_location === item.seat_location
+                  );
                   const isDoubleSeat = item.seat_location[0] === "J";
 
-                  // Taken seats
+                  const seatWithSeatName = {
+                    ...item,
+                    seat_name:
+                      item.seat_type === 0
+                        ? "ghe_thuong"
+                        : item.seat_type === 1
+                        ? "ghe_vip"
+                        : "ghe_doi",
+                  };
+
                   if (item.seat_status === 1) {
                     return (
                       <div
@@ -111,7 +123,6 @@ export default function BookingSelectSeats({setNextStep}) {
                     );
                   }
 
-                  // Reserved seats
                   if (item.seat_status === 2) {
                     return (
                       <div
@@ -121,7 +132,6 @@ export default function BookingSelectSeats({setNextStep}) {
                     );
                   }
 
-                  // Selected seat
                   if (isSelected) {
                     return (
                       <div
@@ -130,19 +140,19 @@ export default function BookingSelectSeats({setNextStep}) {
                           if (!isDoubleSeat) {
                             setSelectedSeats(
                               selectedSeats.filter(
-                                (s) => s !== item.seat_location
+                                (s) => s.seat_location !== item.seat_location
                               )
                             );
                             setSeatTotalAmount(seatTotalAmount - item.price);
                           } else {
                             const pairIndex =
                               index % 2 === 0 ? index + 1 : index - 1;
-                            const pairSeat =
-                              seatData.seats[pairIndex]?.seat_location;
+                            const pairSeat = seatData.seats[pairIndex];
                             setSelectedSeats(
                               selectedSeats.filter(
                                 (s) =>
-                                  s !== item.seat_location && s !== pairSeat
+                                  s.seat_location !== item.seat_location &&
+                                  s.seat_location !== pairSeat?.seat_location
                               )
                             );
                             setSeatTotalAmount(
@@ -155,7 +165,6 @@ export default function BookingSelectSeats({setNextStep}) {
                     );
                   }
 
-                  // Available but not selected
                   return (
                     <div
                       key={`${item.seat_location}-available`}
@@ -163,19 +172,21 @@ export default function BookingSelectSeats({setNextStep}) {
                         if (!isDoubleSeat) {
                           setSelectedSeats([
                             ...selectedSeats,
-                            item.seat_location,
+                            seatWithSeatName,
                           ]);
                           setSeatTotalAmount(seatTotalAmount + item.price);
                         } else {
                           const pairIndex =
                             index % 2 === 0 ? index + 1 : index - 1;
-                          const pairSeat =
-                            seatData.seats[pairIndex]?.seat_location;
+                          const pairSeat = seatData.seats[pairIndex];
                           if (pairSeat) {
                             setSelectedSeats([
                               ...selectedSeats,
-                              item.seat_location,
-                              pairSeat,
+                              seatWithSeatName,
+                              {
+                                ...pairSeat,
+                                seat_name: "ghe_doi",
+                              },
                             ]);
                             setSeatTotalAmount(
                               seatTotalAmount + item.price * 2
@@ -225,7 +236,9 @@ export default function BookingSelectSeats({setNextStep}) {
               <p className="text-white text-2xl font-light mb-2">
                 Current total:
               </p>
-              <p className="text-white text-xl">{data.seatTotalAmount} VND</p>
+              <p className="text-white text-xl">
+                {numFormat.format(seatTotalAmount+popcornTotalAmount)}đ
+              </p>
             </div>
           </div>
 
@@ -248,9 +261,8 @@ export default function BookingSelectSeats({setNextStep}) {
               onClick={() => {
                 if (seatTotalAmount === 0) {
                   setMessage("You need to select a seat or more to continue!");
-                }
-                else{
-                  setNextStep(1);
+                } else {
+                  setNextStep();
                 }
               }}
             >
