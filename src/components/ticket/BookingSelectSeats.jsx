@@ -1,8 +1,10 @@
 import { Button } from "@material-tailwind/react";
 import { useTicketContext } from "./BookingTicketProvider";
 import { useNavigate } from "react-router-dom";
-
-export default function BookingSelectSeats() {
+import AlertWithIcon from "../Alert";
+import { useEffect, useState } from "react";
+// seat status: available: 0, sold: 1, reserved: 2
+export default function BookingSelectSeats({setNextStep}) {
   const data = useTicketContext();
   const navigate = useNavigate();
   const selectedSeats = data.selectedSeats;
@@ -16,9 +18,15 @@ export default function BookingSelectSeats() {
 
   const popcornTotalAmount = data.popcornTotalAmount;
   const setPopcornTotalAmount = data.setPopcornTotalAmount;
+  const [message, setMessage] = useState("");
+  useEffect(()=>{
+    if(seatTotalAmount>0){
+      setMessage("");
+    }
+  },[seatTotalAmount]);
 
   const seatData = data.seatData;
-  console.log(seatData);
+  // console.log(seatData);
   // console.log(data);
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
@@ -47,7 +55,7 @@ export default function BookingSelectSeats() {
       </div>
       {seatData && (
         <div className="flex flex-col">
-          <div className="w-[38%] p-10 self-center my-9 rounded-2xl flex flex-col items-center justify-center bg-[#232323]">
+          <div className="w-[38%] py-6 px-10 self-center my-9 rounded-2xl flex flex-col items-center justify-center bg-[#232323]">
             <div className="flex flex-row justify-between w-[77%] mb-5">
               <div className="flex flex-row items-center">
                 <div className="bg-[#FFFFFF] w-[18px] h-[18px] mr-3"></div>
@@ -90,77 +98,92 @@ export default function BookingSelectSeats() {
               </div>
               <div className="w-full h-full grid grid-cols-12 grid-rows-10 gap-4">
                 {seatData.seats.map((item, index) => {
-                  return item.seat_status !== 0 ? (
-                    <div
-                      key={item.seat_location}
-                      className="col-span-1 row-span-1 bg-[repeating-linear-gradient(45deg,_#ccc_0px,_#ccc_10px,_#eee_10px,_#eee_20px)]"
-                    ></div>
-                  ) : selectedSeats.includes(item.seat_location) ? (
-                    <div
-                      key={item.seat_location}
-                      onClick={() => {
-                        if (item.seat_location[0] !== "J") {
-                          setSelectedSeats(
-                            selectedSeats.filter(
-                              (curr) => curr !== item.seat_location
-                            )
-                          );
-                          setSeatTotalAmount(seatTotalAmount-item.price);
-                        } else {
-                          if (index % 2 === 0) {
+                  const isSelected = selectedSeats.includes(item.seat_location);
+                  const isDoubleSeat = item.seat_location[0] === "J";
+
+                  // Taken seats
+                  if (item.seat_status === 1) {
+                    return (
+                      <div
+                        key={`${item.seat_location}-taken`}
+                        className="col-span-1 row-span-1 bg-[repeating-linear-gradient(45deg,_#ccc_0px,_#4c4b4d_10px,_#eee_10px,_#4c4b4d_20px)]"
+                      ></div>
+                    );
+                  }
+
+                  // Reserved seats
+                  if (item.seat_status === 2) {
+                    return (
+                      <div
+                        key={`${item.seat_location}-reserved`}
+                        className="col-span-1 row-span-1 bg-[repeating-linear-gradient(to_bottom,_#ccc_0px,_#999999_0px,_#4c4b4d_7px,_#eee_7px)]"
+                      ></div>
+                    );
+                  }
+
+                  // Selected seat
+                  if (isSelected) {
+                    return (
+                      <div
+                        key={`${item.seat_location}-selected`}
+                        onClick={() => {
+                          if (!isDoubleSeat) {
                             setSelectedSeats(
-                              selectedSeats.filter((curr) => {
-                                return (
-                                  curr !==
-                                    seatData.seats[index].seat_location &&
-                                  curr !==
-                                    seatData.seats[index + 1].seat_location
-                                );
-                              })
+                              selectedSeats.filter(
+                                (s) => s !== item.seat_location
+                              )
                             );
+                            setSeatTotalAmount(seatTotalAmount - item.price);
                           } else {
+                            const pairIndex =
+                              index % 2 === 0 ? index + 1 : index - 1;
+                            const pairSeat =
+                              seatData.seats[pairIndex]?.seat_location;
                             setSelectedSeats(
-                              selectedSeats.filter((curr) => {
-                                return (
-                                  curr !==
-                                    seatData.seats[index].seat_location &&
-                                  curr !==
-                                    seatData.seats[index - 1].seat_location
-                                );
-                              })
+                              selectedSeats.filter(
+                                (s) =>
+                                  s !== item.seat_location && s !== pairSeat
+                              )
+                            );
+                            setSeatTotalAmount(
+                              seatTotalAmount - item.price * 2
                             );
                           }
-                          setSeatTotalAmount(seatTotalAmount - item.price*2);
-                        }
-                      }}
-                      className="col-span-1 row-span-1 bg-green-700"
-                    ></div>
-                  ) : (
+                        }}
+                        className="col-span-1 row-span-1 bg-green-700"
+                      ></div>
+                    );
+                  }
+
+                  // Available but not selected
+                  return (
                     <div
-                      key={item.seat_location}
+                      key={`${item.seat_location}-available`}
                       onClick={() => {
-                        if (item.seat_location[0] !== "J") {
+                        if (!isDoubleSeat) {
                           setSelectedSeats([
                             ...selectedSeats,
                             item.seat_location,
                           ]);
                           setSeatTotalAmount(seatTotalAmount + item.price);
                         } else {
-                          index % 2 == 0
-                            ? setSelectedSeats([
-                                ...selectedSeats,
-                                seatData.seats[index].seat_location,
-                                seatData.seats[index + 1].seat_location,
-                              ])
-                            : setSelectedSeats([
-                                ...selectedSeats,
-                                seatData.seats[index].seat_location,
-                                seatData.seats[index - 1].seat_location,
-                              ]);
-                              setSeatTotalAmount(seatTotalAmount + item.price*2);
+                          const pairIndex =
+                            index % 2 === 0 ? index + 1 : index - 1;
+                          const pairSeat =
+                            seatData.seats[pairIndex]?.seat_location;
+                          if (pairSeat) {
+                            setSelectedSeats([
+                              ...selectedSeats,
+                              item.seat_location,
+                              pairSeat,
+                            ]);
+                            setSeatTotalAmount(
+                              seatTotalAmount + item.price * 2
+                            );
+                          }
                         }
                       }}
-                      className={`col-span-1 row-span-1  ${
+                      className={`col-span-1 row-span-1 ${
                         item.seat_type === 0
                           ? "bg-[#FFFFFF]"
                           : item.seat_type === 1
@@ -172,8 +195,19 @@ export default function BookingSelectSeats() {
                 })}
               </div>
             </div>
+            <div className="flex flex-row justify-between w-[55%] mt-5">
+              <div className="flex flex-row items-center">
+                <div className="bg-[repeating-linear-gradient(to_bottom,_#ccc_0px,_#999999_0px,_#4c4b4d_7px,_#eee_7px)] w-[20px] h-[20px] mr-3"></div>
+                <p className="text-white text-xl">Reserved</p>
+              </div>
+              <div className="flex flex-row items-center">
+                <div className="bg-[repeating-linear-gradient(45deg,_#ccc_0px,_#4c4b4d_10px,_#eee_10px,_#4c4b4d_20px)] w-[20px] h-[20px] mr-3"></div>
+                <p className="text-white text-xl">Taken</p>
+              </div>
+            </div>
           </div>
           <div className="py-6 px-20">
+            {message && <AlertWithIcon message={message} />}
             <div className="bg-[#606060] rounded-lg p-4">
               <p className="text-white text-2xl font-light mb-2">
                 Cinema: {seatData.cinema_name}
@@ -196,13 +230,29 @@ export default function BookingSelectSeats() {
           </div>
 
           <div className="flex flex-row gap-4 justify-center mb-5">
-            <Button variant="text" className="text-white text-base" onClick={()=>{navigate(`/movie/${createSlug(seatData.film_name)}`);}}>
+            <Button
+              variant="text"
+              className="text-white text-base"
+              onClick={() => {
+                navigate(`/movie/${createSlug(seatData.film_name)}`);
+              }}
+            >
               Cancel
             </Button>
             <Button
               variant="filled"
               color="purple"
-              className="text-white text-base bg-[#875CFF] rounded-lg"
+              className={`text-white text-base ${
+                seatTotalAmount > 0 ? "bg-[#875CFF]" : "bg-[#6d5e71]"
+              } rounded-lg`}
+              onClick={() => {
+                if (seatTotalAmount === 0) {
+                  setMessage("You need to select a seat or more to continue!");
+                }
+                else{
+                  setNextStep(1);
+                }
+              }}
             >
               Continue
             </Button>
