@@ -1,6 +1,8 @@
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Dropdown from "../components/Dropdown";
+import { Button } from "@material-tailwind/react";
+
 import {
   Tabs,
   TabsHeader,
@@ -10,10 +12,12 @@ import {
 } from "@material-tailwind/react";
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const theaterImgStyle = "rounded-full w-[40px] h-[40px]";
 
 export default function TheatersPage() {
+  const navigate = useNavigate();
   const [areas, setAreas] = useState([]);
   const [currentAreaName, setCurrentAreaName] = useState(
     localStorage.getItem("currentAreaName") || ""
@@ -136,8 +140,6 @@ export default function TheatersPage() {
           info: info,
           time: result,
         });
-        console.log(currentCinema);
-        console.log(Object.keys(currentCinema.time)[0]);
       } else {
         console.error("Lỗi khi truy cập:", response.statusText);
       }
@@ -148,7 +150,7 @@ export default function TheatersPage() {
 
   return (
     <div className="bg-[#1C1B21] h-fit">
-      <NavBar currentPage={"Theaters"}/>
+      <NavBar currentPage={"Theaters"} />
       <div id="body" className="">
         <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-lg">
           <p className="text-white text-xl p-2 pr-4 border-r-2">Location</p>
@@ -295,25 +297,78 @@ export default function TheatersPage() {
                     {Object.values(currentCinema.time).map((value, index) => {
                       return (
                         <TabPanel
-                          className="text-white grid place-content-center"
+                          className="text-white "
                           key={index}
                           value={index}
                         >
                           {typeof value !== "object" ? (
-                            <p>{value}</p>
+                            <span className="grid place-content-center">
+                              {value}
+                            </span>
                           ) : (
-                            <div className="grid grid-cols-3 gap-5">
-                              {value.map((item) => (
-                                <div
-                                  key={item.show_time}
-                                  className="flex flex-col gap-2"
-                                >
-                                  <h1 className="text-sm opacity-50">
-                                    {item.show_time}
-                                  </h1>
-                                  <p className="text-md">{item.film_name}</p>
-                                </div>
-                              ))}
+                            <div className=" flex flex-col gap-5">
+                              {Object.keys(value).map((key) => {
+                                console.log(value[key]);
+
+                                return (
+                                  <div className="flex w-full gap-10 justify-between px-10">
+                                    <div className="flex gap-5">
+                                      <img
+                                        className="rounded-xl"
+                                        src={value[key].film_img}
+                                        alt=""
+                                      />
+                                      <div className="p-2 flex flex-col gap-2">
+                                        <p className="text-2xl font-bold line-clamp-1">
+                                          {value[key].film_name}
+                                        </p>
+                                        <p className="text-xl text-gray-400 line-clamp-1">
+                                          {value[key].film_genres || "genres"}
+                                        </p>
+                                        <p className="text-xl mt-20 line-clamp-3">
+                                          {value[key].film_description ||
+                                            "Description"}
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <div className=" flex flex-col justify-between text-xl w-[220px] p-3 py-5 ">
+                                      <div className="flex flex-col gap-5">
+                                        <div className="flex justify-between">
+                                          <span>Rating</span>
+                                          <span>5</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                          <span>Age</span>
+                                          <span>R-{value[key].age_limit}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                          <span>Duration</span>
+                                          <span>{value[key].duration}m</span>
+                                        </div>
+                                      </div>
+                                      <Button
+                                        color="red"
+                                        className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[70%] m-auto mb-0"
+                                        onClick={() => {
+                                          navigate(
+                                            "/movie/buyTicket/" +
+                                              value[key].film_name
+                                          );
+                                        }}
+                                      >
+                                        <img
+                                          src="/icons/ticket.png"
+                                          className="w-7 mr-2"
+                                        />
+                                        <p className="text-sm font-bold">
+                                          Buy Ticket
+                                        </p>
+                                      </Button>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
                         </TabPanel>
