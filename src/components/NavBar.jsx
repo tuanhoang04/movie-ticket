@@ -49,7 +49,7 @@ export default function NavBar({ currentPage }) {
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-8">
-      <Typography as="li" variant="h4" className="p-1 font-extralight ">
+      <Typography as="li" variant="h4" className="p-1 font-light ">
         <a
           href="/home"
           className={`flex items-center text-white hover:text-purple-100
@@ -58,7 +58,7 @@ export default function NavBar({ currentPage }) {
           Home
         </a>
       </Typography>
-      <Typography as="li" variant="h4" className="p-1 font-extralight ">
+      <Typography as="li" variant="h4" className="p-1 font-light ">
         <a
           href="/movie/filter"
           className={`flex items-center text-white hover:text-purple-100
@@ -69,7 +69,7 @@ export default function NavBar({ currentPage }) {
           Movies
         </a>
       </Typography>
-      <Typography as="li" variant="h4" className="p-1 font-extralight ">
+      <Typography as="li" variant="h4" className="p-1 font-light ">
         <a
           href="/movie/filter"
           className={`flex items-center text-white hover:text-purple-100
@@ -82,7 +82,7 @@ export default function NavBar({ currentPage }) {
           Buy Ticket
         </a>
       </Typography>
-      <Typography as="li" variant="h4" className="p-1 font-extralight ">
+      <Typography as="li" variant="h4" className="p-1 font-light ">
         <a
           href="/theaters"
           className={`flex items-center text-white hover:text-purple-100
@@ -93,7 +93,7 @@ export default function NavBar({ currentPage }) {
           Theaters
         </a>
       </Typography>
-      <Typography as="li" variant="h4" className="p-1 font-extralight ">
+      <Typography as="li" variant="h4" className="p-1 font-light ">
         <a
           href="/news"
           className={`flex items-center text-white hover:text-purple-100

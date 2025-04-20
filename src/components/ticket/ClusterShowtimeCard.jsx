@@ -1,4 +1,5 @@
 import { Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 const sample = {
   "Beta Cinemas": {
@@ -16,7 +17,16 @@ const sample = {
   },
 };
 
-export default function ClusterShowtimeCard({ data }) {
+function createSlug(name) {
+  return name
+    .trim()
+    .replace(/\s*:\s*/g, "-") // Thay thế dấu ":" và các khoảng trắng trước và sau nó bằng dấu gạch ngang
+    .replace(/\s+/g, "-") // Thay thế tất cả khoảng trắng còn lại bằng dấu gạch ngang
+    .replace(/-+/g, "-"); // Thay thế nhiều dấu gạch ngang liên tiếp bằng một dấu gạch ngang
+}
+
+export default function ClusterShowtimeCard({ data, movieName }) {
+  const navigate = useNavigate();
   let iconSrc = "";
   const theater = Object.keys(data)[0];
   if (theater === "Beta Cinemas" || theater === "Cinemax") {
@@ -40,13 +50,18 @@ export default function ClusterShowtimeCard({ data }) {
   } else if (theater === "Đống Đa Cinema") {
     iconSrc = "/dongda.png";
   }
-  
+
+  const handleSelectShowtime = (showtime_id) => {
+    localStorage.setItem("showtime_id", showtime_id);
+    navigate(`/movie/bookTicket/${createSlug(movieName)}`);
+  };
+
   const allSubCinemas = Object.keys(data[theater]);
   return (
     <div className="bg-[#606060] rounded-lg mb-8">
       <div className="flex flex-row gap-2 items-center p-2 rounded-t-lg bg-[#65438d]">
         <img src={iconSrc} className="w-8 rounded-full" />
-        <p className="text-white text-2xl font-extralight">{theater}</p>
+        <p className="text-white text-2xl font-light">{theater}</p>
       </div>
 
       <div className="flex flex-row gap-2 p-2">
@@ -60,9 +75,17 @@ export default function ClusterShowtimeCard({ data }) {
                   {data[theater][item].address}
                 </p>
                 {data[theater][item].show_time.map((item, index) => {
-                    return (<Button key={index} className="text-gray-400 bg-black w-fit py-1 text-base px-2 mr-2 mt-1 rounded-xl">
-                        {formatTimeToAMPM(item.show_time)}
-                    </Button>)
+                  return (
+                    <Button
+                      key={index}
+                      className="text-gray-400 bg-black w-fit py-1 text-base px-2 mr-2 mt-1 rounded-xl"
+                      onClick={() => {
+                        handleSelectShowtime(item.showtime_id);
+                      }}
+                    >
+                      {formatTimeToAMPM(item.show_time)}
+                    </Button>
+                  );
                 })}
               </div>
             );

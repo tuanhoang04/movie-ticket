@@ -41,7 +41,6 @@ export default function MovieDetail() {
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
-          console.log(result);
           setData(result);
           const movieName = result.info.film[0].film_name;
           const rating =
@@ -292,7 +291,7 @@ export default function MovieDetail() {
                   <p className="text-white text-7xl">
                     {Math.round(data.info.evaluate[0].film_rate * 10) / 10}
                   </p>
-                  <p className="text-white font-extralight text-5xl">/</p>
+                  <p className="text-white font-light text-5xl">/</p>
                   <p className="text-white text-5xl">5</p>
                 </div>
 
