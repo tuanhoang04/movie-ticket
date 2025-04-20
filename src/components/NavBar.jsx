@@ -109,9 +109,13 @@ export default function NavBar({ currentPage }) {
     <>
       <Navbar className="max-w-full relative py-2 px-2 lg:px-36 lg:py-4 rounded-none border-none !bg-[#502A50]">
         <div className="mx-auto flex flex-wrap items-center justify-between text-white">
-          <div className="flex flex-row justify-center items-center">
-            <img src="/ico.png" className="w-10 mr-1 lg:mr-3" />
-            {/* <Typography
+          <div className="w-full flex flex-row justify-between items-center">
+            <div className="flex flex-row">
+              <img
+                src="/ico.png"
+                className="w-11 h-10 mr-1 lg:mr-3 self-center"
+              />
+              {/* <Typography
               as="a"
               href="/home"
               variant="lg:h3"
@@ -119,25 +123,36 @@ export default function NavBar({ currentPage }) {
             >
               Starlight Cinema
             </Typography> */}
-            <a href="/home">
-              <p className="text-xl lg:text-3xl mr-4 cursor-pointer py-1.5 font-medium">
-                Starlight Cinema
-              </p>
-            </a>
-          </div>
-          <div className="hidden items-center gap-x-2 lg:flex">
-            <div className="relative flex w-full gap-2 md:w-max ">
-              <Input
-                type="search"
-                placeholder="Search"
-                size="lg"
-                className="border-none after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
-              />
+              <a href="/home">
+                <p className="text-xl lg:text-3xl mr-4 cursor-pointer py-1.5 font-medium self-center">
+                  Starlight Cinema
+                </p>
+              </a>
             </div>
+            {login ? (
+              <ProfileMenu fullname={userInfo.full_name} />
+            ) : (
+              <div>
+                <Button
+                  variant="outlined"
+                  className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
+                  onClick={() => (window.location = "/sign-up")}
+                >
+                  Sign up
+                </Button>
+                <Button
+                  variant="fill"
+                  color="red"
+                  className="text-white bg-[#B44242] text-md rounded-3xl"
+                  onClick={() => setOpenSignIn(true)}
+                >
+                  Sign in
+                </Button>
+              </div>
+            )}
           </div>
-
-          <hr className="mt-5 hidden w-full lg:block lg:invisible" />
-
+          <div className="hidden lg:flex lg:justify-between w-screen"></div>
+          <hr className="mt-3 hidden w-full lg:block lg:invisible" />
           <IconButton
             variant="text"
             className="lg:hidden"
@@ -149,35 +164,22 @@ export default function NavBar({ currentPage }) {
               <Bars3Icon className="h-6 w-6" stroke="white" strokeWidth={2} />
             )}
           </IconButton>
-          <div className="hidden lg:flex lg:justify-between w-screen">
+          <div className="hidden items-center justify-between mb-2 w-full gap-x-2 lg:flex">
             {navList}
-            {login ? (
-              <ProfileMenu fullname={userInfo.full_name} />
-            ) : (
-              <div>
-                <Button
-                  variant="outlined"
-                  className="text-white text-md rounded-3xl mr-4 border-white border-[0.8]"
-                  onClick={() => (window.location = "/sign-up")}
-                >
-                  Sign up
-                </Button>
-                <Button
-                  variant="gradient"
-                  color="red"
-                  className="text-white text-md rounded-3xl"
-                  onClick={() => setOpenSignIn(true)}
-                >
-                  Sign in
-                </Button>
-              </div>
-            )}
+            <div className="relative flex w-full gap-2 md:w-64 ">
+              <Input
+                type="search"
+                placeholder="Search"
+                size="lg"
+                className="border-none after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
+              />
+            </div>
           </div>
         </div>
         <Collapse open={openNav}>
           <div>
             {navList}
-            <div className="flex gap-x-2 flex-row sm: mb-4">
+            <div className="flex gap-x-2 flex-row sm:mb-4">
               <div className="w-full gap-2 md:w-max">
                 <Input
                   type="search"
