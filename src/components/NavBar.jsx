@@ -71,7 +71,7 @@ export default function NavBar({ currentPage }) {
       </Typography>
       <Typography as="li" variant="h4" className="p-1 font-light ">
         <a
-          href="/movie/filter"
+          href="/theater-movie"
           className={`flex items-center text-white hover:text-purple-100
               ${
                 currentPage === "Buy Ticket"
