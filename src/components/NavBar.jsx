@@ -107,18 +107,23 @@ export default function NavBar({ currentPage }) {
 
   return (
     <>
-      <Navbar className="max-w-full relative py-2 px-8 lg:px-36 lg:py-4 rounded-none border-none !bg-[#502A50]">
+      <Navbar className="max-w-full relative py-2 px-2 lg:px-36 lg:py-4 rounded-none border-none !bg-[#502A50]">
         <div className="mx-auto flex flex-wrap items-center justify-between text-white">
           <div className="flex flex-row justify-center items-center">
-            <img src="/ico.png" className="w-10 mr-3" />
-            <Typography
+            <img src="/ico.png" className="w-10 mr-1 lg:mr-3" />
+            {/* <Typography
               as="a"
               href="/home"
-              variant="h3"
+              variant="lg:h3"
               className="mr-4 cursor-pointer py-1.5 font-medium"
             >
               Starlight Cinema
-            </Typography>
+            </Typography> */}
+            <a href="/home">
+              <p className="text-xl lg:text-3xl mr-4 cursor-pointer py-1.5 font-medium">
+                Starlight Cinema
+              </p>
+            </a>
           </div>
           <div className="hidden items-center gap-x-2 lg:flex">
             <div className="relative flex w-full gap-2 md:w-max ">

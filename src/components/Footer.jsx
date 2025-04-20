@@ -2,7 +2,7 @@ import { Typography } from "@material-tailwind/react";
 export default function Footer() {
   return (
     <footer className="bg-[#1C1B21] grid grid-cols-11 px-8 lg:px-36 py-12">
-      <div className="col-span-4 flex flex-col justify-start">
+      <div className="lg:col-span-4 col-span-11 flex flex-col justify-start">
         <div className="flex flex-row items-center mb-5">
           <img src="/ico.png" className="w-10 mr-3" />
           <p className="text-white font-medium text-3xl">Starlight Cinema</p>
@@ -24,9 +24,9 @@ export default function Footer() {
         </p>
       </div>
 
-      <div className="col-span-3 flex flex-col items-center">
+      <div className="lg:col-span-3 col-span-11 flex flex-col lg:items-center hidden">
         <div className="flex flex-col ">
-          <div className="flex flex-row mb-5 invisible">
+          <div className="lg:flex lg:flex-row mb-5 lg:invisible hidden">
             <img src="/ico.png" className="w-10 mr-3" />
             <p className="text-white font-medium text-3xl">S</p>
           </div>
@@ -53,15 +53,15 @@ export default function Footer() {
           </a>
           <a
             href="#"
-            className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
+            className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400 mb-5"
           >
             News
           </a>
         </div>
       </div>
-      <div className="col-span-4 flex justify-end">
+      <div className="lg:col-span-4 col-span-11 flex lg:justify-end">
         <div className="flex flex-col">
-          <div className="flex flex-row mb-5 invisible">
+          <div className="lg:flex lg:flex-row mb-5 lg:invisible hidden">
             <img src="/ico.png" className="w-10 mr-3" />
             <p className="text-white font-medium text-3xl">S</p>
           </div>

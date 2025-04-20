@@ -35,7 +35,7 @@ export function CircularPagination({ pagesNumber, handleChange, currentPage }) {
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" color="white" />
         Previous
       </Button>
-      <div className="flex items-center gap-2 ">
+      <div className="lg:flex lg:items-center lg:gap-2 hidden">
         {Array.from({ length: pagesNumber }, (_, i) => (
           <IconButton
             key={i + 1}

@@ -15,7 +15,7 @@ export default function MovieCard({ data }) {
 
   return (
     <div
-      className="flex flex-col justify-start hover:cursor-pointer hover:outline outline-gray-600 rounded-md p-4"
+      className="flex flex-col justify-start hover:cursor-pointer hover:outline outline-gray-600 rounded-md p-2 lg:p-4"
       onClick={() =>
         handleNavigate(
           encodeURIComponent(createSlug(data.film_name)),
@@ -24,10 +24,10 @@ export default function MovieCard({ data }) {
       }
     >
       <img src={data.film_img} className="rounded-2xl object-cover w-full" />
-      <p className="text-[#5D6A81] lg:text-xl text-base w-full">
+      <p className="text-[#5D6A81] lg:text-xl text-lg w-full">
         {data.Release_date.substring(0, 10)}
       </p>
-      <p className="text-white lg:text-xl text-base font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] lg:h-[3.55rem] h-[3.05rem]">
+      <p className="text-white lg:text-xl text-lg font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] h-[3.55rem]">
         {data.film_name}
       </p>
     </div>
