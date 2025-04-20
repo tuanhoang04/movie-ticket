@@ -3,10 +3,16 @@ import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import { useEffect, useState } from "react";
 import { CircularPagination } from "../components/CircularPagination";
-import { Tab, TabPanel, Tabs, TabsBody, TabsHeader } from "@material-tailwind/react";
+import {
+  Button,
+  Tab,
+  TabPanel,
+  Tabs,
+  TabsBody,
+  TabsHeader,
+} from "@material-tailwind/react";
 import Dropdown from "../components/Dropdown";
 import MovieCard from "../components/movie/MovieCard";
-
 
 const theaterImgStyle = "rounded-full w-[40px] h-[40px]";
 export default function TheatersAndMovies() {
@@ -182,8 +188,6 @@ export default function TheatersAndMovies() {
           info: info,
           time: result,
         });
-        console.log(currentCinema);
-        console.log(Object.keys(currentCinema.time)[0]);
       } else {
         console.error("Lỗi khi truy cập:", response.statusText);
       }
@@ -389,25 +393,92 @@ export default function TheatersAndMovies() {
                       {Object.values(currentCinema.time).map((value, index) => {
                         return (
                           <TabPanel
-                            className="text-white grid place-content-center"
+                            className="text-white "
                             key={index}
                             value={index}
                           >
                             {typeof value !== "object" ? (
-                              <p>{value}</p>
+                              <span className="grid place-content-center">
+                                {value}
+                              </span>
                             ) : (
-                              <div className="grid grid-cols-3 gap-5">
-                                {value.map((item) => (
-                                  <div
-                                    key={item.show_time}
-                                    className="flex flex-col gap-2"
-                                  >
-                                    <h1 className="text-sm opacity-50">
-                                      {item.show_time}
-                                    </h1>
-                                    <p className="text-md">{item.film_name}</p>
-                                  </div>
-                                ))}
+                              <div className=" flex flex-col gap-5">
+                                {Object.keys(value).map((key) => {
+                                  console.log(value[key]);
+
+                                  return (
+                                    <div className="flex w-full gap-10 justify-between px-10">
+                                      <div className="flex gap-5">
+                                        <img
+                                          className="rounded-xl"
+                                          src={value[key].film_img}
+                                          alt=""
+                                        />
+                                        <div className="p-2 flex flex-col gap-2">
+                                          <p className="text-2xl font-bold line-clamp-1">
+                                            {value[key].film_name}
+                                          </p>
+                                          <p className="text-xl text-gray-400 line-clamp-1">
+                                            {value[key].film_genres || "genres"}
+                                          </p>
+                                          <p className="text-xl mt-20 line-clamp-3">
+                                            {value[key].film_description ||
+                                              "Description"}
+                                          </p>
+                                        </div>
+                                      </div>
+
+                                      <div className=" flex flex-col justify-between text-xl w-[220px] p-3 py-5 ">
+                                        <div className="flex flex-col gap-5">
+                                          <div className="flex justify-between">
+                                            <span>Rating</span>
+                                            <div className="flex items-center gap-2">
+                                              {value[key].rating || 5}
+                                              <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="16"
+                                                height="16"
+                                                fill="currentColor"
+                                                class="bi bi-star-fill"
+                                                viewBox="0 0 16 16"
+                                              >
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                              </svg>
+                                            </div>
+                                          </div>
+                                          <div className="flex justify-between">
+                                            <span>Age</span>
+                                            <span>
+                                              R-{value[key].age_limit}
+                                            </span>
+                                          </div>
+                                          <div className="flex justify-between">
+                                            <span>Duration</span>
+                                            <span>{value[key].duration}m</span>
+                                          </div>
+                                        </div>
+                                        <Button
+                                          color="red"
+                                          className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[70%] m-auto mb-0"
+                                          onClick={() => {
+                                            navigate(
+                                              "/movie/buyTicket/" +
+                                                value[key].film_name
+                                            );
+                                          }}
+                                        >
+                                          <img
+                                            src="/icons/ticket.png"
+                                            className="w-7 mr-2"
+                                          />
+                                          <p className="text-sm font-bold">
+                                            Buy Ticket
+                                          </p>
+                                        </Button>
+                                      </div>
+                                    </div>
+                                  );
+                                })}
                               </div>
                             )}
                           </TabPanel>
