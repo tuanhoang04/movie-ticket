@@ -24,7 +24,7 @@ export default function NewsDetail() {
       );
       if (response.ok) {
         const result = await response.json();
-        console.log(result);
+        console.log(result[0]);
 
         setDataDetail(result[0]);
       } else {
@@ -78,7 +78,7 @@ export default function NewsDetail() {
       <NavBar />
       <div id="body" className="flex bg-[#1C1B21] p-32 gap-20 text-white">
         <div id="lastest" className="w-3/4">
-          <div className="text-5xl border-l-8 px-5 py-4 mb-10">Movie news</div>
+          <div className="text-3xl border-l-8 px-5 py-4 mb-10">Movie news</div>
           <div className="flex flex-col gap-10 p-4">
             {dataDetail && (
               <div
@@ -88,7 +88,7 @@ export default function NewsDetail() {
                 <h1 className="text-3xl mb-3">{dataDetail.new_header}</h1>
                 <img src={dataDetail.new_img} alt="" className="rounded-lg" />
                 <div
-                  className="text-lg"
+                  className="text-xl"
                   dangerouslySetInnerHTML={{ __html: dataDetail.new_content }}
                 ></div>
                 <div className="flex justify-between items-center mt-5">
@@ -102,7 +102,7 @@ export default function NewsDetail() {
           </div>
         </div>
         <div id="side" className="w-1/4">
-          <div className="text-5xl border-l-8 px-5 py-4 mb-14">
+          <div className="text-3xl border-l-8 px-5 py-4 mb-10">
             More to explore
           </div>
           <div className="flex flex-col gap-4 mb-20">

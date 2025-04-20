@@ -162,9 +162,11 @@ export default function TheatersPage() {
           />
         </div>
         {currentAreaName && (
-          <div className=" m-20 flex  text-white h-fit min-h-[400px] ">
+          <div className=" mx-[144px] mt-20 flex  text-white h-fit min-h-[400px] ">
             <div className="w-1/5 h-full bg-white bg-opacity-10 rounded-lg ">
-              <p className=" p-2 text-3xl">Theaters in {currentAreaName}</p>
+              <p className=" p-4 pb-0 text-3xl">
+                Theaters in {currentAreaName}
+              </p>
               {theaters.length > 0 && (
                 <div className="flex flex-col mt-4 h-fit max-h-[800px] overflow-y-scroll scrollbar ">
                   {theaters.map((item) => (
@@ -311,10 +313,10 @@ export default function TheatersPage() {
                                 console.log(value[key]);
 
                                 return (
-                                  <div className="flex w-full gap-10 justify-between px-10">
+                                  <div className="flex gap-10 justify-between border-b-2 border-white border-opacity-30 py-5 mx-5 h-72">
                                     <div className="flex gap-5">
                                       <img
-                                        className="rounded-xl"
+                                        className="rounded-xl "
                                         src={value[key].film_img}
                                         alt=""
                                       />
@@ -363,6 +365,10 @@ export default function TheatersPage() {
                                         color="red"
                                         className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[70%] m-auto mb-0"
                                         onClick={() => {
+                                          localStorage.setItem(
+                                            "film_id",
+                                            value[key].film_id
+                                          );
                                           navigate(
                                             "/movie/buyTicket/" +
                                               value[key].film_name

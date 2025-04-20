@@ -90,38 +90,34 @@ export default function NewsPage() {
   }, []);
   return (
     <>
-      <NavBar currentPage={"News"}/>
-      <div id="body" className="flex bg-[#1C1B21] p-32 gap-20 text-white">
+      <NavBar currentPage={"News"} />
+      <div id="body" className="flex bg-[#1C1B21] p-32 pt-20 gap-20 text-white">
         <div id="lastest" className="w-3/4">
-          <div className="text-5xl border-l-8 px-5 py-4 mb-10">Movie news</div>
+          <div className="text-3xl border-l-8 px-5 py-4 mb-5">Movie news</div>
           <div className="flex flex-col gap-10 p-4">
             {filteredData.map((item) => (
               <div
                 key={item.new_id}
-                className="flex flex-col gap-2 bg-white text-black p-6 rounded-lg"
+                onClick={() => {
+                  localStorage.setItem("new_id", item.new_id);
+
+                  navigate(
+                    `/news/${encodeURIComponent(createSlug(item.new_header))}`
+                  );
+                }}
+                className="flex flex-col gap-2 bg-white text-black p-6 rounded-lg cursor-pointer"
               >
-                <h1 className="text-3xl mb-3">{item.new_header}</h1>
+                <h1 className="text-3xl mb-3 ">{item.new_header}</h1>
                 <img src={item.new_img} alt="" className="rounded-lg" />
                 <div
-                  className="line-clamp-5 text-md"
+                  className="line-clamp-5 text-lg"
                   dangerouslySetInnerHTML={{ __html: item.new_content }}
                 ></div>
                 <div className="flex justify-between items-center mt-5">
                   <p>
                     {item.new_time.substring(0, 10)} ● by {item.username}
                   </p>
-                  <div
-                    onClick={() => {
-                      localStorage.setItem("new_id", item.new_id);
-
-                      navigate(
-                        `/news/${encodeURIComponent(
-                          createSlug(item.new_header)
-                        )}`
-                      );
-                    }}
-                    className="text-xl underline cursor-pointer"
-                  >
+                  <div className="text-xl underline cursor-pointer">
                     See full article
                   </div>
                 </div>
@@ -130,11 +126,11 @@ export default function NewsPage() {
           </div>
         </div>
         <div id="side" className="w-1/4">
-          <div className="text-5xl border-l-8 px-5 py-4 mb-14">
+          <div className="text-3xl border-l-8 px-5 py-4 mb-10">
             More to explore
           </div>
           <div className="flex flex-col gap-4 mb-20">
-            <div className="text-4xl flex items-center gap-5 mb-3">
+            <div className="text-3xl flex items-center gap-5 mb-3">
               <p>Viet Name news</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
