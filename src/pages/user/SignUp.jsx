@@ -91,16 +91,16 @@ export default function SignUp({ openDialog, handleOpenDialog }) {
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 my-3 bg-[#58565f] mx-auto w-[90%] md:w-[30%] gap-2 overflow-auto"
+      className="px-6 my-3 bg-[#58565f] mx-auto w-[90%] lg:h-fit h-[70%] gap-2 overflow-auto"
     >
-      <DialogHeader className="text-white pb-0">Create an account</DialogHeader>
+      <DialogHeader className="text-white pb-1">Create an account</DialogHeader>
 
       {errorMessage && <AlertWithIcon type="negative" message={errorMessage} />}
       {okMessage && <AlertWithIcon type="positive" message={okMessage} />}
 
-      <DialogBody className="p-2">
+      <DialogBody className="px-2">
         <form
-          className="mt-1 mb-2 min-w-[100%] max-w-screen-lg sm:w-96"
+          className="mt-1 mb-2 min-w-[100%] max-w-screen-lg"
           onSubmit={handleSubmit}
         >
           <div className="mb-1 flex flex-col gap-2">

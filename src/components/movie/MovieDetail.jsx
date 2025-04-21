@@ -40,21 +40,17 @@ export default function MovieDetail() {
           },
           body: JSON.stringify({ jwt: jwt }),
         }
-      )
-        .then((response) => response.json())
-        .then((responseData) => {
-          if (responseData.success) {
-            console.log(responseData);
-            return true;
-          } else {
-            // alert("Please login to continue!");
+      );
+      const responseData = await response.json();
+      if (responseData.success) {
+        return true;
+      } else {
+        // alert("Please login to continue!");
 
-            setMessage("Please login to continue!");
-            // navigate(-1);
-            return false;
-          }
-        })
-        .catch((error) => console.error("Error:", error));
+        setMessage("Please login to continue!");
+        // navigate(-1);
+        return false;
+      }
     } catch (error) {
       console.error("Lỗi khi gửi request:", error);
       alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
@@ -179,7 +175,7 @@ export default function MovieDetail() {
         setMessage("Please login to continue!");
       }
       setLiked(data.liked);
-    } catch (error) { 
+    } catch (error) {
       console.error("Error fetching likeCheck:", error);
     }
   };
@@ -233,7 +229,10 @@ export default function MovieDetail() {
                 {message && (
                   <AlertWithIcon type={"negative"} message={message} />
                 )}
-                <p className="text-white text-3xl pb-1 font-bold" style={message&&{marginTop:"10px"}}>
+                <p
+                  className="text-white text-3xl pb-1 font-bold"
+                  style={message && { marginTop: "10px" }}
+                >
                   {data.info.film[0].film_name}
                 </p>
                 <p className="text-white text-xl pb-5 font-light">
@@ -284,7 +283,7 @@ export default function MovieDetail() {
                 {liked ? (
                   <Button
                     color="red"
-                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%] mb-3"
+                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px] mb-3"
                     onClick={unlike}
                   >
                     <img src="/icons/heart-filled.png" className="w-7 mr-2 " />
@@ -293,7 +292,7 @@ export default function MovieDetail() {
                 ) : (
                   <Button
                     color="red"
-                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%] mb-3"
+                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px] mb-3"
                     onClick={like}
                   >
                     <img src="/icons/heart.png" className="w-7 mr-2" />
@@ -302,8 +301,8 @@ export default function MovieDetail() {
                 )}
                 <Button
                   color="red"
-                  className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%]"
-                  onClick={handleNavigate}
+                  className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px]"
+                  onClick={()=>{handleNavigate(film_name, film_id)}}
                 >
                   <img src="/icons/ticket.png" className="w-7 mr-2" />
                   <p className="text-sm font-bold">Buy Ticket</p>
