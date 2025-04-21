@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import { Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 export default function TicketDetails() {
   const jwt = localStorage.getItem("jwt");
@@ -9,6 +10,7 @@ export default function TicketDetails() {
   const [loading, setLoading] = useState(true);
   const [step, setStep] = useState(3); // 0: Chọn ghế, 1: Bắp nước, 2: Thanh toán, 3: Thông tin vé
   const ref = useRef();
+  const navigate = useNavigate();
   useEffect(() => {
     // Fetch seat data
     const fetchOrderInfo = () => {

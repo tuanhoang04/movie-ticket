@@ -43,7 +43,7 @@ export default function SignUp({ openDialog, handleOpenDialog }) {
     // console.log('Thông tin form:', formData)
 
     if (formData.password !== formData.rePassword) {
-      alert("Password and re-entered password do not match!");
+      setErrorMessage("Password and re-entered password do not match!");
       return;
     }
 

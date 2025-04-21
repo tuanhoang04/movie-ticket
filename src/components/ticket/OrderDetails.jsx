@@ -64,14 +64,20 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
       if (data.success) {
         // console.log(data);
       } else {
-        alert(
-          "The seat has already been taken by another user, please try again!"
+        setMessage(
+          
         );
-        window.location.reload();
+        const timer = setTimeout(() => {
+          setMessage(
+            "The seat has already been taken by another user, please try again!"
+          );
+          window.location.reload();
+        }, 3500);
+        return () => clearTimeout(timer);
       }
     } catch (error) {
       console.error("Error during reserving seats:", error);
-      alert("Đã có lỗi xảy ra khi giữ ghế. Vui lòng thử lại.");
+      alert("An error has occurred, please try again!");
     } finally {
       setLoading(false); // Dừng loading sau khi xử lý xong
     }

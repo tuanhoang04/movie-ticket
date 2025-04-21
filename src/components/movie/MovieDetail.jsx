@@ -53,7 +53,7 @@ export default function MovieDetail() {
       }
     } catch (error) {
       console.error("Lỗi khi gửi request:", error);
-      alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
+      setMessage("An error has occurred, please try again!");
     }
   };
 

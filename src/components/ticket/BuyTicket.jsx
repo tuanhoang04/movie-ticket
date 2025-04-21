@@ -35,17 +35,17 @@ export default function BuyTicket() {
       )
         .then((response) => response.json())
         .then((responseData) => {
-          if (responseData.success) {
+          if (responseData.success&&film_id) {
             // action to do when login is successful
           } else {
-            alert("Please login to continue!");
             navigate(-1);
+            alert("An error has occurred, please login and try again!");
           }
         })
         .catch((error) => console.error("Error:", error));
     } catch (error) {
       console.error("Lỗi khi gửi request:", error);
-      alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
+      alert("An error has occurred, please login and try again!");
     }
   };
   useEffect(() => {
