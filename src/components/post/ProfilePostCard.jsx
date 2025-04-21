@@ -6,8 +6,7 @@ function createSlug(name) {
 export default function PostCard({ data }) {
   const navigate = useNavigate();
   const imageClassName = " h-40 w-32  overflow-hidden rounded-lg";
-  const titleClassName = "text-xl text-white";
-  const genreClassName = "text-gray-500";
+  const titleClassName = "text-md text-white";
   const contentClassName = "w-full overflow-hidden line-clamp-2 text-white";
 
   return (
@@ -25,12 +24,7 @@ export default function PostCard({ data }) {
         <h1 className={titleClassName}>{data.new_header}</h1>
 
         <h2 className={titleClassName}>{data.film_name}</h2>
-        <div className={genreClassName}>
-          {/* {data.genres.map((index,value)=>{
-                    value
-                  })} */}
-          genres
-        </div>
+
         <br />
         <div
           className={contentClassName}

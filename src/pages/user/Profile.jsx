@@ -9,6 +9,7 @@ import ProfilePostCard from "../../components/post/ProfilePostCard";
 import TicketCard from "../../components/ticket/TicketCard";
 import MovieCard from "../../components/movie/MovieCard";
 import CreateNewPost from "../../components/post/CreateNewPost";
+import { useNavigate } from "react-router-dom";
 
 import {
   Tabs,
@@ -20,6 +21,7 @@ import {
 } from "@material-tailwind/react";
 
 export default function Profile() {
+  const navigate = useNavigate();
   const [userInfor, setUserInfor] = useState([]);
   const [posts, setPosts] = useState([]);
   const [bookedTickets, setBookedTickets] = useState([]);
@@ -38,13 +40,14 @@ export default function Profile() {
       .then((response) => response.json())
       .then((responseData) => {
         if (!responseData.success) {
-          navigate("/auth");
+          navigate("/");
         }
       })
       .catch((error) => console.error("Error:", error));
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
       method: "POST",
       headers: {
@@ -61,9 +64,11 @@ export default function Profile() {
         }
       })
       .catch((error) => console.error("Error:", error));
+    setIsLoading(true);
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_API_URL}/api/userInfo`, {
       method: "POST",
       headers: {
@@ -81,6 +86,7 @@ export default function Profile() {
         }
       })
       .catch((error) => console.error("Error:", error));
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
