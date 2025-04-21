@@ -9,17 +9,15 @@
   .skeleton-img {
     @apply text-gray-600;
   }
-  .scrollbar{
-    @apply [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-800 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#502A50] ;
+  .scrollbar {
+    @apply [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-800 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white;
   }
 }
-  
-  
 
-@layer base{
-  .ProseMirror  {
-  height: 100%;
-  width: 100%;
+@layer base {
+  .ProseMirror {
+    height: 100%;
+    width: 100%;
   }
   .ProseMirror:focus {
     height: 100%;

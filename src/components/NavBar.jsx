@@ -38,6 +38,9 @@ export default function NavBar({ currentPage }) {
     e.preventDefault();
     localStorage.setItem("searchTerm", searchTerm);
     navigate(`/search/${encodeURIComponent(createSlug(searchTerm))}`);
+    if(currentPage==="search"){
+      window.location.reload();
+    }
   };
 
   const jwt = localStorage.getItem("jwt");
@@ -188,7 +191,7 @@ export default function NavBar({ currentPage }) {
           </IconButton>
           <div className="hidden items-center justify-between mb-2 w-full gap-x-2 lg:flex">
             {navList}
-            <div className="relative flex w-[25%] gap-2 ">
+            <div className="relative flex w-[20%] gap-2 ">
               <form className="min-w-full" onSubmit={handleSubmit}>
                 <Input
                   type="search"
