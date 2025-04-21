@@ -218,7 +218,7 @@ export default function BookingSelectSeats({setNextStep}) {
             </div>
           </div>
           <div className="py-6 px-20">
-            {message && <AlertWithIcon message={message} />}
+            {message && <AlertWithIcon type={"negative"} message={message} />}
             <div className="bg-[#606060] rounded-lg p-4">
               <p className="text-white text-2xl font-light mb-2">
                 Cinema: {seatData.cinema_name}

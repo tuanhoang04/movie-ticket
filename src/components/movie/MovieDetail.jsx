@@ -27,6 +27,36 @@ export default function MovieDetail() {
   const [ratingTitle, setRatingTitle] = useState("");
   const [openRatingForm, setOpenRatingForm] = useState(false);
 
+  const jwt = localStorage.getItem("jwt");
+  const checkLogin = async () => {
+    try {
+      // Gửi request POST đến endpoint "/api/userInfo"
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/userInfo`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ jwt: jwt }),
+        }
+      );
+      const responseData = await response.json();
+      if (responseData.success) {
+        return true;
+      } else {
+        // alert("Please login to continue!");
+
+        setMessage("Please login to continue!");
+        // navigate(-1);
+        return false;
+      }
+    } catch (error) {
+      console.error("Lỗi khi gửi request:", error);
+      alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
+    }
+  };
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -149,9 +179,11 @@ export default function MovieDetail() {
       console.error("Error fetching likeCheck:", error);
     }
   };
-  const handleNavigate = (film_name, film_id) => {
-    localStorage.setItem("film_id", film_id);
-    navigate(`/movie/buyTicket/${film_name}`);
+  const handleNavigate = async (film_name, film_id) => {
+    if (await checkLogin()) {
+      localStorage.setItem("film_id", film_id);
+      navigate(`/movie/buyTicket/${film_name}`);
+    }
   };
   //   const fetchMovieNews = async (film_id) => {
   //     try {
@@ -194,8 +226,13 @@ export default function MovieDetail() {
                 className="col-span-2 row-span-1 rounded-3xl w-full"
               />
               <div className="col-span-7 row-span-1 flex flex-col justify-center px-10">
-                {message && <AlertWithIcon message={message} />}
-                <p className="text-white text-3xl pb-1 font-bold">
+                {message && (
+                  <AlertWithIcon type={"negative"} message={message} />
+                )}
+                <p
+                  className="text-white text-3xl pb-1 font-bold"
+                  style={message && { marginTop: "10px" }}
+                >
                   {data.info.film[0].film_name}
                 </p>
                 <p className="text-white text-xl pb-5 font-light">
@@ -246,7 +283,7 @@ export default function MovieDetail() {
                 {liked ? (
                   <Button
                     color="red"
-                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%] mb-3"
+                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px] mb-3"
                     onClick={unlike}
                   >
                     <img src="/icons/heart-filled.png" className="w-7 mr-2 " />
@@ -255,7 +292,7 @@ export default function MovieDetail() {
                 ) : (
                   <Button
                     color="red"
-                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%] mb-3"
+                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px] mb-3"
                     onClick={like}
                   >
                     <img src="/icons/heart.png" className="w-7 mr-2" />
@@ -264,8 +301,8 @@ export default function MovieDetail() {
                 )}
                 <Button
                   color="red"
-                  className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%]"
-                  onClick={()=>{navigate("/movie/buyTicket/" + film_name);}}
+                  className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px]"
+                  onClick={()=>{handleNavigate(film_name, film_id)}}
                 >
                   <img src="/icons/ticket.png" className="w-7 mr-2" />
                   <p className="text-sm font-bold">Buy Ticket</p>

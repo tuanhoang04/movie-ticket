@@ -326,15 +326,11 @@ export default function TheatersPage() {
                                         </p>
                                         <div className="text-xl flex gap-2 text-gray-400 line-clamp-1">
                                           {value[key].film_categories
-                                            ? value[key].film_categories.map(
-                                                (item) => {
-                                                  return (
-                                                    <span>
-                                                      {item.category_name}
-                                                    </span>
-                                                  );
-                                                }
-                                              )
+                                            ? value[key].film_categories
+                                                .map((item) => {
+                                                  return item.category_name;
+                                                })
+                                                .join(", ")
                                             : "genres"}
                                         </div>
                                         <p className="text-xl mt-10 line-clamp-3 w-[700px]">

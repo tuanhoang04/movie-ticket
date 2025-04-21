@@ -11,12 +11,14 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
 import SignIn from "../pages/user/SignIn";
+import SignUp from "../pages/user/SignUp";
 
 export default function NavBar({ currentPage }) {
   const [openNav, setOpenNav] = useState(false);
   const [login, setLogin] = useState(true);
   const [userInfo, setUserInfo] = useState([]);
   const [openSignIn, setOpenSignIn] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   useEffect(() => {
@@ -136,7 +138,7 @@ export default function NavBar({ currentPage }) {
                 <Button
                   variant="outlined"
                   className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
-                  onClick={() => (window.location = "/sign-up")}
+                  onClick={() => setOpenSignUp(!openSignUp)}
                 >
                   Sign up
                 </Button>
@@ -221,6 +223,14 @@ export default function NavBar({ currentPage }) {
             setOpenSignIn(!openSignIn);
           }}
         />
+        {openSignUp&&
+          <SignUp
+            openDialog={openSignUp}
+            handleOpenDialog={() => {
+              setOpenSignUp(!openSignUp);
+            }}
+          />
+        }
       </Navbar>
     </>
   );

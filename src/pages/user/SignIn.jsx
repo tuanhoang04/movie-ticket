@@ -86,8 +86,8 @@ export default function SignIn({openDialog, handleOpenDialog}) {
       <DialogHeader className="text-white pb-0">
         Log in to your account
       </DialogHeader>
-      {errorMessage && <AlertWithIcon message={errorMessage} />}
-      {okMessage && <AlertWithIcon message={okMessage} />}
+      {errorMessage && <AlertWithIcon type="negative" message={errorMessage} />}
+      {okMessage && <AlertWithIcon type="positive" message={okMessage} />}
       <DialogBody className="mt-3 mb-1">
         <form onSubmit={handleSubmit} className="flex flex-col w-[100%] gap-5">
           <div>
@@ -123,8 +123,8 @@ export default function SignIn({openDialog, handleOpenDialog}) {
           </div>
           <div className="flex flex-row justify-center items-center">
             <Button
-              color="red"
-              className="w-28 mr-3"
+              color="gray"
+              className="w-28 mr-3 bg-gray-800"
               onClick={handleOpenDialog}
             >
               cancel

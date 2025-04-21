@@ -17,7 +17,8 @@ export default function RatingForm({ handleOpen }) {
   });
 
   const ratingRef = useRef(null);
-  const [message, setMessage] = useState(null);
+  const [okMessage, setOkMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [comment, setComment] = useState(null);
   const [stars, setStars] = useState(0);
 
@@ -33,7 +34,7 @@ export default function RatingForm({ handleOpen }) {
 
   const handleSubmit = async () => {
     if (!comment || !comment.trim() || !stars || stars === 0) {
-      setMessage(
+      setErrorMessage(
         "Your rating is invalid, a rating must consist of at least one star and some text comment!"
       );
     } else if (stars && stars > 0 && comment.trim()) {
@@ -53,10 +54,11 @@ export default function RatingForm({ handleOpen }) {
           const data = await response.json();
 
           if (data.success) {
-            setMessage("You have rated this movie successfully!");
+            setErrorMessage("");
+            setOkMessage("You have rated this movie successfully!");
             setTimeout(() => window.location.reload(), 2000);
           } else {
-            setMessage("You can rate a movie only one time!");
+            setErrorMessage("You can rate a movie only one time!");
           }
         } else {
           console.error("Internal error:", response.statusText);
@@ -75,7 +77,8 @@ export default function RatingForm({ handleOpen }) {
       <p className="text-white text-2xl mb-1">
         Share your experience watching this movie
       </p>
-      {message && <AlertWithIcon message={message} />}
+      {okMessage && <AlertWithIcon type={"positive"} message={okMessage} />}
+      {errorMessage && <AlertWithIcon type={"negative"} message={errorMessage} />}
       <Rating
         onChange={(value) => {
           starChange(value);
