@@ -13,6 +13,15 @@ import { ProfileMenu } from "./ProfileMenu";
 import SignIn from "../pages/user/SignIn";
 import SignUp from "../pages/user/SignUp";
 
+
+function createSlug(name) {
+  return name
+    .trim()
+    .replace(/\s*:\s*/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 export default function NavBar({ currentPage }) {
   const [openNav, setOpenNav] = useState(false);
   const [login, setLogin] = useState(true);
@@ -20,6 +29,17 @@ export default function NavBar({ currentPage }) {
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   const navigate = useNavigate();
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem("searchTerm", searchTerm);
+    navigate(`/search/${encodeURIComponent(createSlug(searchTerm))}`);
+  };
+
   const jwt = localStorage.getItem("jwt");
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/userInfo`, {
@@ -168,13 +188,18 @@ export default function NavBar({ currentPage }) {
           </IconButton>
           <div className="hidden items-center justify-between mb-2 w-full gap-x-2 lg:flex">
             {navList}
-            <div className="relative flex w-full gap-2 md:w-64 ">
-              <Input
-                type="search"
-                placeholder="Search"
-                size="lg"
-                className="border-none after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
-              />
+            <div className="relative flex w-[25%] gap-2 ">
+              <form className="min-w-full" onSubmit={handleSubmit}>
+                <Input
+                  type="search"
+                  placeholder="Search"
+                  size="lg"
+                  onChange={handleChange}
+                  value={searchTerm}
+                  autoComplete="off"
+                  className="border-none !min-w-full after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
+                />
+              </form>
             </div>
           </div>
         </div>
@@ -183,15 +208,21 @@ export default function NavBar({ currentPage }) {
             {navList}
             <div className="flex gap-x-2 flex-row sm:mb-4">
               <div className="w-full gap-2 md:w-max">
-                <Input
-                  type="search"
-                  placeholder="Search"
-                  className="border-none rounded-3xl text-lg pl-6 placeholder:text-black bg-white"
-                />
+                <form onSubmit={handleSubmit}>
+                  <Input
+                    type="search"
+                    placeholder="Search"
+                    className="border-none rounded-3xl text-lg pl-6 placeholder:text-black bg-white"
+                    onChange={handleChange}
+                    value={searchTerm}
+                    onSubmit={handleSubmit}
+                  />
+                </form>
               </div>
               <Button
                 color="deep-purple"
                 className="text-white text-md rounded-3xl"
+                onClick={handleSubmit}
               >
                 Search
               </Button>
@@ -223,14 +254,14 @@ export default function NavBar({ currentPage }) {
             setOpenSignIn(!openSignIn);
           }}
         />
-        {openSignUp&&
+        {openSignUp && (
           <SignUp
             openDialog={openSignUp}
             handleOpenDialog={() => {
               setOpenSignUp(!openSignUp);
             }}
           />
-        }
+        )}
       </Navbar>
     </>
   );
