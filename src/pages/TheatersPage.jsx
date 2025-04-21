@@ -324,11 +324,21 @@ export default function TheatersPage() {
                                         <p className="text-2xl font-bold line-clamp-1">
                                           {value[key].film_name}
                                         </p>
-                                        <p className="text-xl text-gray-400 line-clamp-1">
-                                          {value[key].film_genres || "genres"}
-                                        </p>
-                                        <p className="text-xl mt-20 line-clamp-3">
-                                          {value[key].film_description ||
+                                        <div className="text-xl flex gap-2 text-gray-400 line-clamp-1">
+                                          {value[key].film_categories
+                                            ? value[key].film_categories.map(
+                                                (item) => {
+                                                  return (
+                                                    <span>
+                                                      {item.category_name}
+                                                    </span>
+                                                  );
+                                                }
+                                              )
+                                            : "genres"}
+                                        </div>
+                                        <p className="text-xl mt-10 line-clamp-3 w-[700px]">
+                                          {value[key].film_describe ||
                                             "Description"}
                                         </p>
                                       </div>
