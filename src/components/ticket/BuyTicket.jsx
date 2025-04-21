@@ -267,7 +267,7 @@ export default function BuyTicket() {
                 className="col-span-2 row-span-1 rounded-3xl w-full"
               />
               <div className="col-span-7 row-span-1 flex flex-col justify-center px-10">
-                {message && <AlertWithIcon message={message} />}
+                {message && <AlertWithIcon type={"negative"} message={message} />}
                 <p className="text-white text-3xl pb-1 font-bold">
                   {data.info.film[0].film_name}
                 </p>

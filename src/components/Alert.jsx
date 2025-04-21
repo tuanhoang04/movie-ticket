@@ -19,8 +19,14 @@ function Icon() {
   );
 }
 
-export default function AlertWithIcon({message}) {
-  return (
-    <Alert className="text-white" icon={<Icon />}>{message}</Alert>
+export default function AlertWithIcon({message, type}) {
+  return type === "negative" ? (
+    <Alert className="text-white bg-[#B44242]" icon={<Icon />}>
+      {message}
+    </Alert>
+  ) : (
+    <Alert className="text-white bg-[#27973c]" icon={<Icon />}>
+      {message}
+    </Alert>
   );
 }

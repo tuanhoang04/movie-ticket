@@ -167,7 +167,7 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
       </div>
 
       <div className="py-6 px-20">
-        {message && <AlertWithIcon message={message} />}
+        {message && <AlertWithIcon type="negative" message={message} />}
         <div className={`grid grid-cols-12 grid-rows-${groupedSeats.length}`}>
           <div className="bg-[#606060] rounded-t-lg col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-t-2 border-r-2 border-l-2 border-gray-700 ">
             <div className="col-span-8 row-span-1 ml-8 py-5 flex flex-row items-center">
