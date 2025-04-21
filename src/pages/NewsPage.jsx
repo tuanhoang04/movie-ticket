@@ -131,7 +131,7 @@ export default function NewsPage() {
           </div>
           <div className="flex flex-col gap-4 mb-20">
             <div className="text-3xl flex items-center gap-5 mb-3">
-              <p>Viet Name news</p>
+              <p>Viet Nam news</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -159,7 +159,9 @@ export default function NewsPage() {
                 }}
               >
                 <div className="w-4/5">
-                  <p className="line-clamp-2 text-lg mb-3">{item.new_header}</p>
+                  <p className="line-clamp-2 text-lg mb-10">
+                    {item.new_header}
+                  </p>
                   <p className="line-clamp-1 text-md">
                     {" "}
                     {item.new_time.substring(0, 10)} ● by {item.username}
@@ -205,7 +207,9 @@ export default function NewsPage() {
                 }}
               >
                 <div className="w-4/5">
-                  <p className="line-clamp-2 text-lg mb-3">{item.new_header}</p>
+                  <p className="line-clamp-2 text-lg mb-10">
+                    {item.new_header}
+                  </p>
                   <p className="line-clamp-1 text-md">
                     {" "}
                     {item.new_time.substring(0, 10)} ● by {item.username}

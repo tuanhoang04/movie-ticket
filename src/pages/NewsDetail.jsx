@@ -88,10 +88,10 @@ export default function NewsDetail() {
                 <h1 className="text-3xl mb-3">{dataDetail.new_header}</h1>
                 <img src={dataDetail.new_img} alt="" className="rounded-lg" />
                 <div
-                  className="text-xl"
+                  className="text-xl text-justify leading-8 flex flex-col gap-7 items-center"
                   dangerouslySetInnerHTML={{ __html: dataDetail.new_content }}
                 ></div>
-                <div className="flex justify-between items-center mt-5">
+                <div className="flex justify-between items-center mt-5 text-lg">
                   <p>
                     {dataDetail.new_time.substring(0, 10)} ● by{" "}
                     {dataDetail.username}
@@ -130,7 +130,7 @@ export default function NewsDetail() {
                     onClick={() => ClickNew(item.new_id, item.new_header)}
                   >
                     <div className="w-4/5">
-                      <p className="line-clamp-2 text-lg mb-3">
+                      <p className="line-clamp-2 text-lg mb-10">
                         {item.new_header}
                       </p>
                       <p className="line-clamp-1 text-md">
