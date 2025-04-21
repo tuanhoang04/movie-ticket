@@ -3,7 +3,7 @@ import { useTicketContext } from "./BookingTicketProvider";
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 
-export default function Payment({ setNextStep, setPrevStep }) {
+export default function Payment({setNextStep}) {
   const jwt = localStorage.getItem("jwt");
   const {
     showtime_id,
