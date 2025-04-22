@@ -173,11 +173,12 @@ export default function MovieDetail() {
       }
       const data = await response.json();
       if (
-        data.message === "Người dùng chưa đăng nhập" ||
-        data.message === "Người dùng hết phiên đăng nhập"
+        data.message === "User not logged in" ||
+        data.message === "User sign-in session timed out"
       ) {
         setMessage("Please login to continue!");
         setTimeout(() => {
+          console.log("ac");
           setOpenSignIn(true);
         }, 900);
       }
@@ -223,7 +224,10 @@ export default function MovieDetail() {
 
   return (
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
-      <NavBar openSignInFromParent={openSignIn} setOpenSignInFromParent={setOpenSignIn} />
+      <NavBar
+        openSignInFromParent={openSignIn}
+        setOpenSignInFromParent={setOpenSignIn}
+      />
       <div className="flex-grow px-8 lg:px-36 flex">
         <div className="bg-[#323137] w-full h-full py-6 px-20 flex-grow my-7 rounded-3xl">
           {data && (
@@ -361,6 +365,11 @@ export default function MovieDetail() {
                 <RatingForm
                   handleOpen={() => {
                     setOpenRatingForm(!openRatingForm);
+                  }}
+                  handleOpenSignIn={() => {
+                    setTimeout(() => {
+                      setOpenSignIn(true);
+                    }, 1000);
                   }}
                 />
               )}
