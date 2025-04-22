@@ -149,10 +149,10 @@ export default function MoviesFilterPage() {
         </div>
 
         {currentMovies && (
-          <div className="flex flex-wrap lg:gap-[10.667%] gap-[4%]">
+          <div className="flex flex-wrap lg:gap-[9.6%] gap-[4%]">
             {currentMovies.map((item) => {
               return (
-                <div className="mb-6 lg:w-[17%] w-[48%]" key={item.film_id}>
+                <div className="mb-6 lg:w-[17.8%] w-[48%]" key={item.film_id}>
                   <MovieCard data={item} />
                 </div>
               );

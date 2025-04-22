@@ -23,8 +23,8 @@ export default function MovieCard({ data }) {
         )
       }
     >
-      <img src={data.film_img} className="rounded-2xl object-cover w-full" />
-      <p className="text-[#5D6A81] lg:text-xl text-lg w-full">
+      <img src={data.film_img} className="rounded-2xl object-cover w-full mb-3" />
+      <p className="text-[#5D6A81] lg:text-xl text-lg w-full mb-1">
         {data.Release_date.substring(0, 10)}
       </p>
       <p className="text-white lg:text-xl text-lg font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] h-[3.55rem]">
