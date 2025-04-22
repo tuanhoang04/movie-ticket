@@ -13,7 +13,6 @@ import { ProfileMenu } from "./ProfileMenu";
 import SignIn from "../pages/user/SignIn";
 import SignUp from "../pages/user/SignUp";
 
-
 function createSlug(name) {
   return name
     .trim()
@@ -22,7 +21,11 @@ function createSlug(name) {
     .replace(/-+/g, "-");
 }
 
-export default function NavBar({ currentPage }) {
+export default function NavBar({
+  currentPage,
+  openSignInFromParent = false,
+  setOpenSignInFromParent,
+}) {
   const [openNav, setOpenNav] = useState(false);
   const [login, setLogin] = useState(true);
   const [userInfo, setUserInfo] = useState([]);
@@ -30,6 +33,18 @@ export default function NavBar({ currentPage }) {
   const [openSignUp, setOpenSignUp] = useState(false);
   const navigate = useNavigate();
 
+  // listen for sign in trigger
+  useEffect(() => {
+    if (openSignInFromParent) {
+      setOpenSignIn(true);
+    }
+  }, [openSignInFromParent]);
+
+  useEffect(() => {
+    if (!openSignIn) {
+      setOpenSignInFromParent(false);
+    }
+  }, [openSignIn]);
   const [searchTerm, setSearchTerm] = useState("");
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -38,7 +53,7 @@ export default function NavBar({ currentPage }) {
     e.preventDefault();
     localStorage.setItem("searchTerm", searchTerm);
     navigate(`/search/${encodeURIComponent(createSlug(searchTerm))}`);
-    if(currentPage==="search"){
+    if (currentPage === "search") {
       window.location.reload();
     }
   };
@@ -256,12 +271,20 @@ export default function NavBar({ currentPage }) {
           handleOpenDialog={() => {
             setOpenSignIn(!openSignIn);
           }}
+          handleOpenSignUp={() => {
+            setOpenSignIn(false);
+            setOpenSignUp(true);
+          }}
         />
         {openSignUp && (
           <SignUp
             openDialog={openSignUp}
             handleOpenDialog={() => {
               setOpenSignUp(!openSignUp);
+            }}
+            handleOpenSignIn={() => {
+              setOpenSignUp(false);
+              setOpenSignIn(true);
             }}
           />
         )}

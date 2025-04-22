@@ -15,7 +15,7 @@ import {
 } from "@material-tailwind/react";
 import AlertWithIcon from "../../components/Alert";
 
-export default function SignIn({openDialog, handleOpenDialog}) {
+export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp}) {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [okMessage, setOkMessage] = useState("");
@@ -106,9 +106,18 @@ export default function SignIn({openDialog, handleOpenDialog}) {
             />
           </div>
           <div>
-            <Typography variant="h5" color="white" className="mb-1 font-light">
-              Password
-            </Typography>
+            <div className="flex flex-row items-center justify-between">
+              <Typography
+                variant="h5"
+                color="white"
+                className="mb-1 font-light"
+              >
+                Password
+              </Typography>
+              <Typography color="gray" className="text-white font-normal mb-1">
+                <a href="/change-password">Forgot your password?</a>
+              </Typography>
+            </div>
             <Input
               type="password"
               size="lg"
@@ -138,19 +147,10 @@ export default function SignIn({openDialog, handleOpenDialog}) {
       <DialogFooter className="flex-col items-center pt-0">
         <div>
           <Typography color="gray" className="text-white font-normal">
-            Forgot your password?{" "}
-            <a
-              href="/change-password"
-              className="font-semibold hover:underline hover:underline-offset-2"
-            >
-              Change password
-            </a>
-          </Typography>
-          <Typography color="gray" className="text-white font-normal mr-3">
             Don't have an account?{" "}
             <a
-              href="/sign-up"
-              className="font-semibold hover:underline hover:underline-offset-2"
+              className="text-green-300  hover:underline hover:underline-offset-2 cursor-pointer"
+              onClick={handleOpenSignUp}
             >
               Sign Up
             </a>
