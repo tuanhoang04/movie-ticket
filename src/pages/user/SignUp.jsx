@@ -67,7 +67,7 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
         if (data.success) {
           setErrorMessage(null);
           console.log("Sign up successfully:", data.message);
-          setOkMessage(`Sign up successfully: ${data.message}`);
+          setOkMessage(`Sign up successfully!`);
           setTimeout(() => {
             setErrorMessage("");
             setOkMessage("");
