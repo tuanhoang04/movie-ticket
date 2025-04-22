@@ -8,7 +8,6 @@ function createSlug(name) {
 }
 export default function NewsPage() {
   const navigate = useNavigate();
-  const [viewdetail, setViewDetail] = useState(false);
   const [dataV, setDataV] = useState([]);
   const [dataA, setDataA] = useState([]);
 

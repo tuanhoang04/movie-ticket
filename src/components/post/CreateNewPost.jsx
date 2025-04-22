@@ -195,6 +195,11 @@ function FancyEditor({ handleContentChange }) {
 
 export default function CreateNewPost() {
   const [message, setMessage] = useState("");
+  const [movieName, setMovieName] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [disableSearch, setDisableSearch] = useState(false);
+  const [movieResults, setMovieResults] = useState([]);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const NoImageText = "No image found";
   const jwt = localStorage.getItem("jwt");
   const [newImg, setNewImg] = useState(null);
@@ -206,6 +211,54 @@ export default function CreateNewPost() {
     new_footer: "",
     new_content: "",
   });
+  useEffect(() => {
+    if (disableSearch) return;
+
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchText);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchText]);
+  const handleMovieSearch = (e) => {
+    if (disableSearch) setDisableSearch(false);
+    setSearchText(e.target.value);
+  };
+
+  const fetchMovieResults = async (movieName) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/film/searchFilm/${movieName}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+
+      const currData = await response.json();
+      console.log(currData);
+
+      setMovieResults(currData[0]);
+    } catch (error) {
+      console.error("Lỗi mạng:", error);
+    }
+  };
+  useEffect(() => {
+    fetchMovieResults(debouncedSearch);
+  }, [debouncedSearch]);
+
+  const handleMovieSelect = (movieName) => {
+    setDisableSearch(true);
+    setSearchText(movieName);
+    setMovieResults([]);
+    setFormData({
+      ...formData,
+      film_name: movieName,
+    });
+  };
 
   useEffect(() => {
     if (message) {
@@ -239,6 +292,7 @@ export default function CreateNewPost() {
       new_content: value,
     });
   };
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -287,6 +341,7 @@ export default function CreateNewPost() {
       console.error("Error submitting form:", error);
     }
   };
+
   return (
     <div className="">
       <div className="border-b-2 border-opacity-50 p-5 lg:px-10  text-xl">
@@ -299,20 +354,37 @@ export default function CreateNewPost() {
       >
         <div className="col-span-1 flex flex-col gap-5 min-w-72">
           <h1 className="text-xl">Post Header</h1>
-          <div>
+          <div className="relative">
             <p className="mb-3">Movie Name</p>
             <input
               name="film_name"
-              value={formData.film_name}
-              onChange={handleInputChange}
+              value={searchText}
+              placeholder="Search for a movie"
+              onChange={handleMovieSearch}
               className="rounded-md h-10 w-full bg-white bg-opacity-10 p-3 text-white"
               type="text"
             />
+            {movieResults
+              ? movieResults.length > 0 && (
+                  <div className="absolute bg-white w-full max-h-60 overflow-y-auto rounded-md shadow-lg z-10">
+                    {movieResults.map((item) => (
+                      <div
+                        key={item.film_id}
+                        className="p-2 hover:bg-gray-200 text-black cursor-pointer"
+                        onClick={() => handleMovieSelect(item.film_name)}
+                      >
+                        {item.film_name}
+                      </div>
+                    ))}
+                  </div>
+                )
+              : ""}
           </div>
           <div>
             <p className="mb-3">Title</p>
             <input
               name="new_header"
+              placeholder="Enter title"
               value={formData.new_header}
               onChange={handleInputChange}
               className="rounded-md h-10 w-full bg-white bg-opacity-10 p-3 text-white"
@@ -323,6 +395,7 @@ export default function CreateNewPost() {
             <p className="mb-3">Footer</p>
             <input
               name="new_footer"
+              placeholder="Enter footer"
               value={formData.new_footer}
               onChange={handleInputChange}
               className="rounded-md h-10 w-full bg-white bg-opacity-10 p-3 text-white"
