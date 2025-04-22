@@ -42,7 +42,7 @@ export default function NavBar({
 
   useEffect(() => {
     if (!openSignIn) {
-      setOpenSignInFromParent(false);
+      setOpenSignInFromParent&&setOpenSignInFromParent(false);
     }
   }, [openSignIn]);
   const [searchTerm, setSearchTerm] = useState("");
