@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
 import SignIn from "../pages/user/SignIn";
 import SignUp from "../pages/user/SignUp";
+import ForgotPassword from "../pages/user/ForgotPassword";
 
 function createSlug(name) {
   return name
@@ -31,6 +32,7 @@ export default function NavBar({
   const [userInfo, setUserInfo] = useState([]);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
+  const [openForgotPassword, setOpenForgotPassword] = useState(false);
   const navigate = useNavigate();
 
   // listen for sign in trigger
@@ -42,7 +44,7 @@ export default function NavBar({
 
   useEffect(() => {
     if (!openSignIn) {
-      setOpenSignInFromParent&&setOpenSignInFromParent(false);
+      setOpenSignInFromParent && setOpenSignInFromParent(false);
     }
   }, [openSignIn]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -275,6 +277,10 @@ export default function NavBar({
             setOpenSignIn(false);
             setOpenSignUp(true);
           }}
+          handleOpenForgotPassword={()=>{
+            setOpenSignIn(false);
+            setOpenForgotPassword(true);
+          }}
         />
         {openSignUp && (
           <SignUp
@@ -284,6 +290,16 @@ export default function NavBar({
             }}
             handleOpenSignIn={() => {
               setOpenSignUp(false);
+              setOpenSignIn(true);
+            }}
+          />
+        )}
+
+        {openForgotPassword && (
+          <ForgotPassword
+            openDialog={openForgotPassword}
+            handleOpenDialog={() => {
+              setOpenForgotPassword(false);
               setOpenSignIn(true);
             }}
           />
