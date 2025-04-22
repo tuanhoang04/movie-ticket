@@ -92,18 +92,19 @@ export default function Movies() {
       <div className="px-3 lg:px-36">
         {!isLoading && (
           <div className="flex flex-col mt-7 mb-20">
-            <div>
-              <p className="text-white text-3xl mb-4">Now Showing</p>
+            <div className="flex flex-row items-center mb-4">
+              <img src="/icons/red-dot.png" className="w-9 h-9" />
+              <p className="text-white text-3xl">Now Showing</p>
             </div>
-            <div className="flex flex-wrap lg:gap-[10.667%] gap-[1%]">
+            <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
               {currentNowShowings.map((item) => (
-                <div className="mb-6 lg:w-[17%] w-[49%]" key={item.film_id}>
+                <div className="mb-6 lg:w-[18.25%] w-[49%]" key={item.film_id}>
                   <MovieCard data={item} />
                 </div>
               ))}
             </div>
             {currentNowShowings.length <= 4 && (
-              <div className="mb-6 lg:w-[17%] w-[49%]">
+              <div className="mb-6 lg:w-[18.25%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
                   <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
                   <div className="invisible">
@@ -133,21 +134,24 @@ export default function Movies() {
 
         {!isLoading && (
           <div className="flex flex-col mb-20">
-            <div>
-              <p className="text-white text-3xl mb-4">Upcoming Movies</p>
+            <div className="flex flex-row items-center mb-4">
+              <img src="/icons/red-dot.png" className="w-9 h-9" />
+              <p className="text-white text-3xl">Upcoming Movies</p>
             </div>
-
-            <div className="flex flex-wrap lg:gap-[10.667%] gap-[1%]">
+            <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
               {currentUpcomings.map((item) => {
                 return (
-                  <div className="mb-6 lg:w-[17%] w-[49%]" key={item.film_id}>
+                  <div
+                    className="mb-6 lg:w-[18.25%] w-[49%]"
+                    key={item.film_id}
+                  >
                     <MovieCard data={item} />
                   </div>
                 );
               })}
             </div>
             {currentUpcomings.length <= 4 && (
-              <div className="mb-6 lg:w-[17%] w-[49%]">
+              <div className="mb-6 lg:w-[18.25%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
                   <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
                   <div className="invisible">

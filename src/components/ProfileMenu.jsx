@@ -82,26 +82,28 @@ export function ProfileMenu({ fullname }) {
         open={openLogoutConfirm}
         handler={handleOpen}
       >
-        <DialogHeader className="text-white">Sign out confirmation</DialogHeader>
+        <DialogHeader className="text-white">
+          Sign out confirmation
+        </DialogHeader>
         <DialogBody className="text-xl text-white py-0">
           Are you sure you want to sign out?
         </DialogBody>
         <DialogFooter>
           <Button
-            color="green"
+            color="gray"
             onClick={handleOpen}
-            className="mr-8"
+            className="bg-gray-800 mr-8"
           >
             <span>Cancel</span>
           </Button>
           <Button
-            
-            color="red"
+            color="purple"
             onClick={() => {
               handleOpen();
               localStorage.removeItem("jwt");
               navigate("/");
             }}
+            className="!bg-[#773e77] self-start w-auto"
           >
             <span>Confirm</span>
           </Button>

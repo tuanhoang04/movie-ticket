@@ -27,6 +27,7 @@ export default function MovieDetail() {
   const [ratingTitle, setRatingTitle] = useState("");
   const [openRatingForm, setOpenRatingForm] = useState(false);
 
+  const [openSignIn, setOpenSignIn] = useState(false);
   const jwt = localStorage.getItem("jwt");
   const checkLogin = async () => {
     try {
@@ -48,6 +49,9 @@ export default function MovieDetail() {
         // alert("Please login to continue!");
 
         setMessage("Please login to continue!");
+        setTimeout(() => {
+          setOpenSignIn(true);
+        }, 1000);
         // navigate(-1);
         return false;
       }
@@ -173,6 +177,9 @@ export default function MovieDetail() {
         data.message === "Người dùng hết phiên đăng nhập"
       ) {
         setMessage("Please login to continue!");
+        setTimeout(() => {
+          setOpenSignIn(true);
+        }, 900);
       }
       setLiked(data.liked);
     } catch (error) {
@@ -216,7 +223,7 @@ export default function MovieDetail() {
 
   return (
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
-      <NavBar />
+      <NavBar openSignInFromParent={openSignIn} setOpenSignInFromParent={setOpenSignIn} />
       <div className="flex-grow px-8 lg:px-36 flex">
         <div className="bg-[#323137] w-full h-full py-6 px-20 flex-grow my-7 rounded-3xl">
           {data && (
@@ -302,7 +309,9 @@ export default function MovieDetail() {
                 <Button
                   color="red"
                   className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px]"
-                  onClick={()=>{handleNavigate(film_name, film_id)}}
+                  onClick={() => {
+                    handleNavigate(film_name, film_id);
+                  }}
                 >
                   <img src="/icons/ticket.png" className="w-7 mr-2" />
                   <p className="text-sm font-bold">Buy Ticket</p>

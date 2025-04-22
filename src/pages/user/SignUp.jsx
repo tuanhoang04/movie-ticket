@@ -15,7 +15,7 @@ import {
 } from "@material-tailwind/react";
 import AlertWithIcon from "../../components/Alert";
 
-export default function SignUp({ openDialog, handleOpenDialog }) {
+export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn }) {
   const [formData, setFormData] = useState({
     name: "",
     user__name: "",
@@ -234,8 +234,8 @@ export default function SignUp({ openDialog, handleOpenDialog }) {
         <Typography color="gray" className="text-center text-white font-normal">
           Already have an account?{" "}
           <a
-            href="/sign-in"
-            className="font-medium text-green-300 hover:underline hover:underline-offset-2"
+            onClick={handleOpenSignIn}
+            className="font-medium text-green-300 hover:underline hover:underline-offset-2 cursor-pointer"
           >
             Sign In
           </a>
