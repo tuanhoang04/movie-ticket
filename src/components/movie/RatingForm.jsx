@@ -8,7 +8,7 @@ import {
 import { useRef, useState } from "react";
 import AlertWithIcon from "../Alert";
 
-export default function RatingForm({ handleOpen }) {
+export default function RatingForm({ handleOpen, handleOpenSignIn }) {
   const [ratingData, setRatingData] = useState({
     film_id: localStorage.getItem("film_id"),
     comments: "",
@@ -52,8 +52,11 @@ export default function RatingForm({ handleOpen }) {
 
         if (response.ok) {
           const data = await response.json();
-
-          if (data.success) {
+          console.log(data);
+          if (data.message === "User not logged in") {
+            setErrorMessage("You must sign in to continue!");
+            handleOpenSignIn();
+          } else if (data.success) {
             setErrorMessage("");
             setOkMessage("You have rated this movie successfully!");
             setTimeout(() => window.location.reload(), 2000);
@@ -78,7 +81,9 @@ export default function RatingForm({ handleOpen }) {
         Share your experience watching this movie
       </p>
       {okMessage && <AlertWithIcon type={"positive"} message={okMessage} />}
-      {errorMessage && <AlertWithIcon type={"negative"} message={errorMessage} />}
+      {errorMessage && (
+        <AlertWithIcon type={"negative"} message={errorMessage} />
+      )}
       <Rating
         onChange={(value) => {
           starChange(value);

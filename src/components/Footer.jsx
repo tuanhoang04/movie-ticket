@@ -40,19 +40,25 @@ export default function Footer() {
             Homepage
           </a>
           <a
-            href="#"
+            href="/movie/filter"
+            className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
+          >
+            Movies
+          </a>
+          <a
+            href="/theater-movie"
             className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
           >
             Buy Tickets
           </a>
           <a
-            href="#"
+            href="/theaters"
             className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400"
           >
             Theaters
           </a>
           <a
-            href="#"
+            href="/news"
             className="text-[#7f92b3] font-light text-xl inline-flex hover:text-purple-400 mb-5"
           >
             News

@@ -3,11 +3,11 @@ export default function ForgotPassword(){
     const [errorMessage, setErrorMessage] = useState("");
     const [okMessage, setOkMessage] = useState("");
     const [step, setStep] = useState(1);
-    const [formData, setFormData] = useState({
+    const [emailAddress, setEmailAddress] = useState({
       gmail: "",
     });
 
-    const [formDataaa, setFormDataaa] = useState({
+    const [newPassword, setNewPassword] = useState({
       password: "",
       rePassword: "",
     });
@@ -16,7 +16,7 @@ export default function ForgotPassword(){
     });
     const handleChange = (e) => {
       const { name, value } = e.target;
-      setFormData((prevData) => ({
+      setEmailAddress((prevData) => ({
         ...prevData,
         [name]: value,
       }));
@@ -30,7 +30,7 @@ export default function ForgotPassword(){
     };
     const handleChangeee = (e) => {
       const { name, value } = e.target;
-      setFormDataaa((prevData) => ({
+      setNewPassword((prevData) => ({
         ...prevData,
         [name]: value,
       }));
@@ -117,8 +117,8 @@ export default function ForgotPassword(){
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              ...formData,
-              ...formDataaa,
+              ...emailAddress,
+              ...newPassword,
             }),
           }
         );

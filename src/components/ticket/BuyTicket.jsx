@@ -206,8 +206,8 @@ export default function BuyTicket() {
       }
       const data = await response.json();
       if (
-        data.message === "Người dùng chưa đăng nhập" ||
-        data.message === "Người dùng hết phiên đăng nhập"
+        data.message === "User sign-in session timed out" ||
+        data.message === "User not logged in"
       ) {
         setMessage("Please login to continue!");
       }
