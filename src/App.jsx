@@ -10,6 +10,7 @@ import NewsDetail from "./pages/NewsDetail";
 import Profile from "./pages/user/Profile";
 import SignUp from "./pages/user/SignUp";
 import SignIn from "./pages/user/SignIn";
+import NewsByRegion from "./pages/NewsByRegion";
 
 import MovieDetail from "./components/movie/MovieDetail";
 import BuyTicket from "./components/ticket/BuyTicket";
@@ -26,12 +27,16 @@ function App() {
         <Route path="/theaters" element={<TheatersPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/news/:new_header" element={<NewsDetail />} />
+        <Route path="/news/region/:region" element={<NewsByRegion />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/theater-movie" element={<TheatersAndMovies />}/>
+        <Route path="/theater-movie" element={<TheatersAndMovies />} />
         <Route path="/movie/:film_name" element={<MovieDetail />} />
         <Route path="/search/:film_name" element={<SearchPage />} />
         <Route path="/movie/buyTicket/:film_name" element={<BuyTicket />} />
-        <Route path="/movie/bookTicket/:film_name" element={<BookingTicket />} />
+        <Route
+          path="/movie/bookTicket/:film_name"
+          element={<BookingTicket />}
+        />
         <Route path="/movie/filter" element={<MoviesFilterPage />} />
       </Routes>
     </Router>

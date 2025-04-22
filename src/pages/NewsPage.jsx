@@ -88,6 +88,12 @@ export default function NewsPage() {
     fetchNewAboard();
     fetchNewVietnam();
   }, []);
+
+  const handleRegionClick = (region) => {
+    localStorage.setItem("region", region);
+    navigate(`/news/region/${region}`);
+  };
+
   return (
     <>
       <NavBar currentPage={"News"} />
@@ -130,7 +136,12 @@ export default function NewsPage() {
             More to explore
           </div>
           <div className="flex flex-col gap-4 mb-20">
-            <div className="text-3xl flex items-center gap-5 mb-3">
+            <div
+              onClick={() => {
+                handleRegionClick("vietnam");
+              }}
+              className="text-3xl flex items-center gap-5 mb-3 cursor-pointer"
+            >
               <p>Viet Nam news</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +189,12 @@ export default function NewsPage() {
             ))}
           </div>
           <div className="flex flex-col gap-4 ">
-            <div className="text-4xl flex items-center gap-5 mb-3">
+            <div
+              onClick={() => {
+                handleRegionClick("aboard");
+              }}
+              className="text-4xl flex items-center gap-5 mb-3 cursor-pointer"
+            >
               <p>Global news</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +210,7 @@ export default function NewsPage() {
                 />
               </svg>
             </div>
-            {dataV.slice(0, 5).map((item) => (
+            {dataA.slice(0, 5).map((item) => (
               <div
                 key={item.new_id}
                 className="flex  gap-2 bg-white text-black p-3 rounded-lg cursor-pointer"
