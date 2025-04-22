@@ -1,161 +1,332 @@
-import {useState, useEffect} from 'react';
-export default function ForgotPassword(){
-    const [errorMessage, setErrorMessage] = useState("");
-    const [okMessage, setOkMessage] = useState("");
-    const [step, setStep] = useState(1);
-    const [emailAddress, setEmailAddress] = useState({
-      gmail: "",
-    });
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+  Input,
+  Typography,
+} from "@material-tailwind/react";
+import { useState, useEffect } from "react";
+import AlertWithIcon from "../../components/Alert";
+export default function ForgotPassword({ openDialog, handleOpenDialog }) {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [okMessage, setOkMessage] = useState("");
+  const [step, setStep] = useState(1);
+  const [emailAddress, setEmailAddress] = useState({
+    gmail: "",
+  });
 
-    const [newPassword, setNewPassword] = useState({
-      password: "",
-      rePassword: "",
-    });
-    const [formDataa, setFormDataa] = useState({
-      token: "",
-    });
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setEmailAddress((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    };
-    const handleChangee = (e) => {
-      const { name, value } = e.target;
-      setFormDataa((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    };
-    const handleChangeee = (e) => {
-      const { name, value } = e.target;
-      setNewPassword((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    };
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/forgotPassword`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
+  const [passwordObj, setPasswordObj] = useState({
+    password: "",
+    rePassword: "",
+  });
+  const [newToken, setNewToken] = useState({
+    token: "",
+  });
 
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            console.log("Data sent successfully");
-            setOkMessage(`${data.message}`);
-            setTimeout(() => {
-              setStep(2);
-            }, 1000);
-          } else {
-            // Đảm bảo rằng bạn đang sử dụng message đúng
-            const errorAlert = `Gửi mã xác thực thất bại: ${data.message}`;
-            setErrorMessage(errorAlert);
-          }
-        } else {
-          console.error("Lỗi khi gửi:", response.statusText);
-          setErrorMessage("Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại.");
+  const handleChangeToken = (e) => {
+    setNewToken({...newToken, token: e.target.value});
+  };
+
+  const handleChangeRePassword = (e) => {
+    setPasswordObj({ ...passwordObj, rePassword: e.target.value });
+  };
+  const handleChangePassword = (e) => {
+    setPasswordObj({ ...passwordObj, password: e.target.value });
+  };
+  const handleChangeEmail = (e) => {
+    setEmailAddress({...emailAddress, gmail: e.target.value });
+  };
+  const handleSubmitEmail = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(emailAddress);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/forgotPassword`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(emailAddress),
         }
-      } catch (error) {
-        console.error("Lỗi mạng:", error);
-        setErrorMessage("Lỗi mạng. Vui lòng kiểm tra kết nối của bạn.");
-      }
-    };
+      );
 
-    const handleSubmitt = async (e) => {
-      e.preventDefault();
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/forgotPassword/check`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...formData,
-              ...formDataa,
-            }),
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setOkMessage(`${data.message}`);
-            setTimeout(() => {
-              setStep(3);
-            }, 1000);
-          } else {
-            setErrorMessage(`Xác thực thất bại: ${data.message}`);
-          }
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          console.log("thanh cong roi");
+          setOkMessage(`${data.message}`);
+          setTimeout(() => {
+            setStep(2);
+          }, 1000);
         } else {
-          console.error("Lỗi khi gửi:", response.statusText);
+          // Đảm bảo rằng bạn đang sử dụng message đúng
+          const errorAlert = `Gửi mã xác thực thất bại: ${data.message}`;
+          setErrorMessage(errorAlert);
         }
-      } catch (error) {
-        console.error("Lỗi mạng:", error);
+      } else {
+        console.error("Lỗi khi gửi:", response.statusText);
+        setErrorMessage("Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại.");
       }
-    };
-    const handleSubmittt = async (e) => {
-      e.preventDefault();
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/forgotPassword/changePassword`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...emailAddress,
-              ...newPassword,
-            }),
-          }
-        );
+    } catch (error) {
+      console.error("Lỗi mạng:", error);
+      setErrorMessage("Lỗi mạng. Vui lòng kiểm tra kết nối của bạn.");
+    }
+  };
 
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setOkMessage(`${data.message}`);
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000);
-          } else {
-            setErrorMessage(`Đặt mật khẩu mới thất bại: ${data.message}`);
-          }
-        } else {
-          console.error("Lỗi khi đặt mật khẩu:", response.statusText);
+  const handleEmailAndTokenSubmit = async (e) => {
+    e.preventDefault();
+    console.log(emailAddress);
+    console.log(newToken);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/forgotPassword/check`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...emailAddress,
+            ...newToken,
+          }),
         }
-      } catch (error) {
-        console.error("Lỗi mạng:", error);
-      }
-    };
-    useEffect(() => {
-      if (errorMessage) {
-        const timer = setTimeout(() => {
+      );
+      console.log("a");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
           setErrorMessage("");
-        }, 2000); // 2 giây
-
-        return () => clearTimeout(timer);
+          setOkMessage(`${data.message}`);
+          setTimeout(() => {
+            setStep(3);
+          }, 1000);
+        } else {
+          setErrorMessage(`Code is incorrect!`);
+        }
+      } else {
+        console.error("An error occurred:", response.statusText);
       }
-    }, [errorMessage]);
-    useEffect(() => {
-      if (okMessage) {
-        const timerr = setTimeout(() => {
-          setOkMessage("");
-        }, 2000);
+    } catch (error) {
+      console.error("Network error:", error);
+    }
+  };
+  const handleChangePasswordByTokenSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/forgotPassword/changePassword`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...passwordObj,
+            ...emailAddress,
+            ...newToken,
+          }),
+        }
+      );
 
-        return () => clearTimeout(timerr);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setErrorMessage("");
+          setOkMessage(`${data.message}`);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        } else {
+          setErrorMessage(`Đặt mật khẩu mới thất bại: ${data.message}`);
+        }
+      } else {
+        console.error("Lỗi khi đặt mật khẩu:", response.statusText);
       }
-    }, [okMessage]);
+    } catch (error) {
+      console.error("Lỗi mạng:", error);
+    }
+  };
+
+  return (
+    <Dialog
+      open={openDialog}
+      handleOpen={handleOpenDialog}
+      className="px-6 py-4 my-3 bg-[#58565f] mx-auto w-[90%] md:w-[30%] gap-5"
+    >
+      <DialogHeader className="text-white pb-0">
+        Change your password
+      </DialogHeader>
+      {errorMessage && <AlertWithIcon type="negative" message={errorMessage} />}
+      {okMessage && <AlertWithIcon type="positive" message={okMessage} />}
+      <DialogBody className="mt-3 mb-1">
+        {step === 1 && (
+          <form className="flex flex-col w-[100%] gap-5">
+            <div>
+              <Typography
+                variant="h5"
+                color="white"
+                className="mb-1 font-light"
+              >
+                Email
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Enter your email address"
+                type="mail"
+                onChange={(txt) => handleChangeEmail(txt)}
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+            </div>
+            <div className="flex flex-row justify-center items-center">
+              <Button
+                className="mr-3 !bg-gray-800"
+                color="black"
+                onClick={() => {
+                  handleOpenDialog();
+                  setOkMessage("");
+                  setEmailAddress("");
+                  setErrorMessage("");
+                  setNewToken("");
+                  setPasswordObj({});
+                  setStep(1);
+                }}
+              >
+                cancel
+              </Button>
+              <Button
+                onClick={handleSubmitEmail}
+                className="w-fit !bg-[#502A50]"
+                color="purple"
+              >
+                submit
+              </Button>
+            </div>
+          </form>
+        )}
+
+        {step === 2 && (
+          <form className="flex flex-col w-[100%] gap-5">
+            <div>
+              <Typography
+                variant="h5"
+                color="white"
+                className="mb-1 font-light"
+              >
+                Password reset code
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Enter the code sent to your email address"
+                type="text"
+                onChange={(txt) => {
+                  handleChangeToken(txt);
+                }}
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+            </div>
+            <div className="flex flex-row justify-center items-center">
+              <Button
+                className="mr-3 !bg-gray-800"
+                color="black"
+                onClick={() => {
+                  handleOpenDialog();
+                  setOkMessage("");
+                  setEmailAddress("");
+                  setErrorMessage("");
+                  setNewToken("");
+                  setPasswordObj({});
+                  setStep(1);
+                }}
+              >
+                cancel
+              </Button>
+              <Button
+                onClick={handleEmailAndTokenSubmit}
+                className="w-fit !bg-[#502A50]"
+                color="purple"
+              >
+                submit
+              </Button>
+            </div>
+          </form>
+        )}
+
+        {step === 3 && (
+          <form className="flex flex-col w-[100%] gap-5">
+            <div>
+              <Typography
+                variant="h5"
+                color="white"
+                className="mb-1 font-light"
+              >
+                Your new password
+              </Typography>
+              <Input
+                type="password"
+                size="lg"
+                placeholder="Enter your new password"
+                name="password"
+                onChange={handleChangePassword}
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+              <Typography
+                variant="h5"
+                color="white"
+                className="mb-1 font-light"
+              >
+                Re-enter your new password
+              </Typography>
+              <Input
+                type="password"
+                size="lg"
+                placeholder="Re-enter your new password"
+                name="password"
+                onChange={handleChangeRePassword}
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+            </div>
+            <div className="flex flex-row justify-center items-center">
+              <Button
+                className="mr-3 !bg-gray-800"
+                color="black"
+                onClick={() => {
+                  handleOpenDialog();
+                  setOkMessage("");
+                  setEmailAddress("");
+                  setErrorMessage("");
+                  setNewToken("");
+                  setPasswordObj({});
+                  setStep(1);
+                }}
+              >
+                cancel
+              </Button>
+              <Button
+                onClick={handleChangePasswordByTokenSubmit}
+                className="w-fit !bg-[#502A50]"
+                color="purple"
+              >
+                Change your password
+              </Button>
+            </div>
+          </form>
+        )}
+      </DialogBody>
+    </Dialog>
+  );
 }

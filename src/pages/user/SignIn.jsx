@@ -15,7 +15,7 @@ import {
 } from "@material-tailwind/react";
 import AlertWithIcon from "../../components/Alert";
 
-export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp}) {
+export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp, handleOpenForgotPassword}) {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [okMessage, setOkMessage] = useState("");
@@ -114,8 +114,8 @@ export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp})
               >
                 Password
               </Typography>
-              <Typography color="gray" className="text-white font-normal mb-1">
-                <a href="/change-password">Forgot your password?</a>
+              <Typography onClick={handleOpenForgotPassword} color="gray" className="text-white font-normal mb-1 cursor-pointer">
+                Forgot your password?
               </Typography>
             </div>
             <Input
