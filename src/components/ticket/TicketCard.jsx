@@ -2,9 +2,8 @@ import { Typography } from "@material-tailwind/react";
 
 export default function TicketCard({ data }) {
   const titleClassName = "text-xl mb-3";
-  const keyClassName = "text-sm opacity-50";
+  const keyClassName = "text-md opacity-50";
   const valueClassName = "text-md";
-  const imageClassName = "";
 
   const date = data.show_date.substring(0, 10); // Lấy ngày đúng
   const time = data.show_time.substring(0, 5);
@@ -21,7 +20,7 @@ export default function TicketCard({ data }) {
       <div className="w-full flex flex-col gap-2">
         <h1 className={titleClassName}>{data.film_name}</h1>
 
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-3 gap-5 text-xl">
           <div className="flex flex-col gap-2">
             <h1 className={keyClassName}>Order date</h1>
             <p className={valueClassName}>
@@ -46,7 +45,9 @@ export default function TicketCard({ data }) {
             <h1 className={keyClassName}>Seat</h1>
             <div className={valueClassName}>
               {data.tickets.map((seats) => (
-                <span key={seats.seat} style={{ marginLeft: "3px" }}>{seats.seat}</span>
+                <span key={seats.seat} style={{ marginLeft: "3px" }}>
+                  {seats.seat}
+                </span>
               ))}
             </div>
           </div>

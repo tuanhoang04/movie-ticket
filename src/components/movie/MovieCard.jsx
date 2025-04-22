@@ -12,7 +12,6 @@ export default function MovieCard({ data }) {
     navigate(`/movie/${film_name}`);
   };
 
-
   return (
     <div
       className="flex flex-col justify-start hover:cursor-pointer hover:outline outline-gray-600 rounded-md p-2 lg:p-4"
@@ -23,7 +22,11 @@ export default function MovieCard({ data }) {
         )
       }
     >
-      <img src={data.film_img} className="rounded-2xl object-cover w-full" />
+      <img
+        loading="lazy"
+        src={data.film_img}
+        className="rounded-2xl object-cover w-full"
+      />
       <p className="text-[#5D6A81] lg:text-xl text-lg w-full">
         {data.Release_date.substring(0, 10)}
       </p>
