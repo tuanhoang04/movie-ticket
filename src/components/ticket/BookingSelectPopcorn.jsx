@@ -72,8 +72,8 @@ export default function BookingSelectPopcorn({ setNextStep, setPrevStep }) {
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
       <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
         <div className="flex flex-col items-center">
-          <img src="/icons/car-seat.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Select your seat</p>
+          <img src="/icons/car-seat-white.png" className="w-9 mb-[4px]" />
+          <p className="text-white font-medium text-lg">Select your seat</p>
         </div>
         <img src="/icons/next-page.png" className="w-10 h-10" />
         <div className="flex flex-col items-center">
@@ -82,15 +82,13 @@ export default function BookingSelectPopcorn({ setNextStep, setPrevStep }) {
         </div>
         <img src="/icons/next-page.png" className="w-10 h-10" />
         <div className="flex flex-col items-center">
-          <img src="/icons/coin-in-hand.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Payment</p>
+          <img src="/icons/coin-in-hand-white.png" className="w-9 mb-[4px]" />
+          <p className="text-white font-medium text-lg">Payment</p>
         </div>
         <img src="/icons/next-page.png" className="w-10 h-10" />
         <div className="flex flex-col items-center">
-          <img src="/icons/information.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">
-            Ticket Information
-          </p>
+          <img src="/icons/information-white.png" className="w-9 mb-[4px]" />
+          <p className="text-white font-medium text-lg">Ticket Information</p>
         </div>
       </div>
 
@@ -109,7 +107,7 @@ export default function BookingSelectPopcorn({ setNextStep, setPrevStep }) {
             </div>
           </div>
 
-          {popcornData.map((item, index)=>{
+          {popcornData.map((item, index) => {
             return (
               <div
                 key={index}
@@ -182,7 +180,7 @@ export default function BookingSelectPopcorn({ setNextStep, setPrevStep }) {
           variant="filled"
           color="purple"
           className={`text-white text-base ${
-            seatTotalAmount > 0 ? "bg-[#875CFF]" : "bg-[#6d5e71]"
+            seatTotalAmount > 0 ? "bg-[#7b427b]" : "bg-[#6d5e71]"
           } rounded-lg`}
           onClick={() => {
             setNextStep();
