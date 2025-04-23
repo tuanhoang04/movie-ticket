@@ -117,7 +117,7 @@ export default function MoviesFilterPage() {
       <div className="flex flex-col gap-3 flex-grow py-7 px-8 lg:px-36">
         <div className="flex flex-row gap-5">
           <div className="w-fit flex items-center gap-10 bg-gray-800 pl-5 rounded-2xl">
-            <h1 className="text-white text-xl font-bold">Status</h1>
+            <h1 className="text-white text-xl font-medium">Status</h1>
             <Dropdown
               label={statusLabel}
               handleChangeOption={handleStatusChange}
@@ -126,7 +126,7 @@ export default function MoviesFilterPage() {
           </div>
 
           <div className="w-fit flex items-center gap-10 bg-gray-800 pl-5 rounded-2xl">
-            <h1 className="text-white text-xl font-bold">Genre</h1>
+            <h1 className="text-white text-xl font-medium">Genre</h1>
             <Dropdown
               label={genreLabel}
               handleChangeOption={handleGenreChange}
@@ -135,7 +135,7 @@ export default function MoviesFilterPage() {
           </div>
 
           <div className="w-fit flex items-center gap-10 bg-gray-800 pl-5 rounded-2xl">
-            <h1 className="text-white text-xl font-bold">Country</h1>
+            <h1 className="text-white text-xl font-medium">Country</h1>
             <Dropdown
               label={countryLabel}
               handleChangeOption={handleCountryChange}

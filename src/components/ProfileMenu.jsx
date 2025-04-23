@@ -29,7 +29,7 @@ export function ProfileMenu({ data }) {
         <MenuHandler>
           <div className="flex flex-row gap-2 items-center cursor-pointer">
             <img
-              className="w-8 h-8 mr-1 rounded-full"
+              className="w-8 h-8 rounded-full"
               src={data ? data.user_img : "/profile-avatar-sample.png"}
             />
             <p className="text-xl ">{data ? data.full_name : ""}</p>
