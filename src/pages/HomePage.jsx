@@ -8,7 +8,6 @@ export default function HomePage() {
       <NavBar currentPage="Home" key="Home"/>
       <div className="flex-grow">
         <Movies />
-        
       </div>
       <Footer />
     </div>

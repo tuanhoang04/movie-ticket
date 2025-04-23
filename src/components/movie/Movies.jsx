@@ -20,6 +20,7 @@ export default function Movies() {
     })
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData);
         const allFilms = responseData[0];
         // Preload all images
         allFilms.forEach((film) => {

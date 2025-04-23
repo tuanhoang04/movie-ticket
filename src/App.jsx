@@ -18,6 +18,7 @@ import MoviesFilterPage from "./pages/MoviesFilterPage";
 import BookingTicket from "./components/ticket/BookingTicketMain";
 import TheatersAndMovies from "./pages/TheatersAndMovies";
 import SearchPage from "./pages/SearchPage";
+import ActorFilms from "./components/movie/ActorFilms";
 function App() {
   return (
     <Router>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/news/region/:region" element={<NewsByRegion />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/theater-movie" element={<TheatersAndMovies />} />
+        <Route path="/actor/:actor_name" element={<ActorFilms />} />
         <Route path="/movie/:film_name" element={<MovieDetail />} />
         <Route path="/search/:film_name" element={<SearchPage />} />
         <Route path="/movie/buyTicket/:film_name" element={<BuyTicket />} />

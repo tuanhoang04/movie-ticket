@@ -256,14 +256,22 @@ export default function MovieDetail() {
                 <p className="text-white text-xl pb-5 font-normal text-justify">
                   {data.info.film[0].film_describe}
                 </p>
-                <p className="text-white text-lg font-normal text-justify">
-                  Actors:{" "}
-                  {data.info.actors
-                    .map((item) => {
-                      return item.actor_name;
-                    })
-                    .join(", ")}
-                </p>
+                <div className="flex flex-row gap-1">
+                  <p className="text-white text-lg font-normal text-justify">
+                    Actors:{" "}
+                  </p>
+                  {data.info.actors.map((item, index) => {
+                    const isLast = index===(data.info.actors.length-1);
+                    return (
+                      <div key={index} className="flex flex-row">
+                        <p onClick={ ()=>{localStorage.setItem("actor_id", item.actor_id) ;navigate(`/actor/${createSlug(item.actor_name)}`)}} className="text-white text-lg hover:underline hover:underline-offset-2 cursor-pointer">
+                          {item.actor_name}
+                        </p>
+                        <p className="text-white text-lg" >{isLast ? "." : ", "}</p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
               <div className="col-span-2 row-span-1 flex flex-col justify-center items-center">
                 {data.info.evaluate[0].sum_rate > 0 && (
