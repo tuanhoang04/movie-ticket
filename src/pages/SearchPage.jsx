@@ -48,29 +48,6 @@ export default function SearchPage() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   fetch(`${import.meta.env.VITE_API_URL}/api/film/filmShowing`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((responseData) => {
-  //       const allFilms = responseData[0];
-  //       // Preload all images
-  //       allFilms.forEach((film) => {
-  //         const img = new Image();
-  //         img.src = film.film_img;
-  //       });
-
-  //       setNowShowing(allFilms.filter((item) => item.film_type === 1));
-  //       setUpcomings(allFilms.filter((item) => item.film_type === 2));
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => console.error("Error:", error));
-  // }, []);
-
   useEffect(() => {
     const indexOfLastFilmNowShowing = currentPageNowShowing * filmsPerCate;
     const indexOfFirstFilmNowShowing = indexOfLastFilmNowShowing - filmsPerCate;
@@ -104,16 +81,21 @@ export default function SearchPage() {
     navigate(`/movie/${film_name}`);
   };
   return (
-    <div className="bg-[#1C1B21] flex flex-col">
+    <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar currentPage={"search"} />
-      <div className="flex flex-grow ">
-        <div className="px-3 lg:px-36 min-h-screen min-w-full">
+      <div className="flex flex-grow">
+        <div className="px-3 lg:px-36 w-full">
           {!isLoading &&
             ((!upcomings && !nowShowing) ||
               (upcomings?.length == 0 && nowShowing?.length == 0) ||
               (upcomings === undefined && nowShowing === undefined)) && (
-              <div className="flex min-h-[100%] justify-center items-center">
-                <p className="text text-white text-3xl">No movie found.</p>
+              <div className="flex flex-col items-center justify-center h-[60vh] text-center">
+                <h2 className="text-white text-3xl font-medium mb-4">
+                  No Result for "{searchTerm}"
+                </h2>
+                <p className="text-gray-400 text-lg">
+                  No results match. Please search for another keyword.
+                </p>
               </div>
             )}
           {nowShowing?.length > 0 && (
