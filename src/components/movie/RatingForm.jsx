@@ -52,7 +52,7 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           if (data.message === "User not logged in") {
             setErrorMessage("You must sign in to continue!");
             handleOpenSignIn();
@@ -76,7 +76,7 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
   };
 
   return (
-    <div className="bg-[#606060] my-5 p-8 rounded-2xl lg:w-[35%] w-[75%] self-start flex flex-col">
+    <div className="bg-[#606060] my-5 p-8 rounded-2xl w-full self-start flex flex-col">
       <p className="text-white text-2xl mb-1">
         Share your experience watching this movie
       </p>
@@ -98,7 +98,7 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
           textChange(e);
         }}
         size="lg"
-        rows={7}
+        rows={5}
         className="border-none after:border-none before:border-none !rounded-xl !text-lg bg-white placeholder:text-black placeholder:text-lg placeholder:opacity-100 focus:placeholder-opacity-0 mb-2"
       />
 

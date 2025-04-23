@@ -5,7 +5,7 @@ export default function MovieRatings({ film_id }) {
   const [ratingsData, setRatingsData] = useState([]);
   const [loadedCount, setLoadedCount] = useState(5);
   const [loadedRatings, setLoadedRatings] = useState([]);
-  const fetchData = async () => {
+  const fetchCommentData = async () => {
     try {
       const response = await fetch(
         `${
@@ -21,7 +21,7 @@ export default function MovieRatings({ film_id }) {
       if (response.ok) {
         const result = await response.json();
         setRatingsData(result.comment);
-        console.log(result);
+        // console.log(result);
       } else {
         console.error("Backend error:", response.statusText);
       }
@@ -32,7 +32,7 @@ export default function MovieRatings({ film_id }) {
 
   useEffect(() => {
     if (film_id) {
-      fetchData();
+      fetchCommentData();
     }
     setLoadedRatings(ratingsData.slice(0, 5));
   }, []);

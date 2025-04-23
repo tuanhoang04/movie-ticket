@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../NavBar";
 import Footer from "../Footer";
-import { Button } from "@material-tailwind/react";
+import { Button, Rating } from "@material-tailwind/react";
 import AlertWithIcon from "../Alert";
 import Trailer from "./Trailer";
 import RatingForm from "./RatingForm";
@@ -20,13 +20,14 @@ export default function MovieDetail() {
   const navigate = useNavigate();
   const { film_name } = useParams();
   const [data, setData] = useState(null);
+  const [ratingsData, setRatingsData] = useState([]);
   const film_id = localStorage.getItem("film_id");
   const [dataRelate, setDataRelate] = useState(null);
   const [liked, setLiked] = useState(false);
   const [message, setMessage] = useState(null);
   const [ratingTitle, setRatingTitle] = useState("");
   const [openRatingForm, setOpenRatingForm] = useState(false);
-
+  const [sumRatingsByStar, setSumRatingsByStar] = useState({});
   const [openSignIn, setOpenSignIn] = useState(false);
   const jwt = localStorage.getItem("jwt");
   const checkLogin = async () => {
@@ -76,6 +77,7 @@ export default function MovieDetail() {
         const result = await response.json();
         if (result.success) {
           setData(result);
+          console.log(result);
           const movieName = result.info.film[0].film_name;
           const rating =
             Math.round(result.info.evaluate[0].film_rate * 10) / 10;
@@ -100,7 +102,9 @@ export default function MovieDetail() {
   useEffect(() => {
     if (film_id) {
       fetchData();
+      fetchCommentData();
     }
+    fetchLikeStatus();
   }, []);
 
   const fetchLikeStatus = async () => {
@@ -126,10 +130,6 @@ export default function MovieDetail() {
       console.error("Error fetching like status:", error);
     }
   };
-
-  useEffect(() => {
-    fetchLikeStatus();
-  }, []);
 
   const unlike = async () => {
     try {
@@ -178,7 +178,7 @@ export default function MovieDetail() {
       ) {
         setMessage("Please login to continue!");
         setTimeout(() => {
-          console.log("ac");
+          // console.log("ac");
           setOpenSignIn(true);
         }, 900);
       }
@@ -187,6 +187,43 @@ export default function MovieDetail() {
       console.error("Error fetching likeCheck:", error);
     }
   };
+
+  const fetchCommentData = async () => {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/film/filmInfo/getComment/id=${film_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        setRatingsData(result.comment);
+        console.log(result.comment);
+      } else {
+        console.error("Backend error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Internal error:", error);
+    }
+  };
+
+  useEffect(() => {
+    const newSum = {};
+
+    for (let i = 0; i < ratingsData.length; i++) {
+      const star = ratingsData[i].star;
+      newSum[star] = (newSum[star] || 0) + 1;
+    }
+    console.log(newSum)
+    setSumRatingsByStar(newSum);
+  }, [ratingsData]);
+
   const handleNavigate = async (film_name, film_id) => {
     if (await checkLogin()) {
       localStorage.setItem("film_id", film_id);
@@ -352,21 +389,154 @@ export default function MovieDetail() {
           <div className="bg-[#323137] w-full h-full py-8 px-20 flex-grow my-4 rounded-3xl">
             <div className="flex flex-col">
               <p className="text-white text-4xl font-bold pb-3">Ratings</p>
-              <div className="bg-[#606060] w-full p-5 rounded-2xl grid grid-cols-12 grid-rows-1">
-                <div className="col-span-2 row-span-1 flex flex-row justify-center items-baseline border-e-2">
-                  <p className="text-white text-7xl">
-                    {Math.round(data.info.evaluate[0].film_rate * 10) / 10}
-                  </p>
-                  <p className="text-white font-light text-5xl">/</p>
-                  <p className="text-white text-5xl">5</p>
-                </div>
-
-                <div className="col-span-10 row-span-1 flex flex-row ms-10 justify-start items-center">
-                  <p className="text-white font-light text-3xl">
-                    {ratingTitle}
-                  </p>
-                </div>
+              <div className="flex flex-row items-center mb-2">
+                <Rating
+                  value={Math.round(data.info.evaluate[0].film_rate)}
+                  readonly
+                  unratedColor="white"
+                  ratedColor="yellow"
+                  className="my-1 [&>span>svg]:w-8 [&>span>svg]:h-8 mr-2"
+                />
+                <p className="ms-1 text-xl font-medium text-gray-300 ">
+                  {Math.round(data.info.evaluate[0].film_rate * 10) / 10}
+                </p>
+                <p className="ms-1 text-xl font-medium text-gray-300 ">
+                  out of
+                </p>
+                <p className="ms-1 text-xl font-medium text-gray-300 ">
+                  5 stars
+                </p>
               </div>
+              <p className="text-xl font-light text-gray-300 ">
+                {ratingsData.length} ratings
+              </p>
+
+              <div className="grid grid-cols-11 grid-rows-1 w-3/4 justify-between items-center mt-4">
+                <a className="col-span-1 text-lg font-medium text-white">
+                  5 star
+                </a>
+                <div className="col-span-7 h-5 flex flex-row mx-4 bg-gray-200 rounded-sm dark:bg-gray-700">
+                  <div
+                    className="h-5 bg-yellow-600 rounded-sm"
+                    style={{
+                      width:
+                        Math.round(
+                          ((sumRatingsByStar[5] || 0) / ratingsData.length) *
+                            1000
+                        ) /
+                          10 +
+                        "%",
+                    }}
+                  ></div>
+                </div>
+                <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {Math.round(
+                    ((sumRatingsByStar[5] || 0) / ratingsData.length) * 100 * 10
+                  ) / 10}
+                  %
+                </p>
+              </div>
+              <div className="grid grid-cols-11 grid-rows-1 w-3/4 justify-between items-center mt-4">
+                <a className="col-span-1 text-lg font-medium text-white">
+                  4 star
+                </a>
+                <div className="col-span-7 h-5 flex flex-row mx-4 bg-gray-200 rounded-sm dark:bg-gray-700">
+                  <div
+                    className="h-5 bg-yellow-600 rounded-sm"
+                    style={{
+                      width:
+                        Math.round(
+                          ((sumRatingsByStar[4] || 0) / ratingsData.length) *
+                            1000
+                        ) /
+                          10 +
+                        "%",
+                    }}
+                  ></div>
+                </div>
+                <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {Math.round(
+                    ((sumRatingsByStar[4] || 0) / ratingsData.length) * 100 * 10
+                  ) / 10}
+                  %
+                </p>
+              </div>
+              <div className="grid grid-cols-11 grid-rows-1 w-3/4 justify-between items-center mt-4">
+                <a className="col-span-1 text-lg font-medium text-white">
+                  3 star
+                </a>
+                <div className="col-span-7 h-5 flex flex-row mx-4 bg-gray-200 rounded-sm dark:bg-gray-700">
+                  <div
+                    className="h-5 bg-yellow-600 rounded-sm"
+                    style={{
+                      width:
+                        Math.round(
+                          ((sumRatingsByStar[3] || 0) / ratingsData.length) *
+                            1000
+                        ) /
+                          10 +
+                        "%",
+                    }}
+                  ></div>
+                </div>
+                <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {Math.round(
+                    ((sumRatingsByStar[3] || 0) / ratingsData.length) * 100 * 10
+                  ) / 10}
+                  %
+                </p>
+              </div>
+              <div className="grid grid-cols-11 grid-rows-1 w-3/4 justify-between items-center mt-4">
+                <a className="col-span-1 text-lg font-medium text-white">
+                  2 star
+                </a>
+                <div className="col-span-7 h-5 flex flex-row mx-4 bg-gray-200 rounded-sm dark:bg-gray-700">
+                  <div
+                    className="h-5 bg-yellow-600 rounded-sm"
+                    style={{
+                      width:
+                        Math.round(
+                          ((sumRatingsByStar[2] || 0) / ratingsData.length) *
+                            1000
+                        ) /
+                          10 +
+                        "%",
+                    }}
+                  ></div>
+                </div>
+                <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {Math.round(
+                    ((sumRatingsByStar[2] || 0) / ratingsData.length) * 100 * 10
+                  ) / 10}
+                  %
+                </p>
+              </div>
+              <div className="grid grid-cols-11 grid-rows-1 w-3/4 justify-between items-center mt-4">
+                <a className="col-span-1 text-lg font-medium text-white">
+                  1 star
+                </a>
+                <div className="col-span-7 h-5 flex flex-row mx-4 bg-gray-200 rounded-sm dark:bg-gray-700">
+                  <div
+                    className="h-5 bg-yellow-600 rounded-sm"
+                    style={{
+                      width:
+                        Math.round(
+                          ((sumRatingsByStar[1] || 0) / ratingsData.length) *
+                            1000
+                        ) /
+                          10 +
+                        "%",
+                    }}
+                  ></div>
+                </div>
+                <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {Math.round(
+                    ((sumRatingsByStar[1] || 0) / ratingsData.length) * 100 * 10
+                  ) / 10}
+                  %
+                </p>
+              </div>
+              
 
               {!openRatingForm && (
                 <Button
