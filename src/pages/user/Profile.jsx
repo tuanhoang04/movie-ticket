@@ -278,7 +278,7 @@ export default function Profile() {
       console.error("Internet error:", error);
     }
   };
-  const handleUpdateWithImage = async (e) => {
+  const handleUpdateWithImage = async () => {
     if (!file) {
       alert("Please select an image file to upload.");
       return;

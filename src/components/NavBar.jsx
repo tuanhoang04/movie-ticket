@@ -28,7 +28,7 @@ export default function NavBar({
   setOpenSignInFromParent,
 }) {
   const [openNav, setOpenNav] = useState(false);
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
@@ -171,8 +171,8 @@ export default function NavBar({
                 </p>
               </a>
             </div>
-            {login ? (
-              <ProfileMenu fullname={userInfo.full_name} />
+            {login && userInfo ? (
+              <ProfileMenu data={userInfo} />
             ) : (
               <div>
                 <Button
@@ -277,7 +277,7 @@ export default function NavBar({
             setOpenSignIn(false);
             setOpenSignUp(true);
           }}
-          handleOpenForgotPassword={()=>{
+          handleOpenForgotPassword={() => {
             setOpenSignIn(false);
             setOpenForgotPassword(true);
           }}

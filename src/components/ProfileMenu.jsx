@@ -11,9 +11,13 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export function ProfileMenu({ fullname }) {
+export function ProfileMenu({ data }) {
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   const navigate = useNavigate();
   const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false);
   const handleOpen = () => {
@@ -23,9 +27,12 @@ export function ProfileMenu({ fullname }) {
     <>
       <Menu placement="bottom-start">
         <MenuHandler>
-          <div className="flex flex-row items-center cursor-pointer">
-            <img className="w-8 h-8 mr-1" src="/icons/account.png" />
-            <p className="text-xl ">{fullname}</p>
+          <div className="flex flex-row gap-2 items-center cursor-pointer">
+            <img
+              className="w-8 h-8 mr-1 rounded-full"
+              src={data ? data.user_img : "/profile-avatar-sample.png"}
+            />
+            <p className="text-xl ">{data ? data.full_name : ""}</p>
           </div>
         </MenuHandler>
         <MenuList className="bg-white text-purple-700 shadow-lg">
