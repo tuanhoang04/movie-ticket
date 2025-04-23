@@ -33,7 +33,7 @@ export default function Dropdown({ label, options, handleChangeOption }) {
           />
         </Button>
       </MenuHandler>
-      <MenuList className="bg-[#313035] text-white w-56 text-lg border-0 overflow-auto overflow-x-hidden dark-scrollbar max-h-[250px]">
+      <MenuList className="bg-[#313035] text-white w-56 text-lg border-0 overflow-auto overflow-x-hidden scrollbar max-h-[250px]">
         {options.map((option, index) => (
           <MenuItem
             key={index}
