@@ -392,7 +392,7 @@ export default function Profile() {
                   value={formUserData.name}
                   name="name"
                   onChange={handleFormChange}
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70"
+                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70 text-xl"
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
@@ -408,7 +408,7 @@ export default function Profile() {
                   value={formUserData.gmail}
                   name="gmail"
                   onChange={handleFormChange}
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70"
+                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70 text-xl"
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
@@ -423,13 +423,13 @@ export default function Profile() {
                   value={formUserData.phone__number}
                   name="phone__number"
                   onChange={handleFormChange}
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70"
+                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70 text-xl"
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
                 />
               </div>
-              <div className="flex gap-10 items-center">
+              <div className="flex gap-10 items-center text-xl">
                 <Typography variant="h5" className="mb-1 font-light">
                   Gender
                 </Typography>
