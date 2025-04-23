@@ -127,7 +127,7 @@ export default function NewsByRegion() {
           ))}
         </div>
         <div ref={loader} className="text-center py-4 text-white">
-          {hasMore ? "Đang tải thêm..." : "No more new"}
+          {hasMore ? "Loading..." : "No more news"}
         </div>
       </div>
 
