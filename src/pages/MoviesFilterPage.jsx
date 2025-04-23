@@ -150,7 +150,17 @@ export default function MoviesFilterPage() {
           </div>
         </div>
 
-        {currentMovies && (
+        {(!currentMovies ||
+          currentMovies?.length === 0 ||
+          currentMovies === undefined) && (
+          <div className="flex flex-col items-center justify-center h-[60vh] text-center">
+            <h2 className="text-white text-3xl font-medium mb-4">
+              No results match. Please filter with another criteria.
+            </h2>
+          </div>
+        )}
+
+        {currentMovies && currentMovies.length > 0 && (
           <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
             {currentMovies.map((item) => {
               return (
