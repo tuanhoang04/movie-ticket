@@ -261,7 +261,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
         )}
 
         {step === 3 && (
-          <form className="flex flex-col w-[100%] gap-5">
+          <form className="flex flex-col w-[100%] gap-8">
             <div>
               <Typography
                 variant="h5"
@@ -284,7 +284,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
               <Typography
                 variant="h5"
                 color="white"
-                className="mb-1 font-light"
+                className="mb-1 font-light mt-3"
               >
                 Re-enter your new password
               </Typography>
