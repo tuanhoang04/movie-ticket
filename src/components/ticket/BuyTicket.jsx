@@ -366,51 +366,51 @@ export default function BuyTicket() {
             {cities && (
               <div>
                 <p className="text-white text-4xl font-bold pb-5">Buy ticket</p>
-                <Dropdown
-                  label={selectedCity || "Select a location"}
-                  options={cities}
-                  handleChangeOption={(option) => {
-                    setSelectedButtonIndex(null);
-                    setSelectedCity(option.region_name);
-                    // console.log(option.region_name);
-                    setClustersSchedule(null);
-                    setCityID(option.region_id);
-                  }}
-                  // handleChangeCityID={(newID) => {
-                  //   setCityID(newID);
-                  // }}
-                />
+                <div className="border-2 w-fit rounded-lg">
+                  <Dropdown
+                    label={selectedCity || "Select a location"}
+                    options={cities}
+                    handleChangeOption={(option) => {
+                      setSelectedButtonIndex(null);
+                      setSelectedCity(option.region_name);
+                      // console.log(option.region_name);
+                      setClustersSchedule(null);
+                      setCityID(option.region_id);
+                    }}
+                    // handleChangeCityID={(newID) => {
+                    //   setCityID(newID);
+                    // }}
+                  />
+                </div>
               </div>
             )}
-            {schedule &&
-              selectedCity &&
-              film_id&&(
-                <div className="flex flex-row gap-8 my-5">
-                  {schedule.map((item, index) => {
-                    const [label, date] = Object.entries(item[0])[0];
-                    const isSelected = selectedButtonIndex === index;
-                    return (
-                      <div key={index}>
-                        <Button
-                          variant="text"
-                          onClick={() => {
-                            setSelectedButtonIndex(index);
-                            schedule[index].length > 1
-                              ? setClustersSchedule(schedule[index][1])
-                              : setClustersSchedule(1);
-                          }}
-                          className={`text-xl font-light p-0 ${
-                            isSelected ? "text-[#B49AFF]" : "text-white"
-                          }`}
-                        >
-                          <p>{label}</p>
-                          <p>{date}</p>
-                        </Button>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+            {schedule && selectedCity && film_id && (
+              <div className="flex flex-row gap-8 mt-6 mb-9">
+                {schedule.map((item, index) => {
+                  const [label, date] = Object.entries(item[0])[0];
+                  const isSelected = selectedButtonIndex === index;
+                  return (
+                    <div key={index}>
+                      <Button
+                        variant="text"
+                        onClick={() => {
+                          setSelectedButtonIndex(index);
+                          schedule[index].length > 1
+                            ? setClustersSchedule(schedule[index][1])
+                            : setClustersSchedule(1);
+                        }}
+                        className={`text-xl font-light p-0 ${
+                          isSelected ? "text-[#B49AFF]" : "text-white"
+                        }`}
+                      >
+                        <p>{label}</p>
+                        <p>{date}</p>
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
             {clustersSchedule &&
               (clustersSchedule === 1 ? (
                 <div>

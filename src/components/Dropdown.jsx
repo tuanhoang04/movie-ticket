@@ -18,7 +18,7 @@ export default function Dropdown({ label, options, handleChangeOption }) {
       <MenuHandler>
         <Button
           variant="outlined"
-          className="text-white normal-case  text-lg font-thin border-0 border-white flex flex-row items-center gap-1  focus:ring-0"
+          className="text-white normal-case text-lg font-thin border-0 border-white flex flex-row items-center gap-1  focus:ring-0"
         >
           {label}
           <ChevronDownIcon

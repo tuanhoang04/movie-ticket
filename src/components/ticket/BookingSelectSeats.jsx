@@ -27,7 +27,6 @@ export default function BookingSelectSeats({setNextStep}) {
   },[seatTotalAmount]);
 
   const seatData = data.seatData;
-  console.log(selectedSeats);
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
       <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
@@ -37,20 +36,18 @@ export default function BookingSelectSeats({setNextStep}) {
         </div>
         <img src="/icons/next-page.png" className="w-10 h-10" />
         <div className="flex flex-col items-center">
-          <img src="/icons/shopping.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Buy snacks</p>
+          <img src="/icons/shopping-white.png" className="w-9 mb-[4px]" />
+          <p className="text-white font-medium text-lg">Buy snacks</p>
         </div>
         <img src="/icons/next-page.png" className="w-10 h-10" />
         <div className="flex flex-col items-center">
-          <img src="/icons/coin-in-hand.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Payment</p>
+          <img src="/icons/coin-in-hand-white.png" className="w-9 mb-[4px]" />
+          <p className="text-white font-medium text-lg">Payment</p>
         </div>
         <img src="/icons/next-page.png" className="w-10 h-10" />
         <div className="flex flex-col items-center">
-          <img src="/icons/information.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">
-            Ticket Information
-          </p>
+          <img src="/icons/information-white.png" className="w-9 mb-[4px]" />
+          <p className="text-white font-medium text-lg">Ticket Information</p>
         </div>
       </div>
       {seatData && (
@@ -219,18 +216,26 @@ export default function BookingSelectSeats({setNextStep}) {
           <div className="py-6 px-20">
             {message && <AlertWithIcon type={"negative"} message={message} />}
             <div className="bg-[#606060] rounded-lg p-4">
-              <p className="text-white text-2xl font-light mb-2">
+              <p className="text-white text-2xl font-medium mb-2">
                 Cinema: {seatData.cinema_name}
               </p>
-              <p className="text-white text-xl mb-1">
+              <p className="text-white text-2xl mb-1">
                 Movie: '{seatData.film_name}'
               </p>
-              <p className="text-white text-xl">
+              <p className="text-white text-2xl mb-1">
+                Showtime: {seatData.show_time + " " +  seatData.show_date}
+              </p>
+              <p className="text-white text-2xl mb-1">
                 Cinema room: {seatData.room_name}
               </p>
-              <p className="text-white text-xl">Chosen seats: {selectedSeats.map((item, index)=>{
-                return item.seat_location;
-              }).join(", ")}</p>
+              <p className="text-white text-2xl mb-1">
+                Chosen seats:{" "}
+                {selectedSeats
+                  .map((item, index) => {
+                    return item.seat_location;
+                  })
+                  .join(", ")}
+              </p>
             </div>
           </div>
           <div className="pb-6 px-20">
@@ -238,7 +243,7 @@ export default function BookingSelectSeats({setNextStep}) {
               <p className="text-white text-2xl font-light mb-2">
                 Current total:
               </p>
-              <p className="text-white text-xl">
+              <p className="text-[#eaddf7] font-medium text-3xl">
                 {numFormat.format(seatTotalAmount + popcornTotalAmount)}đ
               </p>
             </div>
@@ -258,7 +263,7 @@ export default function BookingSelectSeats({setNextStep}) {
               variant="filled"
               color="purple"
               className={`text-white text-base ${
-                seatTotalAmount > 0 ? "bg-[#875CFF]" : "bg-[#6d5e71]"
+                seatTotalAmount > 0 ? "bg-[#7b427b]" : "bg-[#6d5e71]"
               } rounded-lg`}
               onClick={() => {
                 if (seatTotalAmount === 0) {
