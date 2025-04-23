@@ -85,7 +85,7 @@ export default function NewsDetail() {
             {dataDetail && (
               <div
                 key={dataDetail.new_id}
-                className="flex flex-col gap-2 bg-white text-black p-6 rounded-lg"
+                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-10 pt-6 rounded-lg"
               >
                 <h1 className="text-3xl mb-3">{dataDetail.new_header}</h1>
                 <img src={dataDetail.new_img} alt="" className="rounded-lg" />
@@ -128,13 +128,11 @@ export default function NewsDetail() {
               ? dataRelate.slice(0, 5).map((item) => (
                   <div
                     key={item.new_id}
-                    className="flex  gap-2 bg-white text-black p-3 rounded-lg cursor-pointer"
+                    className="flex  gap-2 bg-[#2c2c2e] text-white p-5 rounded-lg cursor-pointer"
                     onClick={() => ClickNew(item.new_id, item.new_header)}
                   >
-                    <div className="w-4/5">
-                      <p className="line-clamp-2 text-lg mb-10">
-                        {item.new_header}
-                      </p>
+                    <div className="w-4/5  flex flex-col justify-between">
+                      <p className="line-clamp-2 text-lg">{item.new_header}</p>
                       <p className="line-clamp-1 text-md">
                         {" "}
                         {item.new_time.substring(0, 10)} ● by {item.username}

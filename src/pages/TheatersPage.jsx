@@ -168,7 +168,7 @@ export default function TheatersPage() {
           {currentAreaName && (
             <div className=" mx-[144px] mt-20 flex  text-white h-fit min-h-[400px] ">
               <div className="w-1/4 h-full bg-white bg-opacity-10 rounded-lg ">
-                <p className=" p-4 pb-0 text-3xl">
+                <p className=" p-5 pb-0 text-3xl font-bold">
                   Theaters in {currentAreaName}
                 </p>
                 {theaters.length > 0 && (
@@ -184,7 +184,7 @@ export default function TheatersPage() {
                             ? { backgroundColor: "#502A50" }
                             : {}
                         }
-                        className="flex items-center gap-2 p-4 cursor-pointer hover:bg-[#502A50] bg-white bg-opacity-10 m-2 rounded-lg"
+                        className="flex items-center gap-2 p-4 cursor-pointer hover:bg-[#502A50] bg-white bg-opacity-10 m-2 mx-5 rounded-lg"
                       >
                         <img
                           src={getTheaterLogo(item.cluster_name)}

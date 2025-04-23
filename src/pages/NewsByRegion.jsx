@@ -126,7 +126,10 @@ export default function NewsByRegion() {
             </div>
           ))}
         </div>
-        <div ref={loader} className="text-center py-4 text-white">
+        <div
+          ref={loader}
+          className="text-center py-4 pt-20 text-white text-2xl"
+        >
           {hasMore ? "Loading..." : "No more news"}
         </div>
       </div>

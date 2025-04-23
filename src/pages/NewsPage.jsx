@@ -150,9 +150,9 @@ export default function NewsPage() {
                     `/news/${encodeURIComponent(createSlug(item.new_header))}`
                   );
                 }}
-                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-6 rounded-lg cursor-pointer"
+                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-10 pt-6 rounded-lg cursor-pointer"
               >
-                <h1 className="text-3xl mb-3 ">{item.new_header}</h1>
+                <h1 className="text-2xl mb-3 ">{item.new_header}</h1>
                 <img src={item.new_img} alt="" className="rounded-lg" />
                 <div
                   className="line-clamp-5 text-lg hide-images"
@@ -168,7 +168,10 @@ export default function NewsPage() {
                 </div>
               </div>
             ))}
-            <div ref={loader} className="text-center py-4 text-white">
+            <div
+              ref={loader}
+              className="text-center  pt-20 py-4 text-white text-2xl"
+            >
               {hasMore ? "Loading..." : "No more news"}
             </div>
           </div>
@@ -200,7 +203,7 @@ export default function NewsPage() {
             {dataV.slice(0, 5).map((item) => (
               <div
                 key={item.new_id}
-                className="flex  gap-2 bg-[#2c2c2e] text-white p-3 rounded-lg cursor-pointer"
+                className="flex  gap-2 bg-[#2c2c2e] text-white p-5 rounded-lg cursor-pointer"
                 onClick={() => {
                   localStorage.setItem("new_id", item.new_id);
 
@@ -209,7 +212,7 @@ export default function NewsPage() {
                   );
                 }}
               >
-                <div className="w-4/5">
+                <div className="w-4/5 flex flex-col justify-between">
                   <p className="line-clamp-2 text-lg mb-10">
                     {item.new_header}
                   </p>
@@ -253,7 +256,7 @@ export default function NewsPage() {
             {dataA.slice(0, 5).map((item) => (
               <div
                 key={item.new_id}
-                className="flex  gap-2 bg-[#2c2c2e] text-white p-3 rounded-lg cursor-pointer"
+                className="flex  gap-2 bg-[#2c2c2e] text-white p-5 rounded-lg cursor-pointer"
                 onClick={() => {
                   localStorage.setItem("new_id", item.new_id);
 
@@ -262,7 +265,7 @@ export default function NewsPage() {
                   );
                 }}
               >
-                <div className="w-4/5">
+                <div className="w-4/5 flex flex-col justify-between">
                   <p className="line-clamp-2 text-lg mb-10">
                     {item.new_header}
                   </p>
