@@ -237,7 +237,7 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
       <div className="pb-6 px-20">
         <div className="bg-[#606060] rounded-lg p-4">
           <p className="text-white text-2xl font-light mb-2">Order total:</p>
-          <p className="text-white text-xl">
+          <p className="text-[#eaddf7] font-medium text-3xl">
             {numFormat.format(seatTotalAmount + popcornTotalAmount)}đ
           </p>
           <br />

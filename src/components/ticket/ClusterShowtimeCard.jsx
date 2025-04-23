@@ -61,7 +61,7 @@ export default function ClusterShowtimeCard({ data, movieName }) {
     <div className="bg-[#606060] rounded-lg mb-8">
       <div className="flex flex-row gap-2 items-center p-2 rounded-t-lg bg-[#65438d]">
         <img src={iconSrc} className="w-8 rounded-full" />
-        <p className="text-white text-2xl font-light">{theater}</p>
+        <p className="text-white text-2xl font-normal">{theater}</p>
       </div>
 
       <div className="flex flex-row gap-2 p-2">

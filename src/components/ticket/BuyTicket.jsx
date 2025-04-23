@@ -385,7 +385,7 @@ export default function BuyTicket() {
               </div>
             )}
             {schedule && selectedCity && film_id && (
-              <div className="flex flex-row gap-8 my-5">
+              <div className="flex flex-row gap-8 mt-6 mb-9">
                 {schedule.map((item, index) => {
                   const [label, date] = Object.entries(item[0])[0];
                   const isSelected = selectedButtonIndex === index;

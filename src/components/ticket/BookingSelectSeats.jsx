@@ -27,7 +27,7 @@ export default function BookingSelectSeats({setNextStep}) {
   },[seatTotalAmount]);
 
   const seatData = data.seatData;
-  console.log(selectedSeats);
+  console.log(JSON.stringify(seatData));
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
       <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
@@ -217,11 +217,14 @@ export default function BookingSelectSeats({setNextStep}) {
           <div className="py-6 px-20">
             {message && <AlertWithIcon type={"negative"} message={message} />}
             <div className="bg-[#606060] rounded-lg p-4">
-              <p className="text-white text-2xl font-light mb-2">
+              <p className="text-white text-2xl font-medium mb-2">
                 Cinema: {seatData.cinema_name}
               </p>
               <p className="text-white text-2xl mb-1">
                 Movie: '{seatData.film_name}'
+              </p>
+              <p className="text-white text-2xl mb-1">
+                Showtime: {seatData.show_time + " " +  seatData.show_date}
               </p>
               <p className="text-white text-2xl mb-1">
                 Cinema room: {seatData.room_name}
@@ -241,7 +244,7 @@ export default function BookingSelectSeats({setNextStep}) {
               <p className="text-white text-2xl font-light mb-2">
                 Current total:
               </p>
-              <p className="text-[#eaddf7] font-medium text-2xl">
+              <p className="text-[#eaddf7] font-medium text-3xl">
                 {numFormat.format(seatTotalAmount + popcornTotalAmount)}đ
               </p>
             </div>
