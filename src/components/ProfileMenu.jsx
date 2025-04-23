@@ -21,7 +21,7 @@ export function ProfileMenu({ fullname }) {
   };
   return (
     <>
-      <Menu placement="bottom-start" className="z-50 ">
+      <Menu placement="bottom-start">
         <MenuHandler>
           <div className="flex flex-row items-center cursor-pointer">
             <img className="w-8 h-8 mr-1" src="/icons/account.png" />
@@ -30,19 +30,16 @@ export function ProfileMenu({ fullname }) {
         </MenuHandler>
         <MenuList className="bg-white text-purple-700 shadow-lg">
           <MenuItem
-            color="purple"
             onClick={() => navigate("/profile")}
-            className="flex items-center gap-2 hover:bg-purple-100"
+            className="flex items-center gap-3 hover:bg-purple-100"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="30"
-              fill="currentColor"
-              class="bi bi-person-circle"
+              width="22"
+              height="22"
               viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"
@@ -51,21 +48,20 @@ export function ProfileMenu({ fullname }) {
               />
             </svg>
 
-            <Typography variant="lg" className="font-medium">
+            <Typography variant="lg" className="font-medium text-lg">
               My Profile
             </Typography>
           </MenuItem>
           <MenuItem
-            className="flex items-center gap-2 hover:bg-purple-100"
+            className="flex items-center gap-3 hover:bg-purple-100"
             onClick={() => handleOpen()}
           >
             <svg
+              width="22"
+              height="22"
+              viewBox="0 0 16 14"
+              fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="currentColor"
-              class="bi bi-box-arrow-right"
-              viewBox="0 0 16 16"
             >
               <path
                 fill-rule="evenodd"
@@ -74,7 +70,7 @@ export function ProfileMenu({ fullname }) {
                 fill="#773e77"
               />
             </svg>
-            <Typography variant="lg" className="font-medium">
+            <Typography variant="lg" className="font-medium text-lg">
               Sign Out
             </Typography>
           </MenuItem>
