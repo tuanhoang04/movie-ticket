@@ -78,9 +78,19 @@ export default function MovieRatings({ film_id }) {
       {ratingsData.map((item, index) => {
         return (
           <div key={index} className="mb-9 flex flex-row">
-            {item.user_img ? <img src={item.user_img} className=" w-[2rem] h-[2rem] object-cover mr-2 rounded-full border-gray-400"/> : <div className="w-[2rem] h-[2rem] mr-2"></div>}
             <div className="flex flex-col">
-              <div className="flex flex-row gap-3 items-end">
+              <div className="flex flex-row gap-3 items-end mb-1">
+                {item.user_img ? (
+                  <img
+                    src={item.user_img}
+                    className=" w-[2rem] h-[2rem] object-cover rounded-full mr-[-0.3rem] border-gray-400"
+                  />
+                ) : (
+                  <img
+                    className="w-[2rem] h-[2rem]  mr-[-0.3rem]"
+                    src="/icons/account.png"
+                  />
+                )}
                 <p className="text-white text-2xl">{item.full_name}</p>
                 <p className="text-gray-400 text-lg font-light">
                   {timeAgo(item.date_posted)}

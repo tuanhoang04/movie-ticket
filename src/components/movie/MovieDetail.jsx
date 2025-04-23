@@ -228,9 +228,9 @@ export default function MovieDetail() {
         openSignInFromParent={openSignIn}
         setOpenSignInFromParent={setOpenSignIn}
       />
-      <div className="flex-grow px-8 lg:px-36 flex">
-        <div className="bg-[#323137] w-full h-full py-6 px-20 flex-grow my-7 rounded-3xl">
-          {data && (
+      <div className="flex-grow px-8 lg:px-36 flex flex-col">
+        {data && (
+          <div className="bg-[#323137] w-full h-full py-8 px-20 flex-grow mt-10 mb-4 rounded-3xl">
             <div className="grid grid-cols-11 grid-rows-1">
               <img
                 src={data.info.film[0].film_img}
@@ -261,13 +261,21 @@ export default function MovieDetail() {
                     Actors:{" "}
                   </p>
                   {data.info.actors.map((item, index) => {
-                    const isLast = index===(data.info.actors.length-1);
+                    const isLast = index === data.info.actors.length - 1;
                     return (
                       <div key={index} className="flex flex-row">
-                        <p onClick={ ()=>{localStorage.setItem("actor_id", item.actor_id) ;navigate(`/actor/${createSlug(item.actor_name)}`)}} className="text-white text-lg hover:underline hover:underline-offset-2 cursor-pointer">
+                        <p
+                          onClick={() => {
+                            localStorage.setItem("actor_id", item.actor_id);
+                            navigate(`/actor/${createSlug(item.actor_name)}`);
+                          }}
+                          className="text-white text-lg hover:underline hover:underline-offset-2 cursor-pointer"
+                        >
                           {item.actor_name}
                         </p>
-                        <p className="text-white text-lg" >{isLast ? "." : ", "}</p>
+                        <p className="text-white text-lg">
+                          {isLast ? "." : ", "}
+                        </p>
                       </div>
                     );
                   })}
@@ -330,19 +338,19 @@ export default function MovieDetail() {
                 </Button>
               </div>
             </div>
-          )}
-
-          {data?.info?.film[0]?.film_trailer && (
+          </div>
+        )}
+        {data?.info?.film[0]?.film_trailer && (
+          <div className="bg-[#323137] w-full h-full py-8 px-20 flex-grow my-4 rounded-3xl">
             <div>
-              <hr className="my-7 opacity-70" />
               <p className="text-white text-4xl font-bold pb-3">Trailer</p>
               <Trailer youtubeLink={data.info.film[0].film_trailer} />
             </div>
-          )}
-
-          {data && (
+          </div>
+        )}
+        {data && (
+          <div className="bg-[#323137] w-full h-full py-8 px-20 flex-grow my-4 rounded-3xl">
             <div className="flex flex-col">
-              <hr className="my-7 opacity-70" />
               <p className="text-white text-4xl font-bold pb-3">Ratings</p>
               <div className="bg-[#606060] w-full p-5 rounded-2xl grid grid-cols-12 grid-rows-1">
                 <div className="col-span-2 row-span-1 flex flex-row justify-center items-baseline border-e-2">
@@ -386,9 +394,10 @@ export default function MovieDetail() {
                 <MovieRatings film_id={film_id} />
               )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
+
       <Footer />
     </div>
   );
