@@ -35,7 +35,7 @@ export default function BuyTicket() {
       )
         .then((response) => response.json())
         .then((responseData) => {
-          if (responseData.success&&film_id) {
+          if (responseData.success && film_id) {
             // action to do when login is successful
           } else {
             navigate(-1);
@@ -258,17 +258,22 @@ export default function BuyTicket() {
   return (
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar />
-      <div className="flex-grow px-8 lg:px-36 flex">
-        <div className="bg-[#323137] w-full h-full py-6 px-20 flex-grow my-7 rounded-3xl">
-          {data && (
+      <div className="flex-grow px-8 lg:px-36 flex flex-col">
+        {data && (
+          <div className="bg-[#323137] w-full h-full py-8 px-20 flex-grow mt-10 mb-4 rounded-3xl">
             <div className="grid grid-cols-11 grid-rows-1">
               <img
                 src={data.info.film[0].film_img}
                 className="col-span-2 row-span-1 rounded-3xl w-full"
               />
               <div className="col-span-7 row-span-1 flex flex-col justify-center px-10">
-                {message && <AlertWithIcon type={"negative"} message={message} />}
-                <p className="text-white text-3xl pb-1 font-bold">
+                {message && (
+                  <AlertWithIcon type={"negative"} message={message} />
+                )}
+                <p
+                  className="text-white text-3xl pb-1 font-bold"
+                  style={message && { marginTop: "10px" }}
+                >
                   {data.info.film[0].film_name}
                 </p>
                 <p className="text-white text-xl pb-5 font-light">
@@ -281,14 +286,30 @@ export default function BuyTicket() {
                 <p className="text-white text-xl pb-5 font-normal text-justify">
                   {data.info.film[0].film_describe}
                 </p>
-                <p className="text-white text-lg font-normal text-justify">
-                  Actors:{" "}
-                  {data.info.actors
-                    .map((item) => {
-                      return item.actor_name;
-                    })
-                    .join(", ")}
-                </p>
+                <div className="flex flex-row gap-1">
+                  <p className="text-white text-lg font-normal text-justify">
+                    Actors:{" "}
+                  </p>
+                  {data.info.actors.map((item, index) => {
+                    const isLast = index === data.info.actors.length - 1;
+                    return (
+                      <div key={index} className="flex flex-row">
+                        <p
+                          onClick={() => {
+                            localStorage.setItem("actor_id", item.actor_id);
+                            navigate(`/actor/${createSlug(item.actor_name)}`);
+                          }}
+                          className="text-white text-lg hover:underline hover:underline-offset-2 cursor-pointer"
+                        >
+                          {item.actor_name}
+                        </p>
+                        <p className="text-white text-lg">
+                          {isLast ? "." : ", "}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
               <div className="col-span-2 row-span-1 flex flex-col justify-center items-center">
                 {data.info.evaluate[0].sum_rate > 0 && (
@@ -319,7 +340,7 @@ export default function BuyTicket() {
                 {liked ? (
                   <Button
                     color="red"
-                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%] mb-3"
+                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px] mb-3"
                     onClick={unlike}
                   >
                     <img src="/icons/heart-filled.png" className="w-7 mr-2 " />
@@ -328,7 +349,7 @@ export default function BuyTicket() {
                 ) : (
                   <Button
                     color="red"
-                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center w-[52%] mb-3"
+                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px] mb-3"
                     onClick={like}
                   >
                     <img src="/icons/heart.png" className="w-7 mr-2" />
@@ -337,11 +358,11 @@ export default function BuyTicket() {
                 )}
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          <div>
-            <hr className="my-7 opacity-70" />
-
+        {cities && (
+          <div className="bg-[#323137] w-full h-full py-8 px-20 flex-grow mt-10 mb-4 rounded-3xl">
             {cities && (
               <div>
                 <p className="text-white text-4xl font-bold pb-5">Buy ticket</p>
@@ -361,33 +382,35 @@ export default function BuyTicket() {
                 />
               </div>
             )}
-            {schedule && (
-              <div className="flex flex-row gap-8 my-5">
-                {schedule.map((item, index) => {
-                  const [label, date] = Object.entries(item[0])[0];
-                  const isSelected = selectedButtonIndex === index;
-                  return (
-                    <div key={index}>
-                      <Button
-                        variant="text"
-                        onClick={() => {
-                          setSelectedButtonIndex(index);
-                          schedule[index].length > 1
-                            ? setClustersSchedule(schedule[index][1])
-                            : setClustersSchedule(1);
-                        }}
-                        className={`text-xl font-light p-0 ${
-                          isSelected ? "text-[#B49AFF]" : "text-white"
-                        }`}
-                      >
-                        <p>{label}</p>
-                        <p>{date}</p>
-                      </Button>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            {schedule &&
+              selectedCity &&
+              film_id&&(
+                <div className="flex flex-row gap-8 my-5">
+                  {schedule.map((item, index) => {
+                    const [label, date] = Object.entries(item[0])[0];
+                    const isSelected = selectedButtonIndex === index;
+                    return (
+                      <div key={index}>
+                        <Button
+                          variant="text"
+                          onClick={() => {
+                            setSelectedButtonIndex(index);
+                            schedule[index].length > 1
+                              ? setClustersSchedule(schedule[index][1])
+                              : setClustersSchedule(1);
+                          }}
+                          className={`text-xl font-light p-0 ${
+                            isSelected ? "text-[#B49AFF]" : "text-white"
+                          }`}
+                        >
+                          <p>{label}</p>
+                          <p>{date}</p>
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             {clustersSchedule &&
               (clustersSchedule === 1 ? (
                 <div>
@@ -409,7 +432,7 @@ export default function BuyTicket() {
                 </div>
               ))}
           </div>
-        </div>
+        )}
       </div>
 
       <Footer />

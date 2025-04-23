@@ -27,8 +27,7 @@ export default function BookingSelectSeats({setNextStep}) {
   },[seatTotalAmount]);
 
   const seatData = data.seatData;
-  // console.log(seatData);
-  console.log(data);
+  console.log(selectedSeats);
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
       <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
@@ -229,6 +228,9 @@ export default function BookingSelectSeats({setNextStep}) {
               <p className="text-white text-xl">
                 Cinema room: {seatData.room_name}
               </p>
+              <p className="text-white text-xl">Chosen seats: {selectedSeats.map((item, index)=>{
+                return item.seat_location;
+              }).join(", ")}</p>
             </div>
           </div>
           <div className="pb-6 px-20">
