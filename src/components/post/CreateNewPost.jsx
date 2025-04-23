@@ -88,7 +88,7 @@ function FancyEditor({ handleContentChange }) {
             </select>
           </div>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-7">
           <button
             type="button"
             onClick={() => {
@@ -96,8 +96,8 @@ function FancyEditor({ handleContentChange }) {
             }}
             className={
               editor?.isActive("bold")
-                ? "text-blue-500 font-bold w-5"
-                : "font-bold w-5"
+                ? "text-blue-500 font-bold w-5 text-2xl"
+                : "font-bold w-5 text-2xl"
             }
           >
             B
@@ -107,8 +107,8 @@ function FancyEditor({ handleContentChange }) {
             onClick={() => editor.chain().focus().toggleItalic().run()}
             className={
               editor?.isActive("italic")
-                ? "text-blue-500 italic w-5"
-                : "italic w-5"
+                ? "text-blue-500 italic w-5 text-2xl"
+                : "italic w-5 text-2xl"
             }
           >
             I
@@ -119,8 +119,8 @@ function FancyEditor({ handleContentChange }) {
             onClick={() => editor.chain().focus().toggleUnderline().run()}
             className={
               editor.isActive("underline")
-                ? "text-blue-500 underline w-5"
-                : "w-5"
+                ? "text-blue-500 underline w-5 text-2xl"
+                : "w-5 text-2xl"
             }
           >
             U
@@ -132,13 +132,15 @@ function FancyEditor({ handleContentChange }) {
               editor.chain().focus().toggleBulletList().run();
             }}
             className={
-              editor.isActive("bulletList") ? "text-blue-500 w-5" : " w-5"
+              editor.isActive("bulletList")
+                ? "text-blue-500 w-5 text-2xl"
+                : " w-5 text-2xl"
             }
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
+              width="30"
+              height="30"
               fill="currentColor"
               className="bi bi-list-ul"
               viewBox="0 0 16 16"
@@ -160,8 +162,8 @@ function FancyEditor({ handleContentChange }) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
+              width="30"
+              height="30"
               fill="currentColor"
               className="bi bi-list-ol"
               viewBox="0 0 16 16"
@@ -173,7 +175,7 @@ function FancyEditor({ handleContentChange }) {
               <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635z" />
             </svg>
           </button>
-          <div className=" ">
+          <div className="relative ">
             <input
               type="file"
               accept="image/*"
