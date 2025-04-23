@@ -195,13 +195,11 @@ function FancyEditor({ handleContentChange }) {
 
 export default function CreateNewPost() {
   const [message, setMessage] = useState("");
-  const [movieName, setMovieName] = useState("");
   const [searchText, setSearchText] = useState("");
   const [disableSearch, setDisableSearch] = useState(false);
   const [movieResults, setMovieResults] = useState([]);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const NoImageText = "No image found";
-  const jwt = localStorage.getItem("jwt");
   const [newImg, setNewImg] = useState(null);
 
   const [preview, setPreview] = useState(null);
