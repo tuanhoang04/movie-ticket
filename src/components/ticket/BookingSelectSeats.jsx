@@ -27,7 +27,6 @@ export default function BookingSelectSeats({setNextStep}) {
   },[seatTotalAmount]);
 
   const seatData = data.seatData;
-  console.log(JSON.stringify(seatData));
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
       <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
