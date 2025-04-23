@@ -430,9 +430,9 @@ export default function MovieDetail() {
                   ></div>
                 </div>
                 <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {Math.round(
+                  {(Math.round(
                     ((sumRatingsByStar[5] || 0) / ratingsData.length) * 100 * 10
-                  ) / 10}
+                  ) / 10)||0}
                   %
                 </p>
               </div>
@@ -455,9 +455,9 @@ export default function MovieDetail() {
                   ></div>
                 </div>
                 <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {Math.round(
+                  {(Math.round(
                     ((sumRatingsByStar[4] || 0) / ratingsData.length) * 100 * 10
-                  ) / 10}
+                  ) / 10)||0}
                   %
                 </p>
               </div>
@@ -480,9 +480,9 @@ export default function MovieDetail() {
                   ></div>
                 </div>
                 <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {Math.round(
+                  {(Math.round(
                     ((sumRatingsByStar[3] || 0) / ratingsData.length) * 100 * 10
-                  ) / 10}
+                  ) / 10)||0}
                   %
                 </p>
               </div>
@@ -505,9 +505,9 @@ export default function MovieDetail() {
                   ></div>
                 </div>
                 <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {Math.round(
+                  {(Math.round(
                     ((sumRatingsByStar[2] || 0) / ratingsData.length) * 100 * 10
-                  ) / 10}
+                  ) / 10)||0}
                   %
                 </p>
               </div>
@@ -530,9 +530,9 @@ export default function MovieDetail() {
                   ></div>
                 </div>
                 <p className="col-span-3 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {Math.round(
+                  {(Math.round(
                     ((sumRatingsByStar[1] || 0) / ratingsData.length) * 100 * 10
-                  ) / 10}
+                  ) / 10)||0}
                   %
                 </p>
               </div>
