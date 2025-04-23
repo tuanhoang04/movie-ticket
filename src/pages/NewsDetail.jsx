@@ -41,7 +41,9 @@ export default function NewsDetail() {
   const fetchNewRelate = async (film_id) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/new/film_id=${film_id}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/new/film_id=${film_id}?new_id=${new_id}`,
         {
           method: "GET",
           headers: {
@@ -88,7 +90,7 @@ export default function NewsDetail() {
                 <h1 className="text-3xl mb-3">{dataDetail.new_header}</h1>
                 <img src={dataDetail.new_img} alt="" className="rounded-lg" />
                 <div
-                  className="text-xl text-justify leading-8 flex flex-col gap-7 items-center"
+                  className="text-xl text-justify leading-8 center-images flex flex-col gap-5"
                   dangerouslySetInnerHTML={{ __html: dataDetail.new_content }}
                 ></div>
                 <div className="flex justify-between items-center mt-5 text-lg">

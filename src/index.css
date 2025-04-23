@@ -71,6 +71,14 @@
     font-weight: 500;
   }
 }
+.hide-images img {
+  display: none;
+}
+.center-images img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 /* @font-face {
   font-family: "Netflix Sans";

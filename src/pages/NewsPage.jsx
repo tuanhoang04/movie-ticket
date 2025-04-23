@@ -1,45 +1,39 @@
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 function createSlug(name) {
   return name.trim().replace(/\s+/g, "-").replace(/-+/g, "-");
 }
 export default function NewsPage() {
   const navigate = useNavigate();
+  const [initialLoaded, setInitialLoaded] = useState(false);
   const [dataV, setDataV] = useState([]);
   const [dataA, setDataA] = useState([]);
+  const limit = 3;
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const loader = useRef(null);
+  const [isFetching, setIsFetching] = useState(false);
 
-  const [filteredData, setFilteredData] = useState([]); // newsData là mảng bài viết gốc
-  const [movie, setMovie] = useState("");
-  const [category, setCategory] = useState("");
-  const [sort, setSort] = useState("newest");
+  const [allNews, setAllNews] = useState([]);
 
   useEffect(() => {
-    const combinedData = [...dataV, ...dataA]; // Kết hợp dữ liệu từ cả hai mảng
-    setFilteredData(combinedData); // Cập nhật filteredData với dữ liệu kết hợp
+    const combinedData = [...dataV, ...dataA];
+    console.log(combinedData);
+    combinedData.sort((a, b) => new Date(b.new_time) - new Date(a.new_time));
+    setAllNews(combinedData);
   }, [dataV, dataA]); // Chạy lại khi dataV hoặc dataA thay đổi
 
-  useEffect(() => {
-    let data = [...filteredData];
-
-    if (movie) data = data.filter((item) => item.movie === movie);
-    if (category) data = data.filter((item) => item.category === category);
-
-    data.sort((a, b) => {
-      if (sort === "newest") return new Date(b.new_time) - new Date(a.new_time);
-      else return new Date(a.new_time) - new Date(b.new_time);
-    });
-    console.log("formatted", data);
-
-    setFilteredData(data);
-  }, [movie, category, sort]);
-
   const fetchNewVietnam = async () => {
+    setIsFetching(true);
+
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/new/vietnam`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/new/vietnam?offset=${offset}&limit=${limit}`,
         {
           method: "GET",
           headers: {
@@ -49,21 +43,32 @@ export default function NewsPage() {
       );
       if (response.ok) {
         const result = await response.json();
-        setDataV(result);
+        setDataV((prev) => {
+          const newItems = result.filter(
+            (item) => !prev.some((old) => old.new_id === item.new_id)
+          );
+          return [...prev, ...newItems];
+        });
         console.log("Data V");
         console.log(result);
       } else {
         console.error("Lỗi khi truy cập:", response.statusText);
+        setHasMore(false);
       }
     } catch (error) {
       console.error("Lỗi mạng:", error);
     }
+    setIsFetching(false);
   };
 
   const fetchNewAboard = async () => {
+    setIsFetching(true);
+
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/new/aboard`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/new/aboard?offset=${offset}&limit=${limit}`,
         {
           method: "GET",
           headers: {
@@ -73,7 +78,12 @@ export default function NewsPage() {
       );
       if (response.ok) {
         const result = await response.json();
-        setDataA(result);
+        setDataA((prev) => {
+          const newItems = result.filter(
+            (item) => !prev.some((old) => old.new_id === item.new_id)
+          );
+          return [...prev, ...newItems];
+        });
         console.log("Data A");
         console.log(result);
       } else {
@@ -82,11 +92,41 @@ export default function NewsPage() {
     } catch (error) {
       console.error("Lỗi mạng:", error);
     }
+    setIsFetching(false);
   };
   useEffect(() => {
-    fetchNewAboard();
-    fetchNewVietnam();
-  }, []);
+    if (offset === 0) {
+      fetchNewAboard();
+      fetchNewVietnam().then(() => {
+        setInitialLoaded(true);
+      });
+    } else {
+      fetchNewAboard();
+      fetchNewVietnam();
+    }
+  }, [offset]);
+  const handleObserver = useCallback(
+    (entries) => {
+      const target = entries[0];
+      if (target.isIntersecting && hasMore && !isFetching) {
+        setOffset((prev) => prev + limit);
+      }
+    },
+    [hasMore]
+  );
+  useEffect(() => {
+    if (!initialLoaded) return;
+
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+
+    return () => observer.disconnect();
+  }, [handleObserver, initialLoaded]);
 
   const handleRegionClick = (region) => {
     localStorage.setItem("region", region);
@@ -96,11 +136,11 @@ export default function NewsPage() {
   return (
     <>
       <NavBar currentPage={"News"} />
-      <div id="body" className="flex bg-[#1C1B21] p-32 pt-20 gap-20 text-white">
-        <div id="lastest" className="w-3/4">
-          <div className="text-3xl border-l-8 px-5 py-4 mb-5">Movie news</div>
+      <div id="body" className="flex bg-[#1C1B21] p-32 pt-10 gap-20 text-white">
+        <div id="lastest" className="w-4/6">
+          <div className="text-4xl px-5 py-4 mb-5">Movie news</div>
           <div className="flex flex-col gap-10 p-4">
-            {filteredData.map((item) => (
+            {allNews.map((item) => (
               <div
                 key={item.new_id}
                 onClick={() => {
@@ -110,12 +150,12 @@ export default function NewsPage() {
                     `/news/${encodeURIComponent(createSlug(item.new_header))}`
                   );
                 }}
-                className="flex flex-col gap-2 bg-white text-black p-6 rounded-lg cursor-pointer"
+                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-6 rounded-lg cursor-pointer"
               >
                 <h1 className="text-3xl mb-3 ">{item.new_header}</h1>
                 <img src={item.new_img} alt="" className="rounded-lg" />
                 <div
-                  className="line-clamp-5 text-lg"
+                  className="line-clamp-5 text-lg hide-images"
                   dangerouslySetInnerHTML={{ __html: item.new_content }}
                 ></div>
                 <div className="flex justify-between items-center mt-5">
@@ -128,12 +168,13 @@ export default function NewsPage() {
                 </div>
               </div>
             ))}
+            <div ref={loader} className="text-center py-4 text-white">
+              {hasMore ? "Đang tải thêm..." : "No more new"}
+            </div>
           </div>
         </div>
-        <div id="side" className="w-1/4">
-          <div className="text-3xl border-l-8 px-5 py-4 mb-10">
-            More to explore
-          </div>
+        <div id="side" className="w-2/6">
+          <div className="text-4xl  py-4 mb-10">More to explore</div>
           <div className="flex flex-col gap-4 mb-20">
             <div
               onClick={() => {
@@ -159,7 +200,7 @@ export default function NewsPage() {
             {dataV.slice(0, 5).map((item) => (
               <div
                 key={item.new_id}
-                className="flex  gap-2 bg-white text-black p-3 rounded-lg cursor-pointer"
+                className="flex  gap-2 bg-[#2c2c2e] text-white p-3 rounded-lg cursor-pointer"
                 onClick={() => {
                   localStorage.setItem("new_id", item.new_id);
 
@@ -212,7 +253,7 @@ export default function NewsPage() {
             {dataA.slice(0, 5).map((item) => (
               <div
                 key={item.new_id}
-                className="flex  gap-2 bg-white text-black p-3 rounded-lg cursor-pointer"
+                className="flex  gap-2 bg-[#2c2c2e] text-white p-3 rounded-lg cursor-pointer"
                 onClick={() => {
                   localStorage.setItem("new_id", item.new_id);
 

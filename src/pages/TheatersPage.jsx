@@ -167,7 +167,7 @@ export default function TheatersPage() {
         <div className="min-h-screen">
           {currentAreaName && (
             <div className=" mx-[144px] mt-20 flex  text-white h-fit min-h-[400px] ">
-              <div className="w-1/5 h-full bg-white bg-opacity-10 rounded-lg ">
+              <div className="w-1/4 h-full bg-white bg-opacity-10 rounded-lg ">
                 <p className=" p-4 pb-0 text-3xl">
                   Theaters in {currentAreaName}
                 </p>
@@ -205,7 +205,7 @@ export default function TheatersPage() {
                 )}
               </div>
               {currentCinema && (
-                <div className=" w-4/5 ml-10">
+                <div className=" w-3/4 ml-10">
                   <div className="rounded-xl p-5 bg-white bg-opacity-10">
                     <div className="flex justify-between items-center w-full">
                       <div className="flex  items-center gap-3 ">
@@ -222,7 +222,7 @@ export default function TheatersPage() {
                           <p className="text-2xl font-bold text-white">
                             {currentCinema.info.cinema_name}
                           </p>
-                          <p className="text-lg text-white">
+                          <p className="text-lg text-white w-3/4">
                             {currentCinema.info.address}
                           </p>
                         </div>

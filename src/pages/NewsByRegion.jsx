@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -7,36 +7,48 @@ function createSlug(name) {
 }
 export default function NewsByRegion() {
   const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [offset, setOffset] = useState(0);
+  const limit = 5;
   const region = localStorage.getItem("region");
   const navigate = useNavigate();
+  const [hasMore, setHasMore] = useState(true);
+  const loader = useRef(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const fetchNewByRegion = async () => {
+    setIsFetching(true);
+
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/new/${region}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/new/${region}?offset=${offset}&limit=${limit}`
       );
+
       if (response.ok) {
         const result = await response.json();
-        setNews(result);
-        console.log("Data V");
         console.log(result);
+
+        setNews((prev) => {
+          const newItems = result.filter(
+            (item) => !prev.some((old) => old.new_id === item.new_id)
+          );
+          return [...prev, ...newItems];
+        });
       } else {
         console.error("Lỗi khi truy cập:", response.statusText);
+        setHasMore(false);
       }
     } catch (error) {
       console.error("Lỗi mạng:", error);
     }
+
+    setIsFetching(false);
   };
+
   useEffect(() => {
     fetchNewByRegion();
-  }, []);
+  }, [offset]);
   const getRegion = () => {
     if (region === "vietnam") {
       return "Viet nam";
@@ -44,6 +56,27 @@ export default function NewsByRegion() {
       return "Global";
     }
   };
+
+  const handleObserver = useCallback(
+    (entries) => {
+      const target = entries[0];
+      if (target.isIntersecting && hasMore && !isFetching) {
+        setOffset((prev) => prev + limit);
+      }
+    },
+    [hasMore]
+  );
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+
+    return () => observer.disconnect();
+  }, [handleObserver]);
   return (
     <>
       <NavBar />
@@ -78,7 +111,11 @@ export default function NewsByRegion() {
               }}
               className="flex flex-col gap-2 text-white  rounded-lg cursor-pointer"
             >
-              <img src={item.new_img} alt="" />
+              <img
+                src={item.new_img}
+                className="aspect-video object-cover"
+                alt=""
+              />
               <h1 className="text-2xl ">{item.new_header}</h1>
 
               <div className="flex justify-between items-center">
@@ -88,6 +125,9 @@ export default function NewsByRegion() {
               </div>
             </div>
           ))}
+        </div>
+        <div ref={loader} className="text-center py-4 text-white">
+          {hasMore ? "Đang tải thêm..." : "No more new"}
         </div>
       </div>
 
