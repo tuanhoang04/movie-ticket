@@ -107,7 +107,7 @@ export default function Movies() {
             {currentNowShowings.length <= 4 && (
               <div className="mb-6 lg:w-[18.25%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
-                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
+                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
                   <div className="invisible">
                     <p className="text-[#5D6A81] lg:text-xl text-lg w-full">
                       &nbsp;
@@ -154,7 +154,7 @@ export default function Movies() {
             {currentUpcomings.length <= 4 && (
               <div className="mb-6 lg:w-[18.25%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
-                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
+                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
                   <div className="invisible">
                     <p className="text-[#5D6A81] lg:text-xl text-lg w-full">
                       &nbsp;
