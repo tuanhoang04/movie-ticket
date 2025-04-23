@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
@@ -10,7 +11,7 @@ import TicketCard from "../../components/ticket/TicketCard";
 import MovieCard from "../../components/movie/MovieCard";
 import CreateNewPost from "../../components/post/CreateNewPost";
 import { useNavigate } from "react-router-dom";
-
+import { useRef } from "react";
 import AlertWithIcon from "../../components/Alert";
 
 import {
@@ -27,11 +28,14 @@ import {
   DialogBody,
   DialogFooter,
   Radio,
+  Tooltip,
 } from "@material-tailwind/react";
 
 export default function Profile() {
   const jwt = localStorage.getItem("jwt");
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+
   const [userInfor, setUserInfor] = useState({});
   const [file, setFile] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -41,7 +45,8 @@ export default function Profile() {
   const [createPostVisible, setCreatePostVisible] = useState(false);
   const [viewProfile, setViewProfile] = useState(false);
   const [formUserData, setFormUserData] = useState({});
-
+  const [preview, setPreview] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [okMessage, setOkMessage] = useState("");
 
@@ -204,11 +209,17 @@ export default function Profile() {
       [name]: value,
     }));
   };
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    const previewURL = URL.createObjectURL(selectedFile);
+    setPreview(previewURL);
+  };
+
   const submit = async () => {
-    // Submit form 1 (file upload)
-    // if (file) {
-    //   await handleSubmitt(new Event("submit"));
-    // }
+    if (file) {
+      await handleUpdateWithImage(new Event("submit"));
+    }
 
     // Submit form 2 (user info)
     await handleUpdateInfoSubmit(new Event("submit"));
@@ -250,6 +261,7 @@ export default function Profile() {
 
         if (data.success) {
           setErrorMessage("");
+          setUploadStatus("");
           setOkMessage("Successfully updated information!");
         } else {
           const error__alert = `Failed to update: ${data.message}`;
@@ -266,21 +278,84 @@ export default function Profile() {
       console.error("Internet error:", error);
     }
   };
+  const handleUpdateWithImage = async (e) => {
+    if (!file) {
+      alert("Please select an image file to upload.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("jwt", jwt);
+
+    try {
+      setUploadStatus("Uploading...");
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/uploadImage`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        setUploadStatus("Upload successful!");
+        console.log("URL ảnh:", response.data.message.url);
+      } else {
+        setUploadStatus("Upload failed!");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      setUploadStatus("Upload failed!");
+    }
+    console.log(uploadStatus);
+  };
   return (
     <div className="bg-[#1C1B21] flex flex-col justify-center  text-white">
       <NavBar />
       {viewProfile ? (
         <Dialog open={viewProfile} className=" my-3 bg-white mx-auto gap-5">
           <DialogHeader className=" p-0 bg-[#502A50] relative h-20 px-5 flex flex-row-reverse">
-            <img
-              src={
-                userInfor.user_img
-                  ? userInfor.user_img
-                  : import.meta.env.VITE_DEFAULT_AVATAR
-              }
-              className="rounded-full w-24 h-24 absolute left-0 right-0 top-10 mx-auto "
-              alt=""
-            />
+            <Tooltip
+              content="Change profile picture"
+              placement="top"
+              className="z-50"
+            >
+              <div className="rounded-full w-24 h-24 absolute left-0 right-0 top-10 mx-auto overflow-hidden">
+                <img
+                  src={
+                    preview ||
+                    (userInfor.user_img
+                      ? userInfor.user_img
+                      : import.meta.env.VITE_DEFAULT_AVATAR)
+                  }
+                  alt=""
+                  className="absolute w-full h-full object-cover"
+                />
+
+                <div
+                  className="absolute top-0 left-0 right-0 bottom-0  rounded-full grid place-content-center opacity-0 hover:opacity-100 bg-[white] bg-opacity-10 cursor-pointer"
+                  onClick={() => {
+                    if (fileInputRef.current) {
+                      fileInputRef.current.click();
+                    }
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="currentColor"
+                    className="bi bi-pencil-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                  </svg>
+                </div>
+              </div>
+            </Tooltip>
+
             <Button
               className="rounded-full w-10 h-10 grid place-content-center p-0 m-0 hover:bg-[#902A50] bg-[#702A50] "
               onClick={() => setViewProfile(!viewProfile)}
@@ -300,6 +375,14 @@ export default function Profile() {
 
           <DialogBody className="mt-10 mb-1">
             <form className="flex flex-col w-[100%] gap-5">
+              <input
+                type="file"
+                name="user__img"
+                accept="image/*"
+                onChange={handleFileChange}
+                ref={fileInputRef}
+                className="hidden"
+              ></input>
               <div>
                 <Typography variant="h5" className="mb-1 font-light">
                   Name
@@ -366,6 +449,9 @@ export default function Profile() {
                 />
               </div>
               <div>
+                {uploadStatus && (
+                  <AlertWithIcon type="positive" message={uploadStatus} />
+                )}
                 {errorMessage && (
                   <AlertWithIcon type="negative" message={errorMessage} />
                 )}
