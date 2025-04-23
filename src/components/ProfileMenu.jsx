@@ -30,7 +30,7 @@ export function ProfileMenu({ data }) {
           <div className="flex flex-row gap-2 items-center cursor-pointer">
             <img
               className="w-8 h-8 rounded-full"
-              src={data ? data.user_img : "/profile-avatar-sample.png"}
+              src={data?.user_img  ? data.user_img : "/icons/account.png"}
             />
             <p className="text-xl ">{data ? data.full_name : ""}</p>
           </div>

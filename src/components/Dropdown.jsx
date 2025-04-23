@@ -23,7 +23,7 @@ export default function Dropdown({ label, options, handleChangeOption }) {
           {label}
           <ChevronDownIcon
             strokeWidth={1.9}
-            className={`h-8 w-8 transition-transform ${
+            className={`h-8 w-8 ml-2 transition-transform ${
               openMenu ? "rotate-180" : ""
             }`}
           />

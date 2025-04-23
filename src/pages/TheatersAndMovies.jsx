@@ -253,8 +253,10 @@ export default function TheatersAndMovies() {
         {/* Theaters section */}
 
         <div id="body" className="">
-          <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-lg">
-            <p className="text-white font-medium text-xl p-2 pr-4 ">Location</p>
+          <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-2xl">
+            <div className="text-white text-xl h-[56px] font-bold px-5 border-r-2 place-content-center uppercase">
+              Location
+            </div>
 
             <Dropdown
               label="Select a location"
@@ -262,6 +264,7 @@ export default function TheatersAndMovies() {
               handleChangeOption={handleOptionClick}
             />
           </div>
+
           <div className="min-h-screen">
             {currentAreaName && (
               <div className=" mx-[144px] mt-20 flex  text-white h-fit min-h-[400px] ">
