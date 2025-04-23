@@ -27,12 +27,14 @@ export default function NavBar({
   openSignInFromParent = false,
   setOpenSignInFromParent,
 }) {
+  const jwt = localStorage.getItem("jwt");
   const [openNav, setOpenNav] = useState(false);
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(!!jwt);
   const [userInfo, setUserInfo] = useState([]);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   // listen for sign in trigger
@@ -60,8 +62,12 @@ export default function NavBar({
     }
   };
 
-  const jwt = localStorage.getItem("jwt");
   useEffect(() => {
+    if (!jwt) {
+      setIsLoading(false);
+      return;
+    }
+
     fetch(`${import.meta.env.VITE_API_URL}/api/userInfo`, {
       method: "POST",
       headers: {
@@ -71,15 +77,20 @@ export default function NavBar({
     })
       .then((response) => response.json())
       .then((responseData) => {
+        setIsLoading(false);
         if (responseData.success) {
           setLogin(true);
           setUserInfo(responseData.userInfo[0]);
         } else {
+          // JWT is invalid
+          localStorage.removeItem("jwt");
           setLogin(false);
         }
-        console.log(responseData);
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => {
+        console.error("Error:", error);
+        setIsLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -247,20 +258,22 @@ export default function NavBar({
                 Search
               </Button>
             </div>
-            {login ? (
-              <ProfileMenu fullname={userInfo.full_name} />
+            {isLoading ? null : login && userInfo ? (
+              <ProfileMenu data={userInfo} />
             ) : (
               <div>
                 <Button
                   variant="outlined"
-                  className="text-white text-md rounded-3xl mr-4 border-white border-[0.8] mb-4"
+                  className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
+                  onClick={() => setOpenSignUp(!openSignUp)}
                 >
                   Sign up
                 </Button>
                 <Button
-                  variant="gradient"
+                  variant="fill"
                   color="red"
-                  className="text-white text-md rounded-3xl mb-4"
+                  className="text-white bg-[#B44242] text-md rounded-3xl"
+                  onClick={() => setOpenSignIn(true)}
                 >
                   Sign in
                 </Button>
