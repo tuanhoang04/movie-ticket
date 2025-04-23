@@ -152,9 +152,11 @@ export default function TheatersPage() {
     <div className="bg-[#1C1B21] h-fit">
       <NavBar currentPage={"Theaters"} />
       <div id="body" className="">
+        <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-lg">
+          <p className="text-white font-medium text-xl p-2 pr-4 ">Location</p>
         <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-2xl">
           <h1 className="text-white text-xl h-[56px] font-bold px-5 border-r-2 place-content-center uppercase">
-            Status
+            Location
           </h1>
 
           <Dropdown

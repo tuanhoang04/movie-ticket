@@ -17,7 +17,7 @@ export default function Dropdown({ label, options, handleChangeOption }) {
     <Menu
       open={openMenu}
       handler={setOpenMenu}
-      className="text-white  w-64 border-none after:border-none after:outline-none before:border-none"
+      className="text-white w-64 border-none after:border-none after:outline-none before:border-none"
     >
       <MenuHandler>
         <Button
