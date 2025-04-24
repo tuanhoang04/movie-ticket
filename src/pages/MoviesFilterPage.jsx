@@ -114,52 +114,62 @@ export default function MoviesFilterPage() {
   return (
     <div className="flex flex-col flex-grow min-h-screen bg-[#1C1B21]">
       <NavBar currentPage={"Movies"} />
-      <div className="flex flex-col gap-3 flex-grow py-7 px-8 lg:px-36">
-        <div className="flex flex-row gap-5">
-          <div className="w-fit flex items-center bg-gray-800  rounded-2xl">
-            <h1 className="text-white text-xl font-bold px-5 h-full border-r-2 place-content-center uppercase">
+
+      <div className="flex flex-col gap-3 flex-grow py-5 px-4 md:px-6 lg:px-12 xl:px-36">
+        {/* Filter controls - responsive layout */}
+        <div className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:gap-4">
+          <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">
+            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-3 md:px-4 lg:px-5 py-2 border-r-2 place-content-center uppercase">
               Status
             </h1>
-            <Dropdown
-              label={statusLabel}
-              handleChangeOption={handleStatusChange}
-              options={Object.keys(allStatus)}
-            />
+            <div className="flex-grow">
+              <Dropdown
+                label={statusLabel}
+                handleChangeOption={handleStatusChange}
+                options={Object.keys(allStatus)}
+              />
+            </div>
           </div>
 
-          <div className="w-fit flex items-center bg-gray-800  rounded-2xl">
-            <h1 className="text-white text-xl font-bold px-5 h-full border-r-2 place-content-center uppercase">
+          <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">
+            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-3 md:px-4 lg:px-5 py-2 border-r-2 place-content-center uppercase">
               Genre
             </h1>
-            <Dropdown
-              label={genreLabel}
-              handleChangeOption={handleGenreChange}
-              options={Object.keys(allGenres)}
-            />
+            <div className="flex-grow">
+              <Dropdown
+                label={genreLabel}
+                handleChangeOption={handleGenreChange}
+                options={Object.keys(allGenres)}
+              />
+            </div>
           </div>
 
-          <div className="w-fit flex items-center bg-gray-800 rounded-2xl">
-            <h1 className="text-white text-xl font-bold px-5 h-full border-r-2 place-content-center uppercase">
+          <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">
+            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-3 md:px-4 lg:px-5 py-2 border-r-2 place-content-center uppercase">
               Country
             </h1>
-            <Dropdown
-              label={countryLabel}
-              handleChangeOption={handleCountryChange}
-              options={Object.keys(allCountries)}
-            />
+            <div className="flex-grow">
+              <Dropdown
+                label={countryLabel}
+                handleChangeOption={handleCountryChange}
+                options={Object.keys(allCountries)}
+              />
+            </div>
           </div>
         </div>
 
+        {/* No results message */}
         {(!currentMovies ||
           currentMovies?.length === 0 ||
           currentMovies === undefined) && (
           <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-            <h2 className="text-white text-3xl font-medium mb-4">
+            <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-medium mb-4">
               No results match. Please filter with another criteria.
             </h2>
           </div>
         )}
 
+        {/* Movie grid - responsive layout */}
         {currentMovies && currentMovies.length > 0 && (
           <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
             {currentMovies.map((item) => {
@@ -183,6 +193,7 @@ export default function MoviesFilterPage() {
           </div>
         )}
       </div>
+
       <Footer />
     </div>
   );

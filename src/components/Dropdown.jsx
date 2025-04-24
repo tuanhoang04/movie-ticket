@@ -14,11 +14,11 @@ export default function Dropdown({ label, options, handleChangeOption }) {
     handleChangeOption(option);
   };
   return (
-    <Menu open={openMenu} handler={setOpenMenu} className="text-white w-64">
+    <Menu open={openMenu} handler={setOpenMenu} className="text-white">
       <MenuHandler>
         <Button
           variant="outlined"
-          className="text-white normal-case text-lg font-thin border-0 border-white flex flex-row items-center gap-1  focus:ring-0"
+          className="w-full text-white normal-case text-lg font-thin border-0 border-white flex flex-row items-center gap-1 focus:ring-0"
         >
           {label}
           <ChevronDownIcon

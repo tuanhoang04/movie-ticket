@@ -166,7 +166,7 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
               onChange={handleChange}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
             />
-            <div className="flex gap-3 items-center">
+            <div className="flex lg:gap-3 lg:flex-row flex-col lg:items-center">
               <Typography variant="h5" color="white" className="font-light">
                 Gender
               </Typography>

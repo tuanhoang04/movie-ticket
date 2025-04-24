@@ -114,7 +114,7 @@ export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp, 
               >
                 Password
               </Typography>
-              <Typography onClick={handleOpenForgotPassword} color="gray" className="text-white font-normal mb-1 cursor-pointer">
+              <Typography onClick={handleOpenForgotPassword} color="gray" className="text-white lg:text-base text-xs font-normal mb-1 cursor-pointer">
                 Forgot your password?
               </Typography>
             </div>
