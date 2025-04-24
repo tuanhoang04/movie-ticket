@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 
 export function NavContent({ data, slots, sx }) {
     const pathname = usePathname();
-
+    const full_name = localStorage.getItem("full_name");
     const handleLogout = (path) => {
         if (path === '/home') {
             window.location.href = '/home';
@@ -135,7 +135,7 @@ export function NavContent({ data, slots, sx }) {
                 alignItems: 'center'
             }}>
                 <Typography variant="subtitle1" sx={{ color: 'white', fontWeight: 'medium' }}>
-                    Hi, Imhiong 👋
+                    Hi, {full_name||"Admin"} 👋
                 </Typography>
                 
                 <Box 

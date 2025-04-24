@@ -53,7 +53,6 @@ export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp, 
           setOkMessage(`Sign in successfully: ${data.message}`);
           setErrorMessage(null);
           localStorage.setItem("jwt", data.jwt);
-          localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("role", data.message==="user"?'0':'1');
           if (data.message == "user") {
             setTimeout(() => {
