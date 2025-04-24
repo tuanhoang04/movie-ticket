@@ -113,95 +113,112 @@ export function UserView() {
     const notFound = !dataFiltered.length && filterName;
 
     return (
-        <DashboardContent>
-            <Box display="flex" alignItems="center" mb={5}>
-                <Typography variant="h2" flexGrow={1}>
-                    Quản lý người dùng
-                </Typography>
-            </Box>
+      <DashboardContent>
+        <Box display="flex" alignItems="center" mb={5}>
+          <Typography variant="h2" flexGrow={1}>
+            Quản lý người dùng
+          </Typography>
+        </Box>
 
-            <Card>
-                <UserTableToolbar
-                    numSelected={table.selected.length}
-                    filterName={filterName}
-                    selectedFilter={selectedFilter}
-                    onFilterName={handleFilterName}
-                    onFilterChange={handleFilterChange}
-                    onDeleteSelected={handleDeleteSelected}
+        <Card>
+          <UserTableToolbar
+            numSelected={table.selected.length}
+            filterName={filterName}
+            selectedFilter={selectedFilter}
+            onFilterName={handleFilterName}
+            onFilterChange={handleFilterChange}
+            onDeleteSelected={handleDeleteSelected}
+          />
+
+          <Scrollbar>
+            <TableContainer sx={{ overflow: "unset" }}>
+              <Table sx={{ minWidth: 800 }}>
+                <UserTableHead
+                  order={table.order}
+                  orderBy={table.orderBy}
+                  rowCount={dataFiltered.length}
+                  numSelected={table.selected.length}
+                  onSort={table.onSort}
+                  onSelectAllRows={(checked) =>
+                    table.onSelectAllRows(
+                      checked,
+                      dataFiltered.map((user) => user.user_id)
+                    )
+                  }
+                  headLabel={[
+                    { id: "username", label: "Tên người dùng" },
+                    { id: "email", label: "Email" },
+                    { id: "phone_number", label: "Số điện thoại" },
+                    { id: "role", label: "Vai trò" },
+                    { id: "status", label: "Trạng thái" },
+                    { id: "" },
+                  ]}
                 />
+                <TableBody>
+                  {loading && (
+                    <TableRow>
+                      <TableCell colSpan={7}>
+                        <Box
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                          height="150px"
+                        >
+                          <CircularProgress />
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  )}
 
-                <Scrollbar>
-                    <TableContainer sx={{ overflow: 'unset' }}>
-                        <Table sx={{ minWidth: 800 }}>
-                            <UserTableHead
-                                order={table.order}
-                                orderBy={table.orderBy}
-                                rowCount={dataFiltered.length}
-                                numSelected={table.selected.length}
-                                onSort={table.onSort}
-                                onSelectAllRows={(checked) =>
-                                    table.onSelectAllRows(checked, dataFiltered.map((user) => user.user_id))
-                                }
-                                headLabel={[
-                                    { id: 'username', label: 'Tên người dùng' },
-                                    { id: 'email', label: 'Email' },
-                                    { id: 'phone_number', label: 'Số điện thoại' },
-                                    { id: 'role', label: 'Vai trò' },
-                                    { id: 'status', label: 'Trạng thái' },
-                                    { id: '' },
-                                ]}
-                            />
-                            <TableBody>
-                                {loading && (
-                                    <TableRow>
-                                        <TableCell colSpan={7}>
-                                            <Box display="flex" justifyContent="center" alignItems="center" height="150px">
-                                                <CircularProgress />
-                                            </Box>
-                                        </TableCell>
-                                    </TableRow>
-                                )}
+                  {!loading &&
+                    dataFiltered
+                      .slice(
+                        table.page * table.rowsPerPage,
+                        table.page * table.rowsPerPage + table.rowsPerPage
+                      )
+                      .map((row) => (
+                        <UserTableRow
+                          key={row.user_id}
+                          row={row}
+                          selected={table.selected.includes(row.user_id)}
+                          onSelectRow={() => table.onSelectRow(row.user_id)}
+                          onDelete={(id) => {
+                            setUsers((prevUsers) =>
+                              prevUsers.filter((user) => user.user_id !== id)
+                            );
+                            table.setSelected((prevSelected) =>
+                              prevSelected.filter(
+                                (selectedId) => selectedId !== id
+                              )
+                            );
+                          }}
+                        />
+                      ))}
 
-                                {!loading && dataFiltered.slice(
-                                    table.page * table.rowsPerPage,
-                                    table.page * table.rowsPerPage + table.rowsPerPage
-                                ).map((row) => (
-                                    <UserTableRow
-                                        key={row.user_id}
-                                        row={row}
-                                        selected={table.selected.includes(row.user_id)}
-                                        onSelectRow={() => table.onSelectRow(row.user_id)}
-                                        onDelete={(id) => {
-                                            setUsers((prevUsers) => prevUsers.filter((user) => user.user_id !== id));
-                                            table.setSelected((prevSelected) => prevSelected.filter((selectedId) => selectedId !== id));
-                                        }}
-                                    />
-                                ))}
-
-                                {/* <TableEmptyRows
+                  {/* <TableEmptyRows
                                     height={68}
                                     emptyRows={emptyRows(table.page, table.rowsPerPage, users.length)}
                                 /> */}
 
-                                {notFound && <TableNoData searchQuery={filterName} />}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Scrollbar>
+                  {notFound && <TableNoData searchQuery={filterName} />}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Scrollbar>
 
-                {dataFiltered.length > 0 && (
-                    <TablePagination
-                        component="div"
-                        page={table.page}
-                        count={dataFiltered.length}
-                        rowsPerPage={table.rowsPerPage}
-                        onPageChange={table.onChangePage}
-                        rowsPerPageOptions={[5, 10, 25]}
-                        onRowsPerPageChange={table.onChangeRowsPerPage}
-                        labelRowsPerPage="Số dòng mỗi trang:"
-                    />
-                )}
-            </Card>
-        </DashboardContent>
-    )
+          {dataFiltered.length > 0 && (
+            <TablePagination
+              component="div"
+              page={table.page}
+              count={dataFiltered.length}
+              rowsPerPage={table.rowsPerPage}
+              onPageChange={table.onChangePage}
+              rowsPerPageOptions={[5, 10, 25]}
+              onRowsPerPageChange={table.onChangeRowsPerPage}
+              labelRowsPerPage="Rows per page:"
+            />
+          )}
+        </Card>
+      </DashboardContent>
+    );
 }
