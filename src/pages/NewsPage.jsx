@@ -1,5 +1,6 @@
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import BackToTopButton from "../components/BackToTopButton";
 
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -133,11 +134,18 @@ export default function NewsPage() {
 
   return (
     <>
+      <BackToTopButton />
+
       <NavBar currentPage={"News"} />
-      <div id="body" className="flex bg-[#1C1B21] p-32 pt-10 gap-20 text-white">
-        <div id="lastest" className="w-4/6">
-          <div className="text-4xl px-5 py-4 mb-5">Movie news</div>
-          <div className="flex flex-col gap-10 p-4">
+      <div
+        id="body"
+        className="flex flex-col lg:flex-row bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 pt-10 gap-20 text-white"
+      >
+        <div id="lastest" className="lg:w-4/6 hidden lg:block">
+          <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5">
+            Movie news
+          </div>
+          <div className="flex flex-col gap-5 lg:gap-10 p-2 lg:p-4">
             {allNews.map((item) => (
               <div
                 key={item.new_id}
@@ -148,7 +156,7 @@ export default function NewsPage() {
                     `/news/${encodeURIComponent(createSlug(item.new_header))}`
                   );
                 }}
-                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-10 pt-6 rounded-lg cursor-pointer"
+                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-5 lg:p-10 lg:pt-6 rounded-lg cursor-pointer"
               >
                 <h1 className="text-2xl mb-3 ">{item.new_header}</h1>
                 <img src={item.new_img} alt="" className="rounded-lg" />
@@ -174,31 +182,33 @@ export default function NewsPage() {
             </div>
           </div>
         </div>
-        <div id="side" className="w-2/6">
-          <div className="text-4xl  py-4 mb-10">More to explore</div>
-          <div className="flex flex-col gap-4 mb-20">
-            <div
-              onClick={() => {
-                handleRegionClick("vietnam");
-              }}
-              className="text-3xl flex items-center gap-5 mb-3 cursor-pointer"
+        <div id="side" className="lg:w-2/6">
+          <div className="text-4xl hidden lg:block  py-4 mb-10">
+            More to explore
+          </div>
+          <div
+            onClick={() => {
+              handleRegionClick("vietnam");
+            }}
+            className="text-3xl flex items-center gap-5 mb-3 cursor-pointer"
+          >
+            <p>Viet Nam news</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-chevron-right"
+              viewBox="0 0 16 16"
             >
-              <p>Viet Nam news</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                class="bi bi-chevron-right"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </div>
-            {dataV.slice(0, 5).map((item) => (
+              <path
+                fillRule="evenodd"
+                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+              />
+            </svg>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 mb-20">
+            {dataV.slice(0, 4).map((item) => (
               <div
                 key={item.new_id}
                 className="flex  gap-2 bg-[#2c2c2e] text-white p-5 rounded-lg cursor-pointer"
@@ -229,29 +239,29 @@ export default function NewsPage() {
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-4 ">
-            <div
-              onClick={() => {
-                handleRegionClick("aboard");
-              }}
-              className="text-4xl flex items-center gap-5 mb-3 cursor-pointer"
+          <div
+            onClick={() => {
+              handleRegionClick("aboard");
+            }}
+            className="text-4xl flex items-center gap-5 mb-3 cursor-pointer"
+          >
+            <p>Global news</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-chevron-right"
+              viewBox="0 0 16 16"
             >
-              <p>Global news</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                class="bi bi-chevron-right"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </div>
-            {dataA.slice(0, 5).map((item) => (
+              <path
+                fillRule="evenodd"
+                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+              />
+            </svg>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 mb-20">
+            {dataA.slice(0, 4).map((item) => (
               <div
                 key={item.new_id}
                 className="flex  gap-2 bg-[#2c2c2e] text-white p-5 rounded-lg cursor-pointer"

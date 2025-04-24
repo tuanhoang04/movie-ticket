@@ -71,7 +71,7 @@ function FancyEditor({ handleContentChange }) {
   return (
     <div className="w-full h-full flex flex-col relative bg-white rounded-xl shadow-md p-4 space-y-2 text-xl">
       {/* Tool Bar */}
-      <div className="flex items-center gap-10 pb-2 text-black ">
+      <div className="flex items-center flex-wrap gap-10 pb-2 text-black ">
         <div className="flex gap-5 lg:gap-10 justify-between items-center  ">
           <span>{wordCount} words</span>
           <div>

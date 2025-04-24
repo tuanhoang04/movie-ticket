@@ -163,10 +163,11 @@ export default function Profile() {
 
   const tabStyles = {
     headerText:
-      "text-white text-lg w-fit px-5 hover:outline outline-1 outline-gray-400 rounded-full",
-    postAndTicketContainer: "grid place-items-center p-10 gap-10 h-fit",
+      "text-white text-md lg:text-lg w-fit p-2 lg:p-5 hover:outline outline-1 outline-gray-400 rounded-full",
+    postAndTicketContainer:
+      "grid place-items-center p-2 lg:p-10 gap-5 lg:gap-10 h-fit",
     likedMoviesContainer:
-      "grid grid-cols-3 lg:grid-cols-5 p-20 md:gap-20 lg:gap-20 h-fit",
+      "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 p-5 md:p-10 lg:p-20 md:gap-20 lg:gap-20 h-fit",
   };
 
   const tabData = [
@@ -433,20 +434,22 @@ export default function Profile() {
                 <Typography variant="h5" className="mb-1 font-light">
                   Gender
                 </Typography>
-                <Radio
-                  name="sex"
-                  label="Male"
-                  onChange={handleFormChange}
-                  value="1"
-                  checked={formUserData.sex == 1}
-                />
-                <Radio
-                  name="sex"
-                  label="Female"
-                  onChange={handleFormChange}
-                  value="0"
-                  checked={formUserData.sex == 0}
-                />
+                <div className="flex-wrap">
+                  <Radio
+                    name="sex"
+                    label="Male"
+                    onChange={handleFormChange}
+                    value="1"
+                    checked={formUserData.sex == 1}
+                  />
+                  <Radio
+                    name="sex"
+                    label="Female"
+                    onChange={handleFormChange}
+                    value="0"
+                    checked={formUserData.sex == 0}
+                  />
+                </div>
               </div>
               <div>
                 {uploadStatus && (
@@ -473,7 +476,7 @@ export default function Profile() {
       ) : (
         ""
       )}
-      <div className="grid place-items-center px-8 lg:px-36 lg:pt-10 ">
+      <div className="grid place-items-center px-3 md:px-10 lg:px-36 lg:pt-10 ">
         <div className="relative w-full">
           <img src="profile-cover.webp" alt="cover" className=" w-full " />
           <img
@@ -483,9 +486,9 @@ export default function Profile() {
                 : import.meta.env.VITE_DEFAULT_AVATAR
             }
             alt="profile"
-            className="rounded-full border-4 border-white h-20 w-20 md:h-32 md:w-32  lg:h-[180px] lg:w-[180px] absolute bottom-[-40px] left-[30px] md:bottom-[-60px] md:left-[30px] lg:bottom-[-75px] lg:left-[100px]"
+            className="rounded-full border-4 border-white h-20 w-20 md:h-32 md:w-32  lg:h-[180px] lg:w-[180px] absolute bottom-[-40px] left-[20px] md:bottom-[-60px] md:left-[30px] lg:bottom-[-75px] lg:left-[100px]"
           />
-          <div className=" flex items-center gap-4 md:text-xl lg:text-2xl text-white absolute left-[120px] md:left-[180px] md:bottom-[-43px] lg:left-[300px] lg:bottom-[-40px]">
+          <div className=" flex items-center gap-4 md:text-xl lg:text-2xl text-white absolute left-[110px] md:left-[180px] md:bottom-[-43px] lg:left-[300px] lg:bottom-[-40px]">
             <p>{userInfor.full_name}</p>
 
             <svg
@@ -508,7 +511,7 @@ export default function Profile() {
           </div>
         </div>
         {createPostVisible ? (
-          <div className="w-full mt-32 bg-white bg-opacity-10 rounded-3xl ">
+          <div className="w-full mt-14 md:mt-20 lg:mt-32 bg-white bg-opacity-10 rounded-3xl ">
             <CreateNewPost />
           </div>
         ) : (
@@ -520,7 +523,7 @@ export default function Profile() {
           className="w-full mt-32 bg-white bg-opacity-10 rounded-3xl "
         >
           <TabsHeader
-            className=" text-white h-[66px] bg-transparent gap-10 flex justify-start border-b-2 rounded-none p-2 pl-10"
+            className=" text-white h-[66px] bg-transparent gap-3 lg:gap-10 flex justify-start border-b-2 rounded-none p-2 lg:pl-10"
             indicatorProps={{
               className: "bg-transparent border-2 rounded-full",
             }}
@@ -545,7 +548,7 @@ export default function Profile() {
                     <div className="w-full">
                       <Button
                         onClick={handleCreatePost}
-                        className="flex gap-2 m-10 mb-0 p-5 text-sm bg-[#502A50]  text-white rounded-full hover:bg-[#602A50]"
+                        className="flex gap-2 m-2 mt-5 lg:m-10 mb-0 p-5 text-sm bg-[#502A50]  text-white rounded-full hover:bg-[#602A50]"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

@@ -2,6 +2,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Dropdown from "../components/Dropdown";
 import { Button } from "@material-tailwind/react";
+import BackToTopButton from "../components/BackToTopButton";
 
 import {
   Tabs,
@@ -150,6 +151,8 @@ export default function TheatersPage() {
 
   return (
     <div className="bg-[#1C1B21] h-fit">
+      <BackToTopButton />
+
       <NavBar currentPage={"Theaters"} />
       <div id="body" className="">
         <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-2xl">
@@ -167,7 +170,7 @@ export default function TheatersPage() {
         <div className="min-h-screen">
           {currentAreaName && (
             <div className=" mx-[144px] mt-20 flex  text-white h-fit min-h-[400px] ">
-              <div className="w-1/4 h-full bg-white bg-opacity-10 rounded-lg ">
+              <div className="w-1/4 h-full min-h-[800px] bg-white bg-opacity-10 rounded-lg ">
                 <p className=" p-5 pb-0 text-3xl font-bold">
                   Theaters in {currentAreaName}
                 </p>
@@ -245,11 +248,11 @@ export default function TheatersPage() {
                             viewBox="0 0 16 16"
                           >
                             <path
-                              fillRule="evenodd"
+                              fill-rule="evenodd"
                               d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"
                             />
                             <path
-                              fillRule="evenodd"
+                              fill-rule="evenodd"
                               d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"
                             />
                           </svg>

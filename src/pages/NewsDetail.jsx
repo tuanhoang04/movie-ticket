@@ -2,6 +2,8 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackToTopButton from "../components/BackToTopButton";
+
 function createSlug(name) {
   return name.trim().replace(/\s+/g, "-").replace(/-+/g, "-");
 }
@@ -78,22 +80,27 @@ export default function NewsDetail() {
   return (
     <div className="bg-[#1C1B21] min-h-screen flex flex-col">
       <NavBar />
-      <div id="body" className="flex bg-[#1C1B21] p-32 gap-20 text-white">
-        <div id="lastest" className="w-3/4">
-          <div className="text-3xl border-l-8 px-5 py-4 mb-10">Movie news</div>
-          <div className="flex flex-col gap-10 p-4">
+      <div
+        id="body"
+        className="md:flex bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 md:gap-10 lg:gap-10 xl:gap-20 text-white"
+      >
+        <div id="lastest" className="md:w-2/3 lg:w-3/4 mb-10">
+          <div className="text-2xl lg:text-4xl   mb-5 lg:mb-10">Movie news</div>
+          <div className="flex flex-col gap-10 ">
             {dataDetail && (
               <div
                 key={dataDetail.new_id}
-                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-10 pt-6 rounded-lg"
+                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-2 md:p-5 lg:p-10 lg:pt-6 rounded-lg"
               >
-                <h1 className="text-3xl mb-3">{dataDetail.new_header}</h1>
+                <h1 className="text-2xl lg:text-3xl lg:mb-3">
+                  {dataDetail.new_header}
+                </h1>
                 <img src={dataDetail.new_img} alt="" className="rounded-lg" />
                 <div
                   className="text-xl text-justify leading-8 center-images flex flex-col gap-5"
                   dangerouslySetInnerHTML={{ __html: dataDetail.new_content }}
                 ></div>
-                <div className="flex justify-between items-center mt-5 text-lg">
+                <div className="flex justify-between items-center mt-5 text-md lg:text-lg">
                   <p>
                     {dataDetail.new_time.substring(0, 10)} ● by{" "}
                     {dataDetail.username}
@@ -103,12 +110,9 @@ export default function NewsDetail() {
             )}
           </div>
         </div>
-        <div id="side" className="w-1/4">
-          <div className="text-3xl border-l-8 px-5 py-4 mb-10">
-            More to explore
-          </div>
+        <div id="side" className=" md:w-1/3 lg:w-1/4">
           <div className="flex flex-col gap-4 mb-20">
-            <div className="text-4xl flex items-center gap-5 mb-3">
+            <div className="text-2xl lg:text-4xl flex items-center gap-5 mb-3">
               <p>Related news</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -128,17 +132,19 @@ export default function NewsDetail() {
               ? dataRelate.slice(0, 5).map((item) => (
                   <div
                     key={item.new_id}
-                    className="flex  gap-2 bg-[#2c2c2e] text-white p-5 rounded-lg cursor-pointer"
+                    className="flex  gap-2 bg-[#2c2c2e] text-white p-3 lg:p-5 rounded-lg cursor-pointer"
                     onClick={() => ClickNew(item.new_id, item.new_header)}
                   >
-                    <div className="w-4/5  flex flex-col justify-between">
-                      <p className="line-clamp-2 text-lg">{item.new_header}</p>
-                      <p className="line-clamp-1 text-md">
+                    <div className="w-4/5 md:w-3/5 lg:w-4/5  flex flex-col justify-between">
+                      <p className="line-clamp-2 text-md lg:text-lg">
+                        {item.new_header}
+                      </p>
+                      <p className=" text-sm lg:text-md">
                         {" "}
                         {item.new_time.substring(0, 10)} ● by {item.username}
                       </p>
                     </div>
-                    <div className="w-1/5 h-32 rounded-xl overflow-hidden">
+                    <div className="w-24 h-32 rounded-xl overflow-hidden">
                       <img
                         src={item.new_img}
                         className="w-full h-full object-cover"
@@ -151,6 +157,7 @@ export default function NewsDetail() {
           </div>
         </div>
       </div>
+      <BackToTopButton />
 
       <Footer />
     </div>
