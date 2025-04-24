@@ -183,41 +183,44 @@ export default function NavBar({
                 </p>
               </a>
             </div>
-            {login && userInfo ? (
-              <ProfileMenu data={userInfo} />
-            ) : (
-              <div>
-                <Button
-                  variant="outlined"
-                  className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
-                  onClick={() => setOpenSignUp(!openSignUp)}
-                >
-                  Sign up
-                </Button>
-                <Button
-                  variant="filled"
-                  color="red"
-                  className="text-white bg-[#B44242] text-md rounded-3xl"
-                  onClick={() => setOpenSignIn(true)}
-                >
-                  Sign in
-                </Button>
-              </div>
-            )}
+            <div>
+              {login && userInfo ? (
+                <ProfileMenu data={userInfo} />
+              ) : (
+                <div className="hidden lg:block">
+                  <Button
+                    variant="outlined"
+                    className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
+                    onClick={() => setOpenSignUp(!openSignUp)}
+                  >
+                    Sign up
+                  </Button>
+                  <Button
+                    variant="filled"
+                    color="red"
+                    className="text-white bg-[#B44242] text-md rounded-3xl"
+                    onClick={() => setOpenSignIn(true)}
+                  >
+                    Sign in
+                  </Button>
+                </div>
+              )}
+            </div>
+
+            <IconButton
+              variant="text"
+              className="lg:hidden"
+              onClick={() => setOpenNav(!openNav)}
+            >
+              {openNav ? (
+                <XMarkIcon className="h-6 w-6" stroke="white" strokeWidth={2} />
+              ) : (
+                <Bars3Icon className="h-6 w-6" stroke="white" strokeWidth={2} />
+              )}
+            </IconButton>
           </div>
-          <div className="hidden lg:flex lg:justify-between w-screen"></div>
+          {/* <div className="hidden lg:flex lg:justify-between w-screen"></div> */}
           <hr className="mt-3 hidden w-full lg:block lg:invisible" />
-          <IconButton
-            variant="text"
-            className="lg:hidden"
-            onClick={() => setOpenNav(!openNav)}
-          >
-            {openNav ? (
-              <XMarkIcon className="h-6 w-6" stroke="white" strokeWidth={2} />
-            ) : (
-              <Bars3Icon className="h-6 w-6" stroke="white" strokeWidth={2} />
-            )}
-          </IconButton>
           <div className="hidden items-center justify-between mb-2 w-full gap-x-2 lg:flex">
             {navList}
             <div className="relative flex w-[20%] gap-2 ">
@@ -238,7 +241,7 @@ export default function NavBar({
         <Collapse open={openNav}>
           <div>
             {navList}
-            <div className="flex gap-x-2 flex-row sm:mb-4">
+            <div className="flex flex-row items-center gap-x-2 mb-4 ">
               <div className="w-full gap-2 md:w-max">
                 <form onSubmit={handleSubmit}>
                   <Input
@@ -262,7 +265,7 @@ export default function NavBar({
             {isLoading ? null : login && userInfo ? (
               <ProfileMenu data={userInfo} />
             ) : (
-              <div>
+              <div className="pb-3">
                 <Button
                   variant="outlined"
                   className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
