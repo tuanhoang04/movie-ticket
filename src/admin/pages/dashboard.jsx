@@ -23,7 +23,7 @@ export default function DashboardPage() {
             // console.log(jwt);
 
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/dashboard?month=11`, {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/dashboard`, {
                     method: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' + jwt,
@@ -33,7 +33,7 @@ export default function DashboardPage() {
 
                 const result = await response.json();
                 setDashboardData(result);
-                // console.log(result);
+                console.log(result);
             } catch (error) {
                 // console.error('Error fetching dashboard data:', error);
             }
@@ -95,7 +95,7 @@ export default function DashboardPage() {
                                 <CardHeader title="Người Dùng Mới" />
                                 <CardContent>
                                     <Typography variant="h3">
-                                        {dashboardData.newUser ? dashboardData.user : '0'}
+                                        {dashboardData.newUser || '0'}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
                                         người dùng mới trong tháng này
