@@ -158,7 +158,7 @@ export default function TheatersPage() {
           </div>
 
           <Dropdown
-            label="Select a location"
+            label={currentAreaName || "Select a location"}
             options={areas}
             handleChangeOption={handleOptionClick}
           />

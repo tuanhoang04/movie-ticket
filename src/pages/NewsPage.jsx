@@ -24,7 +24,7 @@ export default function NewsPage() {
     console.log(combinedData);
     combinedData.sort((a, b) => new Date(b.new_time) - new Date(a.new_time));
     setAllNews(combinedData);
-  }, [dataV, dataA]); // Chạy lại khi dataV hoặc dataA thay đổi
+  }, [dataV, dataA]);
 
   const fetchNewVietnam = async () => {
     setIsFetching(true);
@@ -49,14 +49,12 @@ export default function NewsPage() {
           );
           return [...prev, ...newItems];
         });
-        console.log("Data V");
-        console.log(result);
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error:", response.statusText);
         setHasMore(false);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
     setIsFetching(false);
   };
@@ -87,10 +85,10 @@ export default function NewsPage() {
         console.log("Data A");
         console.log(result);
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
     setIsFetching(false);
   };
