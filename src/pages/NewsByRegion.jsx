@@ -82,7 +82,7 @@ export default function NewsByRegion() {
       <NavBar />
       <div className="bg-[#1C1B21]">
         <br />
-        <div className="text-white text-4xl ml-[144px] mt-10 flex items-center gap-2">
+        <div className="text-white text-4xl p-4 md:p-6 lg:p-16 xl:p-20 2xl:p-32 !pt-10 !pb-10 flex items-center gap-2">
           <p>{getRegion()} news</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ export default function NewsByRegion() {
             />
           </svg>
         </div>
-        <div className="grid grid-cols-3 m-[144px] mt-10 mb-0 gap-10  ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-4 md:p-6 lg:p-16 xl:p-20 2xl:p-32 !pt-10 mb-0 gap-10  ">
           {news.map((item) => (
             <div
               key={item.new_id}

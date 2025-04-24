@@ -85,7 +85,9 @@ export default function NewsDetail() {
         className="md:flex bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 md:gap-10 lg:gap-10 xl:gap-20 text-white"
       >
         <div id="lastest" className="md:w-2/3 lg:w-3/4 mb-10">
-          <div className="text-2xl lg:text-4xl   mb-5 lg:mb-10">Movie news</div>
+          <div className="md:text-lg lg:text-2xl 2xl:text-4xl mb-4 ">
+            Movie news
+          </div>
           <div className="flex flex-col gap-10 ">
             {dataDetail && (
               <div
@@ -112,12 +114,12 @@ export default function NewsDetail() {
         </div>
         <div id="side" className=" md:w-1/3 lg:w-1/4">
           <div className="flex flex-col gap-4 mb-20">
-            <div className="text-2xl lg:text-4xl flex items-center gap-5 mb-3">
+            <div className="md:text-lg lg:text-2xl 2xl:text-4xl flex items-center gap-3 2xl:gap-5">
               <p>Related news</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
+                width="24"
+                height="24"
                 fill="currentColor"
                 class="bi bi-chevron-right"
                 viewBox="0 0 16 16"

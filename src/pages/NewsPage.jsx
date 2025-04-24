@@ -139,7 +139,7 @@ export default function NewsPage() {
       <NavBar currentPage={"News"} />
       <div
         id="body"
-        className="flex flex-col lg:flex-row bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 pt-10 gap-20 text-white"
+        className="flex flex-col lg:flex-row bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 !pt-10 gap-20 text-white"
       >
         <div id="lastest" className="lg:w-4/6 hidden lg:block">
           <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5">
@@ -229,9 +229,9 @@ export default function NewsPage() {
                     {item.new_time.substring(0, 10)} ● by {item.username}
                   </p>
                 </div>
-                <div className="w-1/5 h-32 rounded-xl overflow-hidden">
+                <div className="w-24 h-32 rounded-xl overflow-hidden">
                   <img
-                    src={item.new_img}
+                    src={item.new_img || "/image-placeholder.png"}
                     className="w-full h-full object-cover"
                     alt=""
                   />
@@ -264,7 +264,7 @@ export default function NewsPage() {
             {dataA.slice(0, 4).map((item) => (
               <div
                 key={item.new_id}
-                className="flex  gap-2 bg-[#2c2c2e] text-white p-5 rounded-lg cursor-pointer"
+                className="flex justify-between gap-2 bg-[#2c2c2e] text-white p-5 rounded-lg cursor-pointer"
                 onClick={() => {
                   localStorage.setItem("new_id", item.new_id);
 
@@ -282,9 +282,9 @@ export default function NewsPage() {
                     {item.new_time.substring(0, 10)} ● by {item.username}
                   </p>
                 </div>
-                <div className="w-1/5 h-32 rounded-xl overflow-hidden">
+                <div className="w-24 h-32 rounded-xl overflow-hidden">
                   <img
-                    src={item.new_img}
+                    src={item.new_img || "/image-placeholder.png"}
                     className="w-full h-full object-cover"
                     alt=""
                   />

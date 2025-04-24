@@ -167,7 +167,7 @@ export default function Profile() {
     postAndTicketContainer:
       "grid place-items-center p-2 lg:p-10 gap-5 lg:gap-10 h-fit",
     likedMoviesContainer:
-      "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 p-5 md:p-10 lg:p-20 md:gap-20 lg:gap-20 h-fit",
+      "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 p-4 md:p-6 lg:p-10  2xl:p-20 gap-4 md:gap-6 lg:gap-10 xl:gap-15 2xl:gap-20 h-fit",
   };
 
   const tabData = [

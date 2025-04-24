@@ -13,14 +13,14 @@ export default function TicketCard({ data }) {
       <div className="grid place-items-center rounded-lg overflow-hidden">
         <img
           src={data.film_img}
-          className="w-full h-[160px] object-cover"
+          className="w-full h-[200px] lg:h-[160px] object-cover"
           alt=""
         />
       </div>
       <div className="w-full flex flex-col gap-2">
         <h1 className={titleClassName}>{data.film_name}</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 text-xl">
           <div className="flex flex-col gap-2">
             <h1 className={keyClassName}>Order date</h1>
             <p className={valueClassName}>

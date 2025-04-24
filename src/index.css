@@ -74,6 +74,10 @@
 .hide-images img {
   display: none;
 }
+.hide-scrollbar::-webkit-scrollbar{
+  display:none;
+  
+}
 .center-images img {
   display: block;
   margin-left: auto;

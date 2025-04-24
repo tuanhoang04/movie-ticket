@@ -9,7 +9,7 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 
 import { useEffect, useState } from "react";
-import { Alert } from "@material-tailwind/react";
+import AlertWithIcon from "../Alert";
 
 function FancyEditor({ handleContentChange }) {
   const [selected, setSelected] = useState("regular");
@@ -71,7 +71,7 @@ function FancyEditor({ handleContentChange }) {
   return (
     <div className="w-full h-full flex flex-col relative bg-white rounded-xl shadow-md p-4 space-y-2 text-xl">
       {/* Tool Bar */}
-      <div className="flex items-center flex-wrap gap-10 pb-2 text-black ">
+      <div className="flex items-center flex-wrap gap-4 2xl:gap-10 pb-2 text-black ">
         <div className="flex gap-5 lg:gap-10 justify-between items-center  ">
           <span>{wordCount} words</span>
           <div>
@@ -231,8 +231,10 @@ function FancyEditor({ handleContentChange }) {
 }
 
 export default function CreateNewPost() {
-  const [message, setMessage] = useState("");
+  const [errMessage, setErrMessage] = useState("");
+  const [okMessage, setOkMessage] = useState("");
   const [searchText, setSearchText] = useState("");
+  const [movieName, setMovieName] = useState("");
   const [disableSearch, setDisableSearch] = useState(false);
   const [movieResults, setMovieResults] = useState([]);
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -247,6 +249,7 @@ export default function CreateNewPost() {
     new_content: "",
   });
   useEffect(() => {
+    setMovieName(searchText);
     if (disableSearch) return;
 
     const timer = setTimeout(() => {
@@ -287,7 +290,7 @@ export default function CreateNewPost() {
 
   const handleMovieSelect = (movieName) => {
     setDisableSearch(true);
-    setSearchText(movieName);
+    setMovieName(movieName);
     setMovieResults([]);
     setFormData({
       ...formData,
@@ -296,15 +299,31 @@ export default function CreateNewPost() {
   };
 
   useEffect(() => {
-    if (message) {
+    setFormData({
+      ...formData,
+      film_name: movieName,
+    });
+  }, [movieName]);
+
+  useEffect(() => {
+    if (errMessage) {
       const timer = setTimeout(() => {
-        setMessage("");
+        setErrMessage("");
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [errMessage]);
+  useEffect(() => {
+    if (okMessage) {
+      const timer = setTimeout(() => {
+        setOkMessage("");
         window.location.reload();
       }, 4000);
 
       return () => clearTimeout(timer);
     }
-  }, [message]);
+  }, [okMessage]);
 
   const handleImageChange = (e) => {
     const image = e.target.files[0];
@@ -344,6 +363,19 @@ export default function CreateNewPost() {
       img.style.width = "700px";
     });
 
+    if (!formData.film_name) {
+      setErrMessage("Please fill movie name");
+      return;
+    }
+    if (!formData.new_header) {
+      setErrMessage("Please fill in header");
+      return;
+    }
+    if (!formData.new_footer) {
+      setErrMessage("Please fill in footer");
+      return;
+    }
+
     const updatedContent = doc.body.innerHTML;
 
     const data = new FormData();
@@ -368,9 +400,9 @@ export default function CreateNewPost() {
       );
       const result = await response.json();
       if (result.message == "Tạo bản tin thành công") {
-        setMessage(`Tạo bản tin thành công`);
+        setOkMessage(`Create post successfully`);
       } else {
-        setMessage(result.message);
+        setErrMessage(result.message);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -385,15 +417,15 @@ export default function CreateNewPost() {
 
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 lg:grid-cols-4 h-fit gap-20 p-5 lg:p-10"
+        className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 h-fit gap-10 lg:gap-20 p-5 lg:p-10"
       >
-        <div className="col-span-1 flex flex-col gap-5 min-w-72">
+        <div className=" col-span-1 flex flex-col gap-5">
           <h1 className="text-xl">Post Header</h1>
           <div className="relative">
             <p className="mb-3">Movie Name</p>
             <input
               name="film_name"
-              value={searchText}
+              value={movieName}
               placeholder="Search for a movie"
               onChange={handleMovieSearch}
               className="rounded-md h-10 w-full bg-white bg-opacity-10 p-3 text-white"
@@ -470,14 +502,25 @@ export default function CreateNewPost() {
             </div>
           </div>
         </div>
-        <div className=" lg:col-span-3 w-full flex flex-col min-h-[600px]">
-          <div className="flex justify-between mb-5">
-            <h1 className="text-xl mb-5">Post Body</h1>
-            {message && (
-              <Alert className="w-fit" color="yellow">
-                {message}
-              </Alert>
-            )}
+        <div className=" lg:col-span-2 2xl:col-span-3 w-full flex flex-col min-h-[600px]">
+          <div className="flex justify-between mb-7">
+            <h1 className="text-xl lg:mb-7">Post Body</h1>
+            <div className="w-fit">
+              {okMessage && (
+                <AlertWithIcon
+                  className="w-fit"
+                  type="ok"
+                  message={okMessage}
+                />
+              )}
+              {errMessage && (
+                <AlertWithIcon
+                  className="w-fit"
+                  type="negative"
+                  message={errMessage}
+                />
+              )}
+            </div>
           </div>
           <FancyEditor
             handleContentChange={handleContentChange}
