@@ -80,6 +80,7 @@ export default function NavBar({
         setIsLoading(false);
         if (responseData.success) {
           setLogin(true);
+          localStorage.setItem("full_name", responseData.userInfo[0].full_name);
           setUserInfo(responseData.userInfo[0]);
         } else {
           // JWT is invalid

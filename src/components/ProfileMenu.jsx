@@ -75,7 +75,7 @@ export function ProfileMenu({ data }) {
                 y="0px"
                 viewBox="0 1 98 90"
                 enable-background="new 0 0 100 100"
-                xml:space="preserve"
+                xmlSpace="preserve"
               >
                 <g>
                   <path
@@ -145,9 +145,7 @@ export function ProfileMenu({ data }) {
             color="purple"
             onClick={() => {
               handleOpen();
-              localStorage.removeItem("jwt");
-              localStorage.removeItem("role");
-              localStorage.removeItem("user_id");
+              localStorage.clear();
               navigate("/");
             }}
             className="!bg-[#773e77] self-start w-auto"
