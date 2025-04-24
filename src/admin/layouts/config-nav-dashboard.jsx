@@ -17,7 +17,7 @@ const ExitIcon = ExitToAppTwoToneIcon;
 const CinemaIcon = TheatersTwoToneIcon;
 
 export const navData = [
-  { title: 'Dashboard', path: '/admin/dashboard', icon: <DashboardIcon /> },
+  { title: 'Dashboard', path: '/admin', icon: <DashboardIcon /> },
   { title: 'Movies Management', path: '/admin/movie', icon: <MovieIcon /> },
   { title: 'Cinemas Management', path: '/admin/cinema', icon: <CinemaIcon /> },
   { title: 'Showtime Management', path: '/admin/showtime', icon: <ShowtimeIcon /> },
