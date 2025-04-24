@@ -233,39 +233,41 @@ export default function MovieDetail() {
         openSignInFromParent={openSignIn}
         setOpenSignInFromParent={setOpenSignIn}
       />
-      <div className="flex-grow px-4 sm:px-6 lg:px-16 xl:px-36 flex flex-col">
+      <div
+        className="flex-grow p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 flex flex-col"
+      >
         {data && (
-          <div className="bg-[#323137] w-full h-full py-4 sm:py-6 md:py-8 px-4 sm:px-6 md:px-10 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
+          <div className="bg-[#323137] w-full h-full py-4 sm:py-6 md:py-9 px-4 sm:px-6 md:px-10 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
             <div className="flex flex-col lg:grid lg:grid-cols-12 gap-5">
               <div className="w-full lg:col-span-3">
                 <img
                   src={data.info.film[0].film_img}
-                  className="rounded-xl md:rounded-3xl w-full object-cover"
+                  className="rounded-xl md:rounded-4xl w-full object-cover"
                   alt={data.info.film[0].film_name}
                 />
               </div>
 
               {/* Movie Info - Full width on mobile, 7 cols on md+ */}
-              <div className="w-full lg:col-span-7 flex flex-col justify-start">
+              <div className="w-full lg:col-span-7 flex flex-col justify-center">
                 {message && (
                   <AlertWithIcon type={"negative"} message={message} />
                 )}
                 <p
-                  className="text-white text-xl sm:text-2xl md:text-3xl pb-1 font-bold"
+                  className="text-white text-2xl md:text-3xl pb-1 font-bold"
                   style={message ? { marginTop: "10px" } : {}}
                 >
                   {data.info.film[0].film_name}
                 </p>
-                <p className="text-white text-base sm:text-lg md:text-xl pb-2 sm:pb-3 md:pb-5 font-light">
+                <p className="text-white text-lg md:text-xl pb-2 sm:pb-3 md:pb-5 font-light">
                   {data.info.categorys
                     .map((item) => item.category_name)
                     .join(", ")}
                 </p>
-                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-xl pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
+                <p className="text-white text-xl leading-[1.25] pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
                   {data.info.film[0].film_describe}
                 </p>
                 <div className="flex flex-row flex-wrap gap-1">
-                  <p className="text-white text-base sm:text-lg md:text-xl font-normal">
+                  <p className="text-white text-lg md:text-xl font-normal">
                     Actors:{" "}
                   </p>
                   {data.info.actors.map((item, index) => {
@@ -277,11 +279,11 @@ export default function MovieDetail() {
                             localStorage.setItem("actor_id", item.actor_id);
                             navigate(`/actor/${createSlug(item.actor_name)}`);
                           }}
-                          className="text-white  text-base sm:text-lg md:text-xl hover:underline hover:underline-offset-2 cursor-pointer"
+                          className="text-white text-lg md:text-xl hover:underline hover:underline-offset-2 cursor-pointer"
                         >
                           {item.actor_name}
                         </p>
-                        <p className="text-white text-base sm:text-lg md:text-xl ">
+                        <p className="text-white text-lg md:text-xl ">
                           {isLast ? "." : ", "}
                         </p>
                       </div>
@@ -291,8 +293,8 @@ export default function MovieDetail() {
               </div>
 
               {/* Movie Details & Buttons - Full width on mobile, 2 cols on md+ */}
-              <div className="w-[100%] lg:col-span-2 flex flex-col mt-4 md:mt-0">
-                <div className="lg:w-[100%] w-[23%] flex flex-col justify-between md:justify-start gap-4 mb-6 ">
+              <div className="w-[100%] lg:col-span-2 flex flex-col justify-center mt-4 md:mt-0">
+                <div className="lg:w-[100%] w-[100%] flex flex-col justify-between md:justify-start gap-4 mb-6 ">
                   {data.info.evaluate[0].sum_rate > 0 && (
                     <div className="flex flex-row items-center justify-between w-[100%] mb-1">
                       <p className="text-white text-xl font-semibold">Rating</p>

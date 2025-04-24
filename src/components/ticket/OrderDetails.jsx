@@ -148,40 +148,54 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
 
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
-      <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
+      <div className="py-2 px-4 sm:px-6 md:px-10 lg:px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
         <div className="flex flex-col items-center">
           <img src="/icons/car-seat.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Select your seat</p>
+          <p className="hidden text-[#B6DBFF] lg:block font-medium text-lg">
+            Select your seat
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/shopping.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Buy snacks</p>
+          <p className="hidden text-[#B6DBFF] lg:block font-medium text-lg">
+            Buy snacks
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/coin-in-hand-white.png" className="w-9 mb-[4px]" />
-          <p className="text-white font-medium text-lg">Payment</p>
+          <p className="text-white hidden lg:block font-medium text-lg">
+            Payment
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/information.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Ticket Information</p>
+          <p className="text-[#B6DBFF] hidden lg:block  font-medium text-lg">
+            Ticket Information
+          </p>
         </div>
       </div>
 
-      <div className="py-6 px-20">
+      <div className="py-6 px-4 sm:px-6 md:px-10">
         {message && <AlertWithIcon type="negative" message={message} />}
         <div className={`grid grid-cols-12 grid-rows-${groupedSeats.length}`}>
           <div className="bg-[#606060] rounded-t-lg col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-t-2 border-r-2 border-l-2 border-gray-700 ">
-            <div className="col-span-8 row-span-1 ml-8 py-5 flex flex-row items-center">
-              <p className="text-white text-xl font-light">Product name</p>
+            <div className="lg:col-span-8 col-span-5 row-span-1 ml-8 py-5 flex flex-row items-center">
+              <p className="text-white text-base lg:text-xl font-light">
+                Product name
+              </p>
             </div>
-            <div className="col-span-2 row-span-1 flex items-center justify-center border-l-2 border-r-2 py-5">
-              <p className="text-white text-xl font-light">Quantity</p>
+            <div className="lg:col-span-2 col-span-3 row-span-1 flex items-center justify-center border-l-[1px] border-r-[1px] border-gray-600 py-5">
+              <p className="text-white text-base lg:text-xl font-light">
+                Quantity
+              </p>
             </div>
-            <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
-              <p className="text-white text-xl font-light">Price</p>
+            <div className="lg:col-span-2 col-span-4 row-span-1 flex items-center justify-center py-5">
+              <p className="text-white text-base lg:text-xl font-light">
+                Price
+              </p>
             </div>
           </div>
 
@@ -189,18 +203,20 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
             return (
               <div
                 key={index}
-                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-b-2 border-r-2 border-l-2 border-gray-700"
+                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-gray-700 border-l-[1px] border-r-[1px] border-b-[1px]"
               >
-                <div className="col-span-8 row-span-1 ml-8 py-5 flex flex-row items-center">
-                  <p className="text-white text-xl font-light">{seatType}</p>
+                <div className="lg:col-span-8 col-span-5 row-span-1 ml-8 py-5 flex flex-row items-center">
+                  <p className="text-white text-base lg:text-xl font-light">
+                    {seatType}
+                  </p>
                 </div>
-                <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
-                  <p className="text-white text-xl font-light">
+                <div className="lg:col-span-2 col-span-3  row-span-1 flex items-center justify-center py-5 border-l-[1px] border-r-[1px] border-gray-700">
+                  <p className="text-white text-base lg:text-xl font-light">
                     {details.quantity}
                   </p>
                 </div>
-                <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
-                  <p className="text-white text-xl font-light">
+                <div className="lg:col-span-2 col-span-4  row-span-1 flex items-center justify-center py-5">
+                  <p className="text-white text-base lg:text-xl font-light">
                     {numFormat.format(parseInt(details.price)) + "đ"}
                   </p>
                 </div>
@@ -212,20 +228,20 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
             return (
               <div
                 key={index}
-                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-b-2 border-r-2 border-l-2 border-gray-700"
+                className="col-span-12 row-span-1 grid grid-cols-12 grid-rows-1 border-gray-700 border-l-[1px] border-r-[1px] border-b-[1px]"
               >
-                <div className="col-span-8 row-span-1 ml-8 py-5 flex flex-row items-center">
-                  <p className="text-white text-xl font-light">
+                <div className="lg:col-span-8 col-span-5 row-span-1 ml-8 py-5 flex flex-row items-center">
+                  <p className="text-white text-base lg:text-xl font-light">
                     {item.combo_name}
                   </p>
                 </div>
-                <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
-                  <p className="text-white text-xl font-light">
+                <div className="lg:col-span-2 col-span-3  row-span-1 flex items-center justify-center py-5 border-l-[1px] border-r-[1px] border-gray-700">
+                  <p className="text-white text-base lg:text-xl font-light">
                     {item.quantity}
                   </p>
                 </div>
-                <div className="col-span-2 row-span-1 flex items-center justify-center py-5">
-                  <p className="text-white text-xl font-light">
+                <div className="lg:col-span-2 col-span-4 row-span-1 flex items-center justify-center py-5">
+                  <p className="text-white text-base lg:text-xl font-light">
                     {numFormat.format(parseInt(item.price)) + "đ"}
                   </p>
                 </div>
@@ -234,14 +250,15 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
           })}
         </div>
       </div>
-      <div className="pb-6 px-20">
+      <div className="py-6 px-4 sm:px-6 md:px-10">
         <div className="bg-[#606060] rounded-lg p-4">
-          <p className="text-white text-2xl font-light mb-2">Order total:</p>
-          <p className="text-[#eaddf7] font-medium text-3xl">
+          <p className="text-white text-xl lg:text-2xl font-light mb-2">
+            Order total:
+          </p>
+          <p className="text-[#eaddf7] font-medium text-2xl lg:text-3xl mb-2">
             {numFormat.format(seatTotalAmount + popcornTotalAmount)}đ
           </p>
-          <br />
-          <p className="text-white text-xl font-light">
+          <p className="text-white text-lg lg:text-xl font-light">
             Time reserving seat left: <b>{timeLeft} seconds</b>
           </p>
         </div>
@@ -250,7 +267,7 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
       <div className="flex flex-row gap-4 justify-center mb-5">
         <Button
           variant="text"
-          className="text-white text-base"
+          className="text-white lg:text-base"
           onClick={() => {
             setPrevStep();
           }}
@@ -260,7 +277,7 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
         <Button
           variant="filled"
           color="purple"
-          className={`text-white text-base ${
+          className={`text-white lg:text-base ${
             seatTotalAmount > 0 ? "bg-[#7b427b]" : "bg-[#6d5e71]"
           } rounded-lg`}
           onClick={() => {

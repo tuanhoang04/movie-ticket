@@ -260,34 +260,37 @@ export default function BuyTicket() {
       <NavBar />
       <div className="flex-grow px-8 lg:px-36 flex flex-col">
         {data && (
-          <div className="bg-[#323137] w-full h-full py-8 px-20 flex-grow mt-10 mb-4 rounded-3xl">
-            <div className="grid grid-cols-11 grid-rows-1">
-              <img
-                src={data.info.film[0].film_img}
-                className="col-span-2 row-span-1 rounded-3xl w-full"
-              />
-              <div className="col-span-7 row-span-1 flex flex-col justify-center px-10">
+          <div className="bg-[#323137] w-full h-full py-4 sm:py-6 md:py-9 px-4 sm:px-6 md:px-10 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
+            <div className="flex flex-col lg:grid lg:grid-cols-12 gap-5">
+              <div className="w-full lg:col-span-3">
+                <img
+                  src={data.info.film[0].film_img}
+                  className="rounded-xl md:rounded-4xl w-full object-cover"
+                  alt={data.info.film[0].film_name}
+                />
+              </div>
+
+              {/* Movie Info - Full width on mobile, 7 cols on md+ */}
+              <div className="w-full lg:col-span-7 flex flex-col justify-center">
                 {message && (
                   <AlertWithIcon type={"negative"} message={message} />
                 )}
                 <p
-                  className="text-white text-3xl pb-1 font-bold"
-                  style={message && { marginTop: "10px" }}
+                  className="text-white text-2xl md:text-3xl pb-1 font-bold"
+                  style={message ? { marginTop: "10px" } : {}}
                 >
                   {data.info.film[0].film_name}
                 </p>
-                <p className="text-white text-xl pb-5 font-light">
+                <p className="text-white text-lg md:text-xl pb-2 sm:pb-3 md:pb-5 font-light">
                   {data.info.categorys
-                    .map((item) => {
-                      return item.category_name;
-                    })
+                    .map((item) => item.category_name)
                     .join(", ")}
                 </p>
-                <p className="text-white text-xl pb-5 font-normal text-justify">
+                <p className="text-white text-xl leading-[1.25] pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
                   {data.info.film[0].film_describe}
                 </p>
-                <div className="flex flex-row gap-1">
-                  <p className="text-white text-lg font-normal text-justify">
+                <div className="flex flex-row flex-wrap gap-1">
+                  <p className="text-white text-lg md:text-xl font-normal">
                     Actors:{" "}
                   </p>
                   {data.info.actors.map((item, index) => {
@@ -299,11 +302,11 @@ export default function BuyTicket() {
                             localStorage.setItem("actor_id", item.actor_id);
                             navigate(`/actor/${createSlug(item.actor_name)}`);
                           }}
-                          className="text-white text-lg hover:underline hover:underline-offset-2 cursor-pointer"
+                          className="text-white text-lg md:text-xl hover:underline hover:underline-offset-2 cursor-pointer"
                         >
                           {item.actor_name}
                         </p>
-                        <p className="text-white text-lg">
+                        <p className="text-white text-lg md:text-xl ">
                           {isLast ? "." : ", "}
                         </p>
                       </div>
@@ -311,58 +314,69 @@ export default function BuyTicket() {
                   })}
                 </div>
               </div>
-              <div className="col-span-2 row-span-1 flex flex-col justify-center items-center">
-                {data.info.evaluate[0].sum_rate > 0 && (
-                  <div className="flex flex-row self-center items-center justify-between w-[52%] mb-2">
-                    <p className="text-white text-xl font-semibold">Rating</p>
-                    <div className="flex flex-row items-center">
-                      <p className="text-white text-xl font-semibold mr-[2px]">
-                        {Math.round(data.info.evaluate[0].film_rate * 10) / 10}
-                      </p>
-                      <img src="/icons/rating.png" className="w-4 h-4" />
+
+              {/* Movie Details & Buttons - Full width on mobile, 2 cols on md+ */}
+              <div className="w-[100%] lg:col-span-2 flex flex-col justify-center mt-4 md:mt-0">
+                <div className="lg:w-[100%] w-[100%] flex flex-col justify-between md:justify-start gap-4 mb-6 ">
+                  {data.info.evaluate[0].sum_rate > 0 && (
+                    <div className="flex flex-row items-center justify-between w-[100%] mb-1">
+                      <p className="text-white text-xl font-semibold">Rating</p>
+                      <div className="flex flex-row items-center">
+                        <p className="text-white text-xl font-semibold mr-1">
+                          {Math.round(data.info.evaluate[0].film_rate * 10) /
+                            10}
+                        </p>
+                        <img
+                          src="/icons/rating.png"
+                          className="w-3 h-3 md:w-4 md:h-4"
+                          alt="rating"
+                        />
+                      </div>
                     </div>
+                  )}
+
+                  <div className="flex flex-row items-center justify-between w-[100%] mb-1">
+                    <p className="text-white text-xl font-semibold">
+                      Age limit
+                    </p>
+                    <p className="text-white text-xl font-semibold">
+                      {data.info.film[0].age_limit}
+                    </p>
                   </div>
-                )}
-                <div className="flex flex-row items-center justify-between w-[52%] mb-2">
-                  <p className="text-white text-xl font-semibold">Age limit</p>
-                  <p className="text-white text-xl font-semibold">
-                    {data.info.film[0].age_limit}
-                  </p>
-                </div>
-                <div className="flex flex-row items-center justify-between w-[52%] mb-6">
-                  <p className="text-white text-xl font-semibold">Time</p>
 
-                  <p className="text-white text-xl font-semibold">
-                    {data.info.film[0].duration + "m"}
-                  </p>
+                  <div className="flex flex-row items-center justify-between w-[100%] mb-1">
+                    <p className="text-white text-xl font-semibold">Time</p>
+                    <p className="text-white text-xl font-semibold">
+                      {data.info.film[0].duration + "m"}
+                    </p>
+                  </div>
                 </div>
 
-                {liked ? (
+                <div className="flex flex-col items-start gap-3 w-full">
                   <Button
                     color="red"
-                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px] mb-3"
-                    onClick={unlike}
+                    className="bg-[#B44242] rounded-xl flex flex-row p-3 items-center justify-center w-full"
+                    onClick={liked ? unlike : like}
                   >
-                    <img src="/icons/heart-filled.png" className="w-7 mr-2 " />
-                    <p className="text-sm font-bold">Saved</p>
+                    <img
+                      src={
+                        liked ? "/icons/heart-filled.png" : "/icons/heart.png"
+                      }
+                      className="w-5 md:w-6 mr-2"
+                      alt={liked ? "Saved" : "Save Movie"}
+                    />
+                    <p className="text-xs sm:text-lg lg:text-base font-bold">
+                      {liked ? "Saved" : "Save Movie"}
+                    </p>
                   </Button>
-                ) : (
-                  <Button
-                    color="red"
-                    className="bg-[#B44242] rounded-xl flex flex-row p-2 px-3 items-center min-w-[150px] mb-3"
-                    onClick={like}
-                  >
-                    <img src="/icons/heart.png" className="w-7 mr-2" />
-                    <p className="text-sm font-bold">Save Movie</p>
-                  </Button>
-                )}
+                </div>
               </div>
             </div>
           </div>
         )}
 
         {cities && (
-          <div className="bg-[#323137] w-full h-full py-8 px-20 flex-grow mt-10 mb-4 rounded-3xl">
+          <div className="bg-[#323137] w-full h-full py-4 sm:py-6 md:py-8 px-4 sm:px-6 md:px-10 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
             {cities && (
               <div>
                 <p className="text-white text-4xl font-bold pb-5">Buy ticket</p>
@@ -384,37 +398,68 @@ export default function BuyTicket() {
                 </div>
               </div>
             )}
-            {schedule && selectedCity && film_id && (
-              <div className="flex flex-row gap-8 mt-6 mb-9">
-                {schedule.map((item, index) => {
-                  const [label, date] = Object.entries(item[0])[0];
-                  const isSelected = selectedButtonIndex === index;
-                  return (
-                    <div key={index}>
-                      <Button
-                        variant="text"
-                        onClick={() => {
-                          setSelectedButtonIndex(index);
-                          schedule[index].length > 1
-                            ? setClustersSchedule(schedule[index][1])
-                            : setClustersSchedule(1);
-                        }}
-                        className={`text-xl font-light p-0 ${
-                          isSelected ? "text-[#B49AFF]" : "text-white"
-                        }`}
-                      >
-                        <p>{label}</p>
-                        <p>{date}</p>
-                      </Button>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            <div className="lg:hidden">
+              {schedule && selectedCity && film_id && (
+                <div className="flex flex-row lg:gap-8 justify-between mt-6 mb-9">
+                  {schedule.slice(0, 5).map((item, index) => {
+                    const [label, date] = Object.entries(item[0])[0];
+                    const isSelected = selectedButtonIndex === index;
+                    return (
+                      <div key={index}>
+                        <Button
+                          variant="text"
+                          onClick={() => {
+                            setSelectedButtonIndex(index);
+                            schedule[index].length > 1
+                              ? setClustersSchedule(schedule[index][1])
+                              : setClustersSchedule(1);
+                          }}
+                          className={`text-base sm:text-xl font-light p-0 ${
+                            isSelected ? "text-[#B49AFF]" : "text-white"
+                          }`}
+                        >
+                          <p className="hidden">{label}</p>
+                          <p>{date}</p>
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+            <div className="lg:block hidden">
+              {schedule && selectedCity && film_id && (
+                <div className="flex flex-row gap-8 mt-6 mb-9">
+                  {schedule.map((item, index) => {
+                    const [label, date] = Object.entries(item[0])[0];
+                    const isSelected = selectedButtonIndex === index;
+                    return (
+                      <div key={index}>
+                        <Button
+                          variant="text"
+                          onClick={() => {
+                            setSelectedButtonIndex(index);
+                            schedule[index].length > 1
+                              ? setClustersSchedule(schedule[index][1])
+                              : setClustersSchedule(1);
+                          }}
+                          className={`text-xl font-light p-0 ${
+                            isSelected ? "text-[#B49AFF]" : "text-white"
+                          }`}
+                        >
+                          <p>{label}</p>
+                          <p>{date}</p>
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
             {clustersSchedule &&
               (clustersSchedule === 1 ? (
                 <div>
-                  <p className="text-2xl text-white">
+                  <p className="text-lg lg:text-2xl text-white">
                     No showtime is available for this
                   </p>
                 </div>

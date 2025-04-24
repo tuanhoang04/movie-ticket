@@ -26,7 +26,7 @@ export default function BookingTicketMain() {
       )
         .then((response) => response.json())
         .then((responseData) => {
-          if (responseData.success&&film_id) {
+          if (responseData.success) {
             // action to do when login is successful
           } else {
             navigate(-1);

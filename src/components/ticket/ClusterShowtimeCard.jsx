@@ -60,25 +60,25 @@ export default function ClusterShowtimeCard({ data, movieName }) {
   return (
     <div className="bg-[#606060] rounded-lg mb-8">
       <div className="flex flex-row gap-2 items-center p-2 rounded-t-lg bg-[#65438d]">
-        <img src={iconSrc} className="w-8 rounded-full" />
-        <p className="text-white text-2xl font-normal">{theater}</p>
+        <img src={iconSrc} className="lg:w-8 w-5 rounded-full" />
+        <p className="text-white lg:text-2xl text-xl font-normal">{theater}</p>
       </div>
 
       <div className="flex flex-row gap-2 p-2">
-        <img src="/riocinema.png" className="invisible w-8 rounded-full" />
+        <img src="/riocinema.png" className="invisible lg:w-8 w-5 rounded-full" />
         <div>
           {allSubCinemas.map((item, index) => {
             return (
               <div className="pb-3" key={index}>
-                <p className="text-white font-light text-xl">{item}</p>
-                <p className="text-white text-xl font-medium">
+                <p className="text-white font-light lg:text-xl text-lg">{item}</p>
+                <p className="text-white lg:text-xl text-base font-medium">
                   {data[theater][item].address}
                 </p>
                 {data[theater][item].show_time.map((item, index) => {
                   return (
                     <Button
                       key={index}
-                      className="text-gray-400 bg-black w-fit py-1 text-base px-2 mr-2 mt-1 rounded-xl"
+                      className="text-gray-400 bg-black w-fit py-1 lg:text-base text-sm px-2 mr-2 mt-1 rounded-xl"
                       onClick={() => {
                         handleSelectShowtime(item.showtime_id);
                       }}

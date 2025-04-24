@@ -29,49 +29,59 @@ export default function BookingSelectSeats({setNextStep}) {
   const seatData = data.seatData;
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
-      <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
+      <div className="py-2 px-4 sm:px-6 md:px-10 lg:px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
         <div className="flex flex-col items-center">
           <img src="/icons/car-seat-white.png" className="w-9 mb-[4px]" />
-          <p className="text-white font-medium text-lg">Select your seat</p>
+          <p className="hidden lg:block text-white font-medium text-lg">
+            Select your seat
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/shopping.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Buy snacks</p>
+          <p className="text-[#B6DBFF] hidden lg:block font-medium text-lg">
+            Buy snacks
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/coin-in-hand.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Payment</p>
+          <p className="text-[#B6DBFF] hidden lg:block font-medium text-lg">
+            Payment
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/information.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Ticket Information</p>
+          <p className="text-[#B6DBFF] hidden lg:block  font-medium text-lg">
+            Ticket Information
+          </p>
         </div>
       </div>
       {seatData && (
         <div className="flex flex-col">
-          <div className="w-[38%] py-6 px-10 self-center my-9 rounded-2xl flex flex-col items-center justify-center bg-[#232323]">
-            <div className="flex flex-row justify-between w-[77%] mb-5">
+          <div className="lg:w-[38%] w-[90%] py-6 px-4 sm:px-6 md:px-10 self-center my-9 rounded-2xl flex flex-col items-center justify-center bg-[#232323]">
+            <div className="flex lg:flex-row flex-col gap-3 justify-between lg:w-[77%] w-full mb-5">
               <div className="flex flex-row items-center">
-                <div className="bg-[#FFFFFF] w-[18px] h-[18px] mr-3"></div>
-                <p className="text-white text-xl">Normal Seat</p>
+                <div className="bg-[#FFFFFF] w-[18px] h-[18px] mr-2"></div>
+                <p className="text-white text-sm lg:text-xl">Normal Seat</p>
               </div>
               <div className="flex flex-row items-center">
-                <div className="bg-[#FFDE5A] w-[18px] h-[18px] mr-3"></div>
-                <p className="text-white text-xl">VIP Seat</p>
+                <div className="bg-[#FFDE5A] w-[18px] h-[18px] mr-2"></div>
+                <p className="text-white text-sm lg:text-xl">VIP Seat</p>
               </div>
               <div className="flex flex-row items-center">
-                <div className="bg-[#3944E1] w-[18px] h-[18px] mr-3"></div>
-                <p className="text-white text-xl">Double Seat</p>
+                <div className="bg-[#3944E1] w-[18px] h-[18px] mr-2"></div>
+                <p className="text-white text-sm lg:text-xl">Double Seat</p>
               </div>
             </div>
-            <p className="text-white text-4xl mb-2">Screen</p>
+            <p className="text-white lg:text-4xl mb-1 text-lg lg:mb-2">
+              Screen
+            </p>
             <div className="bg-white w-[50%] h-[5px] mb-12"></div>
-            <div className="relative ml-7 w-full aspect-[12/10]">
+            <div className="relative ml-4 lg:ml-7 w-full aspect-[12/10]">
               {/* Column Numbers */}
-              <div className="absolute -top-7 left-0 right-0 grid grid-cols-12 gap-4">
+              <div className="absolute -top-5 lg:-top-7 left-0 right-0 grid grid-cols-12 gap-[1.5px] lg:gap-4">
                 {Array.from({ length: 12 }, (_, i) => (
                   <div
                     key={`col-${i}`}
@@ -83,7 +93,7 @@ export default function BookingSelectSeats({setNextStep}) {
               </div>
 
               {/* Row Letters */}
-              <div className="absolute -left-7 bottom-0 top-0 grid grid-rows-10 gap-4">
+              <div className="absolute -left-5 lg:-left-7 bottom-0 top-0 grid grid-rows-10 gap-[1.5px] lg:gap-4">
                 {Array.from({ length: 10 }, (_, i) => (
                   <div
                     key={`row-${i}`}
@@ -93,7 +103,7 @@ export default function BookingSelectSeats({setNextStep}) {
                   </div>
                 ))}
               </div>
-              <div className="w-full h-full grid grid-cols-12 grid-rows-10 gap-4">
+              <div className="w-full h-full grid grid-cols-12 grid-rows-10 gap-[1.5px] lg:gap-4">
                 {seatData.seats.map((item, index) => {
                   const isSelected = selectedSeats.some(
                     (s) => s.seat_location === item.seat_location
@@ -202,48 +212,50 @@ export default function BookingSelectSeats({setNextStep}) {
                 })}
               </div>
             </div>
-            <div className="flex flex-row justify-between w-[55%] mt-5">
+            <div className="flex lg:flex-row flex-col gap-3 justify-between lg:w-[77%] w-full mt-5">
               <div className="flex flex-row items-center">
-                <div className="bg-[repeating-linear-gradient(to_bottom,_#e0e0e0_0px,_#b0b0b0_2px,_#8a8a8a_6px,_#e0e0e0_8px)] w-[20px] h-[20px] mr-3"></div>
-                <p className="text-white text-xl">Reserved</p>
+                <div className="bg-[repeating-linear-gradient(to_bottom,_#e0e0e0_0px,_#b0b0b0_2px,_#8a8a8a_6px,_#e0e0e0_8px)] w-[18px] h-[18px] mr-2"></div>
+                <p className="text-white text-sm lg:text-xl">Reserved</p>
               </div>
               <div className="flex flex-row items-center">
-                <div className="bg-[repeating-linear-gradient(45deg,_#d9d9d9_0px,_#a6a6a6_10px,_#f0f0f0_10px,_#a6a6a6_20px)] w-[20px] h-[20px] mr-3"></div>
-                <p className="text-white text-xl">Taken</p>
+                <div className="bg-[repeating-linear-gradient(45deg,_#d9d9d9_0px,_#a6a6a6_10px,_#f0f0f0_10px,_#a6a6a6_20px)] w-[18px] h-[18px] mr-2"></div>
+                <p className="text-white text-sm lg:text-xl">Taken</p>
               </div>
             </div>
           </div>
-          <div className="py-6 px-20">
+          <div className="px-4 sm:px-6 md:px-10">
             {message && <AlertWithIcon type={"negative"} message={message} />}
             <div className="bg-[#606060] rounded-lg p-4">
-              <p className="text-white text-2xl font-medium mb-2">
+              <p className="text-white text-xl lg:text-2xl font-medium mb-2">
                 Cinema: {seatData.cinema_name}
               </p>
-              <p className="text-white text-2xl mb-1">
+              <p className="text-white text-xl lg:text-2xl mb-1">
                 Movie: '{seatData.film_name}'
               </p>
-              <p className="text-white text-2xl mb-1">
-                Showtime: {seatData.show_time + " " +  seatData.show_date}
+              <p className="text-white text-xl lg:text-2xl mb-1">
+                Showtime: {seatData.show_time + " " + seatData.show_date}
               </p>
-              <p className="text-white text-2xl mb-1">
+              <p className="text-white text-xl lg:text-2xl mb-1">
                 Cinema room: {seatData.room_name}
               </p>
-              <p className="text-white text-2xl mb-1">
+              <p className="text-white text-xl lg:text-2xl mb-1">
                 Chosen seats:{" "}
-                {selectedSeats.length!==0?selectedSeats
-                  .map((item, index) => {
-                    return item.seat_location;
-                  })
-                  .join(", "):"None"}
+                {selectedSeats.length !== 0
+                  ? selectedSeats
+                      .map((item, index) => {
+                        return item.seat_location;
+                      })
+                      .join(", ")
+                  : "None"}
               </p>
             </div>
           </div>
-          <div className="pb-6 px-20">
+          <div className="py-7 px-4 sm:px-6 md:px-10">
             <div className="bg-[#606060] rounded-lg p-4">
-              <p className="text-white text-2xl font-light mb-2">
+              <p className="text-white text-xl lg:text-2xl font-light mb-2">
                 Current total:
               </p>
-              <p className="text-[#eaddf7] font-medium text-3xl">
+              <p className="text-[#eaddf7] font-medium text-2xl lg:text-3xl">
                 {numFormat.format(seatTotalAmount + popcornTotalAmount)}đ
               </p>
             </div>
@@ -252,7 +264,7 @@ export default function BookingSelectSeats({setNextStep}) {
           <div className="flex flex-row gap-4 justify-center mb-5">
             <Button
               variant="text"
-              className="text-white text-base"
+              className="text-white lg:text-base"
               onClick={() => {
                 navigate(`/movie/${createSlug(seatData.film_name)}`);
               }}
@@ -262,7 +274,7 @@ export default function BookingSelectSeats({setNextStep}) {
             <Button
               variant="filled"
               color="purple"
-              className={`text-white text-base ${
+              className={`text-white lg:text-base ${
                 seatTotalAmount > 0 ? "bg-[#7b427b]" : "bg-[#6d5e71]"
               } rounded-lg`}
               onClick={() => {

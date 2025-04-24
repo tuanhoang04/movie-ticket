@@ -55,36 +55,44 @@ export default function Payment({setNextStep}) {
   };
   return (
     <div className="bg-[#323137] w-full my-8 rounded-xl flex flex-col">
-      <div className="py-2 px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
+      <div className="py-2 px-4 sm:px-6 md:px-10 lg:px-24 w-full flex justify-between items-center flex-row rounded-t-xl bg-[#65438D]">
         <div className="flex flex-col items-center">
           <img src="/icons/car-seat.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Select your seat</p>
+          <p className="hidden text-[#B6DBFF] lg:block  font-medium text-lg">
+            Select your seat
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/shopping.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Buy snacks</p>
+          <p className="hidden text-[#B6DBFF] lg:block font-medium text-lg">
+            Buy snacks
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/coin-in-hand-white.png" className="w-9 mb-[4px]" />
-          <p className="text-white font-medium text-lg">Payment</p>
+          <p className="text-white hidden lg:block font-medium text-lg">
+            Payment
+          </p>
         </div>
-        <img src="/icons/next-page.png" className="w-10 h-10" />
+        <img src="/icons/next-page.png" className="lg:w-10 lg:h-10 w-6 h-6" />
         <div className="flex flex-col items-center">
           <img src="/icons/information.png" className="w-9 mb-[4px]" />
-          <p className="text-[#B6DBFF] font-medium text-lg">Ticket Information</p>
+          <p className="text-[#B6DBFF] hidden lg:block  font-medium text-lg">
+            Ticket Information
+          </p>
         </div>
       </div>
 
-      <div className="py-6 px-20">
+      <div className="py-6 px-4 sm:px-6 md:px-10">
         <img className="w-full" src="/payment-sample.png" />
       </div>
 
       <div className="flex flex-row gap-4 justify-center mb-5">
         <Button
           variant="text"
-          className="text-white text-base"
+          className="text-white lg:text-base"
           onClick={() => {
             navigate(-1);
           }}
@@ -94,7 +102,7 @@ export default function Payment({setNextStep}) {
         <Button
           variant="filled"
           color="purple"
-          className={`text-white text-base ${
+          className={`text-white lg:text-base ${
             seatTotalAmount > 0 ? "bg-[#7b427b]" : "bg-[#6d5e71]"
           } rounded-lg`}
           onClick={() => {
