@@ -4,7 +4,6 @@ export const defaultFont = 'Open Sans Variable';
 
 export const primaryFont = setFont(defaultFont);
 
-export const secondaryFont = setFont('Barlow');
 
 export const typography = {
     fontFamily: primaryFont,

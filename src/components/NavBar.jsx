@@ -194,7 +194,7 @@ export default function NavBar({
                   Sign up
                 </Button>
                 <Button
-                  variant="fill"
+                  variant="filled"
                   color="red"
                   className="text-white bg-[#B44242] text-md rounded-3xl"
                   onClick={() => setOpenSignIn(true)}
@@ -270,7 +270,7 @@ export default function NavBar({
                   Sign up
                 </Button>
                 <Button
-                  variant="fill"
+                  variant="filled"
                   color="red"
                   className="text-white bg-[#B44242] text-md rounded-3xl"
                   onClick={() => setOpenSignIn(true)}

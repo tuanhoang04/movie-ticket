@@ -14,8 +14,8 @@ export function NavContent({ data, slots, sx }) {
     const pathname = usePathname();
 
     const handleLogout = (path) => {
-        if (path === '/auth') {
-            window.location.href = '/auth';
+        if (path === '/home') {
+            window.location.href = '/home';
         }
     }
 
@@ -140,7 +140,7 @@ export function NavContent({ data, slots, sx }) {
                 
                 <Box 
                     component="button"
-                    onClick={() => window.location.href = '/auth'}
+                    onClick={() => window.location.href = '/home'}
                     sx={{
                         mt: 2.5, // Tăng margin-top từ 1.5 lên 2.5 để tạo khoảng cách lớn hơn với dòng "Hi, Imhiong"
                         display: 'inline-flex',
