@@ -108,6 +108,8 @@ export function ProfileMenu({ data }) {
             onClick={() => {
               handleOpen();
               localStorage.removeItem("jwt");
+              localStorage.removeItem("role");
+              localStorage.removeItem("user_id");
               navigate("/");
             }}
             className="!bg-[#773e77] self-start w-auto"

@@ -86,6 +86,7 @@ import RoomPage from "./admin/pages/room";
 import OrderPage from "./admin/pages/order";
 import NewsAdminPage from "./admin/pages/news";
 import { HelmetProvider } from "react-helmet-async";
+import AdminRoute from "./admin/AdminRoute";
 
 const EditUserPage = lazy(() => import("./admin/pages/edit-user"));
 const CreateMoviePage = lazy(() => import("./admin/pages/create-movie"));
@@ -165,7 +166,14 @@ export default function App() {
             <Route path="/signin" element={<SignIn />} />
 
             {/* Admin Routes */}
-            <Route path="/admin/*" element={<AdminLayout />} />
+            <Route
+              path="/admin/*"
+              element={
+                <AdminRoute>
+                  <AdminLayout />
+                </AdminRoute>
+              }
+            />
 
             {/* Fallback Route */}
             <Route path="*" element={<Page404 />} />
