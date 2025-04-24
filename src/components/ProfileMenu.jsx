@@ -17,7 +17,7 @@ export function ProfileMenu({ data }) {
   useEffect(() => {
     console.log(data);
   }, [data]);
-
+  const userRole = localStorage.getItem("role");
   const navigate = useNavigate();
   const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false);
   const handleOpen = () => {
@@ -30,7 +30,7 @@ export function ProfileMenu({ data }) {
           <div className="flex flex-row gap-2 items-center cursor-pointer">
             <img
               className="w-8 h-8 rounded-full"
-              src={data?.user_img  ? data.user_img : "/icons/account.png"}
+              src={data?.user_img ? data.user_img : "/icons/account.png"}
             />
             <p className="text-xl ">{data ? data.full_name : ""}</p>
           </div>
@@ -59,6 +59,44 @@ export function ProfileMenu({ data }) {
               My Profile
             </Typography>
           </MenuItem>
+          {userRole === "1" && (
+            <MenuItem
+              className="flex items-center gap-3 hover:bg-purple-100"
+              onClick={() => {
+                navigate("/admin");
+              }}
+            >
+              <svg
+                width="24"
+                height="24"
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                x="0px"
+                y="0px"
+                viewBox="0 1 98 90"
+                enable-background="new 0 0 100 100"
+                xml:space="preserve"
+              >
+                <g>
+                  <path
+                    fill="#773e77"
+                    d="M49.8,53.2l4.7-4.7c0.2-0.2,0.4-0.4,0.6-0.5c-2.7-3.8-6.5-6.8-10.9-8.5c-3.5,2.3-7.8,3.7-12.3,3.7s-8.8-1.4-12.3-3.7   c-6.4,2.5-11.6,7.7-14,14.4c-1.7,4.8-2.8,9.9-3.2,15c-0.2,2.3,1.7,4.3,4.1,4.3h36.9v-4.6c0-3.3,2.3-6.1,5.5-6.7   C47.2,59.2,47.5,55.5,49.8,53.2z"
+                  />
+                  <path
+                    fill="#773e77"
+                    d="M31.9,37.7c9.4,0,17-7.6,17-17c0-9.4-7.6-17-17-17s-17,7.6-17,17C15,30.1,22.6,37.7,31.9,37.7z"
+                  />
+                  <path
+                    fill="#773e77"
+                    d="M96.3,67.2l-4.6-0.5c-0.4-1.5-1-2.9-1.7-4.2l2.9-3.6c0.4-0.5,0.4-1.3-0.1-1.8L88,52.4c-0.5-0.5-1.3-0.5-1.8-0.1l-3.6,2.9   c-1.3-0.7-2.7-1.3-4.2-1.7l-0.5-4.6c-0.1-0.7-0.7-1.2-1.4-1.2h-6.6c-0.7,0-1.3,0.5-1.4,1.2L68,53.4c-1.5,0.4-2.9,1-4.2,1.7   l-3.6-2.9c-0.5-0.4-1.3-0.4-1.8,0.1l-4.7,4.7c-0.5,0.5-0.5,1.3-0.1,1.8l2.9,3.6c-0.7,1.3-1.3,2.7-1.7,4.2l-4.6,0.5   c-0.7,0.1-1.2,0.7-1.2,1.4v6.6c0,0.7,0.5,1.3,1.2,1.4l4.6,0.5c0.4,1.5,1,2.9,1.7,4.2l-2.9,3.6c-0.4,0.5-0.4,1.3,0.1,1.8l4.7,4.7   c0.5,0.5,1.3,0.5,1.8,0.1l3.6-2.9c1.3,0.7,2.7,1.3,4.2,1.7l0.5,4.6c0.1,0.7,0.7,1.2,1.4,1.2h6.6c0.7,0,1.3-0.5,1.4-1.2l0.5-4.6   c1.5-0.4,2.9-1,4.2-1.7l3.6,2.9c0.5,0.4,1.3,0.4,1.8-0.1l4.7-4.7c0.5-0.5,0.5-1.3,0.1-1.8l-2.9-3.6c0.7-1.3,1.3-2.7,1.7-4.2   l4.6-0.5c0.7-0.1,1.2-0.7,1.2-1.4v-6.6C97.5,67.9,97,67.3,96.3,67.2z M73.2,81.3c-5.2,0-9.4-4.2-9.4-9.4s4.2-9.4,9.4-9.4   c5.2,0,9.4,4.2,9.4,9.4S78.4,81.3,73.2,81.3z"
+                  />
+                </g>
+              </svg>
+              <Typography variant="h4" className="font-medium text-lg">
+                Admin
+              </Typography>
+            </MenuItem>
+          )}
           <MenuItem
             className="flex items-center gap-3 hover:bg-purple-100"
             onClick={() => handleOpen()}
