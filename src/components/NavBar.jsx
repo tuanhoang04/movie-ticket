@@ -178,16 +178,16 @@ export default function NavBar({
               Starlight Cinema
             </Typography> */}
               <a href="/home">
-                <p className="text-xl lg:text-3xl mr-4 cursor-pointer py-1.5 font-medium self-center">
+                <p className="text-2xl lg:text-3xl mr-4 cursor-pointer py-1.5 font-medium self-center">
                   Starlight Cinema
                 </p>
               </a>
             </div>
-            <div>
+            <div className="hidden lg:block">
               {login && userInfo ? (
                 <ProfileMenu data={userInfo} />
               ) : (
-                <div className="hidden lg:block">
+                <div>
                   <Button
                     variant="outlined"
                     className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
@@ -213,9 +213,9 @@ export default function NavBar({
               onClick={() => setOpenNav(!openNav)}
             >
               {openNav ? (
-                <XMarkIcon className="h-6 w-6" stroke="white" strokeWidth={2} />
+                <XMarkIcon className="h-10 w-10" stroke="white" strokeWidth={2} />
               ) : (
-                <Bars3Icon className="h-6 w-6" stroke="white" strokeWidth={2} />
+                <Bars3Icon className="h-10 w-10" stroke="white" strokeWidth={2} />
               )}
             </IconButton>
           </div>
@@ -241,26 +241,30 @@ export default function NavBar({
         <Collapse open={openNav}>
           <div>
             {navList}
-            <div className="flex flex-row items-center gap-x-2 mb-4 ">
-              <div className="w-full gap-2 md:w-max">
-                <form onSubmit={handleSubmit}>
+            <div className="flex flex-row items-center mx-1 mb-4 ">
+              <div className="w-full">
+                <form
+                  className="flex flex-row items-center gap-3"
+                  onSubmit={handleSubmit}
+                >
                   <Input
                     type="search"
                     placeholder="Search"
-                    className="border-none rounded-3xl text-lg pl-6 placeholder:text-black bg-white"
+                    size="lg"
                     onChange={handleChange}
                     value={searchTerm}
-                    onSubmit={handleSubmit}
+                    autoComplete="off"
+                    className="border-none !min-w-full after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
                   />
+                  <Button
+                    color="deep-purple"
+                    className="text-white text-xs rounded-2xl h-11"
+                    onClick={handleSubmit}
+                  >
+                    Search
+                  </Button>
                 </form>
               </div>
-              <Button
-                color="deep-purple"
-                className="text-white text-md rounded-3xl"
-                onClick={handleSubmit}
-              >
-                Search
-              </Button>
             </div>
             {isLoading ? null : login && userInfo ? (
               <ProfileMenu data={userInfo} />
