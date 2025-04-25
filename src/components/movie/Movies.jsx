@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Select, Option } from "@material-tailwind/react";
 import "./Movies.css";
 import { CircularPagination } from "../CircularPagination";
@@ -10,6 +10,8 @@ export default function Movies() {
   const [upcomings, setUpcomings] = useState([]);
   const filmsPerCate = 8;
   const [isLoading, setIsLoading] = useState(true);
+  const nowSRef = useRef(null);
+  const upcRef = useRef(null);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/film/filmShowing`, {
@@ -47,6 +49,12 @@ export default function Movies() {
     setTotalPagesNowShowing(
       Math.max(Math.ceil(nowShowing.length / filmsPerCate), 1)
     );
+    if (nowSRef.current) {
+      nowSRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   }, [currentPageNowShowing, nowShowing]);
 
   const [currentPageUpcoming, setCurrentPageUpcoming] = useState(1);
@@ -62,6 +70,12 @@ export default function Movies() {
     setTotalPagesUpcoming(
       Math.max(Math.ceil(upcomings.length / filmsPerCate), 1)
     );
+    if (upcRef.current) {
+      upcRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   }, [currentPageUpcoming, upcomings]);
 
   const navigate = useNavigate();
@@ -93,7 +107,7 @@ export default function Movies() {
       <div className="px-3 lg:px-36">
         {!isLoading && (
           <div className="flex flex-col mt-7 mb-20">
-            <div className="flex flex-row items-center mb-4">
+            <div ref={nowSRef} className="flex flex-row items-center mb-4">
               <img src="/icons/red-dot.png" className="w-9 h-9" />
               <p className="text-white text-3xl">Now Showing</p>
             </div>
@@ -105,7 +119,7 @@ export default function Movies() {
               ))}
             </div>
             {currentNowShowings.length <= 4 && (
-              <div className="mb-6 lg:w-[18.25%] w-[49%]">
+              <div className="hidden lg:block mb-6 lg:w-[18.25%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
                   <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
                   <div className="invisible">
@@ -127,6 +141,7 @@ export default function Movies() {
                 currentPage={currentPageNowShowing}
                 handleChange={(value) => {
                   setCurrentPageNowShowing(value);
+                  // Remove the scroll from here, as it's now in the useEffect
                 }}
               />
             </div>
@@ -135,7 +150,7 @@ export default function Movies() {
 
         {!isLoading && (
           <div className="flex flex-col mb-20">
-            <div className="flex flex-row items-center mb-4">
+            <div className="flex flex-row items-center mb-4" ref={upcRef}>
               <img src="/icons/red-dot.png" className="w-9 h-9" />
               <p className="text-white text-3xl">Upcoming Movies</p>
             </div>

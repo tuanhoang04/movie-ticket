@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -11,6 +11,7 @@ export default function MoviesFilterPage() {
     country: "",
     categoryId: "",
   });
+  const begin = useRef(null);
   const [data, setData] = useState([]);
   const [statusLabel, setStatusLabel] = useState("All movies");
   const [genreLabel, setGenreLabel] = useState("All genres");
@@ -24,6 +25,9 @@ export default function MoviesFilterPage() {
     const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
     setCurrentMovies(data.slice(indexOfFirstFilm, indexOfLastFilm));
     setTotalPages(Math.max(Math.ceil(data.length / filmsPerPage), 1));
+    if(begin.current){
+      begin.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }, [currentPage, data]);
   const handleSubmit = async () => {
     try {
@@ -171,7 +175,7 @@ export default function MoviesFilterPage() {
 
         {/* Movie grid - responsive layout */}
         {currentMovies && currentMovies.length > 0 && (
-          <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
+          <div ref={begin} className="flex flex-wrap lg:gap-[9%] gap-[1%]">
             {currentMovies.map((item) => {
               return (
                 <div className="mb-6 lg:w-[18.25%] w-[49%]" key={item.film_id}>
