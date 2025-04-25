@@ -57,6 +57,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
         const data = await response.json();
         if (data.success) {
           console.log("thanh cong roi");
+          setErrorMessage("");
           setOkMessage(`${data.message}`);
           setTimeout(() => {
             setStep(2);
@@ -64,6 +65,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
         } else {
           // Đảm bảo rằng bạn đang sử dụng message đúng
           const errorAlert = `Gửi mã xác thực thất bại: ${data.message}`;
+          setOkMessage("");
           setErrorMessage(errorAlert);
         }
       } else {
@@ -104,6 +106,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
             setStep(3);
           }, 1000);
         } else {
+          setOkMessage("");
           setErrorMessage(`Code is incorrect!`);
         }
       } else {
@@ -140,6 +143,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
             window.location.reload();
           }, 1000);
         } else {
+          setOkMessage("");
           setErrorMessage(`Đặt mật khẩu mới thất bại: ${data.message}`);
         }
       } else {
@@ -163,7 +167,10 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
       {okMessage && <AlertWithIcon type="positive" message={okMessage} />}
       <DialogBody className="mt-3 mb-1">
         {step === 1 && (
-          <form className="flex flex-col w-[100%] gap-5">
+          <form
+            onSubmit={handleSubmitEmail}
+            className="flex flex-col w-[100%] gap-5"
+          >
             <div>
               <Typography
                 variant="h5"
@@ -202,6 +209,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
               <Button
                 onClick={handleSubmitEmail}
                 className="w-fit !bg-[#502A50]"
+                type="submit"
                 color="purple"
               >
                 submit
@@ -211,7 +219,10 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
         )}
 
         {step === 2 && (
-          <form className="flex flex-col w-[100%] gap-5">
+          <form
+            onSubmit={handleEmailAndTokenSubmit}
+            className="flex flex-col w-[100%] gap-5"
+          >
             <div>
               <Typography
                 variant="h5"
@@ -237,6 +248,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
               <Button
                 className="mr-3 !bg-gray-800"
                 color="black"
+                type="submit"
                 onClick={() => {
                   handleOpenDialog();
                   setOkMessage("");
@@ -261,7 +273,10 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
         )}
 
         {step === 3 && (
-          <form className="flex flex-col w-[100%] gap-8">
+          <form
+            onSubmit={handleChangePasswordByTokenSubmit}
+            className="flex flex-col w-[100%] gap-8"
+          >
             <div>
               <Typography
                 variant="h5"
@@ -318,6 +333,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
               </Button>
               <Button
                 onClick={handleChangePasswordByTokenSubmit}
+                type="submit"
                 className="w-fit !bg-[#502A50]"
                 color="purple"
               >
