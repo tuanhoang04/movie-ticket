@@ -243,7 +243,7 @@ export default function NewsPage() {
             onClick={() => {
               handleRegionClick("aboard");
             }}
-            className="text-4xl flex items-center gap-5 mb-3 cursor-pointer"
+            className="text-3xl flex items-center gap-5 mb-3 cursor-pointer"
           >
             <p>Worldwide Film News</p>
             <svg

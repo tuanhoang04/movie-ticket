@@ -7,12 +7,12 @@ import {
   IconButton,
   Input,
 } from "@material-tailwind/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
 import SignIn from "../pages/user/SignIn";
 import SignUp from "../pages/user/SignUp";
-import ForgotPassword from "../pages/user/ForgotPassword";
+import ForgottenPassword from "../pages/user/ForgotPassword";
 
 function createSlug(name) {
   return name
@@ -35,9 +35,9 @@ export default function NavBar({
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const navigate = useNavigate();
 
-  // listen for sign in trigger
   useEffect(() => {
     if (openSignInFromParent) {
       setOpenSignIn(true);
@@ -49,6 +49,7 @@ export default function NavBar({
       setOpenSignInFromParent && setOpenSignInFromParent(false);
     }
   }, [openSignIn]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -83,7 +84,6 @@ export default function NavBar({
           localStorage.setItem("full_name", responseData.userInfo[0].full_name);
           setUserInfo(responseData.userInfo[0]);
         } else {
-          // JWT is invalid
           localStorage.removeItem("jwt");
           setLogin(false);
         }
@@ -102,56 +102,53 @@ export default function NavBar({
   }, []);
 
   const navList = (
-    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-8">
-      <Typography as="li" variant="h4" className="p-1 font-light ">
+    <ul className="mb-4 mt-2 flex flex-col gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-10">
+      <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/home"
-          className={`flex items-center text-white hover:text-purple-100
-              ${currentPage === "Home" ? "underline underline-offset-8" : ""}`}
+          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
+            currentPage === "Home" ? "brightness-150 scale-105" : ""
+          }`}
         >
           Home
         </a>
       </Typography>
-      <Typography as="li" variant="h4" className="p-1 font-light ">
+      <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/movie/filter"
-          className={`flex items-center text-white hover:text-purple-100
-              ${
-                currentPage === "Movies" ? "underline underline-offset-8" : ""
-              }`}
+          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
+            currentPage === "Movies" ? "brightness-150 scale-105" : ""
+          }`}
         >
           Movies
         </a>
       </Typography>
-      <Typography as="li" variant="h4" className="p-1 font-light ">
+      <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/theater-movie"
-          className={`flex items-center text-white hover:text-purple-100
-              ${
-                currentPage === "Buy Ticket"
-                  ? "underline underline-offset-8"
-                  : ""
-              }`}
+          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
+            currentPage === "Buy Ticket" ? "brightness-150 scale-105" : ""
+          }`}
         >
           Buy Ticket
         </a>
       </Typography>
-      <Typography as="li" variant="h4" className="p-1 font-light ">
+      <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/theaters"
-          className={`flex items-center text-white hover:text-purple-100
-              ${
-                currentPage === "Theaters" ? "underline underline-offset-8" : ""
-              }`}
+          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
+            currentPage === "Theaters" ? "brightness-150 scale-105" : ""
+          }`}
         >
           Theaters
         </a>
       </Typography>
-      <Typography as="li" variant="h4" className="p-1 font-light ">
+      <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/news"
-          className={`flex items-center text-white hover:text-purple-100
-              ${currentPage === "News" ? "underline underline-offset-8" : ""}`}
+          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
+            currentPage === "News" ? "brightness-150 scale-105" : ""
+          }`}
         >
           News
         </a>
@@ -161,92 +158,36 @@ export default function NavBar({
 
   return (
     <>
-      <Navbar className="max-w-full relative py-2 px-2 lg:px-36 lg:py-4 rounded-none border-none !bg-[#502A50]">
-        <div className="mx-auto flex flex-wrap items-center justify-between text-white">
-          <div className="w-full flex flex-row justify-between items-center">
-            <div className="flex flex-row">
-              <img
-                src="/ico.png"
-                className="w-11 h-10 mr-1 lg:mr-3 self-center"
-              />
-              {/* <Typography
-              as="a"
-              href="/home"
-              variant="lg:h3"
-              className="mr-4 cursor-pointer py-1.5 font-medium"
-            >
-              Starlight Cinema
-            </Typography> */}
-              <a href="/home">
-                <p className="text-2xl lg:text-3xl mr-4 cursor-pointer py-1.5 font-medium self-center">
-                  Starlight Cinema
-                </p>
-              </a>
-            </div>
-            <div className="hidden lg:block">
-              {login && userInfo ? (
-                <ProfileMenu data={userInfo} />
-              ) : (
-                <div>
-                  <Button
-                    variant="outlined"
-                    className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
-                    onClick={() => setOpenSignUp(!openSignUp)}
-                  >
-                    Sign up
-                  </Button>
-                  <Button
-                    variant="filled"
-                    color="red"
-                    className="text-white bg-[#B44242] text-md rounded-3xl"
-                    onClick={() => setOpenSignIn(true)}
-                  >
-                    Sign in
-                  </Button>
-                </div>
-              )}
-            </div>
+      <Navbar className="max-w-full py-3 px-4 lg:px-36 lg:py-4 rounded-none border-none !bg-[#502A50] shadow-md">
+        <div className="mx-auto flex items-center justify-between text-white">
+          {/* Logo */}
+          <div className="flex items-center">
+            <img
+              src="/ico.png"
+              className="w-10 h-10 mr-3 self-center"
+            />
+            <a href="/home">
+              <p className="text-2xl lg:text-3xl cursor-pointer font-medium text-white">
+                Starlight Cinema
+              </p>
+            </a>
+          </div>
 
-            <IconButton
-              variant="text"
-              className="lg:hidden"
-              onClick={() => setOpenNav(!openNav)}
-            >
-              {openNav ? (
-                <XMarkIcon className="h-10 w-10" stroke="white" strokeWidth={2} />
-              ) : (
-                <Bars3Icon className="h-10 w-10" stroke="white" strokeWidth={2} />
-              )}
-            </IconButton>
-          </div>
-          {/* <div className="hidden lg:flex lg:justify-between w-screen"></div> */}
-          <hr className="mt-3 hidden w-full lg:block lg:invisible" />
-          <div className="hidden items-center justify-between mb-2 w-full gap-x-2 lg:flex">
+          {/* Navigation and Search for Desktop */}
+          <div className="hidden lg:flex items-center justify-center flex-1">
             {navList}
-            <div className="relative flex w-[20%] gap-2 ">
-              <form className="min-w-full" onSubmit={handleSubmit}>
-                <Input
-                  type="search"
-                  placeholder="Search"
-                  size="lg"
-                  onChange={handleChange}
-                  value={searchTerm}
-                  autoComplete="off"
-                  className="border-none !min-w-full after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
-                />
-              </form>
-            </div>
           </div>
-        </div>
-        <Collapse open={openNav}>
-          <div>
-            {navList}
-            <div className="flex flex-row items-center mx-1 mb-4 ">
-              <div className="w-full">
-                <form
-                  className="flex flex-row items-center gap-3"
-                  onSubmit={handleSubmit}
-                >
+
+          {/* Right Section: Search, Profile/Sign in */}
+          <div className="hidden lg:flex items-center gap-4">
+            {/* Search Icon */}
+            <div className="relative flex items-center">
+              <MagnifyingGlassIcon
+                className="h-8 w-8 text-white hover:brightness-150 hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+              />
+              {isSearchOpen && (
+                <form onSubmit={handleSubmit} className="relative ml-2">
                   <Input
                     type="search"
                     placeholder="Search"
@@ -254,33 +195,27 @@ export default function NavBar({
                     onChange={handleChange}
                     value={searchTerm}
                     autoComplete="off"
-                    className="border-none !min-w-full after:border-none before:border-none !rounded-3xl !text-base pl-5 bg-white placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-0"
+                    className={`border-none !w-0 ${isSearchOpen ? '!w-56 opacity-100' : 'opacity-0'} transition-all duration-300 ease-in-out !rounded-full !text-lg px-5 bg-gray-500 placeholder:text-gray-300 placeholder:text-lg placeholder:opacity-100 focus:placeholder-opacity-0 text-white shadow-sm`}
                   />
-                  <Button
-                    color="deep-purple"
-                    className="text-white text-xs rounded-2xl h-11"
-                    onClick={handleSubmit}
-                  >
-                    Search
-                  </Button>
                 </form>
-              </div>
+              )}
             </div>
-            {isLoading ? null : login && userInfo ? (
+
+            {/* Profile or Sign in/Sign up */}
+            {login && userInfo ? (
               <ProfileMenu data={userInfo} />
             ) : (
-              <div className="pb-3">
+              <div className="flex gap-3">
                 <Button
                   variant="outlined"
-                  className="text-white text-md rounded-3xl mr-2 border-white border-[0.8]"
+                  className="text-white text-md rounded-full border-gray-600 hover:border-gray-400 transition-all duration-200 ease-in-out shadow-sm"
                   onClick={() => setOpenSignUp(!openSignUp)}
                 >
                   Sign up
                 </Button>
                 <Button
                   variant="filled"
-                  color="red"
-                  className="text-white bg-[#B44242] text-md rounded-3xl"
+                  className="text-white bg-purple-500 text-md rounded-full hover:bg-purple-600 transition-all duration-200 ease-in-out shadow-sm"
                   onClick={() => setOpenSignIn(true)}
                 >
                   Sign in
@@ -288,7 +223,65 @@ export default function NavBar({
               </div>
             )}
           </div>
+
+          {/* Mobile Menu Button */}
+          <IconButton
+            variant="text"
+            className="lg:hidden"
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-8 w-8" stroke="white" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-8 w-8" stroke="white" strokeWidth={2} />
+            )}
+          </IconButton>
+        </div>
+
+        {/* Mobile Menu Collapse */}
+        <Collapse open={openNav}>
+          <div className="mt-4">
+            {navList}
+            <div className="flex flex-col gap-4 mt-4">
+              <form onSubmit={handleSubmit}>
+                <div className="relative">
+                  <MagnifyingGlassIcon className="absolute right-5 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-200" />
+                  <Input
+                    type="search"
+                    placeholder="Search"
+                    size="lg"
+                    onChange={handleChange}
+                    value={searchTerm}
+                    autoComplete="off"
+                    className="border-none !w-full !rounded-full !text-lg pr-14 bg-gray-500 placeholder:text-gray-300 placeholder:text-lg placeholder:opacity-100 focus:placeholder-opacity-0 text-white shadow-sm"
+                  />
+                </div>
+              </form>
+              {isLoading ? null : login && userInfo ? (
+                <ProfileMenu data={userInfo} />
+              ) : (
+                <div className="flex gap-3">
+                  <Button
+                    variant="outlined"
+                    className="text-white text-md rounded-full border-gray-600 hover:border-gray-400 transition-all duration-200 ease-in-out shadow-sm"
+                    onClick={() => setOpenSignUp(!openSignUp)}
+                  >
+                    Sign up
+                  </Button>
+                  <Button
+                    variant="filled"
+                    className="text-white bg-purple-500 text-md rounded-full hover:bg-purple-600 transition-all duration-200 ease-in-out shadow-sm"
+                    onClick={() => setOpenSignIn(true)}
+                  >
+                    Sign in
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
         </Collapse>
+
+        {/* Sign In/Sign Up/Forgot Password Popups */}
         <SignIn
           openDialog={openSignIn}
           handleOpenDialog={() => {
@@ -315,9 +308,8 @@ export default function NavBar({
             }}
           />
         )}
-
         {openForgotPassword && (
-          <ForgotPassword
+          <ForgottenPassword
             openDialog={openForgotPassword}
             handleOpenDialog={() => {
               setOpenForgotPassword(false);
