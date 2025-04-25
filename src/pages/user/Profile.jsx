@@ -104,8 +104,9 @@ export default function Profile() {
         }
       })
       .catch((error) => console.error("Error:", error))
-      .finally(() => setIsLoading(false)); // Moved here
+      .finally(() => setIsLoading(false));
   }, []);
+
   useEffect(() => {
     console.log("User information:", userInfor);
 
@@ -167,7 +168,7 @@ export default function Profile() {
     postAndTicketContainer:
       "grid place-items-center p-4 lg:p-10 gap-5 lg:gap-10 h-fit",
     likedMoviesContainer:
-      "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 p-4 md:p-6 lg:p-10  2xl:p-20 gap-4 md:gap-6 lg:gap-10 xl:gap-15 2xl:gap-20 h-fit",
+      "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 p-4 md:p-6 lg:p-10 2xl:p-20 gap-4 md:gap-6 lg:gap-10 xl:gap-15 2xl:gap-20 h-fit",
   };
 
   const tabData = [
@@ -222,14 +223,13 @@ export default function Profile() {
       await handleUpdateWithImage(new Event("submit"));
     }
 
-    // Submit form 2 (user info)
     await handleUpdateInfoSubmit(new Event("submit"));
   };
   useEffect(() => {
     if (errorMessage) {
       const timer = setTimeout(() => {
         setErrorMessage("");
-      }, 4000); // 2 giây
+      }, 4000);
 
       return () => clearTimeout(timer);
     }
@@ -313,52 +313,44 @@ export default function Profile() {
     console.log(uploadStatus);
   };
   return (
-    <div className="bg-[#1C1B21] flex flex-col justify-center  text-white">
+    <div className="bg-[#1C1B21] flex flex-col justify-center text-white">
       <NavBar />
       {viewProfile ? (
-        <Dialog open={viewProfile} className=" my-3 bg-white mx-auto gap-5">
-          <DialogHeader className=" p-0 bg-[#502A50] relative h-20 px-5 flex flex-row-reverse">
-            <Tooltip
-              content="Change profile picture"
-              placement="top"
-              className="z-50"
-            >
-              <div className="rounded-full w-24 h-24 absolute left-0 right-0 top-10 mx-auto overflow-hidden">
-                <img
-                  src={
-                    preview ||
-                    (userInfor.user_img
-                      ? userInfor.user_img
-                      : import.meta.env.VITE_DEFAULT_AVATAR)
+        <Dialog open={viewProfile} className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[40%] md:w-[12%] gap-8 rounded-lg shadow-lg transition-all duration-300">
+          <DialogHeader className="p-0 bg-[#4B4A52] relative h-20 px-5 flex flex-row-reverse">
+            <div className="rounded-full w-24 h-24 absolute left-0 right-0 top-10 mx-auto overflow-hidden">
+              <img
+                src={
+                  preview ||
+                  (userInfor.user_img
+                    ? userInfor.user_img
+                    : import.meta.env.VITE_DEFAULT_AVATAR)
+                }
+                alt=""
+                className="absolute w-full h-full object-cover"
+              />
+              <div
+                className="absolute top-0 left-0 right-0 bottom-0 rounded-full grid place-content-center opacity-0 hover:opacity-100 bg-gray-800 bg-opacity-50 cursor-pointer"
+                onClick={() => {
+                  if (fileInputRef.current) {
+                    fileInputRef.current.click();
                   }
-                  alt=""
-                  className="absolute w-full h-full object-cover"
-                />
-
-                <div
-                  className="absolute top-0 left-0 right-0 bottom-0  rounded-full grid place-content-center opacity-0 hover:opacity-100 bg-[white] bg-opacity-10 cursor-pointer"
-                  onClick={() => {
-                    if (fileInputRef.current) {
-                      fileInputRef.current.click();
-                    }
-                  }}
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="white"
+                  className="bi bi-pencil-fill"
+                  viewBox="0 0 16 16"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
-                    fill="currentColor"
-                    className="bi bi-pencil-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                  </svg>
-                </div>
+                  <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                </svg>
               </div>
-            </Tooltip>
-
+            </div>
             <Button
-              className="rounded-full w-10 h-10 grid place-content-center p-0 m-0 hover:bg-[#902A50] bg-[#702A50] "
+              className="rounded-full w-10 h-10 grid place-content-center p-0 m-0 hover:bg-gray-600 bg-gray-500"
               onClick={() => setViewProfile(!viewProfile)}
             >
               <svg
@@ -375,7 +367,7 @@ export default function Profile() {
           </DialogHeader>
 
           <DialogBody className="mt-10 mb-1">
-            <form className="flex flex-col w-[100%] gap-5">
+            <form className="flex flex-col w-[100%] gap-8">
               <input
                 type="file"
                 name="user__img"
@@ -383,9 +375,9 @@ export default function Profile() {
                 onChange={handleFileChange}
                 ref={fileInputRef}
                 className="hidden"
-              ></input>
+              />
               <div>
-                <Typography variant="h5" className="mb-1 font-light">
+                <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
                   Name
                 </Typography>
                 <Input
@@ -393,14 +385,14 @@ export default function Profile() {
                   value={formUserData.name}
                   name="name"
                   onChange={handleFormChange}
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70 text-xl"
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
                 />
               </div>
               <div>
-                <Typography variant="h5" className="mb-1 font-light ">
+                <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
                   Email
                 </Typography>
                 <Input
@@ -409,14 +401,14 @@ export default function Profile() {
                   value={formUserData.gmail}
                   name="gmail"
                   onChange={handleFormChange}
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70 text-xl"
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
                 />
               </div>
               <div>
-                <Typography variant="h5" className="mb-1 font-light">
+                <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
                   Phone number
                 </Typography>
                 <Input
@@ -424,52 +416,61 @@ export default function Profile() {
                   value={formUserData.phone__number}
                   name="phone__number"
                   onChange={handleFormChange}
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-black placeholder:!text-black placeholder:!opacity-70 text-xl"
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
                 />
               </div>
-              <div className="flex gap-10 items-center text-xl">
-                <Typography variant="h5" className="mb-1 font-light">
+              <div className="flex lg:gap-3 lg:flex-row flex-col lg:items-center">
+                <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
                   Gender
                 </Typography>
-                <div className="flex-wrap">
-                  <Radio
-                    name="sex"
-                    label="Male"
-                    onChange={handleFormChange}
-                    value="1"
-                    checked={formUserData.sex == 1}
-                  />
-                  <Radio
-                    name="sex"
-                    label="Female"
-                    onChange={handleFormChange}
-                    value="0"
-                    checked={formUserData.sex == 0}
-                  />
-                </div>
+                <Radio
+                  name="sex"
+                  label="Male"
+                  onChange={handleFormChange}
+                  value="1"
+                  checked={formUserData.sex == 1}
+                  labelProps={{ className: "text-lg text-white" }}
+                />
+                <Radio
+                  name="sex"
+                  label="Female"
+                  onChange={handleFormChange}
+                  value="0"
+                  checked={formUserData.sex == 0}
+                  labelProps={{ className: "text-lg text-white" }}
+                />
               </div>
               <div>
                 {uploadStatus && (
-                  <AlertWithIcon type="positive" message={uploadStatus} />
+                  <AlertWithIcon type="positive" message={uploadStatus} className="animate-fade-in" />
                 )}
                 {errorMessage && (
-                  <AlertWithIcon type="negative" message={errorMessage} />
+                  <AlertWithIcon type="negative" message={errorMessage} className="animate-fade-in" />
                 )}
                 {okMessage && (
-                  <AlertWithIcon type="positive" message={okMessage} />
+                  <AlertWithIcon type="positive" message={okMessage} className="animate-fade-in" />
                 )}
               </div>
-              <Button
-                className="bg-[#502A50]  hover:bg-[#602A50] w-full mb-2"
-                onClick={submit}
-              >
-                <Typography color="gray" className="font-normal text-white">
-                  Update profile
-                </Typography>
-              </Button>
+              <div className="flex flex-row justify-center items-center gap-4">
+                <Button
+                  className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                  onClick={() => setViewProfile(!viewProfile)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                  onClick={submit}
+                  style={{
+                    background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+                  }}
+                >
+                  Update
+                </Button>
+              </div>
             </form>
           </DialogBody>
         </Dialog>
