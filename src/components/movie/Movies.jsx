@@ -12,7 +12,7 @@ export default function Movies() {
   const [isLoading, setIsLoading] = useState(true);
   const nowSRef = useRef(null);
   const upcRef = useRef(null);
-
+  const [shouldScroll,setShouldScroll] = useState(false);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/film/filmShowing`, {
       method: "GET",
@@ -49,12 +49,13 @@ export default function Movies() {
     setTotalPagesNowShowing(
       Math.max(Math.ceil(nowShowing.length / filmsPerCate), 1)
     );
-    if (nowSRef.current) {
+    if (shouldScroll&&nowSRef.current) {
       nowSRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
+    setShouldScroll(false);
   }, [currentPageNowShowing, nowShowing]);
 
   const [currentPageUpcoming, setCurrentPageUpcoming] = useState(1);
@@ -70,12 +71,13 @@ export default function Movies() {
     setTotalPagesUpcoming(
       Math.max(Math.ceil(upcomings.length / filmsPerCate), 1)
     );
-    if (upcRef.current) {
+    if (shouldScroll&&upcRef.current) {
       upcRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
+    setShouldScroll(false);
   }, [currentPageUpcoming, upcomings]);
 
   const navigate = useNavigate();
@@ -141,6 +143,7 @@ export default function Movies() {
                 currentPage={currentPageNowShowing}
                 handleChange={(value) => {
                   setCurrentPageNowShowing(value);
+                  setShouldScroll(true);
                   // Remove the scroll from here, as it's now in the useEffect
                 }}
               />
@@ -188,6 +191,7 @@ export default function Movies() {
                 currentPage={currentPageUpcoming}
                 handleChange={(value) => {
                   setCurrentPageUpcoming(value);
+                  setShouldScroll(true);
                 }}
               />
             </div>
