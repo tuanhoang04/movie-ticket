@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -11,6 +11,7 @@ export default function MoviesFilterPage() {
     country: "",
     categoryId: "",
   });
+  const begin = useRef(null);
   const [data, setData] = useState([]);
   const [statusLabel, setStatusLabel] = useState("All movies");
   const [genreLabel, setGenreLabel] = useState("All genres");
@@ -24,6 +25,9 @@ export default function MoviesFilterPage() {
     const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
     setCurrentMovies(data.slice(indexOfFirstFilm, indexOfLastFilm));
     setTotalPages(Math.max(Math.ceil(data.length / filmsPerPage), 1));
+    if(begin.current){
+      begin.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }, [currentPage, data]);
   const handleSubmit = async () => {
     try {
@@ -115,7 +119,10 @@ export default function MoviesFilterPage() {
     <div className="flex flex-col flex-grow min-h-screen bg-[#1C1B21]">
       <NavBar currentPage={"Movies"} />
 
-      <div className="flex flex-col gap-3 md:gap-4 flex-grow p-4 md:p-8 lg:px-12 xl:px-20 2xl:px-32">
+      <div
+        ref={begin}
+        className="flex flex-col gap-3 md:gap-4 flex-grow p-4 md:p-8 lg:px-12 xl:px-20 2xl:px-32"
+      >
         {/* Filter controls - responsive layout */}
         <div className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:gap-4">
           <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">
