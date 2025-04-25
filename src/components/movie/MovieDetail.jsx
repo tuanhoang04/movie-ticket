@@ -261,7 +261,7 @@ export default function MovieDetail() {
                     .map((item) => item.category_name)
                     .join(", ")}
                 </p>
-                <p className="text-white text-xl lg:text-2xl lg:leading-8 leading-[1.25] pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
+                <p className="text-white text-xl lg:text-2xl lg:leading-9 leading-[1.25] pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
                   {data.info.film[0].film_describe}
                 </p>
                 <div className="flex flex-row flex-wrap gap-1">
