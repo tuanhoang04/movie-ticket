@@ -59,15 +59,18 @@ export default function MoviesFilterPage() {
 
   const handleStatusChange = (currStatus) => {
     setFormData({ ...formData, filmType: allStatus[currStatus] });
+    setCurrentPage(1);
     setStatusLabel(currStatus);
   };
 
   const handleGenreChange = (currGenre) => {
     setFormData({ ...formData, categoryId: allGenres[currGenre] });
+    setCurrentPage(1);
     setGenreLabel(currGenre);
   };
   const handleCountryChange = (currCountry) => {
     setFormData({ ...formData, country: allCountries[currCountry] });
+    setCurrentPage(1);
     setCountryLabel(currCountry);
   };
 
