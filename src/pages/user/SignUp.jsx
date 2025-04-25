@@ -29,7 +29,7 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
   const [errorMessage, setErrorMessage] = useState("");
   const [okMessage, setOkMessage] = useState("");
   const navigate = useNavigate();
-  // Hàm cập nhật dữ liệu trong form
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -37,10 +37,8 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
     });
   };
 
-  // Hàm xử lý submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('Thông tin form:', formData)
 
     if (formData.password !== formData.rePassword) {
       setErrorMessage("Password and re-entered password do not match!");
@@ -60,10 +58,7 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
       );
 
       if (response.ok) {
-        // Xử lý thành công
         const data = await response.json();
-
-        // Kiểm tra success
         if (data.success) {
           setErrorMessage(null);
           console.log("Sign up successfully:", data.message);
@@ -91,20 +86,23 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 my-3 bg-[#58565f] mx-auto w-[90%] lg:h-fit h-[70%] gap-2 overflow-auto"
+      
+      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[40%] md:w-[12%] gap-6 rounded-lg shadow-lg transition-all duration-300 max-h-[80vh] overflow-y-auto"
     >
-      <DialogHeader className="text-white pb-1">Create an account</DialogHeader>
+      <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
+        Create an account
+      </DialogHeader>
 
-      {errorMessage && <AlertWithIcon type="negative" message={errorMessage} />}
-      {okMessage && <AlertWithIcon type="positive" message={okMessage} />}
+      {errorMessage && <AlertWithIcon type="negative" message={errorMessage} className="animate-fade-in" />}
+      {okMessage && <AlertWithIcon type="positive" message={okMessage} className="animate-fade-in" />}
 
-      <DialogBody className="px-2">
+      <DialogBody className="mt-4 mb-1">
         <form
-          className="mt-1 mb-2 min-w-[100%] max-w-screen-lg"
+          className="flex flex-col w-[100%] gap-8"
           onSubmit={handleSubmit}
         >
-          <div className="mb-1 flex flex-col gap-2">
-            <Typography variant="h5" color="white" className="font-light">
+          <div>
+            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
               Name
             </Typography>
             <Input
@@ -112,12 +110,14 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
               placeholder="Enter your full name"
               name="name"
               onChange={handleChange}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
-            <Typography variant="h5" color="white" className=" font-light">
+          </div>
+          <div>
+            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
               Username
             </Typography>
             <Input
@@ -125,12 +125,14 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
               placeholder="Enter your username"
               name="user__name"
               onChange={handleChange}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
-            <Typography variant="h5" color="white" className="font-light">
+          </div>
+          <div>
+            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
               Email
             </Typography>
             <Input
@@ -138,25 +140,29 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
               placeholder="Enter your email address"
               name="gmail"
               onChange={handleChange}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
-            <Typography variant="h5" color="white" className="font-light">
+          </div>
+          <div>
+            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
               Phone Number
             </Typography>
             <Input
               size="lg"
               placeholder="Enter your phone number"
-              name="phone__number"
+              name="phone__name"
               onChange={handleChange}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
-            <Typography variant="h5" color="white" className="font-light">
+          </div>
+          <div>
+            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
               Date of birth
             </Typography>
             <Input
@@ -164,28 +170,30 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
               type="date"
               name="birthday"
               onChange={handleChange}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
             />
-            <div className="flex lg:gap-3 lg:flex-row flex-col lg:items-center">
-              <Typography variant="h5" color="white" className="font-light">
-                Gender
-              </Typography>
-              <Radio
-                name="sex"
-                onChange={handleChange}
-                labelProps={{ className: "text-xl text-white" }}
-                label="Male"
-                value="male"
-              />
-              <Radio
-                name="sex"
-                onChange={handleChange}
-                labelProps={{ className: "text-xl text-white" }}
-                label="Female"
-                value="female"
-              />
-            </div>
-            <Typography variant="h5" color="white" className="font-light">
+          </div>
+          <div className="flex lg:gap-3 lg:flex-row flex-col lg:items-center">
+            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
+              Gender
+            </Typography>
+            <Radio
+              name="sex"
+              onChange={handleChange}
+              labelProps={{ className: "text-lg text-white" }}
+              label="Male"
+              value="male"
+            />
+            <Radio
+              name="sex"
+              onChange={handleChange}
+              labelProps={{ className: "text-lg text-white" }}
+              label="Female"
+              value="female"
+            />
+          </div>
+          <div>
+            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
               Password
             </Typography>
             <Input
@@ -194,48 +202,58 @@ export default function SignUp({ openDialog, handleOpenDialog, handleOpenSignIn 
               placeholder="Enter your password"
               name="password"
               onChange={handleChange}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
+          </div>
+          <div>
+            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
+              Confirm Password
+            </Typography>
             <Input
               type="password"
               size="lg"
               placeholder="Confirm your password"
               name="rePassword"
               onChange={handleChange}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
           </div>
-          <div className="w-full flex flex-row justify-center">
+          <div className="flex flex-row justify-center items-center gap-4">
             <Button
               type="submit"
-              className="mt-2 mr-3 !bg-gray-800"
-              color="black"
+              className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
               onClick={() => {
                 handleOpenDialog();
                 setOkMessage("");
                 setErrorMessage("");
               }}
             >
-              cancel
+              Cancel
             </Button>
-            <Button type="submit" className="mt-2 !bg-[#502A50]" color="purple">
-              sign up
+            <Button
+              type="submit"
+              className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+              style={{
+                background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+              }}
+            >
+              Sign Up
             </Button>
           </div>
         </form>
       </DialogBody>
-      <DialogFooter className="flex-col items-center pt-0">
-        <Typography color="gray" className="text-center text-white font-normal">
+      <DialogFooter className="flex-col items-center pt-3">
+        <Typography color="gray" className="text-gray-200 font-normal text-lg">
           Already have an account?{" "}
           <a
             onClick={handleOpenSignIn}
-            className="font-medium text-green-300 hover:underline hover:underline-offset-2 cursor-pointer"
+            className="text-[#3B82F6] hover:underline cursor-pointer"
           >
             Sign In
           </a>
