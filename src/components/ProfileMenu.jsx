@@ -131,7 +131,7 @@ export function ProfileMenu({ data }) {
         <DialogHeader className="text-white pb-3 text-2xl md:text-3xl font-semibold text-center flex justify-center">
           Sign out confirmation
         </DialogHeader>
-        <DialogBody className="text-xl text-white py-2 text-center">
+        <DialogBody className="text-lg md:text-xl text-white py-2 text-center">
           Are you sure you want to sign out?
         </DialogBody>
         <DialogFooter className="flex justify-center gap-9">
