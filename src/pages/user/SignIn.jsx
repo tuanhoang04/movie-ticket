@@ -15,7 +15,12 @@ import {
 } from "@material-tailwind/react";
 import AlertWithIcon from "../../components/Alert";
 
-export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp, handleOpenForgotPassword}) {
+export default function SignIn({
+  openDialog,
+  handleOpenDialog,
+  handleOpenSignUp,
+  handleOpenForgotPassword,
+}) {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [okMessage, setOkMessage] = useState("");
@@ -53,7 +58,7 @@ export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp, 
           setOkMessage(`Sign in successfully: ${data.message}`);
           setErrorMessage(null);
           localStorage.setItem("jwt", data.jwt);
-          localStorage.setItem("role", data.message==="user"?'0':'1');
+          localStorage.setItem("role", data.message === "user" ? "0" : "1");
           // Ẩn alert sau 1 giây
           setTimeout(() => {
             setOkMessage("");
@@ -84,17 +89,34 @@ export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp, 
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[40%] md:w-[12%] gap-6 rounded-lg shadow-lg transition-all duration-300"
+      size="sm"
+      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto gap-6 rounded-lg shadow-lg transition-all duration-300"
     >
       <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
         Sign In
       </DialogHeader>
-      {errorMessage && <AlertWithIcon type="negative" message={errorMessage} className="animate-fade-in" />}
-      {okMessage && <AlertWithIcon type="positive" message={okMessage} className="animate-fade-in" />}
-      <DialogBody className="mt-4 mb-2">
+      {errorMessage && (
+        <AlertWithIcon
+          type="negative"
+          message={errorMessage}
+          className="animate-fade-in"
+        />
+      )}
+      {okMessage && (
+        <AlertWithIcon
+          type="positive"
+          message={okMessage}
+          className="animate-fade-in"
+        />
+      )}
+      <DialogBody className="mt-4">
         <form onSubmit={handleSubmit} className="flex flex-col w-[100%] gap-8">
           <div>
-            <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
+            <Typography
+              variant="h5"
+              color="white"
+              className="mb-2 font-light text-xl text-white"
+            >
               Username
             </Typography>
             <Input
@@ -117,7 +139,10 @@ export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp, 
               >
                 Password
               </Typography>
-              <Typography onClick={handleOpenForgotPassword} className="text-[#3B82F6] lg:text-lg text-sm font-normal mb-2 cursor-pointer hover:underline">
+              <Typography
+                onClick={handleOpenForgotPassword}
+                className="text-[#3B82F6] lg:text-lg text-sm font-normal mb-2 cursor-pointer hover:underline"
+              >
                 Forgot your password?
               </Typography>
             </div>
@@ -144,16 +169,22 @@ export default function SignIn({openDialog, handleOpenDialog, handleOpenSignUp, 
             <Button
               type="submit"
               className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
-              style={{ background: 'linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)' }}
+              style={{
+                background:
+                  "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+              }}
             >
               Sign In
             </Button>
           </div>
         </form>
       </DialogBody>
-      <DialogFooter className="flex-col items-center pt-3">
+      <DialogFooter className="flex-col items-center !pt-1">
         <div>
-          <Typography color="gray" className="text-gray-200 font-normal text-lg">
+          <Typography
+            color="gray"
+            className="text-gray-200 font-normal text-lg"
+          >
             Don’t have an account?{" "}
             <a
               className="text-[#3B82F6] hover:underline cursor-pointer"
