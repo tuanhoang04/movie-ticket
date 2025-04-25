@@ -17,7 +17,7 @@ import MovieCard from "../components/movie/MovieCard";
 const theaterImgStyle = "rounded-full w-[40px] h-[40px]";
 export default function TheatersAndMovies() {
   const [nowShowing, setNowShowing] = useState([]);
-  const filmsPerCate = 8;
+  const filmsPerCate = 10;
   const [isLoading, setIsLoading] = useState(true);
   const [shouldScroll, setShouldScroll] = useState(false);
   const begin = useRef(null);
@@ -216,27 +216,18 @@ export default function TheatersAndMovies() {
                   Buy Ticket by Movies
                 </p>
               </div>
-              <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
+              <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
                 {currentNowShowings.map((item) => (
-                  <div
-                    className="mb-6 lg:w-[18.25%] w-[49%]"
-                    key={item.film_id}
-                  >
+                  <div className="mb-7 lg:w-[17%] w-[49%]" key={item.film_id}>
                     <MovieCard data={item} />
                   </div>
                 ))}
               </div>
-              {currentNowShowings.length <= 4 && (
-                <div className="lg:block hidden mb-6 lg:w-[18.25%] w-[49%]">
+              {currentNowShowings.length <= 5 && (
+                <div className="lg:block hidden mb-7 lg:w-[17%] w-[49%]">
                   <div className="flex flex-col justify-start rounded-md p-4">
                     <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-3" />
                     <div className="invisible">
-                      <p className="text-[#5D6A81] lg:text-xl text-lg w-full mb-1">
-                        &nbsp;
-                      </p>
-                      <p className="text-white lg:text-xl text-lg font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] h-[3.55rem]">
-                        &nbsp;
-                      </p>
                     </div>
                   </div>
                 </div>

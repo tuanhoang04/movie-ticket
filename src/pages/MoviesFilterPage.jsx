@@ -178,10 +178,10 @@ export default function MoviesFilterPage() {
 
         {/* Movie grid - responsive layout */}
         {currentMovies && currentMovies.length > 0 && (
-          <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
+          <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
             {currentMovies.map((item) => {
               return (
-                <div className="mb-6 lg:w-[18.25%] w-[49%]" key={item.film_id}>
+                <div className="mb-7 lg:w-[17%] w-[49%]" key={item.film_id}>
                   <MovieCard data={item} />
                 </div>
               );

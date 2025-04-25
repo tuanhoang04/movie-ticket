@@ -1,15 +1,21 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export default function FirstScreen() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Static Background Image */}
+      {/* Background Image with better quality settings */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
+        className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url('https://i.pinimg.com/736x/f0/0e/f4/f00ef4ef28062a3ffe32c80cfa039c86.jpg')`,
+          backgroundImage: `url('/bg.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          imageRendering: "crisp-edges",
+          transform: "translateZ(0)", // Force hardware acceleration
         }}
       />
+
       {/* Gradient Overlay for Readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/60 z-0"></div>
 
@@ -37,13 +43,21 @@ export default function FirstScreen() {
           Experience the magic of cinema—book your tickets in seconds
         </motion.p>
         <motion.button
-          className="mt-8 bg-[#FF4D4D] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium flex items-center gap-2 mx-auto hover:bg-[#E64444] hover:scale-105 hover:shadow-[0_0_20px_rgba(255,77,77,0.5)] transition-all duration-300"
-          onClick={() => (window.location = "/home")}
+          className="mt-8 bg-[#FF4D4D] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium flex items-center gap-2 mx-auto hover:bg-[#E64444] hover:scale-105 hover:shadow-lg transition-all duration-300"
+          onClick={() => (window.location.href = "/home")}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.7 }}
+          whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 20px rgba(255, 77, 77, 0.5)",
+          }}
         >
-          <img src="/icons/star.png" className="h-5 w-auto sm:h-6" />
+          <img
+            src="/icons/star.png"
+            className="h-5 w-auto sm:h-6"
+            alt="Star icon"
+          />
           Explore Now
         </motion.button>
       </motion.div>

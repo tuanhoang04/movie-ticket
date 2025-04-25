@@ -14,7 +14,7 @@ export default function MovieCard({ data }) {
 
   return (
     <div
-      className="flex flex-col justify-start hover:cursor-pointer hover:outline outline-gray-600 rounded-md p-2 lg:p-4"
+      className="relative w-full h-full rounded-2xl overflow-hidden cursor-pointer group"
       onClick={() =>
         handleNavigate(
           encodeURIComponent(createSlug(data.film_name)),
@@ -24,14 +24,22 @@ export default function MovieCard({ data }) {
     >
       <img
         src={data.film_img}
-        className="rounded-2xl object-cover w-full mb-3"
+        alt={data.film_name}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
       />
-      <p className="text-[#5D6A81] lg:text-xl text-lg w-full mb-1">
-        {data.Release_date.substring(0, 10)}
-      </p>
-      <p className="text-white lg:text-xl text-lg font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] h-[3.55rem]">
-        {data.film_name}
-      </p>
+
+      {/* Bottom blur overlay */}
+      <div className="absolute bottom-0 w-full h-40 bg-gradient-to-t from-black/100 to-transparent pointer-events-none"></div>
+
+      {/* Text content */}
+      <div className="absolute flex flex-col items-center bottom-4 left-4 right-4 text-white z-10">
+        <p className="lg:text-xl text-lg font-bold overflow-hidden text-ellipsis text-center w-full whitespace-nowrap">
+          {data.film_name}
+        </p>
+        <p className="lg:text-xl text-lg text-gray-300">
+          {data.Release_date.substring(0, 10).split("-").reverse().join("/")}
+        </p>
+      </div>
     </div>
   );
 }

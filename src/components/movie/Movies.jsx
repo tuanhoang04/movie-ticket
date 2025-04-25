@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function Movies() {
   const [nowShowing, setNowShowing] = useState([]);
   const [upcomings, setUpcomings] = useState([]);
-  const filmsPerCate = 8;
+  const filmsPerCate = 10;
   const [isLoading, setIsLoading] = useState(true);
   const nowSRef = useRef(null);
   const upcRef = useRef(null);
@@ -113,25 +113,18 @@ export default function Movies() {
               <img src="/icons/red-dot.png" className="w-9 h-9" />
               <p className="text-white text-3xl">Now Showing</p>
             </div>
-            <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
+            <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
               {currentNowShowings.map((item) => (
-                <div className="mb-6 lg:w-[18.25%] w-[49%]" key={item.film_id}>
+                <div className="mb-10 lg:w-[17%] w-[49%]" key={item.film_id}>
                   <MovieCard data={item} />
                 </div>
               ))}
             </div>
-            {currentNowShowings.length <= 4 && (
-              <div className="hidden lg:block mb-6 lg:w-[18.25%] w-[49%]">
+            {currentNowShowings.length <= 5 && (
+              <div className="hidden lg:block mb-10 lg:w-[17%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
                   <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
-                  <div className="invisible">
-                    <p className="text-[#5D6A81] lg:text-xl text-lg w-full">
-                      &nbsp;
-                    </p>
-                    <p className="text-white lg:text-xl text-lg font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] h-[3.55rem]">
-                      &nbsp;
-                    </p>
-                  </div>
+                  <div className="invisible"></div>
                 </div>
               </div>
             )}
@@ -157,20 +150,17 @@ export default function Movies() {
               <img src="/icons/red-dot.png" className="w-9 h-9" />
               <p className="text-white text-3xl">Upcoming Movies</p>
             </div>
-            <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
+            <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
               {currentUpcomings.map((item) => {
                 return (
-                  <div
-                    className="mb-6 lg:w-[18.25%] w-[49%]"
-                    key={item.film_id}
-                  >
+                  <div className="mb-10 lg:w-[17%] w-[49%]" key={item.film_id}>
                     <MovieCard data={item} />
                   </div>
                 );
               })}
             </div>
-            {currentUpcomings.length <= 4 && (
-              <div className="mb-6 lg:w-[18.25%] w-[49%]">
+            {currentUpcomings.length <= 5 && (
+              <div className="mb-10 lg:w-[17%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
                   <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
                   <div className="invisible">
