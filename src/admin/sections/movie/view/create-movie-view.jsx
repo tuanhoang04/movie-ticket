@@ -20,6 +20,7 @@ import axios from "axios";
 export function CreateMovieView() {
   const [directorList, setDirectorList] = useState([]);
   const [actorList, setActorList] = useState([]);
+  const [preview, setPreview] = useState(null);
 
   const [formData, setFormData] = useState({
     film_name: "",
@@ -128,8 +129,14 @@ export function CreateMovieView() {
     const file = event.target.files[0];
     if (file) {
       setFormData((prev) => ({ ...prev, film_img: file }));
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
+
   const handleImg = async () => {
     if (!formData.film_img) {
       alert("Please select an image file to upload.");
@@ -157,7 +164,6 @@ export function CreateMovieView() {
       );
 
       if (response.data.success) {
-        window.alert("success upload");
         // setUploadStatus("Upload successful!");
         console.log("URL ảnh:", response.data.message.url);
       } else {
@@ -312,7 +318,7 @@ export function CreateMovieView() {
                 >
                   {formData.film_img ? (
                     <img
-                      src={formData.film_img}
+                      src={preview}
                       alt="Movie Poster"
                       style={{
                         width: "100%",
