@@ -52,7 +52,6 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
 
         if (response.ok) {
           const data = await response.json();
-          // console.log(data);
           if (data.message === "User not logged in") {
             setErrorMessage("You must sign in to continue!");
             handleOpenSignIn();
@@ -76,8 +75,8 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
   };
 
   return (
-    <div className="bg-[#606060] my-5 lg:p-8 p-4 rounded-2xl w-full self-start flex flex-col">
-      <p className="text-white text-2xl mb-1">
+    <div className="bg-[#606060] my-6 lg:p-6 p-4 rounded-xl w-full self-start flex flex-col shadow-lg border border-[#707070]">
+      <p className="text-white text-xl mb-4 font-semibold tracking-tight">
         Share your experience watching this movie
       </p>
       {okMessage && <AlertWithIcon type={"positive"} message={okMessage} />}
@@ -90,7 +89,7 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
         }}
         unratedColor="white"
         ratedColor="yellow"
-        className="[&>span>svg]:w-9 [&>span>svg]:h-9 [&>span>svg]:transition-all mb-2"
+        className="[&>span>svg]:w-8 [&>span>svg]:h-8 [&>span>svg]:transition-all [&>span>svg]:hover:scale-110 mb-4"
       />
       <Textarea
         placeholder="Add your comment..."
@@ -99,20 +98,20 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
         }}
         size="lg"
         rows={5}
-        className="border-none after:border-none before:border-none !rounded-xl !text-lg bg-white placeholder:text-black placeholder:text-lg placeholder:opacity-100 focus:placeholder-opacity-0 mb-2"
+        className="border-none after:border-none before:border-none !rounded-lg !text-base bg-white text-black placeholder:text-black placeholder:text-base placeholder:opacity-100 focus:placeholder-opacity-50 focus:ring-2 focus:ring-[#b152b1] mb-4 transition-all"
       />
 
-      <div className="self-end">
+      <div className="self-end flex gap-3">
         <Button
           variant="text"
           onClick={handleOpen}
-          className="text-white text-base w-auto mr-3"
+          className="text-white text-sm w-auto hover:text-gray-300 transition-colors"
         >
           Cancel
         </Button>
         <Button
           color="purple"
-          className="text-white bg-[#b152b1] text-base w-auto"
+          className="text-white bg-gradient-to-r from-[#b152b1] to-[#d67ed6] text-sm w-auto px-4 py-2 rounded-lg hover:from-[#9f46a0] hover:to-[#c571c5] transition-all shadow-md"
           onClick={handleSubmit}
         >
           Submit
