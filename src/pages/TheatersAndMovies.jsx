@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CircularPagination } from "../components/CircularPagination";
 import {
   Button,
@@ -19,7 +19,8 @@ export default function TheatersAndMovies() {
   const [nowShowing, setNowShowing] = useState([]);
   const filmsPerCate = 8;
   const [isLoading, setIsLoading] = useState(true);
-
+  const [shouldScroll, setShouldScroll] = useState(false);
+  const begin = useRef(null);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/film/filmShowing`, {
       method: "GET",
@@ -54,6 +55,13 @@ export default function TheatersAndMovies() {
     setTotalPagesNowShowing(
       Math.max(Math.ceil(nowShowing.length / filmsPerCate), 1)
     );
+    if (shouldScroll&&begin.current) {
+      begin.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+    setShouldScroll(false);
   }, [currentPageNowShowing, nowShowing]);
 
   const navigate = useNavigate();
@@ -204,7 +212,7 @@ export default function TheatersAndMovies() {
           {!isLoading && (
             <div className="flex flex-col mt-6 mb-16">
               <div className="flex items-center justify-center">
-                <p className="text-white text-2xl md:text-4xl mb-5">
+                <p ref={begin} className="text-white text-2xl md:text-4xl mb-5">
                   Buy Ticket by Movies
                 </p>
               </div>
@@ -219,7 +227,7 @@ export default function TheatersAndMovies() {
                 ))}
               </div>
               {currentNowShowings.length <= 4 && (
-                <div className="mb-6 lg:w-[18.25%] w-[49%]">
+                <div className="lg:block hidden mb-6 lg:w-[18.25%] w-[49%]">
                   <div className="flex flex-col justify-start rounded-md p-4">
                     <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-3" />
                     <div className="invisible">
@@ -241,6 +249,7 @@ export default function TheatersAndMovies() {
                   currentPage={currentPageNowShowing}
                   handleChange={(value) => {
                     setCurrentPageNowShowing(value);
+                    setShouldScroll(true);
                   }}
                 />
               </div>
