@@ -236,7 +236,7 @@ export default function MovieDetail() {
       <div className="flex-grow p-4 md:p-6 lg:px-12 xl:px-20 2xl:px-32 flex flex-col">
         {data && (
           <div className="bg-[#323137] w-full h-full py-4 sm:py-5 md:py-8 px-4 sm:px-5 md:px-9 flex-grow rounded-xl md:rounded-3xl">
-            <div className="flex flex-col lg:grid lg:grid-cols-12 gap-5">
+            <div className="flex flex-col lg:grid lg:grid-cols-12 lg:gap-8 gap-4">
               <div className="w-full lg:col-span-2">
                 <img
                   src={data.info.film[0].film_img}
@@ -261,7 +261,7 @@ export default function MovieDetail() {
                     .map((item) => item.category_name)
                     .join(", ")}
                 </p>
-                <p className="text-white text-xl lg:text-2xl lg:leading-9 leading-[1.25] pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
+                <p className="text-white text-xl lg:leading-7 leading-[1.25] pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
                   {data.info.film[0].film_describe}
                 </p>
                 <div className="flex flex-row flex-wrap gap-1">
@@ -379,7 +379,7 @@ export default function MovieDetail() {
 
         {/* Ratings Section */}
         {data && (
-          <div className="bg-[#323137] w-full h-full py-4 sm:py-5 md:py-8 px-4 sm:px-5 md:px-9 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
+          <div className="bg-[#323137] w-full h-full py-4 sm:py-5 md:py-8 px-4 sm:px-5 md:px-9 flex-grow md:mt-6 mb-4 rounded-xl md:rounded-3xl">
             <div className="flex flex-col">
               <p className="text-white text-2xl md:text-3xl lg:text-4xl font-bold pb-3">
                 Ratings
@@ -450,7 +450,7 @@ export default function MovieDetail() {
                 <Button
                   color="purple"
                   onClick={() => setOpenRatingForm(!openRatingForm)}
-                  className="!bg-[#773e77] text-sm sm:text-base my-5 self-start w-auto"
+                  className="!bg-[#773e77] text-xs sm:text-base my-5 self-start w-auto p-3"
                 >
                   Leave a rating
                 </Button>

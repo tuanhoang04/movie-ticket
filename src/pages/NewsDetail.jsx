@@ -114,7 +114,7 @@ export default function NewsDetail() {
         </div>
         <div id="side" className=" md:w-1/3 lg:w-1/4">
           <div className="flex flex-col gap-4 mb-20">
-            <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5 flex items-center gap-5">
+            <div className="text-2xl lg:text-4xl py-4 mb-5 flex items-center gap-5">
               <p>Related news</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

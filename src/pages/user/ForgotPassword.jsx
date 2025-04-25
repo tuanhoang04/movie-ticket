@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import AlertWithIcon from "../../components/Alert";
+
 export default function ForgotPassword({ openDialog, handleOpenDialog }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [okMessage, setOkMessage] = useState("");
@@ -26,7 +27,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
   });
 
   const handleChangeToken = (e) => {
-    setNewToken({...newToken, token: e.target.value});
+    setNewToken({ ...newToken, token: e.target.value });
   };
 
   const handleChangeRePassword = (e) => {
@@ -36,7 +37,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
     setPasswordObj({ ...passwordObj, password: e.target.value });
   };
   const handleChangeEmail = (e) => {
-    setEmailAddress({...emailAddress, gmail: e.target.value });
+    setEmailAddress({ ...emailAddress, gmail: e.target.value });
   };
   const handleSubmitEmail = async (e) => {
     e.preventDefault();
@@ -57,13 +58,14 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
         const data = await response.json();
         if (data.success) {
           console.log("thanh cong roi");
+          setErrorMessage("");
           setOkMessage(`${data.message}`);
           setTimeout(() => {
             setStep(2);
           }, 1000);
         } else {
-          // Đảm bảo rằng bạn đang sử dụng message đúng
           const errorAlert = `Gửi mã xác thực thất bại: ${data.message}`;
+          setOkMessage("");
           setErrorMessage(errorAlert);
         }
       } else {
@@ -104,6 +106,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
             setStep(3);
           }, 1000);
         } else {
+          setOkMessage("");
           setErrorMessage(`Code is incorrect!`);
         }
       } else {
@@ -140,6 +143,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
             window.location.reload();
           }, 1000);
         } else {
+          setOkMessage("");
           setErrorMessage(`Đặt mật khẩu mới thất bại: ${data.message}`);
         }
       } else {
@@ -154,21 +158,24 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 py-4 my-3 bg-[#58565f] mx-auto w-[90%] md:w-[30%] gap-5"
+      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[40%] md:w-[12%] gap-6 rounded-lg shadow-lg transition-all duration-300"
     >
-      <DialogHeader className="text-white pb-0">
-        Change your password
+      <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
+        Change Your Password
       </DialogHeader>
-      {errorMessage && <AlertWithIcon type="negative" message={errorMessage} />}
-      {okMessage && <AlertWithIcon type="positive" message={okMessage} />}
-      <DialogBody className="mt-3 mb-1">
+      {errorMessage && <AlertWithIcon type="negative" message={errorMessage} className="animate-fade-in" />}
+      {okMessage && <AlertWithIcon type="positive" message={okMessage} className="animate-fade-in" />}
+      <DialogBody className="mt-4 mb-1">
         {step === 1 && (
-          <form className="flex flex-col w-[100%] gap-5">
+          <form
+            onSubmit={handleSubmitEmail}
+            className="flex flex-col w-[100%] gap-8"
+          >
             <div>
               <Typography
                 variant="h5"
                 color="white"
-                className="mb-1 font-light"
+                className="mb-2 font-light text-xl text-white"
               >
                 Email
               </Typography>
@@ -177,16 +184,15 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                 placeholder="Enter your email address"
                 type="mail"
                 onChange={(txt) => handleChangeEmail(txt)}
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               />
             </div>
-            <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-row justify-center items-center gap-4">
               <Button
-                className="mr-3 !bg-gray-800"
-                color="black"
+                className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 onClick={() => {
                   handleOpenDialog();
                   setOkMessage("");
@@ -197,28 +203,34 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                   setStep(1);
                 }}
               >
-                cancel
+                Cancel
               </Button>
               <Button
                 onClick={handleSubmitEmail}
-                className="w-fit !bg-[#502A50]"
-                color="purple"
+                className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                type="submit"
+                style={{
+                  background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+                }}
               >
-                submit
+                Submit
               </Button>
             </div>
           </form>
         )}
 
         {step === 2 && (
-          <form className="flex flex-col w-[100%] gap-5">
+          <form
+            onSubmit={handleEmailAndTokenSubmit}
+            className="flex flex-col w-[100%] gap-8"
+          >
             <div>
               <Typography
                 variant="h5"
                 color="white"
-                className="mb-1 font-light"
+                className="mb-2 font-light text-xl text-white"
               >
-                Password reset code
+                Password Reset Code
               </Typography>
               <Input
                 size="lg"
@@ -227,16 +239,16 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                 onChange={(txt) => {
                   handleChangeToken(txt);
                 }}
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               />
             </div>
-            <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-row justify-center items-center gap-4">
               <Button
-                className="mr-3 !bg-gray-800"
-                color="black"
+                className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                type="submit"
                 onClick={() => {
                   handleOpenDialog();
                   setOkMessage("");
@@ -247,28 +259,33 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                   setStep(1);
                 }}
               >
-                cancel
+                Cancel
               </Button>
               <Button
                 onClick={handleEmailAndTokenSubmit}
-                className="w-fit !bg-[#502A50]"
-                color="purple"
+                className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                style={{
+                  background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+                }}
               >
-                submit
+                Submit
               </Button>
             </div>
           </form>
         )}
 
         {step === 3 && (
-          <form className="flex flex-col w-[100%] gap-8">
+          <form
+            onSubmit={handleChangePasswordByTokenSubmit}
+            className="flex flex-col w-[100%] gap-8"
+          >
             <div>
               <Typography
                 variant="h5"
                 color="white"
-                className="mb-1 font-light"
+                className="mb-2 font-light text-xl text-white"
               >
-                Your new password
+                Your New Password
               </Typography>
               <Input
                 type="password"
@@ -276,7 +293,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                 placeholder="Enter your new password"
                 name="password"
                 onChange={handleChangePassword}
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
@@ -284,9 +301,9 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
               <Typography
                 variant="h5"
                 color="white"
-                className="mb-1 font-light mt-3"
+                className="mb-2 font-light text-xl text-white mt-4"
               >
-                Re-enter your new password
+                Re-enter Your New Password
               </Typography>
               <Input
                 type="password"
@@ -294,16 +311,15 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                 placeholder="Re-enter your new password"
                 name="password"
                 onChange={handleChangeRePassword}
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-white placeholder:!opacity-70"
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               />
             </div>
-            <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-row justify-center items-center gap-4">
               <Button
-                className="mr-3 !bg-gray-800"
-                color="black"
+                className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 onClick={() => {
                   handleOpenDialog();
                   setOkMessage("");
@@ -314,14 +330,17 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                   setStep(1);
                 }}
               >
-                cancel
+                Cancel
               </Button>
               <Button
                 onClick={handleChangePasswordByTokenSubmit}
-                className="w-fit !bg-[#502A50]"
-                color="purple"
+                type="submit"
+                className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                style={{
+                  background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+                }}
               >
-                Change your password
+                Change Password
               </Button>
             </div>
           </form>
