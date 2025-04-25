@@ -106,8 +106,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/home"
-          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
-            currentPage === "Home" ? "brightness-150 scale-105" : ""
+          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "Home" ? "underline underline-offset-[8px]" : ""
           }`}
         >
           Home
@@ -116,8 +116,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/movie/filter"
-          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
-            currentPage === "Movies" ? "brightness-150 scale-105" : ""
+          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "Movies" ? "underline underline-offset-[8px]" : ""
           }`}
         >
           Movies
@@ -126,8 +126,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/theater-movie"
-          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
-            currentPage === "Buy Ticket" ? "brightness-150 scale-105" : ""
+          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "Buy Ticket" ? "underline underline-offset-[8px]" : ""
           }`}
         >
           Buy Ticket
@@ -136,8 +136,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/theaters"
-          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
-            currentPage === "Theaters" ? "brightness-150 scale-105" : ""
+          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "Theaters" ? "underline underline-offset-[8px]" : ""
           }`}
         >
           Theaters
@@ -146,8 +146,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/news"
-          className={`flex items-center text-white hover:brightness-150 hover:scale-105 transition-all duration-200 ease-in-out ${
-            currentPage === "News" ? "brightness-150 scale-105" : ""
+          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "News" ? "underline underline-offset-[8px]" : ""
           }`}
         >
           News
