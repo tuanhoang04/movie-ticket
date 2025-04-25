@@ -14,9 +14,13 @@ import {
   Chip,
 } from "@mui/material";
 import { DashboardContent } from "../../../layouts/dashboard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export function CreateMovieView() {
+  const [directorList, setDirectorList] = useState([]);
+  const [actorList, setActorList] = useState([]);
+
   const [formData, setFormData] = useState({
     film_name: "",
     film_img: null,
@@ -31,6 +35,61 @@ export function CreateMovieView() {
     directors: [],
     actors: [],
   });
+
+  useEffect(() => {
+    const fetchDirectorData = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/admin/directors`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const result = await response.json();
+        const dirList = [];
+        result.forEach((element, index) => {
+          dirList[index] = element.director_name;
+        });
+
+        setDirectorList(dirList);
+      } catch (error) {
+        console.error("Error fetching directors data:", error);
+      }
+    };
+
+    fetchDirectorData();
+  }, []);
+  useEffect(() => {
+    const fetchDirectorData = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/actor`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const result = await response.json();
+        const actorList = [];
+        result.forEach((element, index) => {
+          actorList[index] = element.actor_name;
+        });
+
+        setActorList(actorList);
+      } catch (error) {
+        console.error("Error fetching actors data:", error);
+      }
+    };
+
+    fetchDirectorData();
+  }, []);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -68,12 +127,48 @@ export function CreateMovieView() {
   const handleAddPoster = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setFormData((prev) => ({ ...prev, film_img: reader.result }));
-      };
-      reader.readAsDataURL(file);
+      setFormData((prev) => ({ ...prev, film_img: file }));
     }
+  };
+  const handleImg = async () => {
+    if (!formData.film_img) {
+      alert("Please select an image file to upload.");
+      return;
+    }
+    const formData2 = new FormData();
+    console.log(formData.film_img);
+    console.log(formData.id);
+
+    formData2.append("image", formData.film_img);
+    formData2.append("name", formData.film_name);
+
+    try {
+      // setUploadStatus("Uploading...");
+      console.log(formData.film_name);
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/uploadImage/film`,
+        formData2,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        window.alert("success upload");
+        // setUploadStatus("Upload successful!");
+        console.log("URL ảnh:", response.data.message.url);
+      } else {
+        window.alert("fail upload");
+        // setUploadStatus("Upload failed!");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      // setUploadStatus("Upload failed!");
+    }
+    // console.log(uploadStatus);
   };
 
   const handleSubmit = async (event) => {
@@ -90,12 +185,6 @@ export function CreateMovieView() {
     formDataObj.append("duration", formData.duration);
     formDataObj.append("film_type", formData.film_type);
     formDataObj.append("country", formData.country);
-
-    if (formData.film_img) {
-      formDataObj.append("film_img", formData.film_img); // Append the file as a Blob
-    }
-
-    // console.log(formDataObj);
 
     formDataObj.append("actors", formData.actors);
     formDataObj.append("directors", formData.directors);
@@ -128,7 +217,7 @@ export function CreateMovieView() {
       // console.log(result);
       setSnackbar({
         open: true,
-        message: "Phim đã được tạo thành công!",
+        message: "Adding film successfully",
         severity: "success",
       });
       setTimeout(() => navigate("/admin/movie"), 1000);
@@ -148,12 +237,15 @@ export function CreateMovieView() {
         directors: [],
         actors: [],
       });
+      console.log(error);
+
       setSnackbar({
         open: true,
-        message: "Có lỗi xảy ra khi tạo phim!",
+        message: "Something wrong when adding film!",
         severity: "error",
       });
     }
+    await handleImg();
   };
 
   const getYouTubeEmbedUrl = (url) => {
@@ -182,14 +274,14 @@ export function CreateMovieView() {
     <DashboardContent>
       <Card>
         <CardHeader
-          title={<Typography variant="h2">{"Mẫu tạo phim mới"}</Typography>}
+          title={<Typography variant="h2">{"Movie creation form"}</Typography>}
         />
         <CardContent>
           <form onSubmit={handleSubmit}>
             <Stack spacing={3}>
               <TextField
                 name="film_name"
-                label="Tên phim"
+                label="Film name"
                 value={formData.film_name}
                 onChange={handleInputChange}
                 required
@@ -235,7 +327,7 @@ export function CreateMovieView() {
                       color="textSecondary"
                       sx={{ textAlign: "center" }}
                     >
-                      Chưa có poster phim
+                      No poster found
                     </Typography>
                   )}
                 </Box>
@@ -248,7 +340,7 @@ export function CreateMovieView() {
                       color="error"
                       size="small"
                     >
-                      Xóa poster phim
+                      Delele poster
                     </Button>
                   ) : (
                     <>
@@ -266,7 +358,7 @@ export function CreateMovieView() {
                           size="small"
                           component="span"
                         >
-                          Thêm poster phim
+                          Add poster
                         </Button>
                       </label>
                     </>
@@ -297,7 +389,7 @@ export function CreateMovieView() {
 
               <TextField
                 name="Release_date"
-                label="Ngày phát hành"
+                label="Release date"
                 type="date"
                 InputLabelProps={{ shrink: true }}
                 value={formData.Release_date}
@@ -308,7 +400,7 @@ export function CreateMovieView() {
 
               <TextField
                 name="film_describe"
-                label="Mô tả"
+                label="Description"
                 value={formData.film_describe}
                 onChange={handleInputChange}
                 multiline
@@ -332,7 +424,7 @@ export function CreateMovieView() {
                   <TextField
                     {...params}
                     name="age_limit"
-                    label="Giới hạn độ tuổi"
+                    label="Age limit"
                     type="number"
                     fullWidth
                     required
@@ -342,7 +434,7 @@ export function CreateMovieView() {
 
               <TextField
                 name="duration"
-                label="Thời lượng (phút)"
+                label="Duration (min)"
                 type="number"
                 value={formData.duration}
                 onChange={handleInputChange}
@@ -352,7 +444,7 @@ export function CreateMovieView() {
 
               <TextField
                 name="film_type"
-                label="Trạng thái phim"
+                label="Film status"
                 select
                 value={formData.film_type}
                 onChange={handleInputChange}
@@ -368,7 +460,7 @@ export function CreateMovieView() {
 
               <TextField
                 name="country"
-                label="Quốc gia"
+                label="Country"
                 select
                 value={formData.country}
                 onChange={handleInputChange}
@@ -386,7 +478,7 @@ export function CreateMovieView() {
                 multiple
                 freeSolo
                 options={[
-                  "Kinh Dị",
+                  "Horor",
                   "Hài Kịch",
                   "Hành Động",
                   "Tội Phạm",
@@ -411,59 +503,51 @@ export function CreateMovieView() {
                     categories: value,
                   }));
                 }}
-                renderTags={(value, getTagProps) =>
-                  value.map((option, index) => (
-                    <Chip
-                      variant="outlined"
-                      key={option}
-                      label={option}
-                      {...getTagProps({ index })}
-                    />
-                  ))
-                }
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Thể loại"
-                    placeholder="Thêm thể loại (cách nhau bởi dấu phẩy)"
+                    label="Category"
+                    placeholder="Add categories "
                   />
                 )}
               />
-
-              <TextField
-                name="directors"
-                label="Đạo diễn"
-                placeholder="Thêm đạo diễn (cách nhau bởi dấu phẩy)"
-                value={formData.directors.join(", ")}
-                onChange={(event) => {
-                  const inputValue = event.target.value;
-                  const directorsArray = inputValue
-                    .split(",")
-                    .map((item) => item.trim());
+              <Autocomplete
+                multiple
+                freeSolo
+                options={directorList}
+                value={formData.directors}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Directors"
+                    placeholder="Add directors"
+                  />
+                )}
+                onChange={(event, value) => {
                   setFormData((prev) => ({
                     ...prev,
-                    directors: directorsArray,
+                    directors: value,
                   }));
                 }}
-                fullWidth
               />
-
-              <TextField
-                name="actors"
-                label="Diễn viên"
-                placeholder="Thêm diễn viên (cách nhau bởi dấu phẩy)"
-                value={formData.actors.join(", ")}
-                onChange={(event) => {
-                  const inputValue = event.target.value;
-                  const actorsArray = inputValue
-                    .split(",")
-                    .map((item) => item.trim());
+              <Autocomplete
+                multiple
+                freeSolo
+                options={actorList}
+                value={formData.actors}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Actors"
+                    placeholder="Add actors"
+                  />
+                )}
+                onChange={(event, value) => {
                   setFormData((prev) => ({
                     ...prev,
-                    actors: actorsArray,
+                    actors: value,
                   }));
                 }}
-                fullWidth
               />
             </Stack>
 
