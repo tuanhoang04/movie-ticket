@@ -1,37 +1,52 @@
+import { motion } from 'framer-motion';
+
 export default function FirstScreen() {
   return (
-    <>
-      <div className="grid grid-cols-7 bg-[#1C1B21]">
-        <div className="col-span-3 flex flex-col justify-center items-center h-screen">
-          <div>
-            <p className="text-7xl text-white font-bold">Movie Ticket</p>
-            <p className="text-7xl text-white font-bold mb-5">Order App</p>
-            <button
-              className=" border focus:outline-none focus:ring-4 font-medium text-2xl flex items-center rounded-full px-6 py-3 me-2 mb-2 bg-[#1A191F] text-white border-gray-600 hover:bg-gray-800 hover:border-gray-600 focus:ring-gray-700"
-              onClick={() => (window.location = "/home")}
-            >
-              <img src="/icons/star.png" className="h-6 w-auto pr-2" />
-              <p>Explore</p>
-            </button>
-          </div>
-        </div>
-        <div className="col-span-4 flex justify-end items-end overflow-hidden">
-          <div class="relative flex justify-center items-center">
-            <div class="absolute w-[865px] h-[390px] bg-[#2E1239] rounded-full blur-[120px] opacity-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/3 rotate-[-141.1deg] z-0"></div>
+    <div className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
+      {/* Static Background Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url('https://i.pinimg.com/736x/f0/0e/f4/f00ef4ef28062a3ffe32c80cfa039c86.jpg')`,
+        }}
+      />
+      {/* Gradient Overlay for Readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/60 z-0"></div>
 
-            <div class="absolute w-[530px] h-[410px] bg-[#11CEDA] rounded-full blur-[180px] opacity-60 bottom-[-100px] left-1/2 transform -translate-x-1/2 z-1"></div>
-
-            <div class="relative z-2">
-              <img
-                src="/popcorn.png"
-                width="600"
-                height="600"
-                alt="popcorn image"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+      {/* Content Overlay */}
+      <motion.div
+        className="relative z-10 text-center px-6 md:px-12"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.h1
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-extrabold tracking-tight leading-tight"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          Movie Ticket Order App
+        </motion.h1>
+        <motion.p
+          className="text-base sm:text-lg md:text-xl text-gray-200 font-medium mt-4 max-w-md mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          Experience the magic of cinema—book your tickets in seconds
+        </motion.p>
+        <motion.button
+          className="mt-8 bg-[#FF4D4D] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium flex items-center gap-2 mx-auto hover:bg-[#E64444] hover:scale-105 hover:shadow-[0_0_20px_rgba(255,77,77,0.5)] transition-all duration-300"
+          onClick={() => (window.location = "/home")}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.7 }}
+        >
+          <img src="/icons/star.png" className="h-5 w-auto sm:h-6" />
+          Explore Now
+        </motion.button>
+      </motion.div>
+    </div>
   );
 }
