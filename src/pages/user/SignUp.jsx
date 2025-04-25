@@ -96,7 +96,8 @@ export default function SignUp({
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[40%] md:w-[12%] gap-6 rounded-lg shadow-lg transition-all duration-300 max-h-[80vh] overflow-y-auto"
+      size="sm"
+      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto min-w-[95%] md:min-w-[30%] gap-6 rounded-lg shadow-lg transition-all duration-300 max-h-[80vh] overflow-y-auto scrollbar"
     >
       <DialogHeader
         ref={begin}

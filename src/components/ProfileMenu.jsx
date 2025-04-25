@@ -128,7 +128,7 @@ export function ProfileMenu({ data }) {
         size="sm"
         handler={handleOpen}
       >
-        <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
+        <DialogHeader className="text-white pb-3 text-2xl md:text-3xl font-semibold text-center flex justify-center">
           Sign out confirmation
         </DialogHeader>
         <DialogBody className="text-xl text-white py-2 text-center">
