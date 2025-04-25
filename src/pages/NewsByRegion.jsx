@@ -112,7 +112,7 @@ export default function NewsByRegion() {
               className="flex flex-col gap-2 text-white  rounded-lg cursor-pointer"
             >
               <img
-                src={item.new_img}
+                src={item.new_img || "/image-placeholder.png"}
                 className="aspect-video object-cover"
                 alt=""
               />

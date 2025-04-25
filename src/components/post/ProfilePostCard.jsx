@@ -19,7 +19,11 @@ export default function PostCard({ data }) {
       }}
     >
       <div className={imageClassName}>
-        <img src={data.new_img} className="w-full h-full object-cover" alt="" />
+        <img
+          src={data.new_img || "/image-placeholder.png"}
+          className="w-full h-full object-cover"
+          alt=""
+        />
       </div>
       <div className="w-full grid grid-cols-1 gap-2">
         <h1 className={titleClassName}>{data.new_header}</h1>
