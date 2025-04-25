@@ -139,7 +139,7 @@ export default function NewsPage() {
       <NavBar currentPage={"News"} />
       <div
         id="body"
-        className="flex flex-col lg:flex-row bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 !pt-10 gap-20 text-white"
+        className="flex flex-col lg:flex-row bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 md:gap-10 lg:gap-10 xl:gap-20 !pt-10 text-white"
       >
         <div id="lastest" className="lg:w-4/6 hidden lg:block">
           <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5">
@@ -156,7 +156,7 @@ export default function NewsPage() {
                     `/news/${encodeURIComponent(createSlug(item.new_header))}`
                   );
                 }}
-                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-5 lg:p-10 lg:pt-6 rounded-lg cursor-pointer"
+                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-2 md:p-5 lg:p-10 lg:pt-6 rounded-lg cursor-pointer"
               >
                 <h1 className="text-2xl mb-3 ">{item.new_header}</h1>
                 <img src={item.new_img} alt="" className="rounded-lg" />
@@ -192,7 +192,7 @@ export default function NewsPage() {
             }}
             className="text-3xl flex items-center gap-5 mb-3 cursor-pointer"
           >
-            <p>Viet Nam news</p>
+            <p>Vietnam Film News</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
@@ -245,7 +245,7 @@ export default function NewsPage() {
             }}
             className="text-4xl flex items-center gap-5 mb-3 cursor-pointer"
           >
-            <p>Global news</p>
+            <p>Worldwide Film News</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"

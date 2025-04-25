@@ -51,9 +51,9 @@ export default function NewsByRegion() {
   }, [offset]);
   const getRegion = () => {
     if (region === "vietnam") {
-      return "Viet nam";
+      return "Vietnam Film";
     } else if (region === "aboard") {
-      return "Global";
+      return "Worldwide Film";
     }
   };
 
@@ -83,7 +83,7 @@ export default function NewsByRegion() {
       <div className="bg-[#1C1B21]">
         <br />
         <div className="text-white text-4xl p-4 md:p-6 lg:p-16 xl:p-20 2xl:p-32 !pt-10 !pb-10 flex items-center gap-2">
-          <p>{getRegion()} news</p>
+          <p>{getRegion()} News</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"

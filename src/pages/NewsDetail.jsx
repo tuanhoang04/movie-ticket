@@ -82,17 +82,17 @@ export default function NewsDetail() {
       <NavBar />
       <div
         id="body"
-        className="md:flex bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 md:gap-10 lg:gap-10 xl:gap-20 text-white"
+        className="flex flex-col lg:flex-row bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 md:gap-10 lg:gap-10 xl:gap-20 !pt-10 text-white"
       >
         <div id="lastest" className="md:w-2/3 lg:w-3/4 mb-10">
-          <div className="md:text-lg lg:text-2xl 2xl:text-4xl mb-4 ">
+          <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5">
             Movie news
           </div>
-          <div className="flex flex-col gap-10 ">
+          <div className="flex flex-col gap-5 lg:gap-10 p-2 lg:p-4 ">
             {dataDetail && (
               <div
                 key={dataDetail.new_id}
-                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-2 md:p-5 lg:p-10 lg:pt-6 rounded-lg"
+                className="flex flex-col gap-2 bg-[#2c2c2e] text-white p-4 md:p-5 lg:p-10 lg:pt-6 rounded-lg"
               >
                 <h1 className="text-2xl lg:text-3xl lg:mb-3">
                   {dataDetail.new_header}
@@ -114,7 +114,7 @@ export default function NewsDetail() {
         </div>
         <div id="side" className=" md:w-1/3 lg:w-1/4">
           <div className="flex flex-col gap-4 mb-20">
-            <div className="md:text-lg lg:text-2xl 2xl:text-4xl flex items-center gap-3 2xl:gap-5">
+            <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5 flex items-center gap-5">
               <p>Related news</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

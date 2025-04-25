@@ -165,7 +165,7 @@ export default function Profile() {
     headerText:
       "text-white text-md lg:text-lg w-fit p-2 lg:p-5 hover:outline outline-1 outline-gray-400 rounded-full",
     postAndTicketContainer:
-      "grid place-items-center p-2 lg:p-10 gap-5 lg:gap-10 h-fit",
+      "grid place-items-center p-4 lg:p-10 gap-5 lg:gap-10 h-fit",
     likedMoviesContainer:
       "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 p-4 md:p-6 lg:p-10  2xl:p-20 gap-4 md:gap-6 lg:gap-10 xl:gap-15 2xl:gap-20 h-fit",
   };
@@ -476,7 +476,7 @@ export default function Profile() {
       ) : (
         ""
       )}
-      <div className="grid place-items-center px-3 md:px-10 lg:px-36 lg:pt-10 ">
+      <div className="grid place-items-center px-4 md:px-10 lg:px-36 lg:pt-10 ">
         <div className="relative w-full">
           <img src="profile-cover.webp" alt="cover" className=" w-full " />
           <img

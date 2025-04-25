@@ -18,12 +18,12 @@ export default function Dropdown({ label, options, handleChangeOption }) {
       <MenuHandler>
         <Button
           variant="outlined"
-          className="w-full text-white normal-case text-lg font-thin border-0 border-white flex flex-row items-center gap-1 focus:ring-0"
+          className="w-full text-white normal-case text-xl font-thin border-0 border-white flex flex-row items-center gap-1 focus:ring-0"
         >
           {label}
           <ChevronDownIcon
             strokeWidth={1.9}
-            className={`h-8 w-8 ml-2 transition-transform ${
+            className={`h-5 w-5 ml-2 transition-transform ${
               openMenu ? "rotate-180" : ""
             }`}
           />
