@@ -233,13 +233,11 @@ export default function MovieDetail() {
         openSignInFromParent={openSignIn}
         setOpenSignInFromParent={setOpenSignIn}
       />
-      <div
-        className="flex-grow p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 flex flex-col"
-      >
+      <div className="flex-grow p-4 md:p-6 lg:px-12 xl:px-20 2xl:px-32 flex flex-col">
         {data && (
-          <div className="bg-[#323137] w-full h-full py-4 sm:py-6 md:py-9 px-4 sm:px-6 md:px-10 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
+          <div className="bg-[#323137] w-full h-full py-4 sm:py-5 md:py-8 px-4 sm:px-5 md:px-9 flex-grow rounded-xl md:rounded-3xl">
             <div className="flex flex-col lg:grid lg:grid-cols-12 gap-5">
-              <div className="w-full lg:col-span-3">
+              <div className="w-full lg:col-span-2">
                 <img
                   src={data.info.film[0].film_img}
                   className="rounded-xl md:rounded-4xl w-full object-cover"
@@ -248,7 +246,7 @@ export default function MovieDetail() {
               </div>
 
               {/* Movie Info - Full width on mobile, 7 cols on md+ */}
-              <div className="w-full lg:col-span-7 flex flex-col justify-center">
+              <div className="w-full lg:col-span-8 flex flex-col justify-center">
                 {message && (
                   <AlertWithIcon type={"negative"} message={message} />
                 )}
@@ -263,7 +261,7 @@ export default function MovieDetail() {
                     .map((item) => item.category_name)
                     .join(", ")}
                 </p>
-                <p className="text-white text-xl leading-[1.25] pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
+                <p className="text-white text-xl lg:text-2xl lg:leading-8 leading-[1.25] pb-3 sm:pb-4 md:pb-5 font-normal text-justify">
                   {data.info.film[0].film_describe}
                 </p>
                 <div className="flex flex-row flex-wrap gap-1">
@@ -369,7 +367,7 @@ export default function MovieDetail() {
 
         {/* Trailer Section */}
         {data?.info?.film[0]?.film_trailer && (
-          <div className="bg-[#323137] w-full h-full py-4 sm:py-6 md:py-8 px-4 sm:px-6 md:px-10 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
+          <div className="bg-[#323137] w-full h-full py-4 sm:py-5 md:py-8 px-4 sm:px-5 md:px-9 flex-grow mt-4 md:mt-6 mb-4 rounded-xl md:rounded-3xl">
             <div>
               <p className="text-white text-2xl md:text-3xl lg:text-4xl font-bold pb-3">
                 Trailer
@@ -381,7 +379,7 @@ export default function MovieDetail() {
 
         {/* Ratings Section */}
         {data && (
-          <div className="bg-[#323137] w-full h-full py-4 sm:py-6 md:py-8 px-4 sm:px-6 md:px-10 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
+          <div className="bg-[#323137] w-full h-full py-4 sm:py-5 md:py-8 px-4 sm:px-5 md:px-9 flex-grow mt-6 md:mt-10 mb-4 rounded-xl md:rounded-3xl">
             <div className="flex flex-col">
               <p className="text-white text-2xl md:text-3xl lg:text-4xl font-bold pb-3">
                 Ratings
@@ -415,7 +413,7 @@ export default function MovieDetail() {
                         {star} star
                       </span>
                     </div>
-                    <div className="col-span-7 sm:col-span-9 h-4 sm:h-5 bg-gray-200 rounded-sm dark:bg-gray-700">
+                    <div className="col-span-8 sm:col-span-5 h-4 sm:h-5 bg-gray-200 rounded-sm dark:bg-gray-700">
                       <div
                         className="h-4 sm:h-5 bg-yellow-600 rounded-sm"
                         style={{
@@ -431,7 +429,7 @@ export default function MovieDetail() {
                         }}
                       ></div>
                     </div>
-                    <div className="col-span-3 sm:col-span-2 text-right">
+                    <div className="col-span-2 sm:col-span-1 text-right">
                       <span className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">
                         {ratingsData.length
                           ? Math.round(

@@ -5,15 +5,17 @@ export default function Footer() {
       <div className="lg:col-span-4 col-span-11 flex flex-col justify-start">
         <div className="flex flex-row items-center mb-5">
           <img src="/ico.png" className="w-10 mr-3" />
-          <p className="text-white font-medium text-3xl">Starlight Cinema</p>
+          <p className="text-white font-medium text-2xl lg:text-3xl">
+            Starlight Cinema
+          </p>
         </div>
-        <p className="text-[#8da1c5] font-normal text-xl">
+        <p className="text-[#8da1c5] font-normal text-lg lg:text-xl">
           Starlight Cinema Co., Ltd.
         </p>
-        <p className="text-[#8da1c5] font-normal text-xl">
+        <p className="text-[#8da1c5] font-normal text-lg lg:text-xl">
           Business Registration Number: 0123456789
         </p>
-        <p className="text-[#8da1c5] font-normal text-xl mb-5">
+        <p className="text-[#8da1c5] font-normal text-lg lg:text-xl mb-5">
           Address: Goldsilk Complex, 430 Cau Am, Van Phuc, Ha Dong, Hanoi,
           Vietnam
         </p>
@@ -25,7 +27,7 @@ export default function Footer() {
       </div>
 
       <div className="lg:col-span-3 col-span-11 lg:flex flex-col lg:items-center hidden">
-        <div className="flex flex-col ">
+        <div className="flex flex-col gap-[2px]">
           <div className="lg:flex lg:flex-row mb-5 lg:invisible hidden">
             <img src="/ico.png" className="w-10 mr-3" />
             <p className="text-white font-medium text-3xl">S</p>
@@ -71,7 +73,7 @@ export default function Footer() {
             <img src="/ico.png" className="w-10 mr-3" />
             <p className="text-white font-medium text-3xl">S</p>
           </div>
-          <p className="text-white font-medium md:text-xl mb-2">
+          <p className="text-white font-medium text-xl mb-2">
             OFFICIAL PARTNERS
           </p>
           <div className="flex flex-row flex-wrap gap-3 mb-7">

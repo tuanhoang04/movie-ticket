@@ -115,9 +115,7 @@ export default function MoviesFilterPage() {
     <div className="flex flex-col flex-grow min-h-screen bg-[#1C1B21]">
       <NavBar currentPage={"Movies"} />
 
-      <div
-        className="flex flex-col gap-3 flex-grow p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32"
-      >
+      <div className="flex flex-col gap-3 md:gap-4 flex-grow p-4 md:p-8 lg:px-12 xl:px-20 2xl:px-32">
         {/* Filter controls - responsive layout */}
         <div className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:gap-4">
           <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">

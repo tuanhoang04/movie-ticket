@@ -79,19 +79,19 @@ export default function MovieRatings({ film_id }) {
         return (
           <div key={index} className="mb-9 flex flex-row">
             <div className="flex flex-col">
-              <div className="flex flex-row gap-3 items-end mb-1">
+              <div className="flex flex-row gap-1 md:gap-3 items-end md:mb-1">
                 {item.user_img ? (
                   <img
                     src={item.user_img}
-                    className=" w-[2rem] h-[2rem] object-cover rounded-full mr-[-0.3rem] border-gray-400"
+                    className=" w-[2rem] h-[2rem] object-cover rounded-full md:mr-[-0.3rem] border-gray-400"
                   />
                 ) : (
                   <img
-                    className="w-[2rem] h-[2rem]  mr-[-0.3rem]"
+                    className="w-[2rem] h-[2rem]  md:mr-[-0.3rem]"
                     src="/icons/account.png"
                   />
                 )}
-                <p className="text-white text-2xl">{item.full_name}</p>
+                <p className="text-white text-xl md:text-2xl">{item.full_name}</p>
                 <p className="text-gray-400 text-lg font-light">
                   {timeAgo(item.date_posted)}
                 </p>
@@ -101,9 +101,9 @@ export default function MovieRatings({ film_id }) {
                 readonly
                 unratedColor="white"
                 ratedColor="white"
-                className="my-1 [&>span>svg]:w-5 [&>span>svg]:h-5"
+                className="my-1 w-3 h-3 md:[&>span>svg]:w-5 md:[&>span>svg]:h-5"
               />
-              <p className="text-white text-xl">{item.comments}</p>
+              <p className="text-white text-lg md:text-xl">{item.comments}</p>
             </div>
           </div>
         );
