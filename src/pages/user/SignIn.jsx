@@ -90,7 +90,7 @@ export default function SignIn({
       open={openDialog}
       handleOpen={handleOpenDialog}
       size="sm"
-      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto gap-6 rounded-lg shadow-lg transition-all duration-300"
+      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto min-w-[95%] md:min-w-[30%] gap-6 rounded-lg shadow-lg transition-all duration-300"
     >
       <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
         Sign In
@@ -185,7 +185,7 @@ export default function SignIn({
             color="gray"
             className="text-gray-200 font-normal text-lg"
           >
-            Don’t have an account?{" "}
+            Don't have an account?{" "}
             <a
               className="text-[#3B82F6] hover:underline cursor-pointer"
               onClick={handleOpenSignUp}
