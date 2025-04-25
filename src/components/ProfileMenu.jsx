@@ -88,7 +88,7 @@ export function ProfileMenu({ data }) {
                   />
                   <path
                     fill="#773e77"
-                    d="M96.3,67.2l-4.6-0.5c-0.4-1.5-1-2.9-1.7-4.2l2.9-3.6c0.4-0.5,0.4-1.3-0.1-1.8L88,52.4c-0.5-0.5-1.3-0.5-1.8-0.1l-3.6,2.9   c-1.3-0.7-2.7-1.3-4.2-1.7l-0.5-4.6c-0.1-0.7-0.7-1.2-1.4-1.2h-6.6c-0.7,0-1.3,0.5-1.4,1.2L68,53.4c-1.5,0.4-2.9,1-4.2,1.7   l-3.6-2.9c-0.5-0.4-1.3-0.4-1.8,0.1l-4.7,4.7c-0.5,0.5-0.5,1.3-0.1,1.8l2.9,3.6c-0.7,1.3-1.3,2.7-1.7,4.2l-4.6,0.5   c-0.7,0.1-1.2,0.7-1.2,1.4v6.6c0,0.7,0.5,1.3,1.2,1.4l4.6,0.5c0.4,1.5,1,2.9,1.7,4.2l-2.9,3.6c-0.4,0.5-0.4,1.3,0.1,1.8l4.7,4.7   c0.5,0.5,1.3,0.5,1.8,0.1l3.6-2.9c1.3,0.7,2.7,1.3,4.2,1.7l0.5,4.6c0.1,0.7,0.7,1.2,1.4,1.2h6.6c0.7,0,1.3-0.5,1.4-1.2l0.5-4.6   c1.5-0.4,2.9-1,4.2-1.7l3.6,2.9c0.5,0.4,1.3,0.4,1.8-0.1l4.7-4.7c0.5-0.5,0.5-1.3,0.1-1.8l-2.9-3.6c0.7-1.3,1.3-2.7,1.7-4.2   l4.6-0.5c0.7-0.1,1.2-0.7,1.2-1.4v-6.6C97.5,67.9,97,67.3,96.3,67.2z M73.2,81.3c-5.2,0-9.4-4.2-9.4-9.4s4.2-9.4,9.4-9.4   c5.2,0,9.4,4.2,9.4,9.4S78.4,81.3,73.2,81.3z"
+                    d="M96.3,67.2l-4.6-0.5c-0.4-1.5-1-2.9-1.7-4.2l2.9-3.6c0.4-0.5,0.4-1.3-0.1-1.8L88,52.4c-0.5-0.5-1.3-0.5-1.8-0.1l-3.6,2.9   c-1.3-0.7-2.7-1.3-4.2-1.7l-0.5-4.6c-0.1-0.7-0.7-1.2-1.4-1.2h-6.6c-0.7,0-1.3,0.5-1.4,1.2L68,53.4c-1.5,0.4-2.9,1-4.2,1.7   l-3.6-2.9c-0.5-0.4-1.3-0.4-1.8,0.1l-4.7,4.7c-0.5,0.5-0.5,1.3-0.1,1.8l2.9,3.6c-0.7,1.3-1.3,2.7-1.7,4.2l-4.6,0.5   c-0.7,0.1-1.2,0.7-1.2,1.4v6.6c0,0.7,0.5,1.3,1.2,1.4l4.6,0.5c0.4,1.5,1,2.9,1.7,4.2l-2.9,3.6c-0.4,0.5-0.4,1.3,0.1,1.8l4.7,4.7   c0.5,0.5,1.3,0.5,1.8,0.1l3.6-2.9c1.3,0.7,2.7,1.3,4.2,1.7l0.5,4.6c0.1,0.7,0.7,1.2,1.4,1.2h6.6c0.7,0,1.3-0.5,1.4-1.2l0.5-4.6   c1.5-0.4,2.9-1,4.2-1.7l3.6,2.9c0.5,0.4,1.3,0.4,1.8-0.1l4.7-4.7c0.5-0.5,0.5-1.3,0.1-1.8l-2.9-3.6c0.7-1.3,1.3-2.7,1.7-4.2   l4.6-0.5c0.7-0.1,1.2-0.7,1.2-1.4v-6. Until 6C97.5,67.9,97,67.3,96.3,67.2z M73.2,81.3c-5.2,0-9.4-4.2-9.4-9.4s4.2-9.4,9.4-9.4   c5.2,0,9.4,4.2,9.4,9.4S78.4,81.3,73.2,81.3z"
                   />
                 </g>
               </svg>
@@ -123,34 +123,35 @@ export function ProfileMenu({ data }) {
       </Menu>
 
       <Dialog
-        className="bg-[#58565f] p-3"
+        className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[40%] md:w-[12%] gap-6 rounded-lg shadow-lg transition-all duration-300"
         open={openLogoutConfirm}
         handler={handleOpen}
       >
-        <DialogHeader className="text-white">
+        <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
           Sign out confirmation
         </DialogHeader>
-        <DialogBody className="text-xl text-white py-0">
+        <DialogBody className="text-xl text-white py-2 text-center">
           Are you sure you want to sign out?
         </DialogBody>
-        <DialogFooter>
+        <DialogFooter className="flex justify-center gap-4">
           <Button
-            color="gray"
+            className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
             onClick={handleOpen}
-            className="bg-gray-800 mr-8"
           >
-            <span>Cancel</span>
+            Cancel
           </Button>
           <Button
-            color="purple"
+            className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
             onClick={() => {
               handleOpen();
               localStorage.clear();
               navigate("/");
             }}
-            className="!bg-[#773e77] self-start w-auto"
+            style={{
+              background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+            }}
           >
-            <span>Confirm</span>
+            Confirm
           </Button>
         </DialogFooter>
       </Dialog>
