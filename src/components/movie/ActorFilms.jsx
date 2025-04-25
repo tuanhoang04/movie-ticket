@@ -58,15 +58,15 @@ export default function ActorFilms() {
   return (
     <div className="bg-[#1C1B21] min-h-screen flex flex-col">
       <NavBar />
-      <div className="flex-grow px-8 lg:px-36">
+      <div className="flex-grow p-4 md:p-6 lg:px-12 xl:px-20 2xl:px-32">
         {actorData && filmsData && (
-          <div className="bg-[#323137] w-full h-full py-6 px-20 flex-grow my-7 rounded-3xl">
-            <div className="grid grid-cols-11 grid-rows-1 gap-9">
+          <div className="bg-[#323137] w-full h-full py-4 sm:py-5 md:py-8 px-4 sm:px-5 md:px-9 flex-grow rounded-3xl">
+            <div className="md:grid md:grid-cols-11 md:grid-rows-1 flex flex-col gap-8">
               <img
                 src={actorData.actor_img}
-                className="col-span-2 row-span-1 rounded-3xl w-full"
+                className="md:col-span-2 md:row-span-1 rounded-3xl w-full"
               />
-              <div className="col-span-9 gap-10 flex flex-col justify-center">
+              <div className="col-span-9 gap-5 md:gap-10 flex flex-col justify-center">
                 <p className="text-white text-3xl">
                   Actor: {actorData?.actor_name}
                 </p>
