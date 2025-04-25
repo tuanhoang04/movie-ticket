@@ -161,14 +161,14 @@ export default function SignIn({
           <div className="flex flex-row justify-center items-center gap-4">
             <Button
               color="gray"
-              className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+              className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
               onClick={handleOpenDialog}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+              className="w-fit py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
               style={{
                 background:
                   "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
