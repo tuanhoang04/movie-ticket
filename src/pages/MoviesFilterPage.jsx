@@ -119,7 +119,10 @@ export default function MoviesFilterPage() {
     <div className="flex flex-col flex-grow min-h-screen bg-[#1C1B21]">
       <NavBar currentPage={"Movies"} />
 
-      <div className="flex flex-col gap-3 md:gap-4 flex-grow p-4 md:p-8 lg:px-12 xl:px-20 2xl:px-32">
+      <div
+        ref={begin}
+        className="flex flex-col gap-3 md:gap-4 flex-grow p-4 md:p-8 lg:px-12 xl:px-20 2xl:px-32"
+      >
         {/* Filter controls - responsive layout */}
         <div className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:gap-4">
           <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">
@@ -175,7 +178,7 @@ export default function MoviesFilterPage() {
 
         {/* Movie grid - responsive layout */}
         {currentMovies && currentMovies.length > 0 && (
-          <div ref={begin} className="flex flex-wrap lg:gap-[9%] gap-[1%]">
+          <div className="flex flex-wrap lg:gap-[9%] gap-[1%]">
             {currentMovies.map((item) => {
               return (
                 <div className="mb-6 lg:w-[18.25%] w-[49%]" key={item.film_id}>
