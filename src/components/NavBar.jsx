@@ -158,7 +158,7 @@ export default function NavBar({
 
   return (
     <>
-      <Navbar className="max-w-full py-4 px-4 lg:px-36 lg:py-5 rounded-none border-none !bg-[#502A50] shadow-md">
+      <Navbar className="max-w-full py-5 px-4 lg:px-36 lg:py-6 rounded-none border-none !bg-[#502A50] shadow-md">
         <div className="mx-auto flex items-center justify-between text-white">
           {/* Logo */}
           <div className="flex items-center">
@@ -195,7 +195,7 @@ export default function NavBar({
                     onChange={handleChange}
                     value={searchTerm}
                     autoComplete="off"
-                    className={`border-none !w-0 ${isSearchOpen ? '!w-56 opacity-100' : 'opacity-0'} transition-all duration-300 ease-in-out !rounded-full !text-lg px-5 bg-gray-500 placeholder:text-gray-300 placeholder:text-lg placeholder:opacity-100 focus:placeholder-opacity-0 text-white shadow-sm`}
+                    className={`border-none !w-0 ${isSearchOpen ? '!w-56 opacity-100' : 'opacity-0'} transition-all duration-300 ease-in-out !rounded-full !text-lg px-5 bg-gray-400 placeholder:text-gray-300 placeholder:text-lg placeholder:opacity-100 focus:placeholder-opacity-0 text-white shadow-sm`}
                   />
                 </form>
               )}

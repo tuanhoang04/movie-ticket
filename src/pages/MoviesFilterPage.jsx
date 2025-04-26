@@ -119,53 +119,53 @@ export default function MoviesFilterPage() {
     "Other countries": "0",
   };
   return (
-    <div className="flex flex-col flex-grow min-h-screen bg-[#1C1B21]">
+    <div className="flex flex-col flex-grow min-h-screen bg-gradient-to-b from-[#1C1B21] to-[#141316]">
       <NavBar currentPage={"Movies"} />
 
       <div
         ref={begin}
-        className="flex flex-col gap-3 md:gap-4 flex-grow p-4 md:p-8 lg:px-12 xl:px-20 2xl:px-32"
+        className="flex flex-col gap-3 md:gap-4 flex-grow py-8 md:py-12 lg:px-12 xl:px-20 2xl:px-32"
       >
         {/* Filter controls - responsive layout */}
-        <div className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:gap-4">
-          <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">
-            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-3 md:px-4 lg:px-5 py-2 border-r-2 place-content-center uppercase">
-              Status
-            </h1>
-            <div className="flex-grow">
-              <Dropdown
-                label={statusLabel}
-                handleChangeOption={handleStatusChange}
-                options={Object.keys(allStatus)}
-              />
-            </div>
-          </div>
+        <div className="flex flex-col items-center justify-center gap-3 md:flex-row md:flex-wrap md:gap-4 mb-10">
+        <div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
+  <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
+    Status
+  </h1>
+  <div className="flex-grow">
+    <Dropdown
+      label={statusLabel}
+      handleChangeOption={handleStatusChange}
+      options={Object.keys(allStatus)}
+    />
+  </div>
+</div>
 
-          <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">
-            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-3 md:px-4 lg:px-5 py-2 border-r-2 place-content-center uppercase">
-              Genre
-            </h1>
-            <div className="flex-grow">
-              <Dropdown
-                label={genreLabel}
-                handleChangeOption={handleGenreChange}
-                options={Object.keys(allGenres)}
-              />
-            </div>
-          </div>
+<div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
+  <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
+    Genre
+  </h1>
+  <div className="flex-grow">
+    <Dropdown
+      label={genreLabel}
+      handleChangeOption={handleGenreChange}
+      options={Object.keys(allGenres)}
+    />
+  </div>
+</div>
 
-          <div className="w-[88%] md:w-auto flex items-center bg-gray-800 rounded-xl">
-            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-3 md:px-4 lg:px-5 py-2 border-r-2 place-content-center uppercase">
-              Country
-            </h1>
-            <div className="flex-grow">
-              <Dropdown
-                label={countryLabel}
-                handleChangeOption={handleCountryChange}
-                options={Object.keys(allCountries)}
-              />
-            </div>
-          </div>
+<div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
+  <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
+    Country
+  </h1>
+  <div className="flex-grow">
+    <Dropdown
+      label={countryLabel}
+      handleChangeOption={handleCountryChange}
+      options={Object.keys(allCountries)}
+    />
+  </div>
+</div>
         </div>
 
         {/* No results message */}
@@ -184,8 +184,8 @@ export default function MoviesFilterPage() {
           <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
             {currentMovies.map((item) => {
               return (
-                <div className="mb-7 lg:w-[17%] w-[49%]" key={item.film_id}>
-                  <MovieCard data={item} />
+                <div className="mb-14 lg:w-[17%] w-[49%]" key={item.film_id}>
+                  <MovieCard data={item} className="transition-all duration-300 group-hover:shadow-xl group-hover:scale-105" />
                 </div>
               );
             })}
