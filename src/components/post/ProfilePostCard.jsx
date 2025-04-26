@@ -5,10 +5,10 @@ function createSlug(name) {
 }
 export default function PostCard({ data }) {
   const navigate = useNavigate();
-  const imageClassName = " h-40 w-36 md:w-32  overflow-hidden rounded-lg";
-  const titleClassName = "text-md text-white";
+  const imageClassName = " h-40 w-36 md:w-32 overflow-hidden rounded-lg";
+  const titleClassName = "text-xl md:text-2xl text-white bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent drop-shadow-md";
   const contentClassName =
-    "w-full overflow-hidden line-clamp-2 text-white hide-images";
+    "w-full overflow-hidden line-clamp-2 text-base md:text-lg text-gray-300 hide-images";
 
   return (
     <div
