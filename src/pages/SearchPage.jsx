@@ -100,6 +100,7 @@ export default function SearchPage() {
             )}
           {nowShowing?.length > 0 && (
             <div className="flex flex-col mt-7 mb-20">
+              <p className="self-center text-white text-3xl mb-7">Search results for: "{searchTerm}"</p>
               <div className="flex flex-row items-center mb-4">
                 <img src="/icons/red-dot.png" className="w-9 h-9" />
                 <p className="text-white text-3xl">Now Showing</p>
@@ -143,7 +144,10 @@ export default function SearchPage() {
               <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
                 {currentUpcomings.map((item) => {
                   return (
-                    <div className="mb-14 lg:w-[17%] w-[49%]" key={item.film_id}>
+                    <div
+                      className="mb-14 lg:w-[17%] w-[49%]"
+                      key={item.film_id}
+                    >
                       <MovieCard data={item} />
                     </div>
                   );
@@ -153,8 +157,7 @@ export default function SearchPage() {
                 <div className="mb-14 lg:w-[17%] w-[49%]">
                   <div className="flex flex-col justify-start rounded-md p-4">
                     <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
-                    <div className="invisible">
-                    </div>
+                    <div className="invisible"></div>
                   </div>
                 </div>
               )}
