@@ -31,7 +31,7 @@ export default function Movies() {
         });
 
         setNowShowing(allFilms.filter((item) => item.film_type === 1));
-        setUpcomings(allFilms.filter((item) => item.film_type === 2));
+        setUpcomings(allFilms.filter((item) => item.film_type === 0));
         setIsLoading(false);
       })
       .catch((error) => console.error("Error:", error));

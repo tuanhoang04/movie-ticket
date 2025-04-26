@@ -89,9 +89,9 @@ export default function MoviesFilterPage() {
 
   const allStatus = {
     "All Movies": "4",
-    "Now playing": "1",
-    Upcoming: "2",
-    Discontinued: "0",
+    "Now showing": "1",
+    Upcoming: "0",
+    Discontinued: "2",
   };
 
   const allGenres = {
