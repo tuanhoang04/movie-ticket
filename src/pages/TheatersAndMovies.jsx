@@ -218,17 +218,19 @@ export default function TheatersAndMovies() {
               </div>
               <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
                 {currentNowShowings.map((item) => (
-                  <div className="mb- lg:w-[17%] w-[49%]" key={item.film_id}>
-                    <MovieCard data={item} className="transition-all duration-300 group-hover:shadow-xl group-hover:scale-105"/>
+                  <div className="mb-14 lg:w-[17%] w-[49%]" key={item.film_id}>
+                    <MovieCard
+                      data={item}
+                      className="transition-all duration-300 group-hover:shadow-xl group-hover:scale-105"
+                    />
                   </div>
                 ))}
               </div>
               {currentNowShowings.length <= 5 && (
                 <div className="lg:block hidden mb-7 lg:w-[17%] w-[49%]">
                   <div className="flex flex-col justify-start rounded-md p-4">
-                    <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-3" />
-                    <div className="invisible">
-                    </div>
+                    <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-14" />
+                    <div className="invisible"></div>
                   </div>
                 </div>
               )}
@@ -247,12 +249,12 @@ export default function TheatersAndMovies() {
             </div>
           )}
         </div>
-        
+
         {/* Thay <hr> bằng divider gradient */}
-    <div className="flex justify-center mx-8 lg:mx-36 my-7">
-      <div className="w-1/2 h-1 bg-gradient-to-r from-transparent via-purple-600 to-transparent shadow-md"></div>
-    </div>
-    
+        <div className="flex justify-center mx-8 lg:mx-36 my-7">
+          <div className="w-1/2 h-1 bg-gradient-to-r from-transparent via-purple-600 to-transparent shadow-md"></div>
+        </div>
+
         <div className="flex items-center justify-center">
           <p className="text-white text-2xl md:text-4xl md:mb-4 font-bold">
             Buy Ticket by Theaters

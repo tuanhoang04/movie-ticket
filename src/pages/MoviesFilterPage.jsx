@@ -25,7 +25,7 @@ export default function MoviesFilterPage() {
     const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
     setCurrentMovies(data.slice(indexOfFirstFilm, indexOfLastFilm));
     setTotalPages(Math.max(Math.ceil(data.length / filmsPerPage), 1));
-    if(begin.current){
+    if (begin.current) {
       begin.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [currentPage, data]);
@@ -128,44 +128,44 @@ export default function MoviesFilterPage() {
       >
         {/* Filter controls - responsive layout */}
         <div className="flex flex-col items-center justify-center gap-3 md:flex-row md:flex-wrap md:gap-4 mb-10">
-        <div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
-  <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
-    Status
-  </h1>
-  <div className="flex-grow">
-    <Dropdown
-      label={statusLabel}
-      handleChangeOption={handleStatusChange}
-      options={Object.keys(allStatus)}
-    />
-  </div>
-</div>
+          <div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
+            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
+              Status
+            </h1>
+            <div className="flex-grow">
+              <Dropdown
+                label={statusLabel}
+                handleChangeOption={handleStatusChange}
+                options={Object.keys(allStatus)}
+              />
+            </div>
+          </div>
 
-<div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
-  <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
-    Genre
-  </h1>
-  <div className="flex-grow">
-    <Dropdown
-      label={genreLabel}
-      handleChangeOption={handleGenreChange}
-      options={Object.keys(allGenres)}
-    />
-  </div>
-</div>
+          <div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
+            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
+              Genre
+            </h1>
+            <div className="flex-grow">
+              <Dropdown
+                label={genreLabel}
+                handleChangeOption={handleGenreChange}
+                options={Object.keys(allGenres)}
+              />
+            </div>
+          </div>
 
-<div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
-  <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
-    Country
-  </h1>
-  <div className="flex-grow">
-    <Dropdown
-      label={countryLabel}
-      handleChangeOption={handleCountryChange}
-      options={Object.keys(allCountries)}
-    />
-  </div>
-</div>
+          <div className="w-[92%] md:w-auto min-w-[200px] flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
+            <h1 className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
+              Country
+            </h1>
+            <div className="flex-grow">
+              <Dropdown
+                label={countryLabel}
+                handleChangeOption={handleCountryChange}
+                options={Object.keys(allCountries)}
+              />
+            </div>
+          </div>
         </div>
 
         {/* No results message */}
@@ -185,7 +185,10 @@ export default function MoviesFilterPage() {
             {currentMovies.map((item) => {
               return (
                 <div className="mb-14 lg:w-[17%] w-[49%]" key={item.film_id}>
-                  <MovieCard data={item} className="transition-all duration-300 group-hover:shadow-xl group-hover:scale-105" />
+                  <MovieCard
+                    data={item}
+                    className="transition-all duration-300 group-hover:shadow-xl group-hover:scale-105"
+                  />
                 </div>
               );
             })}

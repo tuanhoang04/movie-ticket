@@ -115,7 +115,7 @@ export default function Movies() {
             </div>
             <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
               {currentNowShowings.map((item) => (
-                <div className="mb-10 lg:w-[17%] w-[49%]" key={item.film_id}>
+                <div className="mb-14 lg:w-[17%] w-[49%]" key={item.film_id}>
                   <MovieCard data={item} />
                 </div>
               ))}
@@ -123,7 +123,7 @@ export default function Movies() {
             {currentNowShowings.length <= 5 && (
               <div className="hidden lg:block mb-10 lg:w-[17%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
-                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
+                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-14" />
                   <div className="invisible"></div>
                 </div>
               </div>
@@ -160,7 +160,7 @@ export default function Movies() {
               })}
             </div>
             {currentUpcomings.length <= 5 && (
-              <div className="mb-10 lg:w-[17%] w-[49%]">
+              <div className="mb-14 lg:w-[17%] w-[49%]">
                 <div className="flex flex-col justify-start rounded-md p-4">
                   <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
                   <div className="invisible">
