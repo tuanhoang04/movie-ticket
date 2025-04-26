@@ -247,7 +247,12 @@ export default function TheatersAndMovies() {
             </div>
           )}
         </div>
-        <hr className="mx-8 lg:mx-36 my-7 opacity-70" />
+        
+        {/* Thay <hr> bằng divider gradient */}
+    <div className="flex justify-center mx-8 lg:mx-36 my-7">
+      <div className="w-1/2 h-1 bg-gradient-to-r from-transparent via-purple-600 to-transparent shadow-md"></div>
+    </div>
+    
         <div className="flex items-center justify-center">
           <p className="text-white text-2xl md:text-4xl md:mb-4">
             Buy Ticket by Theaters
