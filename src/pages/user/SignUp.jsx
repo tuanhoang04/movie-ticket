@@ -227,6 +227,7 @@ export default function SignUp({
               name="sex"
               onChange={handleChange}
               labelProps={{ className: "text-lg text-white" }}
+              className="checked:bg-white checked:border-white"
               label="Male"
               value="male"
             />
@@ -234,6 +235,7 @@ export default function SignUp({
               name="sex"
               onChange={handleChange}
               labelProps={{ className: "text-lg text-white" }}
+              className="checked:bg-white checked:border-white"
               label="Female"
               value="female"
             />

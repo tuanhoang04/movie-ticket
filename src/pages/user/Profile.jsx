@@ -316,7 +316,11 @@ export default function Profile() {
     <div className="bg-[#1C1B21] flex flex-col justify-center text-white">
       <NavBar />
       {viewProfile ? (
-        <Dialog open={viewProfile} className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[90%] md:w-[50%] lg:w-[40%] gap-8 rounded-lg shadow-lg transition-all duration-300">
+        <Dialog
+          open={viewProfile}
+          size="sm"
+          className="xl:px-6 xl:py-4 px-3 py-2 my-4 bg-[#4B4A52] mx-auto min-w-[85%] md:min-w-[30%] gap-8 rounded-lg shadow-lg transition-all duration-300"
+        >
           <DialogHeader className="p-0 bg-[#4B4A52] relative h-20 px-5 flex flex-row-reverse">
             <div className="w-full h-1 absolute top-0 left-0 bg-gradient-to-r from-[#f99d63] to-[#ca6fff]"></div>
             <div className="rounded-full w-24 h-24 absolute left-0 right-0 top-10 mx-auto overflow-hidden">
@@ -378,7 +382,11 @@ export default function Profile() {
                 className="hidden"
               />
               <div>
-                <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
+                <Typography
+                  variant="h5"
+                  color="white"
+                  className="mb-2 font-light text-xl text-white"
+                >
                   Name
                 </Typography>
                 <Input
@@ -393,7 +401,11 @@ export default function Profile() {
                 />
               </div>
               <div>
-                <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
+                <Typography
+                  variant="h5"
+                  color="white"
+                  className="mb-2 font-light text-xl text-white"
+                >
                   Email
                 </Typography>
                 <Input
@@ -409,7 +421,11 @@ export default function Profile() {
                 />
               </div>
               <div>
-                <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
+                <Typography
+                  variant="h5"
+                  color="white"
+                  className="mb-2 font-light text-xl text-white"
+                >
                   Phone number
                 </Typography>
                 <Input
@@ -424,7 +440,11 @@ export default function Profile() {
                 />
               </div>
               <div className="flex lg:gap-3 lg:flex-row flex-col lg:items-center">
-                <Typography variant="h5" color="white" className="mb-2 font-light text-xl text-white">
+                <Typography
+                  variant="h5"
+                  color="white"
+                  className="font-light text-xl text-white"
+                >
                   Gender
                 </Typography>
                 <Radio
@@ -448,13 +468,25 @@ export default function Profile() {
               </div>
               <div>
                 {uploadStatus && (
-                  <AlertWithIcon type="positive" message={uploadStatus} className="animate-fade-in" />
+                  <AlertWithIcon
+                    type="positive"
+                    message={uploadStatus}
+                    className="animate-fade-in"
+                  />
                 )}
                 {errorMessage && (
-                  <AlertWithIcon type="negative" message={errorMessage} className="animate-fade-in" />
+                  <AlertWithIcon
+                    type="negative"
+                    message={errorMessage}
+                    className="animate-fade-in"
+                  />
                 )}
                 {okMessage && (
-                  <AlertWithIcon type="positive" message={okMessage} className="animate-fade-in" />
+                  <AlertWithIcon
+                    type="positive"
+                    message={okMessage}
+                    className="animate-fade-in"
+                  />
                 )}
               </div>
               <div className="flex justify-center">
@@ -462,7 +494,8 @@ export default function Profile() {
                   className="w-full py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                   onClick={submit}
                   style={{
-                    background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+                    background:
+                      "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
                   }}
                 >
                   Update
