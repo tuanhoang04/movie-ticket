@@ -83,10 +83,10 @@ export default function TheatersPage() {
           console.log(result);
           setTheaters(result);
         } else {
-          console.error("Lỗi khi truy cập:", response.statusText);
+          console.error("Error accessing:", response.statusText);
         }
       } catch (error) {
-        console.error("Lỗi mạng:", error);
+        console.error("Network error:", error);
       }
     };
     console.log(`Current Area ID: ${currentAreaId}`);
@@ -113,13 +113,13 @@ export default function TheatersPage() {
           setAreas(result);
           console.log(result);
         } else {
-          console.log(`Truy cập: ${result.message}`);
+          console.log(`Access: ${result.message}`);
         }
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
 
@@ -142,10 +142,10 @@ export default function TheatersPage() {
           time: result,
         });
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
 
@@ -169,9 +169,9 @@ export default function TheatersPage() {
 
         <div className="min-h-screen p-4">
           {currentAreaName && (
-            <div className=" p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 pt-10 2xl:!pt-20 grid grid-cols-1 xl:grid-cols-7 gap-5 text-white h-fit xl:min-h-[400px] ">
-              <div className="  col-span-1 xl:col-span-2 h-full min-h-[300px] xl:min-h-[800px] bg-white bg-opacity-10 rounded-lg ">
-                <p className=" p-5 pb-0 text-3xl font-bold">
+            <div className=" p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 pt-10 2xl:!pt-12 grid grid-cols-1 xl:grid-cols-7 gap-5 text-white h-fit xl:min-h-[400px]  ">
+              <div className="col-span-1 xl:col-span-2 h-full min-h-[300px] xl:min-h-[800px] bg-white bg-opacity-10 rounded-lg border-gray-600 shadow-lg">
+                <p className=" p-5 pb-0 text-3xl font-bold ">
                   Theaters in {currentAreaName}
                 </p>
                 {theaters.length > 0 && (
@@ -187,7 +187,7 @@ export default function TheatersPage() {
                             ? { backgroundColor: "#502A50" }
                             : {}
                         }
-                        className="flex items-center gap-2 p-4 cursor-pointer hover:bg-[#502A50] bg-white bg-opacity-10 m-2 mx-5 rounded-lg"
+                        className="flex items-center gap-6 p-4 cursor-pointer hover:bg-[#502A50] bg-white bg-opacity-10 m-2 mx-5 rounded-lg"
                       >
                         <img
                           src={getTheaterLogo(item.cluster_name)}
@@ -209,7 +209,7 @@ export default function TheatersPage() {
               </div>
               {currentCinema && (
                 <div className=" col-span-1 xl:col-span-5">
-                  <div className="rounded-xl p-5 bg-white bg-opacity-10">
+                  <div className="group rounded-xl p-5 bg-white bg-opacity-10 border-gray-600 shadow-lg transition-all duration-300 hover:scale-101 hover:shadow-xl">
                     <div className="flex justify-between gap-5 items-center w-full">
                       <img
                         src={getTheaterLogo(currentCinema.info.cluster_name)}
@@ -230,7 +230,7 @@ export default function TheatersPage() {
                             "https://www.google.com/maps/search/" +
                             currentCinema.info.cinema_name.replace(/ /g, "+")
                           }
-                          className="underline"
+                          className="underline text-white hover:text-purple-300 hover:scale-105 transition-all duration-200"
                         >
                           <div className="flex items-center gap-2 text-2xl text-nowrap">
                             Find in map
@@ -256,17 +256,16 @@ export default function TheatersPage() {
                       </div>
                     </div>
                     <p className="text-lg text-white mt-5 line-clamp-3">
-                      Xem Lịch chiếu và Mua vé tại{" "}
-                      {currentCinema.info.cinema_name} - rạp{" "}
-                      {currentCinema.info.cluster_name} toàn quốc dễ dàng -
-                      nhanh chóng tại NHTT. Rạp {currentCinema.info.cinema_name}{" "}
-                      được xây dựng với tiêu chuẩn rạp Hollywood, chuẩn âm thanh
-                      Dolby 7.1, màn hình lớn, sắc nét.{" "}
-                      {currentCinema.info.cinema_name} là rạp chiếu phim thuộc
-                      hệ thống {currentCinema.info.cluster_name} - 1 chuỗi rạp
-                      chiếu phim thuộc sở hữu nội địa. Dù là rạp nội địa nhưng{" "}
-                      {currentCinema.info.cinema_name} cam kết dịch vụ chuyên
-                      nghiệp - trải nghiệm điện ảnh quốc tế và giá vé hạt dẻ.
+                    View Showtimes and Buy Tickets easily and quickly nationwide at{" "} 
+                    {currentCinema.info.cinema_name} - a cinema under{" "} 
+                    {currentCinema.info.cluster_name}, only at Starlight.{" "} 
+                    {currentCinema.info.cinema_name} is designed to Hollywood cinema standards, 
+                    featuring Dolby 7.1 surround sound and a large, ultra-clear screen.{" "} 
+                    {currentCinema.info.cinema_name} is part of the{" "} 
+                    {currentCinema.info.cluster_name} chain — a proudly locally owned theater system. 
+                    Even as a domestic brand,{" "} 
+                    {currentCinema.info.cinema_name} is committed to delivering professional service, 
+                    an international-quality movie experience, and affordable ticket prices.
                     </p>
                   </div>
                   <Tabs
