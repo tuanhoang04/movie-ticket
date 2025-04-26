@@ -142,7 +142,7 @@ export default function NewsPage() {
         className="flex flex-col lg:flex-row bg-gradient-to-b from-[#1C1B21] to-[#141316] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 md:gap-10 lg:gap-10 xl:gap-20 !pt-10 text-white"
       >
         <div id="lastest" className="lg:w-4/6 hidden lg:block">
-          <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5">
+          <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5 font-bold">
             Movie news
           </div>
           <div className="flex flex-col gap-5 lg:gap-10 p-2 lg:p-4">
@@ -183,7 +183,7 @@ export default function NewsPage() {
           </div>
         </div>
         <div id="side" className="lg:w-2/6">
-          <div className="text-4xl hidden lg:block  py-4 mb-10">
+          <div className="text-4xl hidden lg:block  py-4 mb-10 font-bold">
             More to explore
           </div>
           <div

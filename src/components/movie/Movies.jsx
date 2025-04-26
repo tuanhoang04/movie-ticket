@@ -153,8 +153,8 @@ export default function Movies() {
             <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
               {currentUpcomings.map((item) => {
                 return (
-                  <div className="mb-10 lg:w-[17%] w-[49%]" key={item.film_id}>
-                    <MovieCard data={item} />
+                  <div className="mb-14 lg:w-[17%] w-[49%]" key={item.film_id}>
+                    <MovieCard data={item} className="transition-all duration-300 group-hover:shadow-xl group-hover:scale-105"/>
                   </div>
                 );
               })}

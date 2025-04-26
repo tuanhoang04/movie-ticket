@@ -218,7 +218,7 @@ export default function TheatersAndMovies() {
               </div>
               <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
                 {currentNowShowings.map((item) => (
-                  <div className="mb-14 lg:w-[17%] w-[49%]" key={item.film_id}>
+                  <div className="mb- lg:w-[17%] w-[49%]" key={item.film_id}>
                     <MovieCard data={item} className="transition-all duration-300 group-hover:shadow-xl group-hover:scale-105"/>
                   </div>
                 ))}
