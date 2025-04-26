@@ -106,8 +106,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/home"
-          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "Home" ? "underline underline-offset-[8px]" : ""
+          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "Home" ? "" : ""
           }`}
         >
           Home
@@ -116,8 +116,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/movie/filter"
-          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "Movies" ? "underline underline-offset-[8px]" : ""
+          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "Movies" ? "" : ""
           }`}
         >
           Movies
@@ -126,8 +126,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/theater-movie"
-          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "Buy Ticket" ? "underline underline-offset-[8px]" : ""
+          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "Buy Ticket" ? "" : ""
           }`}
         >
           Buy Ticket
@@ -136,8 +136,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/theaters"
-          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "Theaters" ? "underline underline-offset-[8px]" : ""
+          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "Theaters" ? "" : ""
           }`}
         >
           Theaters
@@ -146,8 +146,8 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/news"
-          className={`flex items-center text-white hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "News" ? "underline underline-offset-[8px]" : ""
+          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
+            currentPage === "News" ? "" : ""
           }`}
         >
           News
@@ -158,14 +158,11 @@ export default function NavBar({
 
   return (
     <>
-      <Navbar className="max-w-full py-5 px-4 lg:px-36 lg:py-6 rounded-none border-none !bg-[#502A50] shadow-md">
+      <Navbar className="max-w-full py-5 lg:py-6 px-4 lg:px-36 rounded-none border-none !bg-[#502A50] shadow-md">
         <div className="mx-auto flex items-center justify-between text-white">
           {/* Logo */}
           <div className="flex items-center">
-            <img
-              src="/ico.png"
-              className="w-10 h-10 mr-3 self-center"
-            />
+            <img src="/ico.png" className="w-10 h-10 mr-3 self-center" />
             <a href="/home">
               <p className="text-2xl lg:text-3xl cursor-pointer font-medium text-white">
                 Starlight Cinema
@@ -188,14 +185,13 @@ export default function NavBar({
               />
               {isSearchOpen && (
                 <form onSubmit={handleSubmit} className="relative ml-2">
-                  <Input
+                  <input
                     type="search"
                     placeholder="Search"
-                    size="lg"
                     onChange={handleChange}
                     value={searchTerm}
                     autoComplete="off"
-                    className={`border-none !w-0 ${isSearchOpen ? '!w-56 opacity-100' : 'opacity-0'} transition-all duration-300 ease-in-out !rounded-full !text-lg px-5 bg-gray-400 placeholder:text-gray-300 placeholder:text-lg placeholder:opacity-100 focus:placeholder-opacity-0 text-white shadow-sm`}
+                    className="outline-none ring-0 w-56 h-12 transition-all duration-400 ease-in-out rounded-full text-lg px-5 bg-gray-800 border border-gray-700 focus:border-gray-500 text-white shadow-sm"
                   />
                 </form>
               )}
