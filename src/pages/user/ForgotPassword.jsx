@@ -158,13 +158,26 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
     <Dialog
       open={openDialog}
       handleOpen={handleOpenDialog}
-      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[40%] md:w-[12%] gap-6 rounded-lg shadow-lg transition-all duration-300"
+      size="sm"
+      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto min-w-[95%] md:min-w-[30%] gap-6 rounded-lg shadow-lg transition-all duration-300"
     >
       <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
         Change Your Password
       </DialogHeader>
-      {errorMessage && <AlertWithIcon type="negative" message={errorMessage} className="animate-fade-in" />}
-      {okMessage && <AlertWithIcon type="positive" message={okMessage} className="animate-fade-in" />}
+      {errorMessage && (
+        <AlertWithIcon
+          type="negative"
+          message={errorMessage}
+          className="animate-fade-in"
+        />
+      )}
+      {okMessage && (
+        <AlertWithIcon
+          type="positive"
+          message={okMessage}
+          className="animate-fade-in"
+        />
+      )}
       <DialogBody className="mt-4 mb-1">
         {step === 1 && (
           <form
@@ -192,7 +205,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
             </div>
             <div className="flex flex-row justify-center items-center gap-4">
               <Button
-                className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 onClick={() => {
                   handleOpenDialog();
                   setOkMessage("");
@@ -207,10 +220,11 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
               </Button>
               <Button
                 onClick={handleSubmitEmail}
-                className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                className="w-fit py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 type="submit"
                 style={{
-                  background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+                  background:
+                    "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
                 }}
               >
                 Submit
@@ -247,7 +261,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
             </div>
             <div className="flex flex-row justify-center items-center gap-4">
               <Button
-                className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 type="submit"
                 onClick={() => {
                   handleOpenDialog();
@@ -263,9 +277,10 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
               </Button>
               <Button
                 onClick={handleEmailAndTokenSubmit}
-                className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                className="w-fit py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 style={{
-                  background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+                  background:
+                    "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
                 }}
               >
                 Submit
@@ -319,7 +334,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
             </div>
             <div className="flex flex-row justify-center items-center gap-4">
               <Button
-                className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 onClick={() => {
                   handleOpenDialog();
                   setOkMessage("");
@@ -335,9 +350,10 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
               <Button
                 onClick={handleChangePasswordByTokenSubmit}
                 type="submit"
-                className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                className="w-fit py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 style={{
-                  background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
+                  background:
+                    "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
                 }}
               >
                 Change Password
