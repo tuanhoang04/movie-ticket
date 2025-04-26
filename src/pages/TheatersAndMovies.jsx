@@ -212,7 +212,7 @@ export default function TheatersAndMovies() {
           {!isLoading && (
             <div className="flex flex-col mt-6 mb-16">
               <div className="flex items-center justify-center">
-                <p ref={begin} className="text-white text-2xl md:text-4xl mb-5">
+                <p ref={begin} className="text-white text-2xl md:text-4xl mb-5 font-bold">
                   Buy Ticket by Movies
                 </p>
               </div>
@@ -254,7 +254,7 @@ export default function TheatersAndMovies() {
     </div>
     
         <div className="flex items-center justify-center">
-          <p className="text-white text-2xl md:text-4xl md:mb-4">
+          <p className="text-white text-2xl md:text-4xl md:mb-4 font-bold">
             Buy Ticket by Theaters
           </p>
         </div>
