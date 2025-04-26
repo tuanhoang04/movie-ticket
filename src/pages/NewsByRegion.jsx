@@ -36,11 +36,11 @@ export default function NewsByRegion() {
           return [...prev, ...newItems];
         });
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
         setHasMore(false);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
 
     setIsFetching(false);

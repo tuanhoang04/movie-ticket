@@ -57,24 +57,24 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
-          console.log("thanh cong roi");
+          console.log("Success!");
           setErrorMessage("");
           setOkMessage(`${data.message}`);
           setTimeout(() => {
             setStep(2);
           }, 1000);
         } else {
-          const errorAlert = `Gửi mã xác thực thất bại: ${data.message}`;
+          const errorAlert = `Failed to send verification code:${data.message}`;
           setOkMessage("");
           setErrorMessage(errorAlert);
         }
       } else {
-        console.error("Lỗi khi gửi:", response.statusText);
-        setErrorMessage("Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại.");
+        console.error("Error sending request:", response.statusText);
+        setErrorMessage("An error occurred while sending the request. Please try again.");
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
-      setErrorMessage("Lỗi mạng. Vui lòng kiểm tra kết nối của bạn.");
+      console.error("Network error:", error);
+      setErrorMessage("Network error. Please check your connection.");
     }
   };
 
@@ -144,13 +144,13 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
           }, 1000);
         } else {
           setOkMessage("");
-          setErrorMessage(`Đặt mật khẩu mới thất bại: ${data.message}`);
+          setErrorMessage(`Failed to set new password: ${data.message}`);
         }
       } else {
-        console.error("Lỗi khi đặt mật khẩu:", response.statusText);
+        console.error("Error setting new password:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error. Please check your connection.", error);
     }
   };
 

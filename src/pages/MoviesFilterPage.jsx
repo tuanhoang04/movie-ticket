@@ -49,13 +49,13 @@ export default function MoviesFilterPage() {
           setData(result);
           console.log(result);
         } else {
-          console.log(`Truy cập: ${result.message}`);
+          console.log(`Access: ${result.message}`);
         }
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
 
@@ -113,7 +113,7 @@ export default function MoviesFilterPage() {
     "Tiểu Sử": "15",
     "Lịch Sử": "16",
     "Chiến Tranh": "17",
-  };
+  }; 
 
   const allCountries = {
     "All Countries": "2",

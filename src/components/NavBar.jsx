@@ -141,7 +141,7 @@ export default function NavBar({
               : ""
           }`}
         >
-          Buy Ticket
+          Buy Tickets
         </a>
       </Typography>
       <Typography as="li" variant="h5" className="p-1 font-light">

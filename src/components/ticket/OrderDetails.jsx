@@ -115,14 +115,14 @@ export default function OrderDetails({ setNextStep, setPrevStep }) {
             window.location.href = responseData.paymentUrl;
           } else {
             alert(
-              "Bạn chưa đăng nhập hoặc đã hết phiên đăng nhập. Vui lòng thử lại."
+              "You are not logged in or your session has expired. Please try again."
             );
           }
         })
         .catch((error) => console.error("Error:", error));
     } catch (error) {
       console.error("Payment error:", error);
-      alert("Đã có lỗi xảy ra khi xử lý thanh toán. Vui lòng thử lại.");
+      alert("An error occurred while processing the payment. Please try again.");
     } finally {
       setLoading(false); // Dừng loading sau khi xử lý xong
     }
