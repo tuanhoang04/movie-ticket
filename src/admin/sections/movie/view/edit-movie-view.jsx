@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 export function EditMovieView({ movieId }) {
   const [directorList, setDirectorList] = useState([]);
   const [actorList, setActorList] = useState([]);
+  const [preview, setPreview] = useState(null);
   const [formData, setFormData] = useState({
     film_name: "",
     film_img: null,
@@ -180,6 +181,7 @@ export function EditMovieView({ movieId }) {
         // console.log([...new Set(data.categories?.map((cat) => cat.category_name))]);
 
         setFormData(fetchedData);
+        setPreview(fetchedData.film_img);
         setInitialFormData(fetchedData);
 
         setLoading(false);
@@ -199,15 +201,16 @@ export function EditMovieView({ movieId }) {
   }, [movieId]);
 
   const handleImageReset = () => {
-    setFormData((prev) => ({ ...prev, film_img: null }));
+    setPreview(null);
   };
 
   const handleAddPoster = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setFormData((prev) => ({ ...prev, film_img: file }));
       const reader = new FileReader();
       reader.onload = () => {
-        setFormData((prev) => ({ ...prev, film_img: reader.result }));
+        setPreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -363,9 +366,9 @@ export function EditMovieView({ movieId }) {
                       overflow: "hidden",
                     }}
                   >
-                    {formData.film_img ? (
+                    {preview ? (
                       <img
-                        src={formData.film_img}
+                        src={preview}
                         alt="Movie Poster"
                         style={{
                           width: "100%",
@@ -386,7 +389,7 @@ export function EditMovieView({ movieId }) {
                   </Box>
 
                   <Box sx={{ marginTop: "10px" }}>
-                    {formData.film_img ? (
+                    {preview ? (
                       <Button
                         onClick={handleImageReset}
                         variant="outlined"
