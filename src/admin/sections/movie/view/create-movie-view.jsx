@@ -109,11 +109,6 @@ export function CreateMovieView() {
     { value: "0", label: "Worldwide" },
   ];
 
-  // const filmTypeOptions = [
-  //     { value: 0, label: "Ngừng chiếu" },
-  //     { value: 1, label: "Đang chiếu" },
-  //     { value: 2, label: "Sắp chiếu" },
-  // ];
 
   const handleSnackbarClose = () =>
     setSnackbar((prev) => ({ ...prev, open: false }));
