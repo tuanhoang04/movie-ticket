@@ -25,7 +25,7 @@ export default function MovieCard({ data }) {
       <img
         src={data.film_img}
         alt={data.film_name}
-        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        className="w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"
       />
 
       {/* Bottom blur overlay */}

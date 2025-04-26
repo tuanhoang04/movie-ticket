@@ -84,7 +84,7 @@ export default function SearchPage() {
     <div className="bg-gradient-to-b from-[#1C1B21] to-[#141316] flex flex-col min-h-screen">
       <NavBar currentPage={"search"} />
       <div className="flex flex-grow">
-        <div className="px-3 lg:px-36 w-full">
+        <div className="flex flex-col px-3 lg:px-36 w-full">
           {!isLoading &&
             ((!upcomings && !nowShowing) ||
               (upcomings?.length == 0 && nowShowing?.length == 0) ||
@@ -98,9 +98,14 @@ export default function SearchPage() {
                 </p>
               </div>
             )}
+
+          {searchTerm && (nowShowing?.length > 0 || upcomings?.length > 0) && (
+            <p className="self-center text-white text-3xl my-7">
+              Search results for: "{searchTerm}"
+            </p>
+          )}
           {nowShowing?.length > 0 && (
-            <div className="flex flex-col mt-7 mb-20">
-              <p className="self-center text-white text-3xl mb-7">Search results for: "{searchTerm}"</p>
+            <div className="flex flex-col mt-7">
               <div className="flex flex-row items-center mb-4">
                 <img src="/icons/red-dot.png" className="w-9 h-9" />
                 <p className="text-white text-3xl">Now Showing Movies</p>
@@ -135,7 +140,7 @@ export default function SearchPage() {
           )}
 
           {upcomings?.length > 0 && (
-            <div className="flex flex-col mb-20">
+            <div className="flex flex-col mt-20 mb-20">
               <div className="flex flex-row items-center mb-4">
                 <img src="/icons/red-dot.png" className="w-9 h-9" />
                 <p className="text-white text-3xl">Upcoming Movies</p>
