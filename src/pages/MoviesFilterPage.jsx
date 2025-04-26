@@ -26,7 +26,7 @@ export default function MoviesFilterPage() {
     const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
     setCurrentMovies(data.slice(indexOfFirstFilm, indexOfLastFilm));
     setTotalPages(Math.max(Math.ceil(data.length / filmsPerPage), 1));
-    if (shouldScroll&&begin.current) {
+    if (shouldScroll && begin.current) {
       begin.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     setShouldScroll(false);
@@ -96,24 +96,24 @@ export default function MoviesFilterPage() {
 
   const allGenres = {
     "All genres": "18",
-    "Kinh Dị": "1",
-    "Hài kịch": "2",
-    "Hành Động": "3",
-    "Tội Phạm": "4",
-    "Phiêu Lưu": "5",
-    "Hoạt Hình": "6",
-    "Gia Đình": "7",
-    "Khoa Học Viễn Tưởng": "8",
-    "Bí Ẩn": "9",
-    "Giả Tưởng": "10",
-    "Lãng Mạn": "11",
+    Horror: "1",
+    Comedy: "2",
+    Action: "3",
+    Crime: "4",
+    Adventure: "5",
+    Animation: "6",
+    Family: "7",
+    "Science Fiction": "8",
+    Mystery: "9",
+    Fantasy: "10",
+    Romance: "11",
     Drama: "12",
-    "Giật Gân": "13",
-    "Âm Nhạc": "14",
-    "Tiểu Sử": "15",
-    "Lịch Sử": "16",
-    "Chiến Tranh": "17",
-  }; 
+    Thriller: "13",
+    Music: "14",
+    Biography: "15",
+    History: "16",
+    War: "17",
+  };
 
   const allCountries = {
     "All Countries": "2",
