@@ -215,11 +215,11 @@ export default function SignUp({
               className="!border-t-blue-gray-200 focus:!border-t-gray-900 !text-white placeholder:!text-gray-300 placeholder:!opacity-70 focus:ring-2 focus:ring-[#3B82F6] focus:outline-none !text-lg rounded-md shadow-sm transition-all duration-200"
             />
           </div>
-          <div className="flex lg:gap-3 lg:flex-row flex-col lg:items-center">
+          <div className="flex lg:gap-3 mb-2 lg:flex-row flex-col lg:items-center">
             <Typography
               variant="h5"
               color="white"
-              className="mb-2 font-light text-xl text-white"
+              className="font-light text-xl text-white"
             >
               Gender
             </Typography>
