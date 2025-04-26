@@ -106,8 +106,10 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/home"
-          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "Home" ? "" : ""
+          className={`flex items-center text-white hover:text-purple-300 hover:scale-110 hover:drop-shadow-md transition-all duration-200 ease-in-out ${
+            currentPage === "Home"
+              ? "bg-gradient-to-r from-[#502A50] to-[#3A253F] rounded-md px-2 py-1 drop-shadow-md"
+              : ""
           }`}
         >
           Home
@@ -116,8 +118,10 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/movie/filter"
-          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "Movies" ? "" : ""
+          className={`flex items-center text-white hover:text-purple-300 hover:scale-110 hover:drop-shadow-md transition-all duration-200 ease-in-out ${
+            currentPage === "Movies"
+              ? "bg-gradient-to-r from-[#502A50] to-[#3A253F] rounded-md px-2 py-1 drop-shadow-md"
+              : ""
           }`}
         >
           Movies
@@ -126,8 +130,10 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/theater-movie"
-          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "Buy Ticket" ? "" : ""
+          className={`flex items-center text-white hover:text-purple-300 hover:scale-110 hover:drop-shadow-md transition-all duration-200 ease-in-out ${
+            currentPage === "Buy Ticket"
+              ? "bg-gradient-to-r from-[#502A50] to-[#3A253F] rounded-md px-2 py-1 drop-shadow-md"
+              : ""
           }`}
         >
           Buy Ticket
@@ -136,8 +142,10 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/theaters"
-          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "Theaters" ? "" : ""
+          className={`flex items-center text-white hover:text-purple-300 hover:scale-110 hover:drop-shadow-md transition-all duration-200 ease-in-out ${
+            currentPage === "Theaters"
+              ? "bg-gradient-to-r from-[#502A50] to-[#3A253F] rounded-md px-2 py-1 drop-shadow-md"
+              : ""
           }`}
         >
           Theaters
@@ -146,8 +154,10 @@ export default function NavBar({
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/news"
-          className={`flex items-center text-white rounded-2xl hover:brightness-150 transition-all duration-150 ease-in-out ${
-            currentPage === "News" ? "" : ""
+          className={`flex items-center text-white hover:text-purple-300 hover:scale-110 hover:drop-shadow-md transition-all duration-200 ease-in-out ${
+            currentPage === "News"
+              ? "bg-gradient-to-r from-[#502A50] to-[#3A253F] rounded-md px-2 py-1 drop-shadow-md"
+              : ""
           }`}
         >
           News
