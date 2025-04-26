@@ -195,12 +195,12 @@ export default function TheatersPage() {
                           className={theaterImgStyle}
                         ></img>
                         <div>
-                          <div style={{ fontSize: "18px", fontWeight: "800" }}>
+                          <p className="text-[18px] font-bold">
                             {item.cinema_name}
-                          </div>
-                          <div className="overflow-hidden line-clamp-2">
+                          </p>
+                          <p className="overflow-hidden line-clamp-2">
                             {item.address}
-                          </div>
+                          </p>
                         </div>
                       </div>
                     ))}
@@ -256,16 +256,18 @@ export default function TheatersPage() {
                       </div>
                     </div>
                     <p className="text-lg text-white mt-5 line-clamp-3">
-                    View Showtimes and Buy Tickets easily and quickly nationwide at{" "} 
-                    {currentCinema.info.cinema_name} - a cinema under{" "} 
-                    {currentCinema.info.cluster_name}, only at Starlight.{" "} 
-                    {currentCinema.info.cinema_name} is designed to Hollywood cinema standards, 
-                    featuring Dolby 7.1 surround sound and a large, ultra-clear screen.{" "} 
-                    {currentCinema.info.cinema_name} is part of the{" "} 
-                    {currentCinema.info.cluster_name} chain — a proudly locally owned theater system. 
-                    Even as a domestic brand,{" "} 
-                    {currentCinema.info.cinema_name} is committed to delivering professional service, 
-                    an international-quality movie experience, and affordable ticket prices.
+                      View Showtimes and Buy Tickets easily and quickly
+                      nationwide at {currentCinema.info.cinema_name} - a cinema
+                      under {currentCinema.info.cluster_name}, only at
+                      Starlight. {currentCinema.info.cinema_name} is designed to
+                      Hollywood cinema standards, featuring Dolby 7.1 surround
+                      sound and a large, ultra-clear screen.{" "}
+                      {currentCinema.info.cinema_name} is part of the{" "}
+                      {currentCinema.info.cluster_name} chain — a proudly
+                      locally owned theater system. Even as a domestic brand,{" "}
+                      {currentCinema.info.cinema_name} is committed to
+                      delivering professional service, an international-quality
+                      movie experience, and affordable ticket prices.
                     </p>
                   </div>
                   <Tabs
