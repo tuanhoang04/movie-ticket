@@ -90,7 +90,7 @@ export default function SignIn({
       open={openDialog}
       handleOpen={handleOpenDialog}
       size="sm"
-      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto min-w-[95%] md:min-w-[30%] gap-6 rounded-lg shadow-lg transition-all duration-300"
+      className="xl:px-6 xl:py-4 px-3 py-2 my-4 bg-[#4B4A52] mx-auto min-w-[85%] md:min-w-[30%] gap-6 rounded-lg shadow-lg transition-all duration-300"
     >
       <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
         Sign In
@@ -135,16 +135,16 @@ export default function SignIn({
               <Typography
                 variant="h5"
                 color="white"
-                className="mb-2 font-light text-xl text-white"
+                className="mb-2 font-light text-xl text-white w-fit whitespace-nowrap"
               >
                 Password
               </Typography>
-              <Typography
+              <p
                 onClick={handleOpenForgotPassword}
-                className="text-[#3B82F6] lg:text-lg text-sm font-normal mb-2 cursor-pointer hover:underline"
+                className="text-[#3B82F6] lg:text-lg text-sm font-normal mb-2 cursor-pointer hover:underline w-fit whitespace-nowrap"
               >
                 Forgot your password?
-              </Typography>
+              </p>
             </div>
             <Input
               type="password"
@@ -158,7 +158,7 @@ export default function SignIn({
               }}
             />
           </div>
-          <div className="flex flex-row justify-center items-center gap-4">
+          <div className="flex flex-row justify-between xl:justify-center items-center gap-4">
             <Button
               color="gray"
               className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
@@ -179,13 +179,13 @@ export default function SignIn({
           </div>
         </form>
       </DialogBody>
-      <DialogFooter className="flex-col items-center !pt-1">
+      <DialogFooter className="flex-col items-start xl:items-center !pt-1">
         <div>
           <Typography
             color="gray"
-            className="text-gray-200 font-normal text-lg"
+            className="text-gray-200 font-normal text-base xl:text-lg"
           >
-            Don't have an account?{" "}
+            Don't have an account? <br className="xl:hidden " />
             <a
               className="text-[#3B82F6] hover:underline cursor-pointer"
               onClick={handleOpenSignUp}

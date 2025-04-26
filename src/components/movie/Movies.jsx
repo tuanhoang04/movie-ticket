@@ -109,7 +109,7 @@ export default function Movies() {
       <div className="px-3 lg:px-36">
         {!isLoading && (
           <div className="flex flex-col mt-7 mb-20">
-            <div ref={nowSRef} className="flex flex-row items-center mb-4">
+            <div ref={nowSRef} className="flex flex-row items-center mb-5">
               <img src="/icons/red-dot.png" className="w-9 h-9" />
               <p className="text-white text-3xl drop-shadow-md ">Now Showing</p>
             </div>
@@ -120,14 +120,6 @@ export default function Movies() {
                 </div>
               ))}
             </div>
-            {currentNowShowings.length <= 5 && (
-              <div className="hidden lg:block mb-10 lg:w-[17%] w-[49%]">
-                <div className="flex flex-col justify-start rounded-md p-4">
-                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-14" />
-                  <div className="invisible"></div>
-                </div>
-              </div>
-            )}
 
             <div>
               <CircularPagination
@@ -146,7 +138,7 @@ export default function Movies() {
 
         {!isLoading && (
           <div className="flex flex-col mb-20">
-            <div className="flex flex-row items-center mb-4" ref={upcRef}>
+            <div className="flex flex-row items-center mb-5" ref={upcRef}>
               <img src="/icons/red-dot.png" className="w-9 h-9" />
               <p className="text-white text-3xl drop-shadow-md">Upcoming Movies</p>
             </div>
@@ -159,21 +151,6 @@ export default function Movies() {
                 );
               })}
             </div>
-            {currentUpcomings.length <= 5 && (
-              <div className="mb-14 lg:w-[17%] w-[49%]">
-                <div className="flex flex-col justify-start rounded-md p-4">
-                  <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
-                  <div className="invisible">
-                    <p className="text-[#5D6A81] lg:text-xl text-lg w-full">
-                      &nbsp;
-                    </p>
-                    <p className="text-white lg:text-xl text-lg font-bold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] h-[3.55rem]">
-                      &nbsp;
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
             <div>
               <CircularPagination
                 key={totalPagesUpcoming}

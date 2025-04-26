@@ -123,7 +123,7 @@ export function ProfileMenu({ data }) {
       </Menu>
 
       <Dialog
-        className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto min-w-[95%] md:min-w-[30%] gap-6 rounded-lg shadow-lg transition-all duration-300"
+        className="xl:px-6 xl:py-4 px-3 py-2 my-4 bg-[#4B4A52] mx-auto min-w-[85%] md:min-w-[30%] gap-6 rounded-lg shadow-lg transition-all duration-300"
         open={openLogoutConfirm}
         size="sm"
         handler={handleOpen}
@@ -134,7 +134,7 @@ export function ProfileMenu({ data }) {
         <DialogBody className="text-lg md:text-xl text-white py-2 text-center">
           Are you sure you want to sign out?
         </DialogBody>
-        <DialogFooter className="flex justify-center gap-9">
+        <DialogFooter className="flex justify-center gap-3 xl:gap-9">
           <Button
             className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
             onClick={handleOpen}

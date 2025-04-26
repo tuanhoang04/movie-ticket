@@ -226,15 +226,6 @@ export default function TheatersAndMovies() {
                   </div>
                 ))}
               </div>
-              {currentNowShowings.length <= 5 && (
-                <div className="lg:block hidden mb-7 lg:w-[17%] w-[49%]">
-                  <div className="flex flex-col justify-start rounded-md p-4">
-                    <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-14" />
-                    <div className="invisible"></div>
-                  </div>
-                </div>
-              )}
-
               <div>
                 <CircularPagination
                   key={totalPagesNowShowing}

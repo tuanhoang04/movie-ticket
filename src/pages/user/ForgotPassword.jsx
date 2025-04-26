@@ -159,9 +159,9 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
       open={openDialog}
       handleOpen={handleOpenDialog}
       size="sm"
-      className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto min-w-[95%] md:min-w-[30%] gap-6 rounded-lg shadow-lg transition-all duration-300"
+      className="xl:px-6 xl:py-4 px-3 py-2 my-4 bg-[#4B4A52] mx-auto min-w-[85%] md:min-w-[30%] gap-3 xl:gap-6 rounded-lg shadow-lg transition-all duration-300"
     >
-      <DialogHeader className="text-white pb-3 text-3xl font-semibold text-center flex justify-center">
+      <DialogHeader className="text-white text-2xl xl:text-3xl font-semibold text-center flex justify-center">
         Change Your Password
       </DialogHeader>
       {errorMessage && (
@@ -178,7 +178,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
           className="animate-fade-in"
         />
       )}
-      <DialogBody className="mt-4 mb-1">
+      <DialogBody className="xl:mt-4 mb-1">
         {step === 1 && (
           <form
             onSubmit={handleSubmitEmail}
@@ -203,7 +203,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                 }}
               />
             </div>
-            <div className="flex flex-row justify-center items-center gap-4">
+            <div className="flex flex-row justify-center items-center gap-8">
               <Button
                 className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 onClick={() => {
@@ -259,7 +259,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                 }}
               />
             </div>
-            <div className="flex flex-row justify-center items-center gap-4">
+            <div className="flex flex-row justify-center items-center gap-8">
               <Button
                 className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 type="submit"
@@ -332,7 +332,7 @@ export default function ForgotPassword({ openDialog, handleOpenDialog }) {
                 }}
               />
             </div>
-            <div className="flex flex-row justify-center items-center gap-4">
+            <div className="flex flex-row justify-center items-center gap-8">
               <Button
                 className="w-fit py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                 onClick={() => {
