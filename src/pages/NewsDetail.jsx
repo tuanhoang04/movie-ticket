@@ -30,10 +30,10 @@ export default function NewsDetail() {
 
         setDataDetail(result[0]);
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
   useEffect(() => {
@@ -58,10 +58,10 @@ export default function NewsDetail() {
         setDataRelate(result);
         console.log("relate:" + result);
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
 
@@ -155,7 +155,7 @@ export default function NewsDetail() {
                     </div>
                   </div>
                 ))
-              : "Chưa có bài viết liên quan nào !"}
+              : "No related news are currently available. Please check back soon for the latest updates from our cinema."}
           </div>
         </div>
       </div>

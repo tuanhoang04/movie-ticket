@@ -41,7 +41,7 @@ export default function SearchPage() {
       setData(currData); // Cập nhật state với dữ liệu
       setIsLoading(false);
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error", error);
     }
   };
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function SearchPage() {
               <p className="self-center text-white text-3xl mb-7">Search results for: "{searchTerm}"</p>
               <div className="flex flex-row items-center mb-4">
                 <img src="/icons/red-dot.png" className="w-9 h-9" />
-                <p className="text-white text-3xl">Now Showing</p>
+                <p className="text-white text-3xl">Now Showing Movies</p>
               </div>
               <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
                 {currentNowShowings.map((item) => (
