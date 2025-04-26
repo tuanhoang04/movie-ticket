@@ -486,7 +486,7 @@ export default function Profile() {
             alt="profile"
             className="rounded-full border-4 border-white h-20 w-20 md:h-32 md:w-32  lg:h-[240px] lg:w-[240px] absolute bottom-[-40px] left-[20px] md:bottom-[-60px] md:left-[30px] lg:bottom-[-75px] lg:left-[100px]"
           />
-          <div className=" flex items-center gap-4 md:text-xl lg:text-2xl text-white absolute left-[110px] md:left-[180px] md:bottom-[-43px] lg:left-[350px] lg:bottom-[-40px]">
+          <div className=" flex items-center gap-4 md:text-xl lg:text-2xl text-white absolute left-[110px] md:left-[180px] md:bottom-[-43px] lg:left-[350px] lg:bottom-[-40px] font-bold">
             <p>{userInfor.full_name}</p>
 
             <svg
