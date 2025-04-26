@@ -35,7 +35,7 @@ export default function BookingTicketMain() {
         })
         .catch((error) => console.error("Error:", error));
     } catch (error) {
-      console.error("Lỗi khi gửi request:", error);
+      console.error("Error sending request", error);
       // alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
     }
   };

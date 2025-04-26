@@ -281,7 +281,7 @@ export default function CreateNewPost() {
 
       setMovieResults(currData[0]);
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
   useEffect(() => {

@@ -20,14 +20,16 @@ export default function MoviesFilterPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentMovies, setCurrentMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [shouldScroll, setShouldScroll] = useState(false);
   useEffect(() => {
     const indexOfLastFilm = currentPage * filmsPerPage;
     const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
     setCurrentMovies(data.slice(indexOfFirstFilm, indexOfLastFilm));
     setTotalPages(Math.max(Math.ceil(data.length / filmsPerPage), 1));
-    if (begin.current) {
+    if (shouldScroll&&begin.current) {
       begin.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    setShouldScroll(false);
   }, [currentPage, data]);
   const handleSubmit = async () => {
     try {
@@ -47,13 +49,13 @@ export default function MoviesFilterPage() {
           setData(result);
           console.log(result);
         } else {
-          console.log(`Truy cập: ${result.message}`);
+          console.log(`Access: ${result.message}`);
         }
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
 
@@ -87,9 +89,9 @@ export default function MoviesFilterPage() {
 
   const allStatus = {
     "All Movies": "4",
-    "Now playing": "1",
-    Upcoming: "2",
-    Discontinued: "0",
+    "Now showing": "1",
+    Upcoming: "0",
+    Discontinued: "2",
   };
 
   const allGenres = {
@@ -111,7 +113,7 @@ export default function MoviesFilterPage() {
     "Tiểu Sử": "15",
     "Lịch Sử": "16",
     "Chiến Tranh": "17",
-  };
+  }; 
 
   const allCountries = {
     "All Countries": "2",
@@ -200,6 +202,7 @@ export default function MoviesFilterPage() {
                 currentPage={currentPage}
                 handleChange={(value) => {
                   setCurrentPage(value);
+                  setShouldScroll(true);
                 }}
               />
             </div>

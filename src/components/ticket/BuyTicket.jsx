@@ -44,7 +44,7 @@ export default function BuyTicket() {
         })
         .catch((error) => console.error("Error:", error));
     } catch (error) {
-      console.error("Lỗi khi gửi request:", error);
+      console.error("Error sending request", error);
       alert("An error has occurred, please login and try again!");
     }
   };
@@ -71,10 +71,10 @@ export default function BuyTicket() {
           setSchedule(transformSchedule(result));
           // console.log(transformSchedule(result));
         } else {
-          console.error("Lỗi khi truy cập:", response.statusText);
+          console.error("Error accessing", response.statusText);
         }
       } catch (error) {
-        console.error("Lỗi mạng:", error);
+        console.error("Network error:", error);
       }
     };
 
@@ -103,10 +103,10 @@ export default function BuyTicket() {
           // console.log(`Truy cập: ${result.message}`);
         }
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
   const fetchLikeStatus = async () => {

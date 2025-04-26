@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,9 @@ export default function SearchPage() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  const beginNS = useRef(null);
+  const [shouldScroll,setShouldScroll] = useState(false);
+  const beginUC = useRef(null);
   const [currentPageNowShowing, setCurrentPageNowShowing] = useState(1);
   const [currentNowShowings, setCurrentNowShowing] = useState([]);
   const [totalPagesNowShowing, setTotalPagesNowShowing] = useState(1);
@@ -41,7 +44,7 @@ export default function SearchPage() {
       setData(currData); // Cập nhật state với dữ liệu
       setIsLoading(false);
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error", error);
     }
   };
   useEffect(() => {
@@ -59,7 +62,14 @@ export default function SearchPage() {
       setTotalPagesNowShowing(
         Math.max(Math.ceil(nowShowing.length / filmsPerCate), 1)
       );
-    nowShowing && console.log(nowShowing);
+
+      if(shouldScroll&&beginNS.current){
+        beginNS.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+      setShouldScroll(false);
   }, [currentPageNowShowing, nowShowing]);
 
   useEffect(() => {
@@ -73,7 +83,13 @@ export default function SearchPage() {
       setTotalPagesUpcoming(
         Math.max(Math.ceil(upcomings.length / filmsPerCate), 1)
       );
-    upcomings && console.log(upcomings);
+    if(shouldScroll&&beginUC.current){
+      beginUC.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+    setShouldScroll(false);
   }, [currentPageUpcoming, upcomings]);
 
   const handleNavigate = (film_name, film_id) => {
@@ -84,7 +100,7 @@ export default function SearchPage() {
     <div className="bg-gradient-to-b from-[#1C1B21] to-[#141316] flex flex-col min-h-screen">
       <NavBar currentPage={"search"} />
       <div className="flex flex-grow">
-        <div className="px-3 lg:px-36 w-full">
+        <div className="flex flex-col px-3 lg:px-36 w-full">
           {!isLoading &&
             ((!upcomings && !nowShowing) ||
               (upcomings?.length == 0 && nowShowing?.length == 0) ||
@@ -98,12 +114,17 @@ export default function SearchPage() {
                 </p>
               </div>
             )}
+
+          {searchTerm && (nowShowing?.length > 0 || upcomings?.length > 0) && (
+            <p className="self-center text-white text-3xl my-7">
+              Showing results for "{searchTerm}"
+            </p>
+          )}
           {nowShowing?.length > 0 && (
-            <div className="flex flex-col mt-7 mb-20">
-              <p className="self-center text-white text-3xl mb-7">Search results for: "{searchTerm}"</p>
-              <div className="flex flex-row items-center mb-4">
+            <div className="flex flex-col mt-7">
+              <div ref={beginNS} className="flex flex-row items-center mb-5">
                 <img src="/icons/red-dot.png" className="w-9 h-9" />
-                <p className="text-white text-3xl">Now Showing</p>
+                <p className="text-white text-3xl">Now Showing Movies</p>
               </div>
               <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
                 {currentNowShowings.map((item) => (
@@ -112,14 +133,6 @@ export default function SearchPage() {
                   </div>
                 ))}
               </div>
-              {currentNowShowings.length <= 5 && (
-                <div className="mb-14 lg:w-[17%] w-[49%]">
-                  <div className="flex flex-col justify-start rounded-md p-4">
-                    <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-4" />
-                    <div className="invisible"></div>
-                  </div>
-                </div>
-              )}
 
               <div>
                 <CircularPagination
@@ -128,6 +141,7 @@ export default function SearchPage() {
                   currentPage={currentPageNowShowing}
                   handleChange={(value) => {
                     setCurrentPageNowShowing(value);
+                    setShouldScroll(true);
                   }}
                 />
               </div>
@@ -135,8 +149,8 @@ export default function SearchPage() {
           )}
 
           {upcomings?.length > 0 && (
-            <div className="flex flex-col mb-20">
-              <div className="flex flex-row items-center mb-4">
+            <div className="flex flex-col mt-20 mb-20">
+              <div ref={beginUC} className="flex flex-row items-center mb-5">
                 <img src="/icons/red-dot.png" className="w-9 h-9" />
                 <p className="text-white text-3xl">Upcoming Movies</p>
               </div>
@@ -153,14 +167,6 @@ export default function SearchPage() {
                   );
                 })}
               </div>
-              {currentUpcomings.length <= 5 && (
-                <div className="mb-14 lg:w-[17%] w-[49%]">
-                  <div className="flex flex-col justify-start rounded-md p-4">
-                    <div className="rounded-2xl w-full aspect-[2/3] bg-transparent" />
-                    <div className="invisible"></div>
-                  </div>
-                </div>
-              )}
               <div>
                 <CircularPagination
                   key={totalPagesUpcoming}
@@ -168,6 +174,7 @@ export default function SearchPage() {
                   currentPage={currentPageUpcoming}
                   handleChange={(value) => {
                     setCurrentPageUpcoming(value);
+                    setShouldScroll(true);
                   }}
                 />
               </div>

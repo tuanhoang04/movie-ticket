@@ -138,10 +138,10 @@ export default function TheatersAndMovies() {
           console.log(result);
           setTheaters(result);
         } else {
-          console.error("Lỗi khi truy cập:", response.statusText);
+          console.error("Error accessing:", response.statusText);
         }
       } catch (error) {
-        console.error("Lỗi mạng:", error);
+        console.error("Network error:", error);
       }
     };
     console.log(`Current Area ID: ${currentAreaId}`);
@@ -168,13 +168,13 @@ export default function TheatersAndMovies() {
           setAreas(result);
           console.log(result);
         } else {
-          console.log(`Truy cập: ${result.message}`);
+          console.log(`Access: ${result.message}`);
         }
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
 
@@ -197,10 +197,10 @@ export default function TheatersAndMovies() {
           time: result,
         });
       } else {
-        console.error("Lỗi khi truy cập:", response.statusText);
+        console.error("Error accessing:", response.statusText);
       }
     } catch (error) {
-      console.error("Lỗi mạng:", error);
+      console.error("Network error:", error);
     }
   };
   return (
@@ -226,15 +226,6 @@ export default function TheatersAndMovies() {
                   </div>
                 ))}
               </div>
-              {currentNowShowings.length <= 5 && (
-                <div className="lg:block hidden mb-7 lg:w-[17%] w-[49%]">
-                  <div className="flex flex-col justify-start rounded-md p-4">
-                    <div className="rounded-2xl w-full aspect-[2/3] bg-transparent mb-14" />
-                    <div className="invisible"></div>
-                  </div>
-                </div>
-              )}
-
               <div>
                 <CircularPagination
                   key={totalPagesNowShowing}
@@ -367,18 +358,16 @@ export default function TheatersAndMovies() {
                         </div>
                       </div>
                       <p className="text-lg text-white mt-5 line-clamp-3">
-                        Xem Lịch chiếu và Mua vé tại{" "}
-                        {currentCinema.info.cinema_name} - rạp{" "}
-                        {currentCinema.info.cluster_name} toàn quốc dễ dàng -
-                        nhanh chóng tại NHTT. Rạp{" "}
-                        {currentCinema.info.cinema_name} được xây dựng với tiêu
-                        chuẩn rạp Hollywood, chuẩn âm thanh Dolby 7.1, màn hình
-                        lớn, sắc nét. {currentCinema.info.cinema_name} là rạp
-                        chiếu phim thuộc hệ thống{" "}
-                        {currentCinema.info.cluster_name} - 1 chuỗi rạp chiếu
-                        phim thuộc sở hữu nội địa. Dù là rạp nội địa nhưng{" "}
-                        {currentCinema.info.cinema_name} cam kết dịch vụ chuyên
-                        nghiệp - trải nghiệm điện ảnh quốc tế và giá vé hạt dẻ.
+                      View Showtimes and Buy Tickets easily and quickly nationwide at{" "} 
+                    {currentCinema.info.cinema_name} - a cinema under{" "} 
+                    {currentCinema.info.cluster_name}, only at Starlight.{" "} 
+                    {currentCinema.info.cinema_name} is designed to Hollywood cinema standards, 
+                    featuring Dolby 7.1 surround sound and a large, ultra-clear screen.{" "} 
+                    {currentCinema.info.cinema_name} is part of the{" "} 
+                    {currentCinema.info.cluster_name} chain — a proudly locally owned theater system. 
+                    Even as a domestic brand,{" "} 
+                    {currentCinema.info.cinema_name} is committed to delivering professional service, 
+                    an international-quality movie experience, and affordable ticket prices.
                       </p>
                     </div>
                     <Tabs
