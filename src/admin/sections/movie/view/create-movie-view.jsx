@@ -16,8 +16,10 @@ import {
 import { DashboardContent } from "../../../layouts/dashboard";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function CreateMovieView() {
+  const navigate = useNavigate();
   const [directorList, setDirectorList] = useState([]);
   const [actorList, setActorList] = useState([]);
   const [preview, setPreview] = useState(null);
@@ -98,13 +100,13 @@ export function CreateMovieView() {
   });
 
   const filmTypeOptions = [
-    { value: "1", label: "Đang chiếu" },
-    { value: "0", label: "Sắp chiếu" },
+    { value: "1", label: "Now showing" },
+    { value: "0", label: "Upcoming" },
   ];
 
   const countryOptions = [
-    { value: "1", label: "Việt Nam" },
-    { value: "0", label: "Nước ngoài" },
+    { value: "1", label: "Vietnam" },
+    { value: "0", label: "Worldwide" },
   ];
 
   // const filmTypeOptions = [
@@ -484,23 +486,23 @@ export function CreateMovieView() {
                 multiple
                 freeSolo
                 options={[
-                  "Horor",
-                  "Hài Kịch",
-                  "Hành Động",
-                  "Tội Phạm",
-                  "Phiêu Lưu",
-                  "Hoạt Hình",
-                  "Gia Đình",
-                  "Khoa Học Viễn Tưởng",
-                  "Bí Ẩn",
-                  "Giả Tưởng",
-                  "Lãng Mạng",
+                  "Horror",
+                  "Comedy",
+                  "Action",
+                  "Crime",
+                  "Adventure",
+                  "Animation",
+                  "Family",
+                  "Science Fiction",
+                  "Mystery",
+                  "Fantasy",
+                  "Romance",
                   "Drama",
-                  "Giật Gân",
-                  "Âm Nhạc",
-                  "Tiểu Sử",
-                  "Lịch Sử",
-                  "Chiến Tranh",
+                  "Thriller",
+                  "Music",
+                  "Biography",
+                  "History",
+                  "War",
                 ]}
                 value={formData.categories}
                 onChange={(event, value) => {
@@ -559,7 +561,7 @@ export function CreateMovieView() {
 
             <Box mt={3} display="flex" justifyContent="flex-end">
               <Button type="submit" variant="contained" color="primary">
-                Tạo phim
+                Create film
               </Button>
             </Box>
           </form>

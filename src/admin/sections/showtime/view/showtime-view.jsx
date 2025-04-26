@@ -153,7 +153,7 @@ export function ShowtimeView() {
             marginBottom: { xs: 1 },
           }}
         >
-          Quản lý suất chiếu phim
+          Manage Movie Showtimes
         </Typography>
         <Button
           variant="contained"
@@ -162,7 +162,7 @@ export function ShowtimeView() {
           component={Link}
           to="/admin/showtime/create"
         >
-          Thêm suất chiếu
+          Add Showtime
         </Button>
       </Box>
 
@@ -192,12 +192,12 @@ export function ShowtimeView() {
                   );
                 }}
                 headLabel={[
-                  { id: "showtime_id", label: "ID suất chiếu" },
-                  { id: "film_name", label: "Tên phim" },
-                  { id: "cinema_name", label: "Tên rạp chiếu" },
-                  { id: "room_name", label: "Tên phòng chiếu" },
-                  { id: "show_time", label: "Giờ chiếu" },
-                  { id: "show_date", label: "Ngày chiếu" },
+                  { id: "showtime_id", label: "Showtime ID" },
+                  { id: "film_name", label: "Film name" },
+                  { id: "cinema_name", label: "Cinema name" },
+                  { id: "room_name", label: "Room name" },
+                  { id: "show_time", label: "Show time" },
+                  { id: "show_date", label: "show date" },
                   { id: "" },
                 ]}
               />
@@ -256,7 +256,7 @@ export function ShowtimeView() {
             onPageChange={table.onChangePage}
             rowsPerPageOptions={[5, 10, 25]}
             onRowsPerPageChange={table.onChangeRowsPerPage}
-            labelRowsPerPage="Số dòng mỗi trang:"
+            labelRowsPerPage="Rows per page:"
           />
         )}
       </Card>

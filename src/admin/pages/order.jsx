@@ -1,14 +1,17 @@
-import { Helmet } from 'react-helmet-async';
-import { OrderView } from '../sections/order/view';
+import { Helmet } from "react-helmet-async";
+import { OrderView } from "../sections/order/view";
 
 export default function OrderPage() {
-    return (
-        <>
-            <Helmet>
-                <title> {`Quản lý đơn hàng | Trang quản trị website bán vé xem phim NHTT`}</title>
-            </Helmet>
+  return (
+    <>
+      <Helmet>
+        <title>
+          {" "}
+          {`Manage Orders | Admin Page for Starlight Movie Ticket Sales Website`}
+        </title>
+      </Helmet>
 
-            <OrderView />
-        </>
-    );
+      <OrderView />
+    </>
+  );
 }

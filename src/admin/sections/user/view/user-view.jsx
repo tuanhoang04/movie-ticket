@@ -133,7 +133,7 @@ export function UserView() {
     <DashboardContent>
       <Box display="flex" alignItems="center" mb={5}>
         <Typography variant="h2" flexGrow={1}>
-          Quản lý người dùng
+          User management
         </Typography>
       </Box>
 
@@ -163,11 +163,11 @@ export function UserView() {
                   )
                 }
                 headLabel={[
-                  { id: "username", label: "Tên người dùng" },
+                  { id: "username", label: "Username" },
                   { id: "email", label: "Email" },
-                  { id: "phone_number", label: "Số điện thoại" },
-                  { id: "role", label: "Vai trò" },
-                  { id: "status", label: "Trạng thái" },
+                  { id: "phone_number", label: "Phone number" },
+                  { id: "role", label: "Role" },
+                  { id: "status", label: "Status" },
                   { id: "" },
                 ]}
               />

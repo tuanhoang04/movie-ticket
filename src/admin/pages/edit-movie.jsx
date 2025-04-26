@@ -1,18 +1,21 @@
-import { Helmet } from 'react-helmet-async';
-import { EditMovieView } from '../sections/movie/view';
-import { useParams } from 'react-router-dom';
+import { Helmet } from "react-helmet-async";
+import { EditMovieView } from "../sections/movie/view";
+import { useParams } from "react-router-dom";
 
 // ----------------------------------------------------------------------
 export default function EditMoviePage() {
-    const { id } = useParams();
+  const { id } = useParams();
 
-    return (
-        <>
-            <Helmet>
-                <title> {`Chỉnh sửa thông tin phim | Trang quản trị website bán vé xem phim NHTT`}</title>
-            </Helmet>
+  return (
+    <>
+      <Helmet>
+        <title>
+          {" "}
+          {`Edit Movie Information | Admin Page for Starlight Movie Ticket Sales Website`}
+        </title>
+      </Helmet>
 
-            <EditMovieView movieId={id} />
-        </>
-    );
+      <EditMovieView movieId={id} />
+    </>
+  );
 }

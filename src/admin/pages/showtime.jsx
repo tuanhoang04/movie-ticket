@@ -1,15 +1,18 @@
-import { Helmet } from 'react-helmet-async';
-import { ShowtimeView } from '../sections/showtime/view';
+import { Helmet } from "react-helmet-async";
+import { ShowtimeView } from "../sections/showtime/view";
 
 // ----------------------------------------------------------------------
 export default function ShowtimePage() {
-    return (
-        <>
-            <Helmet>
-                <title> {`Quản lý suất chiếu phim | Trang quản trị website bán vé xem phim NHTT`}</title>
-            </Helmet>
+  return (
+    <>
+      <Helmet>
+        <title>
+          {" "}
+          {`Manage Showtimes | Admin Page for Starlight Movie Ticket Sales Website`}
+        </title>
+      </Helmet>
 
-            <ShowtimeView />
-        </>
-    );
+      <ShowtimeView />
+    </>
+  );
 }
