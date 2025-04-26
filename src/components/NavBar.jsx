@@ -7,7 +7,11 @@ import {
   IconButton,
   Input,
 } from "@material-tailwind/react";
-import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "./ProfileMenu";
 import SignIn from "../pages/user/SignIn";
@@ -57,9 +61,10 @@ export default function NavBar({
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem("searchTerm", searchTerm);
-    navigate(`/search/${encodeURIComponent(createSlug(searchTerm))}`);
     if (currentPage === "search") {
       window.location.reload();
+    } else {
+      navigate(`/search/${encodeURIComponent(createSlug(searchTerm))}`);
     }
   };
 
@@ -249,19 +254,19 @@ export default function NavBar({
           <div className="mt-4">
             {navList}
             <div className="flex flex-col gap-4 mt-4">
-              <form onSubmit={handleSubmit}>
-                <div className="relative">
-                  <MagnifyingGlassIcon className="absolute right-5 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-200" />
-                  <Input
-                    type="search"
-                    placeholder="Search"
-                    size="lg"
-                    onChange={handleChange}
-                    value={searchTerm}
-                    autoComplete="off"
-                    className="border-none !w-full !rounded-full !text-lg pr-14 bg-gray-500 placeholder:text-gray-300 placeholder:text-lg placeholder:opacity-100 focus:placeholder-opacity-0 text-white shadow-sm"
-                  />
-                </div>
+              <form onSubmit={handleSubmit} className="relative">
+                <input
+                  type="search"
+                  placeholder="Search"
+                  onChange={handleChange}
+                  value={searchTerm}
+                  autoComplete="off"
+                  className="outline-none ring-0 w-56 h-12 transition-all duration-400 ease-in-out rounded-full text-lg px-5 bg-gray-800 border border-gray-700 focus:border-gray-500 text-white shadow-sm"
+                />
+                <MagnifyingGlassIcon
+                  onClick={handleSubmit}
+                  className="absolute right-5 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-200"
+                />
               </form>
               {isLoading ? null : login && userInfo ? (
                 <ProfileMenu data={userInfo} />
