@@ -56,7 +56,7 @@ export default function ActorFilms() {
   };
 
   return (
-    <div className="bg-[#1C1B21] min-h-screen flex flex-col">
+    <div className="bg-gradient-to-b from-[#1C1B21] to-[#141316] min-h-screen flex flex-col">
       <NavBar />
       <div className="flex-grow p-4 md:p-6 lg:px-12 xl:px-20 2xl:px-32">
         {actorData && filmsData && (

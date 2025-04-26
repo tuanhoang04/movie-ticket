@@ -204,7 +204,7 @@ export default function TheatersAndMovies() {
     }
   };
   return (
-    <div className="bg-[#1C1B21] min-h-screen flex flex-col">
+    <div className="bg-gradient-to-b from-[#1C1B21] to-[#141316] min-h-screen flex flex-col">
       <NavBar currentPage="Buy Ticket" key="Buy Ticket" />
       <div className="flex-grow">
         {/* Now showing movies section */}
@@ -257,8 +257,8 @@ export default function TheatersAndMovies() {
         {/* Theaters section */}
 
         <div id="body" className="">
-          <div className="m-auto w-fit mt-6 md:mt-10 flex items-center bg-gray-800 rounded-2xl">
-            <div className="text-white text-xl h-[56px] font-bold px-5 border-r-2 place-content-center uppercase">
+          <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
+            <div className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
               Location
             </div>
 

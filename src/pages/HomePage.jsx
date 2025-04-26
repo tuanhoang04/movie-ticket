@@ -4,7 +4,7 @@ import Movies from "../components/movie/Movies";
 
 export default function HomePage() {
   return (
-    <div className="bg-[#1C1B21] min-h-screen flex flex-col">
+    <div className="bg-gradient-to-b from-[#1C1B21] to-[#141316] min-h-screen flex flex-col">
       <NavBar currentPage="Home"/>
       <div className="flex-grow">
         <Movies />

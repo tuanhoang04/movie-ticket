@@ -150,13 +150,13 @@ export default function TheatersPage() {
   };
 
   return (
-    <div className="bg-[#1C1B21] h-fit">
+    <div className="bg-gradient-to-b from-[#1C1B21] to-[#141316] h-fit">
       <BackToTopButton />
 
       <NavBar currentPage={"Theaters"} />
       <div id="body" className="">
-        <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-2xl">
-          <div className="text-white text-xl h-[56px] font-bold px-5 border-r-2 place-content-center uppercase">
+        <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
+          <div className="text-white text-base md:text-lg lg:text-xl font-bold px-4 md:px-5 lg:px-6 py-3 border-r border-gray-600 place-content-center uppercase">
             Location
           </div>
 

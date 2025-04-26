@@ -80,7 +80,7 @@ export default function NewsByRegion() {
   return (
     <>
       <NavBar />
-      <div className="bg-[#1C1B21]">
+      <div className="bg-gradient-to-b from-[#1C1B21] to-[#141316]">
         <br />
         <div className="text-white text-4xl p-4 md:p-6 lg:p-16 xl:p-20 2xl:p-32 !pt-10 !pb-10 flex items-center gap-2">
           <p>{getRegion()} News</p>

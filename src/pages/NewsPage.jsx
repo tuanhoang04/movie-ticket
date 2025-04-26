@@ -139,7 +139,7 @@ export default function NewsPage() {
       <NavBar currentPage={"News"} />
       <div
         id="body"
-        className="flex flex-col lg:flex-row bg-[#1C1B21] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 md:gap-10 lg:gap-10 xl:gap-20 !pt-10 text-white"
+        className="flex flex-col lg:flex-row bg-gradient-to-b from-[#1C1B21] to-[#141316] p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 md:gap-10 lg:gap-10 xl:gap-20 !pt-10 text-white"
       >
         <div id="lastest" className="lg:w-4/6 hidden lg:block">
           <div className="text-2xl lg:text-4xl px-2 lg:px-5 py-4 mb-5">

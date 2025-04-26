@@ -81,7 +81,7 @@ export default function SearchPage() {
     navigate(`/movie/${film_name}`);
   };
   return (
-    <div className="bg-[#1C1B21] flex flex-col min-h-screen">
+    <div className="bg-gradient-to-b from-[#1C1B21] to-[#141316] flex flex-col min-h-screen">
       <NavBar currentPage={"search"} />
       <div className="flex flex-grow">
         <div className="px-3 lg:px-36 w-full">
