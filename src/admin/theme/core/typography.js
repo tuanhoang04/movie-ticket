@@ -1,12 +1,10 @@
 import { setFont, pxToRem, responsiveFontSizes } from "../styles/utils";
 
-export const defaultFont = "Open Sans Variable";
-
-export const primaryFont = setFont(defaultFont);
+// Define the primary font as Inter
+export const primaryFont = setFont("Inter");
 
 export const typography = {
   fontFamily: primaryFont,
-  fontSecondaryFamily: secondaryFont,
   fontWeightLight: "300",
   fontWeightRegular: "400",
   fontWeightMedium: "500",
@@ -16,21 +14,21 @@ export const typography = {
     fontWeight: 800,
     lineHeight: 80 / 64,
     fontSize: pxToRem(40),
-    fontFamily: secondaryFont,
+    fontFamily: primaryFont,
     ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
   },
   h2: {
     fontWeight: 800,
     lineHeight: 64 / 48,
     fontSize: pxToRem(32),
-    fontFamily: secondaryFont,
+    fontFamily: primaryFont,
     ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
   },
   h3: {
     fontWeight: 700,
     lineHeight: 1.5,
     fontSize: pxToRem(24),
-    fontFamily: secondaryFont,
+    fontFamily: primaryFont,
     ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
   },
   h4: {
