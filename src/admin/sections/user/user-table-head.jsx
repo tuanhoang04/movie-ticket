@@ -45,7 +45,7 @@ export function UserTableHead({
                         key={headCell.id} // Unique key for each column header
                         align={headCell.align || 'left'} // Align left by default
                         sortDirection={orderBy === headCell.id ? order : false} // Set sorting direction if applicable
-                        sx={{ width: headCell.width, minWidth: headCell.minWidth }} // Custom width styles
+                        sx={{ fontSize:"1.2rem",width: headCell.width, minWidth: headCell.minWidth }} // Custom width styles
                     >
                         {/* Sortable label for column, clickable to sort */}
                         <TableSortLabel

@@ -221,6 +221,11 @@ export function OrderView() {
 
         {dataFiltered.length > 0 && (
           <TablePagination
+            sx={{
+              "& *": {
+                fontSize: "1.25rem",
+              },
+            }}
             component="div"
             page={table.page}
             count={dataFiltered.length}

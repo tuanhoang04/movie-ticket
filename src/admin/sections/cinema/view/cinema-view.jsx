@@ -159,6 +159,9 @@ export function CinemaView() {
           Cinema Management
         </Typography>
         <Button
+          sx={{
+            fontSize: "1.1rem",
+          }}
           variant="contained"
           color="success"
           startIcon={<Iconify icon="mingcute:add-line" />}
@@ -269,6 +272,11 @@ export function CinemaView() {
 
         {dataFiltered.length > 0 && (
           <TablePagination
+            sx={{
+              "& *": {
+                fontSize: "1.25rem",
+              },
+            }}
             component="div"
             page={table.page}
             count={dataFiltered.length}

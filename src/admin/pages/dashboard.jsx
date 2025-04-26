@@ -76,14 +76,14 @@ export default function DashboardPage() {
           {/* Phần thẻ thống kê */}
           <Grid container spacing={3}>
             {/* Tổng đơn hàng */}
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={10} sm={4}>
               <Card>
                 <CardHeader title="Total orders" />
                 <CardContent>
-                  <Typography variant="h3">
+                  <Typography variant="h2">
                     {dashboardData.order ? dashboardData.order : "0"}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography variant="body" color="textSecondary">
                     orders this month
                   </Typography>
                 </CardContent>
@@ -95,7 +95,7 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader title="Revenue" />
                 <CardContent>
-                  <Typography variant="h3">
+                  <Typography variant="h2">
                     {dashboardData.revenue
                       ? new Intl.NumberFormat("vi-VN", {
                           style: "currency",
@@ -103,7 +103,7 @@ export default function DashboardPage() {
                         }).format(dashboardData.revenue)
                       : 0}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography variant="body" color="textSecondary">
                     revenue this month
                   </Typography>
                 </CardContent>
@@ -115,10 +115,10 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader title="New users" />
                 <CardContent>
-                  <Typography variant="h3">
+                  <Typography variant="h2">
                     {dashboardData.newUser || "0"}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body" color="text.secondary">
                     new users this month
                   </Typography>
                 </CardContent>
@@ -138,11 +138,15 @@ export default function DashboardPage() {
                   <Table aria-label="films table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Film name</TableCell>
-                        <TableCell align="center">
+                        <TableCell sx={{ fontSize: "1.5rem" }}>
+                          Film name
+                        </TableCell>
+                        <TableCell sx={{ fontSize: "1.5rem" }} align="center">
                           Number of tickets sold
                         </TableCell>
-                        <TableCell align="center">Revenue</TableCell>
+                        <TableCell sx={{ fontSize: "1.5rem" }} align="center">
+                          Revenue
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -153,6 +157,7 @@ export default function DashboardPage() {
                               component="th"
                               scope="row"
                               sx={{
+                                fontSize: "1.2rem",
                                 fontWeight: "bold",
                                 color: film.total_tickets_sold
                                   ? "inherit"
@@ -165,6 +170,8 @@ export default function DashboardPage() {
                             <TableCell
                               align="center"
                               sx={{
+                                fontSize: "1.2rem",
+
                                 color: film.total_tickets_sold
                                   ? "inherit"
                                   : "red",
@@ -176,6 +183,8 @@ export default function DashboardPage() {
                             <TableCell
                               align="center"
                               sx={{
+                                fontSize: "1.2rem",
+
                                 color: film.total_revenue ? "inherit" : "red",
                               }}
                             >

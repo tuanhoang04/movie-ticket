@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useTheme } from '@mui/material/styles';
-import { MenuButton } from '../components/menu-button';
-import { ScrollToTop } from '../../components/ScrollToTop';
-import { navData } from '../config-nav-dashboard';
-import { NavDesktop, NavMobile } from './nav';
-import { LayoutSection } from '../core/layout-section';
-import { HeaderSection } from '../core/header-section';
-import { Main } from './main';
-import { layoutClasses } from '../classes';
+import { useState, useEffect } from "react";
+import { useTheme } from "@mui/material/styles";
+import { MenuButton } from "../components/menu-button";
+import { ScrollToTop } from "../../components/ScrollToTop";
+import { navData } from "../config-nav-dashboard";
+import { NavDesktop, NavMobile } from "./nav";
+import { LayoutSection } from "../core/layout-section";
+import { HeaderSection } from "../core/header-section";
+import { Main } from "./main";
+import { layoutClasses } from "../classes";
 
 function DashboardLayout({ sx, children, header }) {
   const theme = useTheme();
   const [navOpen, setNavOpen] = useState(false);
-  const layoutQuery = 'lg';
-  
+  const layoutQuery = "lg";
+
   return (
     <LayoutSection
       headerSection={
@@ -34,7 +34,7 @@ function DashboardLayout({ sx, children, header }) {
                   onClick={() => setNavOpen(true)}
                   sx={{
                     ml: -1,
-                    [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+                    [theme.breakpoints.up(layoutQuery)]: { display: "none" },
                   }}
                 />
                 <NavMobile
@@ -48,20 +48,18 @@ function DashboardLayout({ sx, children, header }) {
           }}
         />
       }
-      sidebarSection={
-        <NavDesktop data={navData} layoutQuery={layoutQuery} />
-      }
+      sidebarSection={<NavDesktop data={navData} layoutQuery={layoutQuery} />}
       footerSection={null}
       cssVars={{
-        '--layout-nav-vertical-width': '300px',
-        '--layout-dashboard-content-pt': theme.spacing(1),
-        '--layout-dashboard-content-pb': theme.spacing(8),
-        '--layout-dashboard-content-px': theme.spacing(5),
+        "--layout-nav-vertical-width": "400px",
+        "--layout-dashboard-content-pt": theme.spacing(1),
+        "--layout-dashboard-content-pb": theme.spacing(8),
+        "--layout-dashboard-content-px": theme.spacing(5),
       }}
       sx={{
         [`& .${layoutClasses.hasSidebar}`]: {
           [theme.breakpoints.up(layoutQuery)]: {
-            pl: 'var(--layout-nav-vertical-width)',
+            pl: "var(--layout-nav-vertical-width)",
           },
         },
         ...sx,

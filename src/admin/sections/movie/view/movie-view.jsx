@@ -158,6 +158,7 @@ export function MovieView() {
           startIcon={<Iconify icon="mingcute:add-line" />}
           component={Link}
           to="/admin/movie/create"
+          sx={{fontSize:"1.1rem"}}
         >
           Add film
         </Button>
@@ -251,6 +252,11 @@ export function MovieView() {
 
         {dataFiltered.length > 0 && (
           <TablePagination
+            sx={{
+              "& *": {
+                fontSize: "1.25rem",
+              },
+            }}
             component="div"
             page={table.page}
             count={dataFiltered.length}

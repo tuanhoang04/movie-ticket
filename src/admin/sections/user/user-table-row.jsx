@@ -101,7 +101,7 @@ export function UserTableRow({ row, selected, onSelectRow }) {
               to={`/admin/user/${row.user_id}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Typography variant="body2" fontWeight="bold" noWrap>
+              <Typography variant="body1" fontWeight="bold" noWrap>
                 {row.username}
               </Typography>
             </Link>
@@ -109,13 +109,13 @@ export function UserTableRow({ row, selected, onSelectRow }) {
         </TableCell>
 
         <TableCell>
-          <Typography variant="body2" fontWeight="medium" noWrap>
+          <Typography variant="body1" fontWeight="medium" noWrap>
             {row.email}
           </Typography>
         </TableCell>
 
         <TableCell>
-          <Typography variant="body2" fontWeight="medium" noWrap>
+          <Typography variant="body1" fontWeight="medium" noWrap>
             {row.phone_number}
           </Typography>
         </TableCell>
@@ -125,8 +125,8 @@ export function UserTableRow({ row, selected, onSelectRow }) {
             <Iconify
               icon={row.role === 1 ? "mdi:shield-account" : "mdi:account"}
               color={row.role === 1 ? "primary.main" : "success.main"}
-              width={20}
-              height={20}
+              width={25}
+              height={25}
             />
             <Chip
               label={
@@ -134,6 +134,7 @@ export function UserTableRow({ row, selected, onSelectRow }) {
               }
               size="small"
               sx={{
+                fontSize:"1rem",
                 color:
                   row.role === 1
                     ? "primary.contrastText"
@@ -148,7 +149,7 @@ export function UserTableRow({ row, selected, onSelectRow }) {
         </TableCell>
 
         <TableCell>
-          <Label color={(row.status === 0 && "error") || "success"}>
+          <Label sx={{fontSize:"1.1rem"}} color={(row.status === 0 && "error") || "success"}>
             {row.status === 0 ? "Inactive" : "Active"}
           </Label>
         </TableCell>

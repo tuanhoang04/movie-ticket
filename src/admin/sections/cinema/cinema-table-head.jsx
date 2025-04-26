@@ -23,10 +23,11 @@ export function CinemaTableHead({
 
                 {headLabel.map((headCell) => (
                     <TableCell
+                        
                         key={headCell.id}
                         align={headCell.align || 'left'}
                         sortDirection={orderBy === headCell.id ? order : false}
-                        sx={{ width: headCell.width, minWidth: headCell.minWidth }}
+                        sx={{ fontSize:"1.25rem",width: headCell.width, minWidth: headCell.minWidth }}
                     >
                         <TableSortLabel
                             hideSortIcon

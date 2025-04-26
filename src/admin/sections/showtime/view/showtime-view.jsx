@@ -161,6 +161,7 @@ export function ShowtimeView() {
           startIcon={<Iconify icon="mingcute:add-line" />}
           component={Link}
           to="/admin/showtime/create"
+          sx={{ fontSize: "1.1rem" }}
         >
           Add Showtime
         </Button>
@@ -249,6 +250,11 @@ export function ShowtimeView() {
 
         {dataFiltered.length > 0 && (
           <TablePagination
+            sx={{
+              "& *": {
+                fontSize: "1.25rem",
+              },
+            }}
             component="div"
             page={table.page}
             count={dataFiltered.length}

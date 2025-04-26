@@ -106,7 +106,7 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
                         to={`/admin/cinema/${row.cinema_id}`}
                         style={{ textDecoration: "none", color: "inherit" }}
                     >
-                        <Typography variant="body2" fontWeight="bold" noWrap>
+                        <Typography variant="body1" fontWeight="bold" noWrap>
                             {row.cinema_name}
                         </Typography>
                     </Link>
@@ -122,7 +122,7 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
                             padding: '2px 8px',
                             borderRadius: '8px',
                             fontWeight: 'bold',
-                            fontSize: '0.875rem',
+                            fontSize: '1rem',
                             display: 'inline-block',
                         }}
                     >
@@ -201,7 +201,7 @@ export function CinemaAddressCell({ row }) {
         <TableCell>
             <Tooltip title={row.address} placement="top" arrow>
                 <Typography
-                    variant="body2"
+                    variant="body1"
                     sx={{
                         cursor: 'pointer',
                         color: 'primary.main',

@@ -98,7 +98,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
             to={`/admin/movie/${row.film_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <Typography variant="body2" fontWeight="bold" noWrap>
+            <Typography variant="body1" fontWeight="bold" noWrap>
               {row.film_name}
             </Typography>
           </Link>
@@ -108,7 +108,6 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
 
         <TableCell>
           <Chip
-            variant="body2"
             label={row.film_type === 1 ? "Now showing" : "Upcoming"}
             color={row.film_type === 1 ? "primary" : "secondary"}
             // label={
@@ -127,14 +126,14 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
             //             : row.film_type === 2
             //                 ? 'secondary' : 'default'
             // }
-            size="small"
-            sx={{ fontWeight: "bold" }}
+            // size="small"
+            sx={{ fontWeight: "bold" ,fontSize:"1rem" }}
           />
         </TableCell>
 
         <TableCell>
           <Typography
-            variant="body2"
+            variant="body1"
             sx={{
               fontWeight: "medium",
               textAlign: "center",
@@ -156,7 +155,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
 
         <TableCell>
           <Typography
-            variant="body2"
+            variant="body1"
             sx={{ textAlign: "center", fontWeight: "medium" }}
           >
             {new Date(row.Release_date).toLocaleDateString()}
@@ -237,7 +236,7 @@ export function MovieDescriptionCell({ row }) {
     <TableCell>
       <Tooltip title={row.film_describe} placement="top" arrow>
         <Typography
-          variant="body2"
+          variant="body1"
           sx={{
             cursor: "pointer",
             color: "primary.main",
