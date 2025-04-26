@@ -158,7 +158,7 @@ export default function NavBar({
 
   return (
     <>
-      <Navbar className="max-w-full py-3 px-4 lg:px-36 lg:py-4 rounded-none border-none !bg-[#502A50] shadow-md">
+      <Navbar className="max-w-full py-4 px-4 lg:px-36 lg:py-5 rounded-none border-none !bg-[#502A50] shadow-md">
         <div className="mx-auto flex items-center justify-between text-white">
           {/* Logo */}
           <div className="flex items-center">

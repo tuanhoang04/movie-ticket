@@ -316,8 +316,9 @@ export default function Profile() {
     <div className="bg-[#1C1B21] flex flex-col justify-center text-white">
       <NavBar />
       {viewProfile ? (
-        <Dialog open={viewProfile} className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[40%] md:w-[12%] gap-8 rounded-lg shadow-lg transition-all duration-300">
+        <Dialog open={viewProfile} className="px-6 py-4 my-4 bg-[#4B4A52] mx-auto w-[90%] md:w-[50%] lg:w-[40%] gap-8 rounded-lg shadow-lg transition-all duration-300">
           <DialogHeader className="p-0 bg-[#4B4A52] relative h-20 px-5 flex flex-row-reverse">
+            <div className="w-full h-1 absolute top-0 left-0 bg-gradient-to-r from-[#f99d63] to-[#ca6fff]"></div>
             <div className="rounded-full w-24 h-24 absolute left-0 right-0 top-10 mx-auto overflow-hidden">
               <img
                 src={
@@ -367,7 +368,7 @@ export default function Profile() {
           </DialogHeader>
 
           <DialogBody className="mt-10 mb-1">
-            <form className="flex flex-col w-[100%] gap-8">
+            <form className="flex flex-col w-full gap-6">
               <input
                 type="file"
                 name="user__img"
@@ -432,6 +433,7 @@ export default function Profile() {
                   onChange={handleFormChange}
                   value="1"
                   checked={formUserData.sex == 1}
+                  className="checked:bg-white checked:border-white"
                   labelProps={{ className: "text-lg text-white" }}
                 />
                 <Radio
@@ -440,6 +442,7 @@ export default function Profile() {
                   onChange={handleFormChange}
                   value="0"
                   checked={formUserData.sex == 0}
+                  className="checked:bg-white checked:border-white"
                   labelProps={{ className: "text-lg text-white" }}
                 />
               </div>
@@ -454,15 +457,9 @@ export default function Profile() {
                   <AlertWithIcon type="positive" message={okMessage} className="animate-fade-in" />
                 )}
               </div>
-              <div className="flex flex-row justify-center items-center gap-4">
+              <div className="flex justify-center">
                 <Button
-                  className="w-28 py-2.5 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-400 focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
-                  onClick={() => setViewProfile(!viewProfile)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  className="w-28 py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
+                  className="w-full py-2.5 focus:ring-2 focus:ring-[#D8B4FE] focus:outline-none rounded-md shadow-sm transition-all duration-200 text-lg font-normal capitalize"
                   onClick={submit}
                   style={{
                     background: "linear-gradient(90deg, #f99d63 0%, #f373c6 50%, #ca6fff 100%)",
