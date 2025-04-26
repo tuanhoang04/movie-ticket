@@ -91,10 +91,10 @@ export default function SearchPage() {
               (upcomings === undefined && nowShowing === undefined)) && (
               <div className="flex flex-col items-center justify-center h-[60vh] text-center">
                 <h2 className="text-white text-3xl font-medium mb-4">
-                  No Result for "{searchTerm}"
+                  No results found for "{searchTerm}"
                 </h2>
                 <p className="text-gray-400 text-lg">
-                  No results match. Please search for another keyword.
+                  Oops! Nothing matches your search. Maybe try a new keyword?
                 </p>
               </div>
             )}
