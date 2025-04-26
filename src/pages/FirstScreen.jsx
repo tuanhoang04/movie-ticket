@@ -35,7 +35,7 @@ export default function FirstScreen() {
           Movie Ticket Order App
         </motion.h1>
         <motion.p
-          className="text-base sm:text-lg md:text-xl text-gray-200 font-medium mt-4 max-w-md mx-auto"
+          className="text-lg sm:text-xl md:text-2xl text-gray-200 font-medium mt-8 max-w-md mx-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
