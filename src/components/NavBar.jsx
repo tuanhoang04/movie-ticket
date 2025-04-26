@@ -265,7 +265,7 @@ export default function NavBar({
                 />
                 <MagnifyingGlassIcon
                   onClick={handleSubmit}
-                  className="absolute right-5 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-200"
+                  className="absolute right-20 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-200"
                 />
               </form>
               {isLoading ? null : login && userInfo ? (

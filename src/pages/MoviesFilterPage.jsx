@@ -20,14 +20,16 @@ export default function MoviesFilterPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentMovies, setCurrentMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [shouldScroll, setShouldScroll] = useState(false);
   useEffect(() => {
     const indexOfLastFilm = currentPage * filmsPerPage;
     const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
     setCurrentMovies(data.slice(indexOfFirstFilm, indexOfLastFilm));
     setTotalPages(Math.max(Math.ceil(data.length / filmsPerPage), 1));
-    if (begin.current) {
+    if (shouldScroll&&begin.current) {
       begin.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    setShouldScroll(false);
   }, [currentPage, data]);
   const handleSubmit = async () => {
     try {
@@ -200,6 +202,7 @@ export default function MoviesFilterPage() {
                 currentPage={currentPage}
                 handleChange={(value) => {
                   setCurrentPage(value);
+                  setShouldScroll(true);
                 }}
               />
             </div>
