@@ -102,7 +102,7 @@ export default function NavBar({
   }, []);
 
   const navList = (
-    <ul className="mb-4 mt-2 flex flex-col gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-10">
+    <ul className="mb-4 mt-2 flex flex-col gap-4 xl:mb-0 xl:mt-0 xl:flex-row xl:items-center xl:gap-10">
       <Typography as="li" variant="h5" className="p-1 font-light">
         <a
           href="/home"
@@ -164,19 +164,19 @@ export default function NavBar({
           <div className="flex items-center">
             <img src="/ico.png" className="w-10 h-10 mr-3 self-center" />
             <a href="/home">
-              <p className="text-2xl lg:text-3xl cursor-pointer font-medium text-white">
+              <p className="text-2xl xl:text-3xl cursor-pointer font-medium text-white">
                 Starlight Cinema
               </p>
             </a>
           </div>
 
           {/* Navigation and Search for Desktop */}
-          <div className="hidden lg:flex items-center justify-center flex-1">
+          <div className="hidden xl:flex items-center justify-center flex-1">
             {navList}
           </div>
 
           {/* Right Section: Search, Profile/Sign in */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden xl:flex items-center gap-4">
             {/* Search Icon */}
             <div className="relative flex items-center">
               <MagnifyingGlassIcon
@@ -223,7 +223,7 @@ export default function NavBar({
           {/* Mobile Menu Button */}
           <IconButton
             variant="text"
-            className="lg:hidden"
+            className="xl:hidden"
             onClick={() => setOpenNav(!openNav)}
           >
             {openNav ? (
