@@ -101,7 +101,7 @@ export default function SearchPage() {
 
           {searchTerm && (nowShowing?.length > 0 || upcomings?.length > 0) && (
             <p className="self-center text-white text-3xl my-7">
-              Search results for: "{searchTerm}"
+              Showing results for "{searchTerm}"
             </p>
           )}
           {nowShowing?.length > 0 && (
