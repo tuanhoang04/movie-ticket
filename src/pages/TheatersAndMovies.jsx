@@ -55,7 +55,7 @@ export default function TheatersAndMovies() {
     setTotalPagesNowShowing(
       Math.max(Math.ceil(nowShowing.length / filmsPerCate), 1)
     );
-    if (shouldScroll&&begin.current) {
+    if (shouldScroll && begin.current) {
       begin.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -212,7 +212,10 @@ export default function TheatersAndMovies() {
           {!isLoading && (
             <div className="flex flex-col mt-6 mb-16">
               <div className="flex items-center justify-center">
-                <p ref={begin} className="text-white text-2xl md:text-4xl mb-5 font-bold">
+                <p
+                  ref={begin}
+                  className="text-white text-2xl md:text-4xl mb-5 font-bold"
+                >
                   Buy Ticket by Movies
                 </p>
               </div>
@@ -269,9 +272,9 @@ export default function TheatersAndMovies() {
 
           <div className="min-h-screen p-4">
             {currentAreaName && (
-              <div className=" p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 pt-10 2xl:!pt-20 grid grid-cols-1 xl:grid-cols-7 gap-5 text-white h-fit xl:min-h-[400px] ">
-                <div className="  col-span-1 xl:col-span-2 h-full min-h-[300px] xl:min-h-[800px] bg-white bg-opacity-10 rounded-lg ">
-                  <p className=" p-5 pb-0 text-3xl font-bold">
+              <div className=" p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 pt-10 2xl:!pt-12 grid grid-cols-1 xl:grid-cols-7 gap-5 text-white h-fit xl:min-h-[400px]  ">
+                <div className="col-span-1 xl:col-span-2 h-full min-h-[300px] xl:min-h-[800px] bg-white bg-opacity-10 rounded-lg border-gray-600 shadow-lg">
+                  <p className=" p-5 pb-0 text-3xl font-bold ">
                     Theaters in {currentAreaName}
                   </p>
                   {theaters.length > 0 && (
@@ -287,7 +290,7 @@ export default function TheatersAndMovies() {
                               ? { backgroundColor: "#502A50" }
                               : {}
                           }
-                          className="flex items-center gap-2 p-4 cursor-pointer hover:bg-[#502A50] bg-white bg-opacity-10 m-2 mx-5 rounded-lg"
+                          className="flex items-center gap-6 p-4 cursor-pointer hover:bg-[#502A50] bg-white bg-opacity-10 m-2 mx-5 rounded-lg"
                         >
                           <img
                             src={getTheaterLogo(item.cluster_name)}
@@ -295,14 +298,12 @@ export default function TheatersAndMovies() {
                             className={theaterImgStyle}
                           ></img>
                           <div>
-                            <div
-                              style={{ fontSize: "18px", fontWeight: "800" }}
-                            >
+                            <p className="text-[18px] font-bold">
                               {item.cinema_name}
-                            </div>
-                            <div className="overflow-hidden line-clamp-2">
+                            </p>
+                            <p className="overflow-hidden line-clamp-2">
                               {item.address}
-                            </div>
+                            </p>
                           </div>
                         </div>
                       ))}
@@ -311,7 +312,7 @@ export default function TheatersAndMovies() {
                 </div>
                 {currentCinema && (
                   <div className=" col-span-1 xl:col-span-5">
-                    <div className="rounded-xl p-5 bg-white bg-opacity-10">
+                    <div className="group rounded-xl p-5 bg-white bg-opacity-10 border-gray-600 shadow-lg transition-all duration-300 hover:scale-101 hover:shadow-xl">
                       <div className="flex justify-between gap-5 items-center w-full">
                         <img
                           src={getTheaterLogo(currentCinema.info.cluster_name)}
@@ -332,7 +333,7 @@ export default function TheatersAndMovies() {
                               "https://www.google.com/maps/search/" +
                               currentCinema.info.cinema_name.replace(/ /g, "+")
                             }
-                            className="underline"
+                            className="underline text-white hover:text-purple-300 hover:scale-105 transition-all duration-200"
                           >
                             <div className="flex items-center gap-2 text-2xl text-nowrap">
                               Find in map
@@ -358,16 +359,19 @@ export default function TheatersAndMovies() {
                         </div>
                       </div>
                       <p className="text-lg text-white mt-5 line-clamp-3">
-                      View Showtimes and Buy Tickets easily and quickly nationwide at{" "} 
-                    {currentCinema.info.cinema_name} - a cinema under{" "} 
-                    {currentCinema.info.cluster_name}, only at Starlight.{" "} 
-                    {currentCinema.info.cinema_name} is designed to Hollywood cinema standards, 
-                    featuring Dolby 7.1 surround sound and a large, ultra-clear screen.{" "} 
-                    {currentCinema.info.cinema_name} is part of the{" "} 
-                    {currentCinema.info.cluster_name} chain — a proudly locally owned theater system. 
-                    Even as a domestic brand,{" "} 
-                    {currentCinema.info.cinema_name} is committed to delivering professional service, 
-                    an international-quality movie experience, and affordable ticket prices.
+                        View Showtimes and Buy Tickets easily and quickly
+                        nationwide at {currentCinema.info.cinema_name} - a
+                        cinema under {currentCinema.info.cluster_name}, only at
+                        Starlight. {currentCinema.info.cinema_name} is designed
+                        to Hollywood cinema standards, featuring Dolby 7.1
+                        surround sound and a large, ultra-clear screen.{" "}
+                        {currentCinema.info.cinema_name} is part of the{" "}
+                        {currentCinema.info.cluster_name} chain — a proudly
+                        locally owned theater system. Even as a domestic brand,{" "}
+                        {currentCinema.info.cinema_name} is committed to
+                        delivering professional service, an
+                        international-quality movie experience, and affordable
+                        ticket prices.
                       </p>
                     </div>
                     <Tabs
