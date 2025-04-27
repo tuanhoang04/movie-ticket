@@ -146,34 +146,34 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
 
-        <TableCell>
-          <Link
-            to={`/admin/cinema/${row.cinema_id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <Typography variant="body1" fontWeight="bold" noWrap>
-              {row.cinema_name}
-            </Typography>
-          </Link>
-        </TableCell>
+                <TableCell>
+                    <Link
+                        to={`/admin/cinema/${row.cinema_id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <Typography variant="body1" fontWeight="bold" noWrap>
+                            {row.cinema_name}
+                        </Typography>
+                    </Link>
+                </TableCell>
 
         <CinemaAddressCell row={row} />
 
-        <TableCell>
-          <Box
-            component="span"
-            sx={{
-              ...getBadgeStyle(row.cluster_name),
-              padding: "2px 8px",
-              borderRadius: "8px",
-              fontWeight: "bold",
-              fontSize: "1rem",
-              display: "inline-block",
-            }}
-          >
-            {row.cluster_name}
-          </Box>
-        </TableCell>
+                <TableCell>
+                    <Box
+                        component="span"
+                        sx={{
+                            ...getBadgeStyle(row.cluster_name),
+                            padding: '2px 8px',
+                            borderRadius: '8px',
+                            fontWeight: 'bold',
+                            fontSize: '1rem',
+                            display: 'inline-block',
+                        }}
+                    >
+                        {row.cluster_name}
+                    </Box>
+                </TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenPopover} size="small">
@@ -259,30 +259,32 @@ export function CinemaAddressCell({ row }) {
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
-  return (
-    <TableCell>
-      <Tooltip title={row.address} placement="top" arrow>
-        <Typography
-          variant="body1"
-          sx={{
-            cursor: "pointer",
-            color: "primary.main",
-            display: "inline-block",
-            maxWidth: 200,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-          onClick={openDialog}
-        >
-          {row.address}
-        </Typography>
-      </Tooltip>
+    return (
+        <TableCell>
+            <Tooltip title={row.address} placement="top" arrow>
+                <Typography
+                    variant="body1"
+                    sx={{
+                        cursor: 'pointer',
+                        color: 'primary.main',
+                        display: 'inline-block',
+                        maxWidth: 200,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                    }}
+                    onClick={openDialog}
+                >
+                    {row.address}
+                </Typography>
+            </Tooltip>
 
       <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="sm" fullWidth>
         <DialogTitle>Address</DialogTitle>
         <DialogContent>
-          <Typography variant="body1">{row.address}</Typography>
+          <Typography variant="body1" sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}>
+                        {row.address}
+                    </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog} color="primary">

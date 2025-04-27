@@ -384,67 +384,85 @@ export default function MovieDetail() {
               <p className="text-white text-2xl md:text-3xl lg:text-4xl font-bold pb-3">
                 Ratings
               </p>
-              <div className="flex flex-row items-center mb-2">
-                <Rating
-                  value={Math.round(data.info.evaluate[0].film_rate)}
-                  readonly
-                  unratedColor="white"
-                  ratedColor="yellow"
-                  className="my-1 [&>span>svg]:w-5 [&>span>svg]:h-5 md:[&>span>svg]:w-6 md:[&>span>svg]:h-6 lg:[&>span>svg]:w-8 lg:[&>span>svg]:h-8 mr-2"
-                />
-                <p className="ms-1 text-base md:text-lg lg:text-xl font-medium text-gray-300">
-                  {Math.round(data.info.evaluate[0].film_rate * 10) / 10} out of
-                  5 stars
-                </p>
-              </div>
-              <p className="text-base md:text-lg lg:text-xl font-light text-gray-300 ">
-                {ratingsData.length} ratings
-              </p>
 
-              {/* Rating Bars */}
-              <div className="w-full lg:w-3/4 mt-4">
-                {[5, 4, 3, 2, 1].map((star) => (
-                  <div
-                    key={star}
-                    className="grid grid-cols-12 items-center mt-3 gap-1 sm:gap-2"
-                  >
-                    <div className="col-span-2 sm:col-span-1">
-                      <span className="text-sm sm:text-base md:text-lg font-medium text-white">
-                        {star} star
-                      </span>
-                    </div>
-                    <div className="col-span-8 sm:col-span-5 h-4 sm:h-5 bg-gray-200 rounded-sm dark:bg-gray-700">
-                      <div
-                        className="h-4 sm:h-5 bg-yellow-600 rounded-sm"
-                        style={{
-                          width: `${
-                            ratingsData.length
-                              ? Math.round(
-                                  ((sumRatingsByStar[star] || 0) /
-                                    ratingsData.length) *
-                                    100
-                                )
-                              : 0
-                          }%`,
-                        }}
-                      ></div>
-                    </div>
-                    <div className="col-span-2 sm:col-span-1 text-right">
-                      <span className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {ratingsData.length
-                          ? Math.round(
-                              ((sumRatingsByStar[star] || 0) /
-                                ratingsData.length) *
-                                100
-                            )
-                          : 0}
-                        %
-                      </span>
+              <div className="flex flex-row flex-wrap justify-between">
+                <div className="w-full lg:w-[40%]">
+                  <div className="flex flex-row items-center mb-2">
+                    <Rating
+                      value={Math.round(data.info.evaluate[0].film_rate)}
+                      readonly
+                      unratedColor="white"
+                      ratedColor="yellow"
+                      className="my-1 [&>span>svg]:w-5 [&>span>svg]:h-5 md:[&>span>svg]:w-6 md:[&>span>svg]:h-6 lg:[&>span>svg]:w-8 lg:[&>span>svg]:h-8 mr-2"
+                    />
+                    <p className="ms-1 text-base md:text-lg lg:text-xl font-medium text-gray-300">
+                      {Math.round(data.info.evaluate[0].film_rate * 10) / 10}{" "}
+                      out of 5 stars
+                    </p>
+                  </div>
+                  <p className="text-base md:text-lg lg:text-xl font-light text-gray-300 ">
+                    {ratingsData.length} ratings
+                  </p>
+                  <div className="w-full flex flex-row flex-wrap lg:gap-[5%]">
+                    <div className="w-full mt-4">
+                      {[5, 4, 3, 2, 1].map((star) => (
+                        <div
+                          key={star}
+                          className="grid grid-cols-12 items-center mt-3 gap-1 sm:gap-2"
+                        >
+                          <div className="col-span-2 sm:col-span-1">
+                            <span className="text-sm sm:text-base md:text-lg font-medium text-white">
+                              {star} star
+                            </span>
+                          </div>
+                          <div className="col-span-8 sm:col-span-10 h-4 sm:h-5 bg-gray-200 rounded-sm dark:bg-gray-700">
+                            <div
+                              className="h-4 sm:h-5 bg-yellow-600 rounded-sm"
+                              style={{
+                                width: `${
+                                  ratingsData.length
+                                    ? Math.round(
+                                        ((sumRatingsByStar[star] || 0) /
+                                          ratingsData.length) *
+                                          100
+                                      )
+                                    : 0
+                                }%`,
+                              }}
+                            ></div>
+                          </div>
+                          <div className="col-span-2 sm:col-span-1 text-right">
+                            <span className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">
+                              {ratingsData.length
+                                ? Math.round(
+                                    ((sumRatingsByStar[star] || 0) /
+                                      ratingsData.length) *
+                                      100
+                                  )
+                                : 0}
+                              %
+                            </span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
+                </div>
+                <div className="w-full lg:w-[58%] mt-4">
+                  {openRatingForm && (
+                    <RatingForm
+                      handleOpen={() => {
+                        setOpenRatingForm(!openRatingForm);
+                      }}
+                      handleOpenSignIn={() => {
+                        setTimeout(() => {
+                          setOpenSignIn(true);
+                        }, 1000);
+                      }}
+                    />
+                  )}
+                </div>
               </div>
-
               {/* Rating Form Button */}
               {!openRatingForm && (
                 <Button
@@ -454,19 +472,6 @@ export default function MovieDetail() {
                 >
                   Leave a rating
                 </Button>
-              )}
-
-              {openRatingForm && (
-                <RatingForm
-                  handleOpen={() => {
-                    setOpenRatingForm(!openRatingForm);
-                  }}
-                  handleOpenSignIn={() => {
-                    setTimeout(() => {
-                      setOpenSignIn(true);
-                    }, 1000);
-                  }}
-                />
               )}
 
               {/* Movie Ratings Component */}

@@ -230,7 +230,7 @@ export default function BookingSelectSeats({setNextStep}) {
                 Cinema: {seatData.cinema_name}
               </p>
               <p className="text-white text-xl lg:text-2xl mb-1">
-                Movie: '{seatData.film_name}'
+                Movie: {seatData.film_name}
               </p>
               <p className="text-white text-xl lg:text-2xl mb-1">
                 Showtime: {seatData.show_time + " " + seatData.show_date}

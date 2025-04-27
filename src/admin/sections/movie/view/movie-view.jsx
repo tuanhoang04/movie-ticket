@@ -60,7 +60,6 @@ export function MovieView() {
             headers: {
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -104,7 +103,6 @@ export function MovieView() {
         if (!response.ok) throw new Error("Failed to fetch movies");
 
         const data = await response.json();
-        // console.log(data);
         setMovies(data);
       } catch (err) {
         console.error(err);
@@ -147,9 +145,11 @@ export function MovieView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
+            color: "white",
+            fontWeight: "bold",
           }}
         >
-          Film management
+          Movies Management
         </Typography>
         <Button
           variant="contained"
@@ -226,13 +226,9 @@ export function MovieView() {
                         selected={table.selected.includes(row.film_id)}
                         onSelectRow={() => table.onSelectRow(row.film_id)}
                         onDelete={(id) => {
-                          setMovies((prevMovies) => {
-                            return prevMovies.filter((movie) => {
-                              return movie.film_id !== id;
-                            });
-                          });
-                          console.log(movies);
-
+                          setMovies((prevMovies) =>
+                            prevMovies.filter((movie) => movie.movie_id !== id)
+                          );
                           table.setSelected((prevSelected) =>
                             prevSelected.filter(
                               (selectedId) => selectedId !== id
@@ -241,11 +237,6 @@ export function MovieView() {
                         }}
                       />
                     ))}
-
-                {/* <TableEmptyRows
-                                    height={68}
-                                    emptyRows={emptyRows(table.page, table.rowsPerPage, movies.length)}
-                                /> */}
 
                 {notFound && <TableNoData searchQuery={filterName} />}
               </TableBody>

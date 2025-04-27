@@ -14,7 +14,6 @@ import {
   TablePagination,
   Typography,
   TableBody,
-  Icon,
 } from "@mui/material";
 import { ShowtimeTableToolbar } from "../showtime-table-toolbar";
 import { Scrollbar } from "../../../components/scrollbar";
@@ -62,7 +61,6 @@ export function ShowtimeView() {
             headers: {
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -101,14 +99,12 @@ export function ShowtimeView() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
         if (!response.ok) throw new Error("Failed to fetch showtimes");
 
         const data = await response.json();
-        // console.log(data);
         setShowtimes(data);
       } catch (err) {
         console.error(err);
@@ -151,9 +147,11 @@ export function ShowtimeView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
+            color: "white",
+            fontWeight: "bold",
           }}
         >
-          Manage Movie Showtimes
+          Showtimes Management
         </Typography>
         <Button
           variant="contained"

@@ -114,56 +114,86 @@ export function ShowtimeTableRow({ row, selected, onSelectRow, onDelete }) {
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
 
-        <TableCell>
-          <Link
-            to={`/admin/showtime/${row.showtime_id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <Typography variant="body2" fontWeight="bold" noWrap>
-              {row.showtime_id}
-            </Typography>
-          </Link>
-        </TableCell>
+                <TableCell>
+                    <Link
+                        to={`/admin/showtime/${row.showtime_id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <Typography
+                            variant="body2"
+                            fontWeight="bold"
+                            noWrap
+                            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+                        >
+                            {row.showtime_id}
+                        </Typography>
+                    </Link>
+                </TableCell>
 
-        <TableCell>
-          <Link
-            to={`/admin/movie/${row.film_id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <Typography variant="body2" fontWeight="bold" noWrap>
-              {row.film_name}
-            </Typography>
-          </Link>
-        </TableCell>
+                <TableCell>
+                    <Link
+                        to={`/admin/movie/${row.film_id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <Typography
+                            variant="body2"
+                            fontWeight="bold"
+                            noWrap
+                            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+                        >
+                            {row.film_name}
+                        </Typography>
+                    </Link>
+                </TableCell>
 
-        <TableCell>
-          <Link
-            to={`/admin/cinema/${row.cinema_id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <Typography variant="body2" fontWeight="medium" noWrap>
-              {row.cinema_name}
-            </Typography>
-          </Link>
-        </TableCell>
+                <TableCell>
+                    <Link
+                        to={`/admin/cinema/${row.cinema_id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <Typography
+                            variant="body2"
+                            fontWeight="medium"
+                            noWrap
+                            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+                        >
+                            {row.cinema_name}
+                        </Typography>
+                    </Link>
+                </TableCell>
 
-        <TableCell>
-          <Typography variant="body2" fontWeight="medium" noWrap>
-            {row.room_name}
-          </Typography>
-        </TableCell>
+                <TableCell>
+                    <Typography
+                        variant="body2"
+                        fontWeight="medium"
+                        noWrap
+                        sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+                    >
+                        {row.room_name}
+                    </Typography>
+                </TableCell>
 
-        <TableCell>
-          <Typography variant="body2" textAlign="center" fontWeight="medium">
-            {row.show_time.split(":").slice(0, 2).join(":")}
-          </Typography>
-        </TableCell>
+                <TableCell>
+                    <Typography
+                        variant="body2"
+                        textAlign="center"
+                        fontWeight="medium"
+                        sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+                    >
+                        {row.show_time.split(':').slice(0, 2).join(':')}
+                    </Typography>
+                </TableCell>
 
-        <TableCell>
-          <Typography variant="body2" textAlign="center" fontWeight="medium">
-            {new Date(row.show_date).toLocaleDateString()}
-          </Typography>
-        </TableCell>
+                <TableCell>
+                    <Typography
+                        variant="body2"
+                        textAlign="center"
+                        fontWeight="medium"
+                        sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+                    >
+                        {new Date(row.show_date).toLocaleDateString()}
+                    </Typography>
+                </TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenPopover} size="small">

@@ -29,9 +29,6 @@ export function NavContent({ data, slots, sx }) {
           padding: 3,
           mb: 6,
           gap: 2,
-          // background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 100%)",
-          // backdropFilter: "blur(8px)",
-          // borderBottom: "1px solid rgba(255,255,255,0.1)",
         }}
       >
         <Box
@@ -97,11 +94,11 @@ export function NavContent({ data, slots, sx }) {
                         fontWeight: "fontWeightMedium",
                         color: "rgba(255, 255, 255, 0.85)",
                         minHeight: 48,
-                        transition: "all 0.2s ease", // Hiệu ứng mượt mà, thời gian ngắn hơn để tinh tế
-                        position: "relative", // Để thêm viền bên trái
+                        transition: "all 0.2s ease",
+                        position: "relative",
                         ...(isActived && {
                           fontWeight: "fontWeightSemiBold",
-                          background: "rgba(255,255,255,0.05)", // Nền nhẹ hơn
+                          background: "rgba(255,255,255,0.05)",
                           color: "white",
                           "&::before": {
                             content: '""',
@@ -109,14 +106,14 @@ export function NavContent({ data, slots, sx }) {
                             left: 0,
                             top: 0,
                             height: "100%",
-                            width: "4px", // Viền bên trái dày hơn khi activeline
-                            background: "ar-gradient(180deg, #ffffff 0%, #d1d1d1 100%)", // Gradient trắng cho viền
+                            width: "4px",
+                            background: "linear-gradient(180deg, #ffffff 0%, #d1d1d1 100%)", // Sửa lỗi cú pháp: "ar-gradient" thành "linear-gradient"
                             borderRadius: "0 4px 4px 0",
                           },
                           "&:hover": {
                             background: "rgba(255,255,255,0.1)",
                             "&::before": {
-                              width: "4px", // Giữ viền khi hover
+                              width: "4px",
                             },
                           },
                         }),
@@ -129,7 +126,7 @@ export function NavContent({ data, slots, sx }) {
                             left: 0,
                             top: 0,
                             height: "100%",
-                            width: "2px", // Viền bên trái mỏng khi hover
+                            width: "2px",
                             background: "rgba(255,255,255,0.3)",
                             borderRadius: "0 4px 4px 0",
                           },
@@ -260,7 +257,7 @@ export function NavDesktop({ sx, data, slots, layoutQuery }) {
         display: "none",
         position: "fixed",
         flexDirection: "column",
-        background: "rgb(80, 42, 80)", // Gradient tối kiểu Vercel
+        background: "rgb(80, 42, 80)",
         zIndex: "var(--layout-nav-zIndex)",
         width: "var(--layout-nav-vertical-width)",
         boxShadow: "0 0 40px rgba(0,0,0,0.15)",
@@ -294,7 +291,7 @@ export function NavMobile({ sx, data, open, slots, onClose }) {
           pt: 0,
           px: 0,
           overflow: "unset",
-          background: "linear-gradient(180deg, #1a1a1a 0%, #121212 100%)", // Gradient tối kiểu Vercel
+          background: "rgb(80, 42, 80)", // Đồng bộ màu với NavDesktop
           width: "var(--layout-nav-mobile-width)",
           boxShadow: "0 0 40px rgba(0,0,0,0.15)",
           borderRight: "1px solid rgba(255,255,255,0.05)",

@@ -4,8 +4,6 @@ import Container from "@mui/material/Container";
 
 import { layoutClasses } from "../classes";
 
-// ----------------------------------------------------------------------
-
 export function Main({ children, sx, ...other }) {
   return (
     <Box
@@ -15,6 +13,8 @@ export function Main({ children, sx, ...other }) {
         display: "flex",
         flex: "1 1 auto",
         flexDirection: "column",
+        background: "linear-gradient(to bottom, #1C1B21, #141316)", // Gradient nền từ user
+        minHeight: "100vh",
         ...sx,
       }}
       {...other}
@@ -24,8 +24,6 @@ export function Main({ children, sx, ...other }) {
   );
 }
 
-// ----------------------------------------------------------------------
-
 export function DashboardContent({
   sx,
   children,
@@ -34,7 +32,6 @@ export function DashboardContent({
   ...other
 }) {
   const theme = useTheme();
-
   const layoutQuery = "lg";
 
   return (

@@ -150,17 +150,17 @@ export default function BookingSelectPopcorn({ setNextStep, setPrevStep }) {
                       -
                     </Button> */}
                     <img
-                      className="w-5 h-5"
+                      className="w-5 h-5 lg:w-10 lg:h-10 cursor-pointer"
                       src="/icons/minus.png"
                       onClick={() => {
                         updatePopcornQuantity(item.combo_id, -1);
                       }}
                     />
-                    <span className="text-sm lg:text-lg font-medium text-white">
+                    <span className="text-sm lg:text-xl font-medium text-white">
                       {selectedCombos[item.combo_id]?.quantity || 0}
                     </span>
                     <img
-                      className="w-5 h-5"
+                      className="w-5 h-5 lg:w-10 lg:h-10 cursor-pointer"
                       src="/icons/plus.png"
                       onClick={() => {
                         updatePopcornQuantity(item.combo_id, 1);

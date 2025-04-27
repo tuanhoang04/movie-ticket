@@ -57,7 +57,6 @@ export function UserView() {
             headers: {
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -95,14 +94,12 @@ export function UserView() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
         if (!response.ok) throw new Error("Failed to fetch users");
 
         const data = await response.json();
-        // console.log(data);
         setUsers(data);
       } catch (err) {
         console.error(err);
@@ -131,11 +128,27 @@ export function UserView() {
 
   return (
     <DashboardContent>
-      <Box display="flex" alignItems="center" mb={5}>
-        <Typography variant="h2" flexGrow={1}>
-          User management
+      <Box
+        display="flex"
+        mb={5}
+        sx={{
+          width: "100%",
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { xs: "flex-start", sm: "center" },
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            flexGrow: 1,
+            marginBottom: { xs: 1 },
+            color: "white",
+            fontWeight: "bold",
+          }}
+        >
+          Users Management
         </Typography>
-      </Box>
+        </Box>
 
       <Card>
         <UserTableToolbar
@@ -211,11 +224,6 @@ export function UserView() {
                         }}
                       />
                     ))}
-
-                {/* <TableEmptyRows
-                                    height={68}
-                                    emptyRows={emptyRows(table.page, table.rowsPerPage, users.length)}
-                                /> */}
 
                 {notFound && <TableNoData searchQuery={filterName} />}
               </TableBody>

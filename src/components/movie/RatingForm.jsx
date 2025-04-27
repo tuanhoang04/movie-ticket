@@ -76,7 +76,7 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
 
   return (
     <div className="bg-[#606060] my-6 lg:p-6 p-4 rounded-xl w-full self-start flex flex-col shadow-lg border border-[#707070]">
-      <p className="text-white text-xl mb-4 font-semibold tracking-tight">
+      <p className="text-white text-xl mb-4 font-semibold tracking-normal">
         Share your experience watching this movie
       </p>
       {okMessage && <AlertWithIcon type={"positive"} message={okMessage} />}

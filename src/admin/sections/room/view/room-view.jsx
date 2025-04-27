@@ -59,7 +59,6 @@ export function RoomView() {
             headers: {
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -97,14 +96,12 @@ export function RoomView() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
         if (!response.ok) throw new Error("Failed to fetch rooms");
 
         const data = await response.json();
-        // console.log(data);
         setRooms(data);
       } catch (err) {
         console.error(err);
@@ -155,9 +152,11 @@ export function RoomView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
+            color: "white",
+            fontWeight: "bold",
           }}
         >
-          Cinema room management
+          Cinema Rooms Management
         </Typography>
         <Button
           variant="contained"
@@ -198,7 +197,6 @@ export function RoomView() {
                 headLabel={[
                   { id: "room_name", label: "Theater Room Name" },
                   { id: "cinema_name", label: "Cinema Name" },
-
                   { id: "" },
                 ]}
               />

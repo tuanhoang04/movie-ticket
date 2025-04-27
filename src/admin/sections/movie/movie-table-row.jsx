@@ -16,8 +16,6 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
@@ -40,7 +38,6 @@ const deleteMovie = async (id) => {
           "Content-Type": "application/json",
           Authorization: "Bearer " + jwt,
         },
-        // credentials: 'include',
       }
     );
 
@@ -55,18 +52,9 @@ const deleteMovie = async (id) => {
   }
 };
 
-export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
+export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
-
-  const handleCloseSnackbar = () => {
-    setSnackbar((prev) => ({ ...prev, open: false }));
-  };
 
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
@@ -112,7 +100,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
+      <TableRow hover tabIndex={-1} role="checkbox" selected={selected} sx={sx}>
         <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
@@ -122,7 +110,12 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
             to={`/admin/movie/${row.film_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <Typography variant="body1" fontWeight="bold" noWrap>
+            <Typography
+              variant="body1"
+              fontWeight="bold"
+              noWrap
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
               {row.film_name}
             </Typography>
           </Link>
@@ -134,24 +127,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
           <Chip
             label={row.film_type === 1 ? "Now showing" : "Upcoming"}
             color={row.film_type === 1 ? "primary" : "secondary"}
-            // label={
-            //     row.film_type === 2
-            //         ? 'Sắp chiếu'
-            //         : row.film_type === 1
-            //             ? 'Đang chiếu'
-            //             : row.film_type === 0
-            //                 ? 'Ngừng chiếu' : 'Không xác định'
-            // }
-            // color={
-            //     row.film_type === 0
-            //         ? 'default'
-            //         : row.film_type === 1
-            //             ? 'primary'
-            //             : row.film_type === 2
-            //                 ? 'secondary' : 'default'
-            // }
-            // size="small"
-            sx={{ fontWeight: "bold", fontSize: "1rem" }}
+            sx={{ fontWeight: "bold", fontSize: { xs: "0.9rem", md: "1rem" } }}
           />
         </TableCell>
 
@@ -162,6 +138,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
               fontWeight: "medium",
               textAlign: "center",
               color: row.age_limit >= 18 ? "error.main" : "text.primary",
+              fontSize: { xs: "1.1rem", md: "1.2rem" },
             }}
           >
             {row.age_limit}+
@@ -171,7 +148,11 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
         <TableCell>
           <Typography
             variant="body2"
-            sx={{ textAlign: "center", fontWeight: "medium" }}
+            sx={{
+              textAlign: "center",
+              fontWeight: "medium",
+              fontSize: { xs: "1.1rem", md: "1.2rem" },
+            }}
           >
             {row.duration} (min)
           </Typography>
@@ -180,7 +161,11 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
         <TableCell>
           <Typography
             variant="body1"
-            sx={{ textAlign: "center", fontWeight: "medium" }}
+            sx={{
+              textAlign: "center",
+              fontWeight: "medium",
+              fontSize: { xs: "1.1rem", md: "1.2rem" },
+            }}
           >
             {new Date(row.Release_date).toLocaleDateString()}
           </Typography>
@@ -246,20 +231,6 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem" }}
-          severity={snackbar.severity}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
     </>
   );
 }
@@ -271,43 +242,42 @@ export function MovieDescriptionCell({ row }) {
   const closeDialog = () => setIsDialogOpen(false);
 
   return (
-    <>
-      <TableCell>
-        <Tooltip title={row.film_describe} placement="top" arrow>
-          <Typography
-            variant="body1"
-            sx={{
-              cursor: "pointer",
-              color: "primary.main",
-              display: "inline-block",
-              maxWidth: 200,
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-            onClick={openDialog}
-          >
+    <TableCell>
+      <Tooltip title={row.film_describe} placement="top" arrow>
+        <Typography
+          variant="body1"
+          sx={{
+            cursor: "pointer",
+            color: "primary.main",
+            display: "inline-block",
+            maxWidth: 200,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            fontSize: { xs: "1.1rem", md: "1.3rem" }, // Tăng font size cho cột Description
+            "&:hover": {
+              fontSize: { xs: "1.1rem", md: "1.3rem" }, // Đảm bảo font size không thay đổi khi hover
+            },
+          }}
+          onClick={openDialog}
+        >
+          {row.film_describe}
+        </Typography>
+      </Tooltip>
+
+      <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="sm" fullWidth>
+        <DialogTitle>Detail description</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}>
             {row.film_describe}
           </Typography>
-        </Tooltip>
-
-        <Dialog
-          open={isDialogOpen}
-          onClose={closeDialog}
-          maxWidth="sm"
-          fullWidth
-        >
-          <DialogTitle>Detail description</DialogTitle>
-          <DialogContent>
-            <Typography variant="body1">{row.film_describe}</Typography>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={closeDialog} color="primary">
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </TableCell>
-    </>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </TableCell>
   );
 }

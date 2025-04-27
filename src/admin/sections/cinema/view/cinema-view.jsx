@@ -63,7 +63,6 @@ export function CinemaView() {
             headers: {
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -103,18 +102,15 @@ export function CinemaView() {
             headers: {
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
         if (!response.ok) throw new Error("Failed to fetch cinemas");
 
         const data = await response.json();
-        // console.log(data);
         setCinemas(data);
       } catch (err) {
         setError(err.message);
-        // console.error(err);
       } finally {
         setLoading(false);
       }
@@ -154,6 +150,8 @@ export function CinemaView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
+            color: "white",
+            fontWeight: "bold",
           }}
         >
           Cinema Management
