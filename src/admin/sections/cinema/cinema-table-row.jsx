@@ -151,7 +151,12 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
                         to={`/admin/cinema/${row.cinema_id}`}
                         style={{ textDecoration: "none", color: "inherit" }}
                     >
-                        <Typography variant="body1" fontWeight="bold" noWrap>
+                        <Typography
+                            variant="body1"
+                            fontWeight="bold"
+                            noWrap
+                            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+                        >
                             {row.cinema_name}
                         </Typography>
                     </Link>
@@ -167,7 +172,7 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
                             padding: '2px 8px',
                             borderRadius: '8px',
                             fontWeight: 'bold',
-                            fontSize: '1rem',
+                            fontSize: { xs: "0.9rem", md: "1rem" },
                             display: 'inline-block',
                         }}
                     >
@@ -272,6 +277,10 @@ export function CinemaAddressCell({ row }) {
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
+                        fontSize: { xs: "1.1rem", md: "1.3rem" }, // Tăng font size cho cột Address
+                        "&:hover": {
+                            fontSize: { xs: "1.1rem", md: "1.3rem" }, // Đảm bảo font size không thay đổi khi hover
+                        },
                     }}
                     onClick={openDialog}
                 >
