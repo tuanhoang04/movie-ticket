@@ -364,15 +364,15 @@ export default function CreateNewPost() {
     });
 
     if (!formData.film_name) {
-      setErrMessage("Please fill movie name");
+      setErrMessage("Please enter the movie name.");
       return;
     }
     if (!formData.new_header) {
-      setErrMessage("Please fill in title");
+      setErrMessage("Please enter the title.");
       return;
     }
     if (!formData.new_footer) {
-      setErrMessage("Please fill in footer");
+      setErrMessage("Please enter the footer text.");
       return;
     }
 
