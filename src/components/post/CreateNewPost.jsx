@@ -368,7 +368,7 @@ export default function CreateNewPost() {
       return;
     }
     if (!formData.new_header) {
-      setErrMessage("Please fill in header");
+      setErrMessage("Please fill in title");
       return;
     }
     if (!formData.new_footer) {
