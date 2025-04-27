@@ -16,6 +16,8 @@ import {
   TableRow,
   Tooltip,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
@@ -55,6 +57,14 @@ const deleteMovie = async (id) => {
 export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
 
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
@@ -231,6 +241,20 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          sx={{ width: "100%", fontSize: "1.25rem" }}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
@@ -268,7 +292,10 @@ export function MovieDescriptionCell({ row }) {
       <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="sm" fullWidth>
         <DialogTitle>Detail description</DialogTitle>
         <DialogContent>
-          <Typography variant="body1" sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}>
+          <Typography
+            variant="body1"
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+          >
             {row.film_describe}
           </Typography>
         </DialogContent>
