@@ -205,24 +205,61 @@ export function RoomTableRow({
 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
+      <TableRow
+        hover
+        tabIndex={-1}
+        role="checkbox"
+        selected={selected}
+        sx={{
+          bgcolor: "#323137",
+          "&:hover": { bgcolor: "#4A494E" },
+          borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+        }}
+      >
+        <TableCell
+          padding="checkbox"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
+          <Checkbox
+            disableRipple
+            checked={selected}
+            onChange={onSelectRow}
+            sx={{
+              color: "#FFFFFF",
+              "&.Mui-checked": { color: "#FFFFFF" },
+            }}
+          />
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Typography
             variant="body1"
             fontWeight="bold"
             noWrap
-            sx={{ cursor: "pointer", fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{
+              cursor: "pointer",
+              fontSize: { xs: "1.1rem", md: "1.2rem" },
+              color: "#1976D2",
+            }}
             onClick={handleEditClick}
           >
             {row.room_name}
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Link
             to={`/admin/cinema/${row.cinema_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
@@ -231,16 +268,21 @@ export function RoomTableRow({
               variant="body1"
               fontWeight="medium"
               noWrap
-              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
             >
               {row.cinema_name}
             </Typography>
           </Link>
         </TableCell>
 
-        <TableCell align="right">
+        <TableCell
+          align="right"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <IconButton onClick={handleOpenPopover}>
-            <Iconify icon="eva:more-vertical-fill" />
+            <Iconify icon="eva:more-vertical-fill" sx={{ color: "#FFFFFF" }} />
           </IconButton>
         </TableCell>
 
@@ -259,35 +301,50 @@ export function RoomTableRow({
               width: 140,
               display: "flex",
               flexDirection: "column",
+              bgcolor: "#323137",
+              color: "#FFFFFF",
               [`& .${menuItemClasses.root}`]: {
                 px: 1,
                 gap: 2,
                 borderRadius: 0.75,
+                color: "#FFFFFF",
                 [`&. ${menuItemClasses.selected}`]: {
-                  bgcolor: "action.selected",
+                  bgcolor: "#4A494E",
                 },
               },
             }}
           >
-            <MenuItem onClick={handleEditClick} sx={{ color: "primary.main" }}>
-              <Iconify icon="solar:pen-bold" />
+            <MenuItem onClick={handleEditClick} sx={{ color: "#1976D2" }}>
+              <Iconify icon="solar:pen-bold" sx={{ color: "#1976D2" }} />
               Edit
             </MenuItem>
-            <MenuItem onClick={handleDeleteButton} sx={{ color: "error.main" }}>
-              <Iconify icon="solar:trash-bin-trash-bold" />
+            <MenuItem onClick={handleDeleteButton} sx={{ color: "#FF0000" }}>
+              <Iconify icon="solar:trash-bin-trash-bold" sx={{ color: "#FF0000" }} />
               Delete
             </MenuItem>
           </MenuList>
         </Popover>
       </TableRow>
 
-      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <DialogTitle sx={{ fontSize: "24px" }}>
+      <Dialog
+        open={openEditDialog}
+        onClose={handleCloseEditDialog}
+        sx={{
+          "& .MuiPaper-root": {
+            bgcolor: "#323137",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          },
+        }}
+      >
+        <DialogTitle sx={{ fontSize: "24px", color: "#FFFFFF" }}>
           {loading ? "Loading data..." : "Edit room"}
         </DialogTitle>
         <DialogContent>
           {loading ? (
-            <Typography variant="body1">Loading data...</Typography>
+            <Typography variant="body1" sx={{ color: "#FFFFFF" }}>
+              Loading data...
+            </Typography>
           ) : (
             <>
               <TextField
@@ -295,12 +352,14 @@ export function RoomTableRow({
                 value={roomName}
                 onChange={(e) => setRoomName(e.target.value)}
                 fullWidth
-                sx={{ mb: 2, mt: 2 }}
-                slotProps={{
-                  input: {
-                    style: { fontSize: "20px" },
-                  },
-                  inputLabel: { style: { fontSize: "20px" } },
+                sx={{
+                  mb: 2,
+                  mt: 2,
+                  "& .MuiInputBase-input": { color: "#FFFFFF", fontSize: "20px" },
+                  "& .MuiInputLabel-root": { color: "#FFFFFF", fontSize: "20px" },
+                  "& .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+                  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
                 }}
               />
               <TextField
@@ -308,41 +367,64 @@ export function RoomTableRow({
                 value={cinemaName}
                 onChange={(e) => setCinemaName(e.target.value)}
                 fullWidth
-                sx={{ mb: 2 }}
-                slotProps={{
-                  input: {
-                    style: { fontSize: "20px" },
-                  },
-                  inputLabel: { style: { fontSize: "20px" } },
+                sx={{
+                  mb: 2,
+                  "& .MuiInputBase-input": { color: "#FFFFFF", fontSize: "20px" },
+                  "& .MuiInputLabel-root": { color: "#FFFFFF", fontSize: "20px" },
+                  "& .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+                  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
                 }}
               />
             </>
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseEditDialog} color="primary">
+          <Button
+            onClick={handleCloseEditDialog}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleSubmitEdit} color="primary">
+          <Button
+            onClick={handleSubmitEdit}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Update
           </Button>
         </DialogActions>
       </Dialog>
 
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Delete confirmation</DialogTitle>
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        sx={{
+          "& .MuiPaper-root": {
+            bgcolor: "#323137",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: "#FFFFFF" }}>Delete confirmation</DialogTitle>
         <DialogContent>
-          <Typography>
+          <Typography sx={{ color: "#FFFFFF" }}>
             Are you sure you want to delete the room{" "}
             <strong>{row.room_name}</strong> of{" "}
             <strong>{row.cinema_name}</strong>?
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button
+            onClick={handleCloseDialog}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleConfirmDelete} color="error">
+          <Button
+            onClick={handleConfirmDelete}
+            sx={{ color: "#FF0000", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Delete
           </Button>
         </DialogActions>
@@ -356,7 +438,7 @@ export function RoomTableRow({
       >
         <Alert
           onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}
