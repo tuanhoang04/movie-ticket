@@ -87,12 +87,42 @@ export function UserTableRow({ row, selected, onSelectRow, onDelete }) {
 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
+      <TableRow
+        hover
+        tabIndex={-1}
+        role="checkbox"
+        selected={selected}
+        sx={{
+          bgcolor: "#323137",
+          "&:hover": { bgcolor: "#4A494E" },
+          borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+        }}
+      >
+        <TableCell
+          padding="checkbox"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
+          <Checkbox
+            disableRipple
+            checked={selected}
+            onChange={onSelectRow}
+            sx={{
+              color: "#FFFFFF",
+              "&.Mui-checked": { color: "#FFFFFF" },
+            }}
+          />
         </TableCell>
 
-        <TableCell component="th" scope="row">
+        <TableCell
+          component="th"
+          scope="row"
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Box gap={2} display="flex" alignItems="center">
             <Avatar alt={row.username} src={row.user_img} />
             <Link
@@ -103,7 +133,7 @@ export function UserTableRow({ row, selected, onSelectRow, onDelete }) {
                 variant="body1"
                 fontWeight="bold"
                 noWrap
-                sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+                sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#1976D2" }}
               >
                 {row.username}
               </Typography>
@@ -111,33 +141,48 @@ export function UserTableRow({ row, selected, onSelectRow, onDelete }) {
           </Box>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Typography
             variant="body1"
             fontWeight="medium"
             noWrap
-            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
           >
             {row.email}
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Typography
             variant="body1"
             fontWeight="medium"
             noWrap
-            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
           >
             {row.phone_number}
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Box display="flex" alignItems="center" gap={1}>
             <Iconify
               icon={row.role === 1 ? "mdi:shield-account" : "mdi:account"}
-              color={row.role === 1 ? "primary.main" : "success.main"}
+              color={row.role === 1 ? "#1976D2" : "#4CAF50"}
               width={25}
               height={25}
             />
@@ -148,12 +193,8 @@ export function UserTableRow({ row, selected, onSelectRow, onDelete }) {
               size="small"
               sx={{
                 fontSize: { xs: "1.1rem", md: "1.2rem" },
-                color:
-                  row.role === 1
-                    ? "primary.contrastText"
-                    : "success.contrastText",
-                backgroundColor:
-                  row.role === 1 ? "primary.main" : "success.main",
+                color: "#FFFFFF",
+                backgroundColor: row.role === 1 ? "#1976D2" : "#4CAF50",
                 fontWeight: "bold",
                 textTransform: "uppercase",
               }}
@@ -161,18 +202,28 @@ export function UserTableRow({ row, selected, onSelectRow, onDelete }) {
           </Box>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Label
-            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
             color={(row.status === 0 && "error") || "success"}
           >
             {row.status === 0 ? "Inactive" : "Active"}
           </Label>
         </TableCell>
 
-        <TableCell align="right">
+        <TableCell
+          align="right"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <IconButton onClick={handleOpenPopover}>
-            <Iconify icon="eva:more-vertical-fill" />
+            <Iconify icon="eva:more-vertical-fill" sx={{ color: "#FFFFFF" }} />
           </IconButton>
         </TableCell>
 
@@ -191,41 +242,60 @@ export function UserTableRow({ row, selected, onSelectRow, onDelete }) {
               width: 140,
               display: "flex",
               flexDirection: "column",
+              bgcolor: "#323137",
+              color: "#FFFFFF",
               [`& .${menuItemClasses.root}`]: {
                 px: 1,
                 gap: 2,
                 borderRadius: 0.75,
+                color: "#FFFFFF",
                 [`&. ${menuItemClasses.selected}`]: {
-                  bgcolor: "action.selected",
+                  bgcolor: "#4A494E",
                 },
               },
             }}
           >
-            <MenuItem onClick={handleEditButton}>
-              <Iconify icon="solar:pen-bold" sx={{ color: "primary.main" }} />
+            <MenuItem onClick={handleEditButton} sx={{ color: "#1976D2" }}>
+              <Iconify icon="solar:pen-bold" sx={{ color: "#1976D2" }} />
               Edit
             </MenuItem>
-            <MenuItem onClick={handleDeleteButton} sx={{ color: "error.main" }}>
-              <Iconify icon="solar:trash-bin-trash-bold" />
+            <MenuItem onClick={handleDeleteButton} sx={{ color: "#FF0000" }}>
+              <Iconify icon="solar:trash-bin-trash-bold" sx={{ color: "#FF0000" }} />
               Delete
             </MenuItem>
           </MenuList>
         </Popover>
       </TableRow>
 
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Xác nhận xóa</DialogTitle>
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        sx={{
+          "& .MuiPaper-root": {
+            bgcolor: "#323137",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: "#FFFFFF" }}>Xác nhận xóa</DialogTitle>
         <DialogContent>
-          <Typography>
+          <Typography sx={{ color: "#FFFFFF" }}>
             Bạn có chắc chắn muốn xóa người dùng <strong>{row.username}</strong>{" "}
             không?
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button
+            onClick={handleCloseDialog}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Hủy
           </Button>
-          <Button onClick={handleConfirmDelete} color="error">
+          <Button
+            onClick={handleConfirmDelete}
+            sx={{ color: "#FF0000", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Xóa
           </Button>
         </DialogActions>
