@@ -14,6 +14,7 @@ import {
   Alert,
   CircularProgress,
   Autocomplete,
+  MenuItem,
 } from "@mui/material";
 
 export function EditShowtimeView({ showtimeId }) {
@@ -93,17 +94,62 @@ export function EditShowtimeView({ showtimeId }) {
         setOriginalData(initialData);
         setLoading(false);
       } catch (error) {
-        console.error(error);
         setSnackbar({
           open: true,
           message: "Error when loading showtime information",
           severity: "error",
         });
+        setLoading(false);
       }
     };
 
     fetchShowtimeDetails();
   }, [showtimeId]);
+
+  useEffect(() => {
+    const getFilmNames = async () => {
+      try {
+        const jwt = localStorage.getItem("jwt");
+
+        if (!jwt) {
+          console.error("JWT token is missing");
+          setSnackbar({
+            open: true,
+            message: "JWT token is missing",
+            severity: "error",
+          });
+          return;
+        }
+
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/admin/films`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + jwt,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to fetch films");
+        }
+
+        const listfilms = await response.json();
+        setFilmNames(listfilms.map((film) => film.film_name));
+      } catch (error) {
+        setSnackbar({
+          open: true,
+          message: `Error when calling API: ${error.message}`,
+          severity: "error",
+        });
+      }
+    };
+
+    getFilmNames();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -155,58 +201,28 @@ export function EditShowtimeView({ showtimeId }) {
     }
   };
 
-  useEffect(() => {
-    const getFilmNames = async () => {
-      try {
-        const jwt = localStorage.getItem("jwt");
-
-        if (!jwt) {
-          console.error("JWT token is missing");
-          setSnackbar({
-            open: true,
-            message: `Error when calling API: ${error.message}`,
-            severity: "error",
-          });
-          return;
-        }
-
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/admin/films`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + jwt,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || "Failed to fetch films");
-        }
-
-        const listfilms = await response.json();
-        setFilmNames(listfilms.map((film) => film.film_name));
-      } catch (error) {
-        setSnackbar({
-          open: true,
-          message: `Error when calling API: ${error.message}`,
-          severity: "error",
-        });
-      }
-    };
-
-    getFilmNames();
-  }, []);
-
   return (
     <DashboardContent>
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <CardHeader
-          title={<Typography variant="h2">{"Edit Showtime"}</Typography>}
+          title={
+            <Typography
+              variant="h3"
+              sx={{ color: "#FFFFFF", fontWeight: "bold" }}
+            >
+              Edit Showtime
+            </Typography>
+          }
+          sx={{ bgcolor: "#323137" }}
         />
-        <CardContent>
+        <CardContent sx={{ bgcolor: "#323137" }}>
           {loading ? (
             <Box
               display="flex"
@@ -214,7 +230,7 @@ export function EditShowtimeView({ showtimeId }) {
               alignItems="center"
               height="300px"
             >
-              <CircularProgress />
+              <CircularProgress sx={{ color: "#FFFFFF" }} />
             </Box>
           ) : (
             <form onSubmit={handleSubmit}>
@@ -222,9 +238,7 @@ export function EditShowtimeView({ showtimeId }) {
                 <Autocomplete
                   name="film_name"
                   options={filmNames}
-                  isOptionEqualToValue={(option, value) =>
-                    value !== null && option.value === value.value
-                  }
+                  isOptionEqualToValue={(option, value) => option === value}
                   value={formData.film_name}
                   onChange={(event, newValue) => {
                     setFormData({ ...formData, film_name: newValue });
@@ -236,7 +250,45 @@ export function EditShowtimeView({ showtimeId }) {
                       placeholder="Please select or enter a movie name"
                       required
                       fullWidth
+                      sx={{
+                        "& .MuiInputBase-input": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
+                        sx: {
+                          "&::placeholder": {
+                            color: "rgba(255, 255, 255, 0.7)",
+                          },
+                        },
+                      }}
                     />
+                  )}
+                  renderOption={(props, option) => (
+                    <MenuItem
+                      {...props}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
+                      {option}
+                    </MenuItem>
                   )}
                 />
 
@@ -247,6 +299,32 @@ export function EditShowtimeView({ showtimeId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
+                  InputProps={{
+                    sx: {
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.7)",
+                      },
+                    },
+                  }}
                 />
 
                 <TextField
@@ -256,6 +334,32 @@ export function EditShowtimeView({ showtimeId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
+                  InputProps={{
+                    sx: {
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.7)",
+                      },
+                    },
+                  }}
                 />
 
                 <TextField
@@ -268,6 +372,25 @@ export function EditShowtimeView({ showtimeId }) {
                   fullWidth
                   InputLabelProps={{
                     shrink: true,
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
                   }}
                 />
 
@@ -282,11 +405,46 @@ export function EditShowtimeView({ showtimeId }) {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
                 />
               </Stack>
 
               <Box mt={3} display="flex" justifyContent="flex-end">
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    bgcolor: "#1976D2",
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    "&:hover": {
+                      bgcolor: "#1565C0",
+                    },
+                    "&:disabled": {
+                      bgcolor: "#4A494E",
+                      color: "rgba(255, 255, 255, 0.5)",
+                    },
+                  }}
+                  disabled={loading}
+                >
                   Update
                 </Button>
               </Box>
@@ -299,10 +457,11 @@ export function EditShowtimeView({ showtimeId }) {
         open={snackbar.open}
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          sx={{ fontSize: "1.25rem" }}
           onClose={handleSnackbarClose}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}
