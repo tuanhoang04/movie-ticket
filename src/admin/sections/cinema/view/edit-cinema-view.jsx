@@ -13,6 +13,7 @@ import {
   Alert,
   CircularProgress,
   Autocomplete,
+  MenuItem,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -75,7 +76,6 @@ export function EditCinemaView({ cinemaId }) {
         }
 
         const data = await response.json();
-        // console.log(data);
         const cinema = data.cinema[0] || {};
         const cluster = data.clusters[0] || {};
         const region = data.regions[0] || {};
@@ -91,7 +91,6 @@ export function EditCinemaView({ cinemaId }) {
         setOriginalData(initialData);
         setLoading(false);
       } catch (error) {
-        // console.error(error);
         setSnackbar({
           open: true,
           message: "Error loading cinema information",
@@ -135,8 +134,6 @@ export function EditCinemaView({ cinemaId }) {
         throw new Error("Failed to update cinema");
       }
 
-      // const result = await response.json();
-      // console.log(result);
       setSnackbar({
         open: true,
         message: "Cinema has been successfully updated!",
@@ -144,7 +141,6 @@ export function EditCinemaView({ cinemaId }) {
       });
       setTimeout(() => navigate("/admin/cinema"), 1000);
     } catch (error) {
-      // console.error(error);
       setFormData(originalData);
       setSnackbar({
         open: true,
@@ -156,13 +152,26 @@ export function EditCinemaView({ cinemaId }) {
 
   return (
     <DashboardContent>
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <CardHeader
           title={
-            <Typography variant="h2">{"Edit Cinema Information"}</Typography>
+            <Typography
+              variant="h2"
+              sx={{ color: "#FFFFFF", fontWeight: "bold" }}
+            >
+              Edit Cinema Information
+            </Typography>
           }
+          sx={{ bgcolor: "#323137" }}
         />
-        <CardContent>
+        <CardContent sx={{ bgcolor: "#323137" }}>
           {loading ? (
             <Box
               display="flex"
@@ -170,7 +179,7 @@ export function EditCinemaView({ cinemaId }) {
               alignItems="center"
               height="300px"
             >
-              <CircularProgress />
+              <CircularProgress sx={{ color: "#FFFFFF" }} />
             </Box>
           ) : (
             <form onSubmit={handleSubmit}>
@@ -182,6 +191,32 @@ export function EditCinemaView({ cinemaId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
+                  InputProps={{
+                    sx: {
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.7)",
+                      },
+                    },
+                  }}
                 />
 
                 <TextField
@@ -191,6 +226,32 @@ export function EditCinemaView({ cinemaId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
+                  InputProps={{
+                    sx: {
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.7)",
+                      },
+                    },
+                  }}
                 />
 
                 <Autocomplete
@@ -209,15 +270,55 @@ export function EditCinemaView({ cinemaId }) {
                     "Cinemax",
                     "Love",
                   ]}
-                  isOptionEqualToValue={(option, value) =>
-                    value !== null && option.value === value.value
-                  }
+                  isOptionEqualToValue={(option, value) => option === value}
                   value={formData.cluster_name}
                   onChange={(event, newValue) => {
                     setFormData({ ...formData, cluster_name: newValue });
                   }}
                   renderInput={(params) => (
-                    <TextField {...params} label="Cinema cluster" required />
+                    <TextField
+                      {...params}
+                      label="Cinema cluster"
+                      required
+                      sx={{
+                        "& .MuiInputBase-input": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
+                        sx: {
+                          "&::placeholder": {
+                            color: "rgba(255, 255, 255, 0.7)",
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                  renderOption={(props, option) => (
+                    <MenuItem
+                      {...props}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
+                      {option}
+                    </MenuItem>
                   )}
                 />
 
@@ -249,7 +350,7 @@ export function EditCinemaView({ cinemaId }) {
                     "Tây Ninh",
                     "Thái Nguyên",
                     "Thanh Hóa",
-                    "Tiên Giang",
+                    "Tiền Giang",
                     "An Giang",
                     "Bắc Ninh",
                     "Bình Thuận",
@@ -264,7 +365,7 @@ export function EditCinemaView({ cinemaId }) {
                     "Lào Cai",
                     "Long An",
                     "Nam Định",
-                    "Ninh BÌnh",
+                    "Ninh Bình",
                     "Ninh Thuận",
                     "Phú Thọ",
                     "Quảng Ngãi",
@@ -275,15 +376,55 @@ export function EditCinemaView({ cinemaId }) {
                     "Vĩnh Long",
                     "Yên Bái",
                   ]}
-                  isOptionEqualToValue={(option, value) =>
-                    value !== null && option.value === value.value
-                  }
+                  isOptionEqualToValue={(option, value) => option === value}
                   value={formData.region_name}
                   onChange={(event, newValue) => {
                     setFormData({ ...formData, region_name: newValue });
                   }}
                   renderInput={(params) => (
-                    <TextField {...params} label="Location" required />
+                    <TextField
+                      {...params}
+                      label="Location"
+                      required
+                      sx={{
+                        "& .MuiInputBase-input": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
+                        sx: {
+                          "&::placeholder": {
+                            color: "rgba(255, 255, 255, 0.7)",
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                  renderOption={(props, option) => (
+                    <MenuItem
+                      {...props}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
+                      {option}
+                    </MenuItem>
                   )}
                 />
               </Stack>
@@ -292,7 +433,18 @@ export function EditCinemaView({ cinemaId }) {
                 <Button
                   type="submit"
                   variant="contained"
-                  color="primary"
+                  sx={{
+                    bgcolor: "#1976D2",
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    "&:hover": {
+                      bgcolor: "#1565C0",
+                    },
+                    "&:disabled": {
+                      bgcolor: "#4A494E",
+                      color: "rgba(255, 255, 255, 0.5)",
+                    },
+                  }}
                   disabled={loading}
                 >
                   Update
@@ -307,10 +459,11 @@ export function EditCinemaView({ cinemaId }) {
         open={snackbar.open}
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          sx={{ fontSize: "1.25rem" }}
           onClose={handleSnackbarClose}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

@@ -10,6 +10,7 @@ import {
   Box,
   Button,
   Autocomplete,
+  MenuItem,
 } from "@mui/material";
 import { DashboardContent } from "../../../layouts/dashboard";
 import { useState } from "react";
@@ -68,9 +69,6 @@ export function CreateCinemaView() {
         throw new Error("Failed to create cinema");
       }
 
-      // const result = await response.json();
-      // console.log(result);
-
       setSnackbar({
         open: true,
         message: "Cinema has been successfully created!",
@@ -78,7 +76,6 @@ export function CreateCinemaView() {
       });
       setTimeout(() => navigate("/admin/cinema"), 1000);
     } catch (error) {
-      // console.error(error);
       setFormData({
         cinema_name: "",
         address: "",
@@ -87,7 +84,7 @@ export function CreateCinemaView() {
       });
       setSnackbar({
         open: true,
-        message: "An error occurred while creating the cinema!:" + error,
+        message: "An error occurred while creating the cinema!: " + error,
         severity: "error",
       });
     }
@@ -95,15 +92,26 @@ export function CreateCinemaView() {
 
   return (
     <DashboardContent>
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <CardHeader
           title={
-            <Typography variant="h2">
-              {"New Cinema Creation Template"}
+            <Typography
+              variant="h2"
+              sx={{ color: "#FFFFFF", fontWeight: "bold" }}
+            >
+              New Cinema Creation Template
             </Typography>
           }
+          sx={{ bgcolor: "#323137" }}
         />
-        <CardContent>
+        <CardContent sx={{ bgcolor: "#323137" }}>
           <form onSubmit={handleSubmit}>
             <Stack spacing={3}>
               <TextField
@@ -113,6 +121,32 @@ export function CreateCinemaView() {
                 onChange={handleInputChange}
                 required
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                }}
+                InputProps={{
+                  sx: {
+                    "&::placeholder": {
+                      color: "rgba(255, 255, 255, 0.7)",
+                    },
+                  },
+                }}
               />
 
               <TextField
@@ -122,6 +156,32 @@ export function CreateCinemaView() {
                 onChange={handleInputChange}
                 required
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                }}
+                InputProps={{
+                  sx: {
+                    "&::placeholder": {
+                      color: "rgba(255, 255, 255, 0.7)",
+                    },
+                  },
+                }}
               />
 
               <Autocomplete
@@ -145,7 +205,49 @@ export function CreateCinemaView() {
                   setFormData({ ...formData, cluster_name: newValue });
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Cinema cluster name" required />
+                  <TextField
+                    {...params}
+                    label="Cinema cluster name"
+                    required
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
+                  />
+                )}
+                renderOption={(props, option) => (
+                  <MenuItem
+                    {...props}
+                    sx={{
+                      color: "#000000",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    }}
+                  >
+                    {option}
+                  </MenuItem>
                 )}
               />
 
@@ -177,7 +279,7 @@ export function CreateCinemaView() {
                   "Tây Ninh",
                   "Thái Nguyên",
                   "Thanh Hóa",
-                  "Tiên Giang",
+                  "Tiền Giang",
                   "An Giang",
                   "Bắc Ninh",
                   "Bình Thuận",
@@ -192,7 +294,7 @@ export function CreateCinemaView() {
                   "Lào Cai",
                   "Long An",
                   "Nam Định",
-                  "Ninh BÌnh",
+                  "Ninh Bình",
                   "Ninh Thuận",
                   "Phú Thọ",
                   "Quảng Ngãi",
@@ -208,13 +310,66 @@ export function CreateCinemaView() {
                   setFormData({ ...formData, region_name: newValue });
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Location" required />
+                  <TextField
+                    {...params}
+                    label="Location"
+                    required
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
+                  />
+                )}
+                renderOption={(props, option) => (
+                  <MenuItem
+                    {...props}
+                    sx={{
+                      color: "#000000",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    }}
+                  >
+                    {option}
+                  </MenuItem>
                 )}
               />
             </Stack>
 
             <Box mt={3} display="flex" justifyContent="flex-end">
-              <Button type="submit" variant="contained" color="primary">
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  bgcolor: "#1976D2",
+                  color: "#FFFFFF",
+                  fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  "&:hover": {
+                    bgcolor: "#1565C0",
+                  },
+                }}
+              >
                 Create cinema
               </Button>
             </Box>
@@ -226,10 +381,11 @@ export function CreateCinemaView() {
         open={snackbar.open}
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          sx={{ fontSize: "1.25rem" }}
           onClose={handleSnackbarClose}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}
