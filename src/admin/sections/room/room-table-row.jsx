@@ -173,7 +173,20 @@ export function RoomTableRow({
   const handleConfirmDelete = async () => {
     const success = await deleteRoom(row.room_id);
     if (success) {
-      onDelete(row.room_id);
+       setSnackbar({
+         open: true,
+         message: "Delete room successfully",
+         severity: "success",
+       });
+       setTimeout(() => {
+         onDelete(row.room_id);
+       }, 1000);
+    }else{
+      setSnackbar({
+        open: false,
+        message: "Delete room failed.Try again!",
+        severity: "error",
+      });
     }
     setOpenDialog(false);
   };
@@ -262,11 +275,11 @@ export function RoomTableRow({
           >
             <MenuItem onClick={handleEditClick} sx={{ color: "primary.main" }}>
               <Iconify icon="solar:pen-bold" />
-              Chỉnh sửa
+              Edit
             </MenuItem>
             <MenuItem onClick={handleDeleteButton} sx={{ color: "error.main" }}>
               <Iconify icon="solar:trash-bin-trash-bold" />
-              Xóa
+              Delete
             </MenuItem>
           </MenuList>
         </Popover>

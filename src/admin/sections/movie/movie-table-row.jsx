@@ -97,7 +97,9 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
         message: "Delete film successfully",
         severity: "success",
       });
-      onDelete(row.film_id);
+      setTimeout(() => {
+        onDelete(row.film_id);
+      }, 1000);
     } else {
       setSnackbar({
         open: false,

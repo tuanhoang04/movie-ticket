@@ -226,11 +226,11 @@ export function MovieView() {
                         selected={table.selected.includes(row.film_id)}
                         onSelectRow={() => table.onSelectRow(row.film_id)}
                         onDelete={(id) => {
-                          console.log(movies);
-
-                          setMovies((prevMovies) =>
-                            prevMovies.filter((movie) => movie.movie_id !== id)
-                          );
+                          setMovies((prevMovies) => {
+                            return prevMovies.filter((movie) => {
+                              return movie.film_id !== id;
+                            });
+                          });
                           console.log(movies);
 
                           table.setSelected((prevSelected) =>
