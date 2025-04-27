@@ -87,7 +87,7 @@ export function CreateCinemaView() {
       });
       setSnackbar({
         open: true,
-        message: "An error occurred while creating the cinema!",
+        message: "An error occurred while creating the cinema!:" + error,
         severity: "error",
       });
     }

@@ -98,7 +98,6 @@ export function MovieView() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -158,7 +157,7 @@ export function MovieView() {
           startIcon={<Iconify icon="mingcute:add-line" />}
           component={Link}
           to="/admin/movie/create"
-          sx={{fontSize:"1.1rem"}}
+          sx={{ fontSize: "1.1rem" }}
         >
           Add film
         </Button>
@@ -227,9 +226,13 @@ export function MovieView() {
                         selected={table.selected.includes(row.film_id)}
                         onSelectRow={() => table.onSelectRow(row.film_id)}
                         onDelete={(id) => {
+                          console.log(movies);
+
                           setMovies((prevMovies) =>
                             prevMovies.filter((movie) => movie.movie_id !== id)
                           );
+                          console.log(movies);
+
                           table.setSelected((prevSelected) =>
                             prevSelected.filter(
                               (selectedId) => selectedId !== id
