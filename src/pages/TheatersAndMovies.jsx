@@ -210,11 +210,11 @@ export default function TheatersAndMovies() {
         {/* Now showing movies section */}
         <div className="px-8 lg:px-36">
           {!isLoading && (
-            <div className="flex flex-col mt-6 mb-16">
+            <div className="flex flex-col mt-16 mb-16">
               <div className="flex items-center justify-center">
                 <p
                   ref={begin}
-                  className="text-white text-2xl md:text-4xl mb-5 font-bold"
+                  className="text-white text-2xl md:text-4xl mb-12 font-bold "
                 >
                   Buy Ticket by Movies
                 </p>
@@ -245,7 +245,7 @@ export default function TheatersAndMovies() {
         </div>
 
         {/* Thay <hr> bằng divider gradient */}
-        <div className="flex justify-center mx-8 lg:mx-36 my-7">
+        <div className="flex justify-center mx-8 lg:mx-36 my-10">
           <div className="w-1/2 h-1 bg-gradient-to-r from-transparent via-purple-600 to-transparent shadow-md"></div>
         </div>
 
