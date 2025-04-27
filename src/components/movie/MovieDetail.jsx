@@ -386,7 +386,7 @@ export default function MovieDetail() {
               </p>
 
               <div className="flex flex-row flex-wrap justify-between">
-                <div className="w-full lg:w-[40%]">
+                <div className="w-full xl:w-[40%]">
                   <div className="flex flex-row items-center mb-2">
                     <Rating
                       value={Math.round(data.info.evaluate[0].film_rate)}
@@ -403,19 +403,19 @@ export default function MovieDetail() {
                   <p className="text-base md:text-lg lg:text-xl font-light text-gray-300 ">
                     {ratingsData.length} ratings
                   </p>
-                  <div className="w-full flex flex-row flex-wrap lg:gap-[5%]">
+                  <div className="w-full flex flex-row flex-wrap xl:gap-[5%]">
                     <div className="w-full mt-4">
                       {[5, 4, 3, 2, 1].map((star) => (
                         <div
                           key={star}
                           className="grid grid-cols-12 items-center mt-3 gap-1 sm:gap-2"
                         >
-                          <div className="col-span-2 sm:col-span-1">
+                          <div className="col-span-2 sm:col-span-2">
                             <span className="text-sm sm:text-base md:text-lg font-medium text-white">
                               {star} star
                             </span>
                           </div>
-                          <div className="col-span-8 sm:col-span-10 h-4 sm:h-5 bg-gray-200 rounded-sm dark:bg-gray-700">
+                          <div className="col-span-8 sm:col-span-9 h-4 sm:h-5 bg-gray-200 rounded-sm dark:bg-gray-700">
                             <div
                               className="h-4 sm:h-5 bg-yellow-600 rounded-sm"
                               style={{
@@ -448,7 +448,7 @@ export default function MovieDetail() {
                     </div>
                   </div>
                 </div>
-                <div className="w-full lg:w-[58%] mt-4">
+                <div className="w-full xl:w-[58%] mt-4">
                   {openRatingForm && (
                     <RatingForm
                       handleOpen={() => {
