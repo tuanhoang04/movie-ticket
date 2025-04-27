@@ -21,6 +21,7 @@ import { RoomTableHead } from "../room-table-head";
 import { RoomTableRow } from "../room-table-row";
 import { TableNoData } from "../../table-no-data";
 import { Iconify } from "../../../components/iconify";
+import { Link } from "react-router-dom";
 
 export function RoomView() {
   const table = hook();
@@ -158,13 +159,15 @@ export function RoomView() {
         >
           Cinema room management
         </Typography>
-        {/* <Button
-                    variant="contained"
-                    color="success"
-                    startIcon={<Iconify icon="mingcute:add-line" />}
-                >
-                    Thêm phòng chiếu
-                </Button> */}
+        <Button
+          variant="contained"
+          color="success"
+          startIcon={<Iconify icon="mingcute:add-line" />}
+          component={Link}
+          to="/admin/room/create"
+        >
+          Add room
+        </Button>
       </Box>
 
       <Card>

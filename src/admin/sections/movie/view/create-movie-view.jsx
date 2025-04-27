@@ -94,8 +94,8 @@ export function CreateMovieView() {
     fetchDirectorData();
   }, []);
   const [snackbar, setSnackbar] = useState({
-    open: true,
-    message: "asd",
+    open: false,
+    message: "",
     severity: "success",
   });
 

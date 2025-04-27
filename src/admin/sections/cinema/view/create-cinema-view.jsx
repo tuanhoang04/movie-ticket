@@ -140,9 +140,6 @@ export function CreateCinemaView() {
                   "Cinemax",
                   "Love",
                 ]}
-                isOptionEqualToValue={(option, value) =>
-                  value !== null && option.value === value.value
-                }
                 value={formData.cluster_name}
                 onChange={(event, newValue) => {
                   setFormData({ ...formData, cluster_name: newValue });
@@ -206,9 +203,6 @@ export function CreateCinemaView() {
                   "Vĩnh Long",
                   "Yên Bái",
                 ]}
-                isOptionEqualToValue={(option, value) =>
-                  value !== null && option.value === value.value
-                }
                 value={formData.region_name}
                 onChange={(event, newValue) => {
                   setFormData({ ...formData, region_name: newValue });

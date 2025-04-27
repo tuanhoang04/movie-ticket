@@ -8,7 +8,7 @@ export default function CreateMoviePage() {
       <Helmet>
         <title>
           {" "}
-          {`Create Movie | Admin Page for NHTT Movie Ticket Sales Website`}
+          {`Create Movie | Admin Page for Starlight Movie Ticket Sales Website`}
         </title>
       </Helmet>
 

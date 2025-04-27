@@ -23,6 +23,8 @@ export function CreateShowtimeView() {
     show_date: "",
     show_time: "",
   });
+  const [cinemas, setCinemas] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   const [filmNames, setFilmNames] = useState([]);
 
@@ -80,6 +82,11 @@ export function CreateShowtimeView() {
       );
 
       if (!response.ok) {
+        setSnackbar({
+          open: true,
+          message: "Failed to create showtime!",
+          severity: "error",
+        });
         throw new Error("Failed to create showtime");
       }
 
@@ -92,7 +99,7 @@ export function CreateShowtimeView() {
     } catch (error) {
       setSnackbar({
         open: true,
-        message: "An error occurred while creating the showtime!",
+        message: "An error occurred while creating the showtime!" + error,
         severity: "error",
       });
 
@@ -105,6 +112,40 @@ export function CreateShowtimeView() {
       });
     }
   };
+  useEffect(() => {
+    const fetchCinemaData = async () => {
+      try {
+        const jwt = localStorage.getItem("jwt");
+
+        if (!jwt) {
+          console.error("JWT token is missing");
+          return;
+        }
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/admin/cinemas`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + jwt,
+            },
+          }
+        );
+
+        const result = await response.json();
+
+        const cList = [];
+        result.forEach((element, index) => {
+          cList[index] = element.cinema_name;
+        });
+
+        setCinemas(cList);
+      } catch (error) {
+        console.error("Error fetching cinema data:", error);
+      }
+    };
+
+    fetchCinemaData();
+  }, []);
 
   useEffect(() => {
     const getFilmNames = async () => {
@@ -115,7 +156,7 @@ export function CreateShowtimeView() {
           console.error("JWT token is missing");
           setSnackbar({
             open: true,
-            message: `Error calling the API: ${error.message}`,
+            message: `Please login first`,
             severity: "error",
           });
           return;
@@ -150,7 +191,40 @@ export function CreateShowtimeView() {
 
     getFilmNames();
   }, []);
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const jwt = localStorage.getItem("jwt");
 
+        if (!jwt) {
+          console.error("JWT token is missing");
+          return;
+        }
+
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/admin/rooms?keyword${
+            formData.cinema_name
+          }`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + jwt,
+            },
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch rooms");
+
+        const data = await response.json();
+        setRooms(data.map((room) => room.room_name));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchRooms();
+  }, [formData.cinema_name]);
   return (
     <DashboardContent>
       <Card>
@@ -183,24 +257,42 @@ export function CreateShowtimeView() {
                   />
                 )}
               />
-
-              <TextField
-                name="room_name"
-                label="Room name"
-                value={formData.room_name}
-                onChange={handleInputChange}
-                required
-                fullWidth
-              />
-
-              <TextField
+              <Autocomplete
                 name="cinema_name"
-                label="Cinema name"
+                options={cinemas}
                 value={formData.cinema_name}
-                onChange={handleInputChange}
-                required
-                fullWidth
+                onChange={(event, newValue) => {
+                  setFormData({ ...formData, cinema_name: newValue });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Cinema name"
+                    placeholder="Please select or enter the cinema name"
+                    required
+                  />
+                )}
               />
+              {formData.cinema_name ? (
+                <Autocomplete
+                  name="room_name"
+                  options={rooms}
+                  value={formData.room_name}
+                  onChange={(event, newValue) => {
+                    setFormData({ ...formData, room_name: newValue });
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="room name"
+                      placeholder="Please select or enter the room name"
+                      required
+                    />
+                  )}
+                />
+              ) : (
+                ""
+              )}
 
               <TextField
                 name="show_date"

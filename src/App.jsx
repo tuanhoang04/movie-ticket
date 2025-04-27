@@ -41,6 +41,7 @@ import AdminRoute from "./admin/AdminRoute";
 
 const EditUserPage = lazy(() => import("./admin/pages/edit-user"));
 const CreateMoviePage = lazy(() => import("./admin/pages/create-movie"));
+const CreateRoomPage = lazy(() => import("./admin/pages/create-room"));
 const EditMoviePage = lazy(() => import("./admin/pages/edit-movie"));
 const CreateCinemaPage = lazy(() => import("./admin/pages/create-cinema"));
 const EditCinemaPage = lazy(() => import("./admin/pages/edit-cinema"));
@@ -78,6 +79,7 @@ function AdminLayout() {
           <Route path="showtime/create" element={<CreateShowtimePage />} />
           <Route path="showtime/:id" element={<EditShowtimePage />} />
           <Route path="room" element={<RoomPage />} />
+          <Route path="room/create" element={<CreateRoomPage />} />
           <Route path="order" element={<OrderPage />} />
           <Route path="order/:id" element={<OrderDetailsPage />} />
           <Route path="news" element={<NewsAdminPage />} />
