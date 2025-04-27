@@ -166,7 +166,7 @@ export function CinemaView() {
             fontWeight: "bold",
           }}
         >
-          Cinema Management
+          Cinemas Management
         </Typography>
         <Button
           sx={{
