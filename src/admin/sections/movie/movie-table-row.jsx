@@ -80,20 +80,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
   const handleConfirmDelete = async () => {
     const success = await deleteMovie(row.film_id);
     if (success) {
-      setSnackbar({
-        open: true,
-        message: "Delete film successfully",
-        severity: "success",
-      });
-      setTimeout(() => {
-        onDelete(row.film_id);
-      }, 1000);
-    } else {
-      setSnackbar({
-        open: false,
-        message: "Delete Film Failed",
-        severity: "error",
-      });
+      onDelete(row.film_id);
     }
     setOpenDialog(false);
   };

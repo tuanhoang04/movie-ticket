@@ -88,14 +88,6 @@ function getBadgeStyle(clusterName) {
 export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
-  const handleCloseSnackbar = () => {
-    setSnackbar((prev) => ({ ...prev, open: false }));
-  };
 
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
@@ -121,20 +113,7 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
   const handleConfirmDelete = async () => {
     const success = await deleteCinema(row.cinema_id);
     if (success) {
-      setSnackbar({
-        open: true,
-        message: "Delete cinema successfully",
-        severity: "success",
-      });
-      setTimeout(() => {
-        onDelete(row.cinema_id);
-      }, 1000);
-    } else {
-      setSnackbar({
-        open: false,
-        message: "Delete cinema failed.Try again!",
-        severity: "error",
-      });
+      onDelete(row.cinema_id);
     }
     setOpenDialog(false);
   };
@@ -146,39 +125,39 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
 
-                <TableCell>
-                    <Link
-                        to={`/admin/cinema/${row.cinema_id}`}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                        <Typography
-                            variant="body1"
-                            fontWeight="bold"
-                            noWrap
-                            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
-                        >
-                            {row.cinema_name}
-                        </Typography>
-                    </Link>
-                </TableCell>
+        <TableCell>
+          <Link
+            to={`/admin/cinema/${row.cinema_id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Typography
+              variant="body1"
+              fontWeight="bold"
+              noWrap
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
+              {row.cinema_name}
+            </Typography>
+          </Link>
+        </TableCell>
 
         <CinemaAddressCell row={row} />
 
-                <TableCell>
-                    <Box
-                        component="span"
-                        sx={{
-                            ...getBadgeStyle(row.cluster_name),
-                            padding: '2px 8px',
-                            borderRadius: '8px',
-                            fontWeight: 'bold',
-                            fontSize: { xs: "0.9rem", md: "1rem" },
-                            display: 'inline-block',
-                        }}
-                    >
-                        {row.cluster_name}
-                    </Box>
-                </TableCell>
+        <TableCell>
+          <Box
+            component="span"
+            sx={{
+              ...getBadgeStyle(row.cluster_name),
+              padding: "2px 8px",
+              borderRadius: "8px",
+              fontWeight: "bold",
+              fontSize: { xs: "0.9rem", md: "1rem" },
+              display: "inline-block",
+            }}
+          >
+            {row.cluster_name}
+          </Box>
+        </TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenPopover} size="small">
@@ -240,20 +219,6 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem" }}
-          severity={snackbar.severity}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
     </>
   );
 }
@@ -264,36 +229,39 @@ export function CinemaAddressCell({ row }) {
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
-    return (
-        <TableCell>
-            <Tooltip title={row.address} placement="top" arrow>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        cursor: 'pointer',
-                        color: 'primary.main',
-                        display: 'inline-block',
-                        maxWidth: 200,
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        fontSize: { xs: "1.1rem", md: "1.3rem" }, // Tăng font size cho cột Address
-                        "&:hover": {
-                            fontSize: { xs: "1.1rem", md: "1.3rem" }, // Đảm bảo font size không thay đổi khi hover
-                        },
-                    }}
-                    onClick={openDialog}
-                >
-                    {row.address}
-                </Typography>
-            </Tooltip>
+  return (
+    <TableCell>
+      <Tooltip title={row.address} placement="top" arrow>
+        <Typography
+          variant="body1"
+          sx={{
+            cursor: "pointer",
+            color: "primary.main",
+            display: "inline-block",
+            maxWidth: 200,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            fontSize: { xs: "1.1rem", md: "1.3rem" }, // Tăng font size cho cột Address
+            "&:hover": {
+              fontSize: { xs: "1.1rem", md: "1.3rem" }, // Đảm bảo font size không thay đổi khi hover
+            },
+          }}
+          onClick={openDialog}
+        >
+          {row.address}
+        </Typography>
+      </Tooltip>
 
       <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="sm" fullWidth>
         <DialogTitle>Address</DialogTitle>
         <DialogContent>
-          <Typography variant="body1" sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}>
-                        {row.address}
-                    </Typography>
+          <Typography
+            variant="body1"
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+          >
+            {row.address}
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog} color="primary">

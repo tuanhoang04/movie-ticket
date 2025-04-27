@@ -14,6 +14,7 @@ import {
   TableRow,
   TableCell,
   CircularProgress,
+  Snackbar,
   Alert,
 } from "@mui/material";
 import { Iconify } from "../../../components/iconify";
@@ -32,7 +33,14 @@ export function CinemaView() {
   const [error, setError] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("cinema_name");
   const [dataFiltered, setDataFiltered] = useState([]);
-
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
     table.onResetPage();
@@ -70,7 +78,11 @@ export function CinemaView() {
           throw new Error(`Failed to delete cinema with ID: ${cinemaId}`);
         }
       }
-
+      setSnackbar({
+        open: true,
+        message: "Delete cinema successfully",
+        severity: "success",
+      });
       setCinemas((prevCinemas) =>
         prevCinemas.filter(
           (cinema) => !table.selected.includes(cinema.cinema_id)
@@ -248,6 +260,11 @@ export function CinemaView() {
                         selected={table.selected.includes(row.cinema_id)}
                         onSelectRow={() => table.onSelectRow(row.cinema_id)}
                         onDelete={(id) => {
+                          setSnackbar({
+                            open: true,
+                            message: "Delete cinema successfully",
+                            severity: "success",
+                          });
                           setCinemas((prevCinemas) =>
                             prevCinemas.filter(
                               (cinema) => cinema.cinema_id !== id
@@ -286,6 +303,20 @@ export function CinemaView() {
           />
         )}
       </Card>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          sx={{ width: "100%", fontSize: "1.25rem" }}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </DashboardContent>
   );
 }
