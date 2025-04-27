@@ -84,7 +84,7 @@ export default function DashboardPage() {
             <Grid item xs={12} sm={4}>
               <Card
                 sx={{
-                  background: "rgba(255,255,255,0.05)",
+                  background: "#323137",
                   backdropFilter: "blur(10px)",
                   border: "1px solid rgba(255,255,255,0.1)",
                   boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
@@ -110,7 +110,7 @@ export default function DashboardPage() {
             <Grid item xs={12} sm={4}>
               <Card
                 sx={{
-                  background: "rgba(255,255,255,0.05)",
+                  background: "#323137",
                   backdropFilter: "blur(10px)",
                   border: "1px solid rgba(255,255,255,0.1)",
                   boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
@@ -141,7 +141,7 @@ export default function DashboardPage() {
             <Grid item xs={12} sm={4}>
               <Card
                 sx={{
-                  background: "rgba(255,255,255,0.05)",
+                  background: "#323137",
                   backdropFilter: "blur(10px)",
                   border: "1px solid rgba(255,255,255,0.1)",
                   boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
@@ -181,91 +181,129 @@ export default function DashboardPage() {
             </Typography>
 
             <Grid container spacing={3} justifyContent="center">
-              <Grid item xs={12} md={12}>
-                <TableContainer
-                  component={Paper}
+      <Grid item xs={12} md={12}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            background: "#323137",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+            overflowX: "auto", // Thêm cuộn ngang trên mobile
+          }}
+        >
+          <Table aria-label="films table">
+            <TableHead>
+              <TableRow sx={{ height: { xs: 70, md: 80 } }}>
+                <TableCell
                   sx={{
-                    background: "rgba(255,255,255,0.05)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
-                    overflowX: "auto", // Thêm cuộn ngang trên mobile
+                    fontSize: { xs: "1.2rem", md: "1.6rem" },
+                    color: "white",
+                    py: { xs: 2.5, md: 3 }, // Increased padding for more spacing
+                    px: { xs: 4, md: 6 },
+                    minWidth: "200px",
                   }}
                 >
-                  <Table aria-label="films table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell sx={{ fontSize: { xs: "1.2rem", md: "1.6rem" }, color: "white", py: { xs: 1.5, md: 2 }, px: { xs: 4, md: 6 }, minWidth: "200px" }}>
-                          Film name
-                        </TableCell>
-                        <TableCell sx={{ fontSize: { xs: "1.2rem", md: "1.6rem" }, color: "white", py: { xs: 1.5, md: 2 }, px: { xs: 4, md: 6 }, minWidth: "150px" }} align="center">
-                          Number of tickets sold
-                        </TableCell>
-                        <TableCell sx={{ fontSize: { xs: "1.2rem", md: "1.6rem" }, color: "white", py: { xs: 1.5, md: 2 }, px: { xs: 4, md: 6 }, minWidth: "150px" }} align="center">
-                          Revenue
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {dashboardData.filmResult?.length > 0 ? (
-                        dashboardData.filmResult.map((film) => (
-                          <TableRow key={film.film_id}>
-                            <TableCell
-                              component="th"
-                              scope="row"
-                              sx={{
-                                fontSize: { xs: "1rem", md: "1.2rem" },
-                                fontWeight: "bold",
-                                color: film.total_tickets_sold ? "white" : "white",
-                                py: { xs: 1, md: 1.5 },
-                                px: { xs: 4, md: 6 },
-                              }}
-                            >
-                              {film.film_name}
-                            </TableCell>
-
-                            <TableCell
-                              align="center"
-                              sx={{
-                                fontSize: { xs: "1rem", md: "1.2rem" },
-                                color: film.total_tickets_sold ? "white" : "white",
-                                py: { xs: 1, md: 1.5 },
-                                px: { xs: 4, md: 6 },
-                              }}
-                            >
-                              {film.total_tickets_sold}
-                            </TableCell>
-
-                            <TableCell
-                              align="center"
-                              sx={{
-                                fontSize: { xs: "1rem", md: "1.2rem" },
-                                color: film.total_revenue ? "white" : "white",
-                                py: { xs: 1, md: 1.5 },
-                                px: { xs: 4, md: 6 },
-                              }}
-                            >
-                              {film.total_revenue
-                                ? new Intl.NumberFormat("vi-VN", {
-                                    style: "currency",
-                                    currency: "VND",
-                                  }).format(film.total_revenue)
-                                : "No revenue yet"}
-                            </TableCell>
-                          </TableRow>
-                        ))
-                      ) : (
-                        <TableRow>
-                          <TableCell colSpan={3} align="center" sx={{ color: "white", fontSize: { xs: "1rem", md: "1.2rem" }, py: { xs: 1.5, md: 2 } }}>
-                            No film data available.
-                          </TableCell>
-                        </TableRow>
-                      )}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Grid>
-            </Grid>
+                  Film name
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: { xs: "1.2rem", md: "1.6rem" },
+                    color: "white",
+                    py: { xs: 2.5, md: 3 }, // Increased padding
+                    px: { xs: 4, md: 6 },
+                    minWidth: "150px",
+                  }}
+                  align="center"
+                >
+                  Number of tickets sold
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: { xs: "1.2rem", md: "1.6rem" },
+                    color: "white",
+                    py: { xs: 2.5, md: 3 }, // Increased padding
+                    px: { xs: 4, md: 6 },
+                    minWidth: "150px",
+                  }}
+                  align="center"
+                >
+                  Revenue
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {dashboardData.filmResult?.length > 0 ? (
+                dashboardData.filmResult.map((film) => (
+                  <TableRow
+                    key={film.film_id}
+                    sx={{
+                      height: { xs: 60, md: 70 }, // Increased row height for more spacing
+                      "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.05)" }, // Subtle hover effect
+                    }}
+                  >
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{
+                        fontSize: { xs: "1rem", md: "1.2rem" },
+                        fontWeight: "bold",
+                        color: film.total_tickets_sold ? "white" : "white",
+                        py: { xs: 2, md: 2.5 }, // Increased padding for more spacing
+                        px: { xs: 4, md: 6 },
+                      }}
+                    >
+                      {film.film_name}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        fontSize: { xs: "1rem", md: "1.2rem" },
+                        color: film.total_tickets_sold ? "white" : "white",
+                        py: { xs: 2, md: 2.5 }, // Increased padding
+                        px: { xs: 4, md: 6 },
+                      }}
+                    >
+                      {film.total_tickets_sold}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        fontSize: { xs: "1rem", md: "1.2rem" },
+                        color: film.total_revenue ? "white" : "white",
+                        py: { xs: 2, md: 2.5 }, // Increased padding
+                        px: { xs: 4, md: 6 },
+                      }}
+                    >
+                      {film.total_revenue
+                        ? new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(film.total_revenue)
+                        : "No revenue yet"}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow sx={{ height: { xs: 60, md: 70 } }}>
+                  <TableCell
+                    colSpan={3}
+                    align="center"
+                    sx={{
+                      color: "white",
+                      fontSize: { xs: "1rem", md: "1.2rem" },
+                      py: { xs: 2.5, md: 3 }, // Increased padding
+                    }}
+                  >
+                    No film data available.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
+    </Grid>
           </Box>
         </Box>
       </DashboardContent>
