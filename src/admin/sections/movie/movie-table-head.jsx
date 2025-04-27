@@ -1,6 +1,6 @@
 import { Box, Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "../utils";
-
+ 
 export function MovieTableHead({
     numSelected,
     rowCount,
@@ -29,7 +29,7 @@ export function MovieTableHead({
                         }}
                     />
                 </TableCell>
-
+ 
                 {headLabel.map((headCell) => (
                     <TableCell
                         key={headCell.id}
@@ -56,7 +56,7 @@ export function MovieTableHead({
                             }}
                         >
                             {headCell.label}
-
+ 
                             {orderBy === headCell.id ? (
                                 <Box sx={{ ...visuallyHidden }}>
                                     {order === 'desc' ? 'sorted descending' : 'sort ascending'}

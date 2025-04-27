@@ -20,16 +20,16 @@ import {
 import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
 import { Link, useNavigate } from "react-router-dom";
-
+ 
 const deleteMovie = async (id) => {
   try {
     const jwt = localStorage.getItem("jwt");
-
+ 
     if (!jwt) {
       console.error("JWT token is missing");
       return;
     }
-
+ 
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/admin/films/delete/${id}`,
       {
@@ -40,43 +40,43 @@ const deleteMovie = async (id) => {
         },
       }
     );
-
+ 
     if (!response.ok) {
       throw new Error("Failed to delete movie");
     }
-
+ 
     return true;
   } catch (error) {
     console.error("Error deleting movie:", error);
     return false;
   }
 };
-
+ 
 export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-
+ 
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
   }, []);
-
+ 
   const handleClosePopover = useCallback(() => {
     setOpenPopover(null);
   }, []);
-
+ 
   const navigate = useNavigate();
   const handleEditButton = () => {
     navigate(`/admin/movie/${row.film_id}`);
   };
-
+ 
   const handleDeleteButton = () => {
     setOpenDialog(true);
   };
-
+ 
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-
+ 
   const handleConfirmDelete = async () => {
     const success = await deleteMovie(row.film_id);
     if (success) {
@@ -84,7 +84,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
     }
     setOpenDialog(false);
   };
-
+ 
   return (
     <>
       <TableRow
@@ -115,7 +115,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
             }}
           />
         </TableCell>
-
+ 
         <TableCell
           sx={{
             color: "#FFFFFF",
@@ -136,9 +136,9 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
             </Typography>
           </Link>
         </TableCell>
-
+ 
         <MovieDescriptionCell row={row} />
-
+ 
         <TableCell
           sx={{
             color: "#FFFFFF",
@@ -155,7 +155,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
             }}
           />
         </TableCell>
-
+ 
         <TableCell
           sx={{
             color: "#FFFFFF",
@@ -174,7 +174,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
             {row.age_limit}+
           </Typography>
         </TableCell>
-
+ 
         <TableCell
           sx={{
             color: "#FFFFFF",
@@ -193,7 +193,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
             {row.duration} (min)
           </Typography>
         </TableCell>
-
+ 
         <TableCell
           sx={{
             color: "#FFFFFF",
@@ -212,7 +212,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
             {new Date(row.Release_date).toLocaleDateString()}
           </Typography>
         </TableCell>
-
+ 
         <TableCell
           align="right"
           sx={{
@@ -223,7 +223,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
             <Iconify icon="eva:more-vertical-fill" sx={{ color: "#FFFFFF" }} />
           </IconButton>
         </TableCell>
-
+ 
         <Popover
           open={Boolean(openPopover)}
           anchorEl={openPopover}
@@ -263,7 +263,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
           </MenuList>
         </Popover>
       </TableRow>
-
+ 
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
@@ -300,13 +300,13 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
     </>
   );
 }
-
+ 
 export function MovieDescriptionCell({ row }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+ 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
-
+ 
   return (
     <TableCell
       sx={{
@@ -335,7 +335,7 @@ export function MovieDescriptionCell({ row }) {
           {row.film_describe}
         </Typography>
       </Tooltip>
-
+ 
       <Dialog
         open={isDialogOpen}
         onClose={closeDialog}

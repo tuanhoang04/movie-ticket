@@ -25,7 +25,7 @@ import { TableEmptyRows } from "../../table-empty-rows";
 import { TableNoData } from "../../table-no-data";
 import { Scrollbar } from "../../../components/scrollbar";
 import { Link } from "react-router-dom";
-
+ 
 export function MovieView() {
   const table = hook();
   const [filterName, setFilterName] = useState("");
@@ -41,30 +41,30 @@ export function MovieView() {
   const handleCloseSnackbar = () => {
     setSnackbar((prev) => ({ ...prev, open: false }));
   };
-
+ 
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
     table.onResetPage();
   };
-
+ 
   const handleFilterChange = (newFilter) => {
     setSelectedFilter(newFilter);
   };
-
+ 
   const handleDeleteSelected = async () => {
     if (table.selected.length === 0) return;
-
+ 
     try {
       const jwt = localStorage.getItem("jwt");
-
+ 
       if (!jwt) {
         console.error("JWT token is missing");
         return;
       }
-
+ 
       for (const movieId of table.selected) {
         console.log(movieId);
-
+ 
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/admin/films/delete/${movieId}`,
           {
@@ -74,10 +74,10 @@ export function MovieView() {
             },
           }
         );
-
+ 
         if (!response.ok) {
           console.log("failed");
-
+ 
           throw new Error(`Failed to delete movie with ID: ${movieId}`);
         }
       }
@@ -95,18 +95,18 @@ export function MovieView() {
       console.error("Error deleting selected movies:", error);
     }
   };
-
+ 
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
       try {
         const jwt = localStorage.getItem("jwt");
-
+ 
         if (!jwt) {
           console.error("JWT token is missing");
           return;
         }
-
+ 
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/admin/films?limitItems=150`,
           {
@@ -117,9 +117,9 @@ export function MovieView() {
             },
           }
         );
-
+ 
         if (!response.ok) throw new Error("Failed to fetch movies");
-
+ 
         const data = await response.json();
         setMovies(data);
       } catch (err) {
@@ -128,10 +128,10 @@ export function MovieView() {
         setLoading(false);
       }
     };
-
+ 
     fetchMovies();
   }, []);
-
+ 
   const filteredData = useMemo(() => {
     return applyFilter({
       inputData: movies,
@@ -140,13 +140,13 @@ export function MovieView() {
       attribute: selectedFilter,
     });
   }, [movies, table.order, table.orderBy, filterName, selectedFilter]);
-
+ 
   useEffect(() => {
     setDataFiltered(filteredData);
   }, [filteredData]);
-
+ 
   const notFound = !dataFiltered.length && filterName;
-
+ 
   return (
     <DashboardContent>
       <Box
@@ -180,7 +180,6 @@ export function MovieView() {
           Add film
         </Button>
       </Box>
-
       <Card
         sx={{
           bgcolor: "#323137",
@@ -268,7 +267,7 @@ export function MovieView() {
                         }}
                       />
                     ))}
-
+ 
                 {notFound && <TableNoData searchQuery={filterName} />}
               </TableBody>
             </Table>

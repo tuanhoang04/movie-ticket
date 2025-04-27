@@ -23,16 +23,16 @@ import {
 import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
 import { Link, useNavigate } from "react-router-dom";
-
+ 
 const deleteCinema = async (id) => {
   try {
     const jwt = localStorage.getItem("jwt");
-
+ 
     if (!jwt) {
       console.error("JWT token is missing");
       return;
     }
-
+ 
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/admin/cinemas/delete/${id}`,
       {
@@ -40,22 +40,21 @@ const deleteCinema = async (id) => {
         headers: {
           Authorization: "Bearer " + jwt,
         },
-        // credentials: 'include',
       }
     );
-
+ 
     if (!response.ok) {
       throw new Error("Failed to delete cinema");
     }
-
+ 
     return true;
   } catch (error) {
     console.error("Error deleting cinema:", error);
-
+ 
     return false;
   }
 };
-
+ 
 function getBadgeStyle(clusterName) {
   switch (clusterName) {
     case "CGV Cinemas":
@@ -84,32 +83,32 @@ function getBadgeStyle(clusterName) {
       return { backgroundColor: "#e0e0e0", color: "#000" }; // Gray for unknown clusters
   }
 }
-
+ 
 export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-
+ 
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
   }, []);
-
+ 
   const handleClosePopover = useCallback(() => {
     setOpenPopover(null);
   }, []);
-
+ 
   const navigate = useNavigate();
   const handleEditButton = () => {
     navigate(`/admin/cinema/${row.cinema_id}`);
   };
-
+ 
   const handleDeleteButton = () => {
     setOpenDialog(true);
   };
-
+ 
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-
+ 
   const handleConfirmDelete = async () => {
     const success = await deleteCinema(row.cinema_id);
     if (success) {
@@ -117,15 +116,43 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
     }
     setOpenDialog(false);
   };
-
+ 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
+      <TableRow
+        hover
+        tabIndex={-1}
+        role="checkbox"
+        selected={selected}
+        sx={{
+          bgcolor: "#323137",
+          "&:hover": { bgcolor: "#4A494E" },
+          borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+        }}
+      >
+        <TableCell
+          padding="checkbox"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
+          <Checkbox
+            disableRipple
+            checked={selected}
+            onChange={onSelectRow}
+            sx={{
+              color: "#FFFFFF",
+              "&.Mui-checked": { color: "#FFFFFF" },
+            }}
+          />
         </TableCell>
-
-        <TableCell>
+ 
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Link
             to={`/admin/cinema/${row.cinema_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
@@ -134,16 +161,21 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
               variant="body1"
               fontWeight="bold"
               noWrap
-              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
             >
               {row.cinema_name}
             </Typography>
           </Link>
         </TableCell>
-
+ 
         <CinemaAddressCell row={row} />
-
-        <TableCell>
+ 
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Box
             component="span"
             sx={{
@@ -158,13 +190,18 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
             {row.cluster_name}
           </Box>
         </TableCell>
-
-        <TableCell align="right">
+ 
+        <TableCell
+          align="right"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <IconButton onClick={handleOpenPopover} size="small">
-            <Iconify icon="eva:more-vertical-fill" />
+            <Iconify icon="eva:more-vertical-fill" sx={{ color: "#FFFFFF" }} />
           </IconButton>
         </TableCell>
-
+ 
         <Popover
           open={Boolean(openPopover)}
           anchorEl={openPopover}
@@ -180,41 +217,60 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
               width: 140,
               display: "flex",
               flexDirection: "column",
+              bgcolor: "#323137",
+              color: "#FFFFFF",
               [`& .${menuItemClasses.root}`]: {
                 px: 1,
                 gap: 2,
                 borderRadius: 0.75,
+                color: "#FFFFFF",
                 [`&. ${menuItemClasses.selected}`]: {
-                  bgcolor: "action.selected",
+                  bgcolor: "#4A494E",
                 },
               },
             }}
           >
-            <MenuItem onClick={handleEditButton} sx={{ color: "primary.main" }}>
-              <Iconify icon="solar:pen-bold" />
+            <MenuItem onClick={handleEditButton} sx={{ color: "#1976D2" }}>
+              <Iconify icon="solar:pen-bold" sx={{ color: "#1976D2" }} />
               Edit
             </MenuItem>
-            <MenuItem onClick={handleDeleteButton} sx={{ color: "error.main" }}>
-              <Iconify icon="solar:trash-bin-trash-bold" />
+            <MenuItem onClick={handleDeleteButton} sx={{ color: "#FF0000" }}>
+              <Iconify icon="solar:trash-bin-trash-bold" sx={{ color: "#FF0000" }} />
               Delete
             </MenuItem>
           </MenuList>
         </Popover>
       </TableRow>
-
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Delete confirmation</DialogTitle>
+ 
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        sx={{
+          "& .MuiPaper-root": {
+            bgcolor: "#323137",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: "#FFFFFF" }}>Delete confirmation</DialogTitle>
         <DialogContent>
-          <Typography>
+          <Typography sx={{ color: "#FFFFFF" }}>
             Are you sure you want to delete the cinema{" "}
             <strong>{row.cinema_name}</strong> ?
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button
+            onClick={handleCloseDialog}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleConfirmDelete} color="error">
+          <Button
+            onClick={handleConfirmDelete}
+            sx={{ color: "#FF0000", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Delete
           </Button>
         </DialogActions>
@@ -222,29 +278,34 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
     </>
   );
 }
-
+ 
 export function CinemaAddressCell({ row }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+ 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
-
+ 
   return (
-    <TableCell>
+    <TableCell
+      sx={{
+        color: "#FFFFFF",
+        borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+      }}
+    >
       <Tooltip title={row.address} placement="top" arrow>
         <Typography
           variant="body1"
           sx={{
             cursor: "pointer",
-            color: "primary.main",
+            color: "#1976D2",
             display: "inline-block",
             maxWidth: 200,
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            fontSize: { xs: "1.1rem", md: "1.3rem" }, // Tăng font size cho cột Address
+            fontSize: { xs: "1.1rem", md: "1.3rem" },
             "&:hover": {
-              fontSize: { xs: "1.1rem", md: "1.3rem" }, // Đảm bảo font size không thay đổi khi hover
+              fontSize: { xs: "1.1rem", md: "1.3rem" },
             },
           }}
           onClick={openDialog}
@@ -252,19 +313,34 @@ export function CinemaAddressCell({ row }) {
           {row.address}
         </Typography>
       </Tooltip>
-
-      <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>Address</DialogTitle>
+ 
+      <Dialog
+        open={isDialogOpen}
+        onClose={closeDialog}
+        maxWidth="sm"
+        fullWidth
+        sx={{
+          "& .MuiPaper-root": {
+            bgcolor: "#323137",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: "#FFFFFF" }}>Address</DialogTitle>
         <DialogContent>
           <Typography
             variant="body1"
-            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
           >
             {row.address}
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog} color="primary">
+          <Button
+            onClick={closeDialog}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Close
           </Button>
         </DialogActions>
