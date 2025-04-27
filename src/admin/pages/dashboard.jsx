@@ -197,22 +197,24 @@ export default function DashboardPage() {
               <TableRow sx={{ height: { xs: 70, md: 80 } }}>
                 <TableCell
                   sx={{
-                    fontSize: { xs: "1.2rem", md: "1.6rem" },
+                    fontSize: { xs: "1.1rem", md: "1.4rem" },
                     color: "white",
                     py: { xs: 2.5, md: 3 }, // Increased padding for more spacing
                     px: { xs: 4, md: 6 },
                     minWidth: "200px",
+                    fontWeight: "bold"
                   }}
                 >
                   Film name
                 </TableCell>
                 <TableCell
                   sx={{
-                    fontSize: { xs: "1.2rem", md: "1.6rem" },
+                    fontSize: { xs: "1.1rem", md: "1.4rem" },
                     color: "white",
                     py: { xs: 2.5, md: 3 }, // Increased padding
                     px: { xs: 4, md: 6 },
                     minWidth: "150px",
+                    fontWeight: "bold"
                   }}
                   align="center"
                 >
@@ -220,11 +222,12 @@ export default function DashboardPage() {
                 </TableCell>
                 <TableCell
                   sx={{
-                    fontSize: { xs: "1.2rem", md: "1.6rem" },
+                    fontSize: { xs: "1.1rem", md: "1.4rem" },
                     color: "white",
                     py: { xs: 2.5, md: 3 }, // Increased padding
                     px: { xs: 4, md: 6 },
                     minWidth: "150px",
+                    fontWeight: "bold"
                   }}
                   align="center"
                 >
@@ -247,10 +250,11 @@ export default function DashboardPage() {
                       scope="row"
                       sx={{
                         fontSize: { xs: "1rem", md: "1.2rem" },
-                        fontWeight: "bold",
+                        // fontWeight: "bold",
                         color: film.total_tickets_sold ? "white" : "white",
                         py: { xs: 2, md: 2.5 }, // Increased padding for more spacing
                         px: { xs: 4, md: 6 },
+                        
                       }}
                     >
                       {film.film_name}
