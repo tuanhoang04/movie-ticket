@@ -154,6 +154,7 @@ export function CinemaView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
+            color: "white",
           }}
         >
           Cinema Management

@@ -143,22 +143,23 @@ export function MovieView() {
         }}
         mb={5}
       >
-        <Typography
-          variant="h2"
-          sx={{
-            flexGrow: 1,
-            marginBottom: { xs: 1 },
-          }}
-        >
-          Film management
-        </Typography>
+      <Typography
+        variant="h2"
+        sx={{
+          flexGrow: 1,
+          marginBottom: { xs: 1 },
+          color: "white", // Đổi màu từ đen sang trắng
+        }}
+      >
+        Movies Management
+      </Typography>
         <Button
           variant="contained"
           color="success"
           startIcon={<Iconify icon="mingcute:add-line" />}
           component={Link}
           to="/admin/movie/create"
-          sx={{fontSize:"1.1rem"}}
+          sx={{ fontSize:"1.1rem"}}
         >
           Add film
         </Button>

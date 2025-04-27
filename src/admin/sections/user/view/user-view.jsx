@@ -131,11 +131,26 @@ export function UserView() {
 
   return (
     <DashboardContent>
-      <Box display="flex" alignItems="center" mb={5}>
-        <Typography variant="h2" flexGrow={1}>
-          User management
+      <Box
+        display="flex"
+        mb={5}
+        sx={{
+          width: "100%",
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { xs: "flex-start", sm: "center" },
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            flexGrow: 1,
+            marginBottom: { xs: 1 },
+            color: "white",
+          }}
+        >
+          Users Management
         </Typography>
-      </Box>
+        </Box>
 
       <Card>
         <UserTableToolbar

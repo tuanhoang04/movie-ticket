@@ -25,7 +25,10 @@ function DashboardLayout({ sx, children, header }) {
               sx: { px: { [layoutQuery]: 5 } },
             },
           }}
-          sx={header?.sx}
+          sx={{
+            background: "#1C1B21", // Gradient nền cho header
+            ...header?.sx,
+          }}
           slots={{
             topArea: null,
             leftArea: (

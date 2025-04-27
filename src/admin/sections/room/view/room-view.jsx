@@ -155,9 +155,10 @@ export function RoomView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
+            color: "white",
           }}
         >
-          Cinema room management
+          Cinema Rooms Management
         </Typography>
         <Button
           variant="contained"

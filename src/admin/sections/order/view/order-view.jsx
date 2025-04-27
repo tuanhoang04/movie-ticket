@@ -131,9 +131,26 @@ export function OrderView() {
 
   return (
     <DashboardContent>
-      <Box display="flex" alignItems="center" mb={5}>
-        <Typography variant="h2">Order management</Typography>
-      </Box>
+      <Box
+        display="flex"
+        mb={5}
+        sx={{
+          width: "100%",
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { xs: "flex-start", sm: "center" },
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            flexGrow: 1,
+            marginBottom: { xs: 1 },
+            color: "white",
+          }}
+        >
+          Orders Management
+        </Typography>
+        </Box>
 
       <Card>
         <OrderTableToolbar

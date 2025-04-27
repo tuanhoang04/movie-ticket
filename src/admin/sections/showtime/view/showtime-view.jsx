@@ -151,9 +151,10 @@ export function ShowtimeView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
+            color: "white",
           }}
         >
-          Manage Movie Showtimes
+          Showtimes Management
         </Typography>
         <Button
           variant="contained"
