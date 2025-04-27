@@ -26,9 +26,12 @@ export function NavContent({ data, slots, sx }) {
         sx={{
           display: "flex",
           alignItems: "center",
-          padding: 3, // Tăng padding để tạo khoảng cách
-          mb: 2, // Thêm margin bottom để tạo khoảng cách với menu
-          gap: 1.5,
+          padding: 3,
+          mb: 6,
+          gap: 2,
+          // background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 100%)",
+          // backdropFilter: "blur(8px)",
+          // borderBottom: "1px solid rgba(255,255,255,0.1)",
         }}
       >
         <Box
@@ -36,19 +39,23 @@ export function NavContent({ data, slots, sx }) {
           sx={{
             backgroundColor: "white",
             borderRadius: "50%",
-            width: 36,
-            height: 36,
+            width: 48,
+            height: 48,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.2)", // Thêm shadow cho logo
+            boxShadow: "0 4px 15px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.3)",
+            border: "1px solid rgba(255,255,255,0.2)",
           }}
         >
-          <Box component="span" sx={{ color: "#502A50", fontSize: 20 }}>
+          <Box component="span" sx={{ color: "#502A50", fontSize: 28 }}>
             ⬢
           </Box>
         </Box>
-        <Typography variant="h6" sx={{ color: "white", fontWeight: "bold" }}>
+        <Typography
+          variant="h4"
+          sx={{ color: "white", fontWeight: "bold", fontSize: "2rem" }}
+        >
           Starlight Cinema
         </Typography>
       </Box>
@@ -60,20 +67,17 @@ export function NavContent({ data, slots, sx }) {
           flex="1 1 auto"
           flexDirection="column"
           sx={{
-            px: 1.5, // Thêm padding ngang để tạo khoảng cách 2 lề rộng hơn
+            px: 1.5,
             ...sx,
           }}
         >
           <Box
             component="ul"
-            sx={{ gap: 1, display: "flex", flexDirection: "column" }}
+            sx={{ gap: 1.5, display: "flex", flexDirection: "column" }}
           >
-            {" "}
-            {/* Sửa lỗi cú pháp cho gap */}
             {data
               .filter((item) => item.path !== "/auth")
               .map((item) => {
-                // Lọc bỏ "Return to Homepage"
                 const isActived = item.path === pathname;
 
                 return (
@@ -86,33 +90,60 @@ export function NavContent({ data, slots, sx }) {
                       sx={{
                         pl: 2,
                         py: 1.5,
-                        gap: 2,
+                        gap: 2.5,
                         pr: 1.5,
-                        borderRadius: 1.5, // Thêm border radius cho các menu item
+                        borderRadius: 1.5,
                         typography: "body2",
                         fontWeight: "fontWeightMedium",
-                        color: "rgba(255, 255, 255, 0.85)", // Tăng độ sáng của chữ
-                        minHeight: 42,
+                        color: "rgba(255, 255, 255, 0.85)",
+                        minHeight: 48,
+                        transition: "all 0.2s ease", // Hiệu ứng mượt mà, thời gian ngắn hơn để tinh tế
+                        position: "relative", // Để thêm viền bên trái
                         ...(isActived && {
                           fontWeight: "fontWeightSemiBold",
-                          bgcolor: "rgba(255, 255, 255, 0.1)", // Làm nhẹ hơn background của item active
+                          background: "rgba(255,255,255,0.05)", // Nền nhẹ hơn
                           color: "white",
-                          boxShadow: "0 2px 8px rgba(0,0,0,0.15)", // Thêm shadow cho item active
+                          "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            left: 0,
+                            top: 0,
+                            height: "100%",
+                            width: "4px", // Viền bên trái dày hơn khi activeline
+                            background: "ar-gradient(180deg, #ffffff 0%, #d1d1d1 100%)", // Gradient trắng cho viền
+                            borderRadius: "0 4px 4px 0",
+                          },
                           "&:hover": {
-                            bgcolor: "rgba(255, 255, 255, 0.15)",
+                            background: "rgba(255,255,255,0.1)",
+                            "&::before": {
+                              width: "4px", // Giữ viền khi hover
+                            },
                           },
                         }),
                         "&:hover": {
-                          bgcolor: "rgba(255, 255, 255, 0.08)",
+                          background: "rgba(255,255,255,0.08)",
+                          color: "white",
+                          "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            left: 0,
+                            top: 0,
+                            height: "100%",
+                            width: "2px", // Viền bên trái mỏng khi hover
+                            background: "rgba(255,255,255,0.3)",
+                            borderRadius: "0 4px 4px 0",
+                          },
                         },
                       }}
                     >
                       <Box
                         component="span"
                         sx={{
-                          width: 24,
-                          height: 24,
+                          width: 32,
+                          height: 32,
                           color: "rgba(255, 255, 255, 0.85)",
+                          display: "flex",
+                          alignItems: "center",
                           ...(isActived && {
                             color: "white",
                           }),
@@ -125,7 +156,7 @@ export function NavContent({ data, slots, sx }) {
                         component="span"
                         flexGrow={1}
                         sx={{
-                          fontSize: "1.1rem", // Giảm font size để tạo thêm khoảng trống
+                          fontSize: "1.25rem",
                         }}
                       >
                         {item.title}
@@ -138,10 +169,12 @@ export function NavContent({ data, slots, sx }) {
                             color: isActived
                               ? "rgba(255, 255, 255, 0.8)"
                               : "rgba(255, 255, 255, 0.4)",
-                            fontSize: "0.8rem", // Giảm kích thước mũi tên
+                            fontSize: "1rem",
+                            display: "flex",
+                            alignItems: "center",
                           }}
                         >
-                          &gt;
+                          {'>'}
                         </Box>
                       )}
                     </ListItemButton>
@@ -152,27 +185,28 @@ export function NavContent({ data, slots, sx }) {
         </Box>
       </Scrollbar>
 
-      {/* User greeting card - Di chuyển lên cao hơn bằng cách thêm marginTop âm */}
+      {/* User greeting card */}
       <Box
         sx={{
           mx: 3,
-          mb: 3,
-          mt: -2, // Thêm margin top âm để đẩy khung lên trên
+          mb: 10,
+          mt: 0,
           p: 2.5,
           borderRadius: 2,
-          background:
-            "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.2) 100%)",
+          background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 100%)",
           backdropFilter: "blur(10px)",
-          boxShadow: "0 4px 15px rgba(0,0,0,0.15)",
+          boxShadow: "0 6px 20px rgba(0,0,0,0.15), inset 0 1px 2px rgba(255,255,255,0.2)",
+          border: "1px solid rgba(255,255,255,0.05)",
           textAlign: "center",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          transition: "all 0.3s ease",
         }}
       >
         <Typography
           variant="subtitle1"
-          sx={{ color: "white", fontWeight: "medium" }}
+          sx={{ color: "white", fontWeight: "medium", fontSize: "1.25rem" }}
         >
           Hi, {full_name || "Admin"} 👋
         </Typography>
@@ -181,24 +215,27 @@ export function NavContent({ data, slots, sx }) {
           component="button"
           onClick={() => (window.location.href = "/home")}
           sx={{
-            mt: 2.5, // Tăng margin-top từ 1.5 lên 2.5 để tạo khoảng cách lớn hơn với dòng "Hi, Imhiong"
+            mt: 2.5,
             display: "inline-flex",
-            py: 1,
-            px: 2,
+            py: 1.5,
+            px: 3,
             color: "white",
-            bgcolor: "rgba(0,0,0,0.3)",
-            border: "none",
+            background: "linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.4) 100%)",
+            border: "1px solid rgba(255,255,255,0.05)",
             borderRadius: 50,
             cursor: "pointer",
-            fontSize: "0.875rem",
+            fontSize: "1.1rem",
             fontWeight: "medium",
             justifyContent: "center",
             alignItems: "center",
             textDecoration: "none",
             width: "fit-content",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+            transition: "all 0.3s ease",
             "&:hover": {
-              bgcolor: "rgba(0,0,0,0.4)",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+              background: "linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.5) 100%)",
+              boxShadow: "0 8px 25px rgba(0,0,0,0.2)",
+              transform: "translateY(-2px)",
             },
           }}
         >
@@ -223,10 +260,11 @@ export function NavDesktop({ sx, data, slots, layoutQuery }) {
         display: "none",
         position: "fixed",
         flexDirection: "column",
-        bgcolor: "#502A50", // Thay đổi màu nền
+        background: "rgb(80, 42, 80)", // Gradient tối kiểu Vercel
         zIndex: "var(--layout-nav-zIndex)",
         width: "var(--layout-nav-vertical-width)",
-        boxShadow: "0 0 30px rgba(0,0,0,0.25)", // Tăng shadow cho sidebar
+        boxShadow: "0 0 40px rgba(0,0,0,0.15)",
+        borderRight: "1px solid rgba(255,255,255,0.05)",
         [theme.breakpoints.up(layoutQuery)]: {
           display: "flex",
         },
@@ -243,9 +281,9 @@ export function NavMobile({ sx, data, open, slots, onClose }) {
 
   useEffect(() => {
     if (open) {
-      onClose(); // Closes the drawer when the pathname changes
+      onClose();
     }
-  }, [pathname]); // Effect runs on pathname change
+  }, [pathname]);
 
   return (
     <Drawer
@@ -256,9 +294,10 @@ export function NavMobile({ sx, data, open, slots, onClose }) {
           pt: 0,
           px: 0,
           overflow: "unset",
-          bgcolor: "#502A50", // Thay đổi màu nền
+          background: "linear-gradient(180deg, #1a1a1a 0%, #121212 100%)", // Gradient tối kiểu Vercel
           width: "var(--layout-nav-mobile-width)",
-          boxShadow: "0 0 30px rgba(0,0,0,0.25)", // Tăng shadow
+          boxShadow: "0 0 40px rgba(0,0,0,0.15)",
+          borderRight: "1px solid rgba(255,255,255,0.05)",
           ...sx,
         },
       }}
