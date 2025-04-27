@@ -3,7 +3,7 @@ import { Typography } from "@material-tailwind/react";
 export default function TicketCard({ data }) {
   const titleClassName = "text-xl mb-3";
   const keyClassName = "text-md opacity-50";
-  const valueClassName = "text-md";
+  const valueClassName = "text-md w-100";
 
   const date = data.show_date.substring(0, 10); // Lấy ngày đúng
   const time = data.show_time.substring(0, 5);
@@ -43,13 +43,9 @@ export default function TicketCard({ data }) {
           </div>
           <div className="flex flex-col gap-2">
             <h1 className={keyClassName}>Seat</h1>
-            <div className={valueClassName}>
-              {data.tickets.map((seats) => (
-                <span key={seats.seat} style={{ marginLeft: "3px" }}>
-                  {seats.seat}
-                </span>
-              ))}
-            </div>
+            <p className={valueClassName}>
+              {data.tickets.map((ticket) => ticket.seat).join(", ")}
+            </p>
           </div>
           <div className="flex flex-col gap-2">
             <h1 className={keyClassName}>Popcorn + Drink</h1>
