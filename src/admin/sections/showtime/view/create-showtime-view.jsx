@@ -200,9 +200,10 @@ export function CreateShowtimeView() {
           console.error("JWT token is missing");
           return;
         }
+        console.log(formData.cinema_name);
 
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/admin/rooms?keyword${
+          `${import.meta.env.VITE_API_URL}/api/admin/rooms/cinema?cinema_name=${
             formData.cinema_name
           }`,
           {
@@ -217,7 +218,16 @@ export function CreateShowtimeView() {
         if (!response.ok) throw new Error("Failed to fetch rooms");
 
         const data = await response.json();
-        setRooms(data.map((room) => room.room_name));
+
+        setRooms(
+          data
+            .map((room) => room.room_name)
+            .sort((a, b) => {
+              const numA = parseInt(a.split("_")[1]);
+              const numB = parseInt(b.split("_")[1]);
+              return numA - numB;
+            })
+        );
       } catch (err) {
         console.error(err);
       }
