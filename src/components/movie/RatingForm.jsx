@@ -33,6 +33,11 @@ export default function RatingForm({ handleOpen, handleOpenSignIn }) {
   };
 
   const handleSubmit = async () => {
+    if(!ratingData.jwt){
+      setErrorMessage("You must sign in to continue!");
+      handleOpenSignIn();
+      return;
+    }
     if (!comment || !comment.trim() || !stars || stars === 0) {
       setErrorMessage(
         "Your rating is invalid, a rating must consist of at least one star and some text comment!"
