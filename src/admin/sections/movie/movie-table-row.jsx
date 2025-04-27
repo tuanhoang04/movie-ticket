@@ -16,8 +16,6 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
@@ -57,14 +55,6 @@ const deleteMovie = async (id) => {
 export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
-  const handleCloseSnackbar = () => {
-    setSnackbar((prev) => ({ ...prev, open: false }));
-  };
 
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
@@ -110,12 +100,41 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected} sx={sx}>
-        <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
+      <TableRow
+        hover
+        tabIndex={-1}
+        role="checkbox"
+        selected={selected}
+        sx={{
+          ...sx,
+          bgcolor: "#323137",
+          "&:hover": { bgcolor: "#4A494E" },
+          borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+        }}
+      >
+        <TableCell
+          padding="checkbox"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+          }}
+        >
+          <Checkbox
+            disableRipple
+            checked={selected}
+            onChange={onSelectRow}
+            sx={{
+              color: "#FFFFFF",
+              "&.Mui-checked": { color: "#FFFFFF" },
+            }}
+          />
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+          }}
+        >
           <Link
             to={`/admin/movie/${row.film_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
@@ -124,7 +143,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
               variant="body1"
               fontWeight="bold"
               noWrap
-              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
             >
               {row.film_name}
             </Typography>
@@ -133,21 +152,35 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
 
         <MovieDescriptionCell row={row} />
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+          }}
+        >
           <Chip
             label={row.film_type === 1 ? "Now showing" : "Upcoming"}
-            color={row.film_type === 1 ? "primary" : "secondary"}
-            sx={{ fontWeight: "bold", fontSize: { xs: "0.9rem", md: "1rem" } }}
+            sx={{
+              fontWeight: "bold",
+              fontSize: { xs: "0.9rem", md: "1rem" },
+              bgcolor: row.film_type === 1 ? "#1976D2" : "#AB47BC",
+              color: "#FFFFFF",
+            }}
           />
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+          }}
+        >
           <Typography
             variant="body1"
             sx={{
               fontWeight: "medium",
               textAlign: "center",
-              color: row.age_limit >= 18 ? "error.main" : "text.primary",
+              color: row.age_limit >= 18 ? "#FF0000" : "#FFFFFF",
               fontSize: { xs: "1.1rem", md: "1.2rem" },
             }}
           >
@@ -155,35 +188,52 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+          }}
+        >
           <Typography
             variant="body2"
             sx={{
               textAlign: "center",
               fontWeight: "medium",
               fontSize: { xs: "1.1rem", md: "1.2rem" },
+              color: "#FFFFFF",
             }}
           >
             {row.duration} (min)
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+          }}
+        >
           <Typography
             variant="body1"
             sx={{
               textAlign: "center",
               fontWeight: "medium",
               fontSize: { xs: "1.1rem", md: "1.2rem" },
+              color: "#FFFFFF",
             }}
           >
             {new Date(row.Release_date).toLocaleDateString()}
           </Typography>
         </TableCell>
 
-        <TableCell align="right">
+        <TableCell
+          align="right"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+          }}
+        >
           <IconButton onClick={handleOpenPopover}>
-            <Iconify icon="eva:more-vertical-fill" />
+            <Iconify icon="eva:more-vertical-fill" sx={{ color: "#FFFFFF" }} />
           </IconButton>
         </TableCell>
 
@@ -202,59 +252,64 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
               width: 140,
               display: "flex",
               flexDirection: "column",
+              bgcolor: "#323137",
+              color: "#FFFFFF",
               [`& .${menuItemClasses.root}`]: {
                 px: 1,
                 gap: 2,
                 borderRadius: 0.75,
+                color: "#FFFFFF",
                 [`&. ${menuItemClasses.selected}`]: {
-                  bgcolor: "action.selected",
+                  bgcolor: "#4A494E",
                 },
               },
             }}
           >
-            <MenuItem onClick={handleEditButton} sx={{ color: "primary.main" }}>
-              <Iconify icon="solar:pen-bold" />
+            <MenuItem onClick={handleEditButton} sx={{ color: "#1976D2" }}>
+              <Iconify icon="solar:pen-bold" sx={{ color: "#1976D2" }} />
               Edit
             </MenuItem>
-            <MenuItem onClick={handleDeleteButton} sx={{ color: "error.main" }}>
-              <Iconify icon="solar:trash-bin-trash-bold" />
+            <MenuItem onClick={handleDeleteButton} sx={{ color: "#FF0000" }}>
+              <Iconify icon="solar:trash-bin-trash-bold" sx={{ color: "#FF0000" }} />
               Delete
             </MenuItem>
           </MenuList>
         </Popover>
       </TableRow>
 
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Delete Confirmation</DialogTitle>
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        sx={{
+          "& .MuiPaper-root": {
+            bgcolor: "#323137",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: "#FFFFFF" }}>Delete Confirmation</DialogTitle>
         <DialogContent>
-          <Typography>
+          <Typography sx={{ color: "#FFFFFF" }}>
             Are you sure you want to delete this movie?{" "}
             <strong>{row.film_name}</strong>
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button
+            onClick={handleCloseDialog}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleConfirmDelete} color="error">
+          <Button
+            onClick={handleConfirmDelete}
+            sx={{ color: "#FF0000", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Delete
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem" }}
-          severity={snackbar.severity}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
     </>
   );
 }
@@ -266,21 +321,26 @@ export function MovieDescriptionCell({ row }) {
   const closeDialog = () => setIsDialogOpen(false);
 
   return (
-    <TableCell>
+    <TableCell
+      sx={{
+        color: "#FFFFFF",
+        borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)", // Thinner, less opaque border
+      }}
+    >
       <Tooltip title={row.film_describe} placement="top" arrow>
         <Typography
           variant="body1"
           sx={{
             cursor: "pointer",
-            color: "primary.main",
+            color: "#1976D2",
             display: "inline-block",
             maxWidth: 200,
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            fontSize: { xs: "1.1rem", md: "1.3rem" }, // Tăng font size cho cột Description
+            fontSize: { xs: "1.1rem", md: "1.3rem" },
             "&:hover": {
-              fontSize: { xs: "1.1rem", md: "1.3rem" }, // Đảm bảo font size không thay đổi khi hover
+              fontSize: { xs: "1.1rem", md: "1.3rem" },
             },
           }}
           onClick={openDialog}
@@ -289,18 +349,33 @@ export function MovieDescriptionCell({ row }) {
         </Typography>
       </Tooltip>
 
-      <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>Detail description</DialogTitle>
+      <Dialog
+        open={isDialogOpen}
+        onClose={closeDialog}
+        maxWidth="sm"
+        fullWidth
+        sx={{
+          "& .MuiPaper-root": {
+            bgcolor: "#323137",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: "#FFFFFF" }}>Detail description</DialogTitle>
         <DialogContent>
           <Typography
             variant="body1"
-            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
           >
             {row.film_describe}
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog} color="primary">
+          <Button
+            onClick={closeDialog}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Close
           </Button>
         </DialogActions>

@@ -163,7 +163,7 @@ export function MovieView() {
         </Button>
       </Box>
 
-      <Card>
+      <Card sx={{ bgcolor: "#323137", border: "none", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)", borderRadius: "10px" }}> {/* Match row separator style */}
         <MovieTableToolbar
           numSelected={table.selected.length}
           filterName={filterName}
@@ -174,8 +174,8 @@ export function MovieView() {
         />
 
         <Scrollbar>
-          <TableContainer sx={{ overflow: "unset" }}>
-            <Table sx={{ minWidth: 800 }}>
+          <TableContainer sx={{ overflow: "unset", bgcolor: "#323137" }}>
+            <Table sx={{ minWidth: 800, bgcolor: "#323137" }}>
               <MovieTableHead
                 order={table.order}
                 orderBy={table.orderBy}
@@ -201,14 +201,14 @@ export function MovieView() {
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={7}>
+                    <TableCell colSpan={7} sx={{ borderColor: "#FFFFFF" }}>
                       <Box
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
                         height="150px"
                       >
-                        <CircularProgress />
+                        <CircularProgress sx={{ color: "#FFFFFF" }} />
                       </Box>
                     </TableCell>
                   </TableRow>
@@ -227,7 +227,7 @@ export function MovieView() {
                         onSelectRow={() => table.onSelectRow(row.film_id)}
                         onDelete={(id) => {
                           setMovies((prevMovies) =>
-                            prevMovies.filter((movie) => movie.film_id !== id)
+                            prevMovies.filter((movie) => movie.movie_id !== id)
                           );
                           table.setSelected((prevSelected) =>
                             prevSelected.filter(
@@ -249,7 +249,16 @@ export function MovieView() {
             sx={{
               "& *": {
                 fontSize: "1.25rem",
+                color: "#FFFFFF",
+                borderColor: "#FFFFFF",
               },
+              "& .MuiTablePagination-selectIcon": {
+                color: "#FFFFFF",
+              },
+              "& .MuiIconButton-root": {
+                color: "#FFFFFF",
+              },
+              bgcolor: "#323137",
             }}
             component="div"
             page={table.page}
