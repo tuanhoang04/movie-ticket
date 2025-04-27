@@ -300,7 +300,11 @@ export function EditShowtimeView({ showtimeId }) {
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
       >
-        <Alert onClose={handleSnackbarClose} severity={snackbar.severity}>
+        <Alert
+          sx={{ fontSize: "1.25rem" }}
+          onClose={handleSnackbarClose}
+          severity={snackbar.severity}
+        >
           {snackbar.message}
         </Alert>
       </Snackbar>

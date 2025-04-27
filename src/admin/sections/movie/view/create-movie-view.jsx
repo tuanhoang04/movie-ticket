@@ -94,8 +94,8 @@ export function CreateMovieView() {
     fetchDirectorData();
   }, []);
   const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
+    open: true,
+    message: "asd",
     severity: "success",
   });
 
@@ -108,7 +108,6 @@ export function CreateMovieView() {
     { value: "1", label: "Vietnam" },
     { value: "0", label: "Worldwide" },
   ];
-
 
   const handleSnackbarClose = () =>
     setSnackbar((prev) => ({ ...prev, open: false }));
@@ -568,7 +567,11 @@ export function CreateMovieView() {
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
       >
-        <Alert onClose={handleSnackbarClose} severity={snackbar.severity}>
+        <Alert
+          sx={{ fontSize: "1.25rem" }}
+          onClose={handleSnackbarClose}
+          severity={snackbar.severity}
+        >
           {snackbar.message}
         </Alert>
       </Snackbar>

@@ -409,9 +409,9 @@ export function EditUserView({ userId }) {
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
           <Alert
+            sx={{ fontSize: "1.25rem" }}
             onClose={handleSnackbarClose}
             severity={snackbar.severity}
-            sx={{ width: "100%" }}
           >
             {snackbar.message}
           </Alert>
