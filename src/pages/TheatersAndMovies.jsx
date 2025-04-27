@@ -251,11 +251,11 @@ export default function TheatersAndMovies() {
 
         <div className="flex items-center justify-center">
           <p className="text-white text-2xl md:text-4xl md:mb-4 font-bold">
-            Buy Ticket by Theaters
+            Buy Ticket by Cinemas
           </p>
         </div>
 
-        {/* Theaters section */}
+        {/* Cinemas section */}
 
         <div id="body" className="">
           <div className="m-auto w-fit mt-10 flex items-center bg-gray-800 rounded-2xl border border-gray-600 shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-200">
@@ -275,7 +275,7 @@ export default function TheatersAndMovies() {
               <div className=" p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 pt-10 2xl:!pt-12 grid grid-cols-1 xl:grid-cols-7 gap-5 text-white h-fit xl:min-h-[400px]  ">
                 <div className="col-span-1 xl:col-span-2 h-full min-h-[300px] xl:min-h-[800px] bg-white bg-opacity-10 rounded-lg border-gray-600 shadow-lg">
                   <p className=" p-5 pb-0 text-3xl font-bold ">
-                    Theaters in {currentAreaName}
+                    Cinemas in {currentAreaName}
                   </p>
                   {theaters.length > 0 && (
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 mt-4 h-fit max-h-[250px] xl:max-h-[800px] overflow-y-scroll scrollbar ">
@@ -367,7 +367,7 @@ export default function TheatersAndMovies() {
                         surround sound and a large, ultra-clear screen.{" "}
                         {currentCinema.info.cinema_name} is part of the{" "}
                         {currentCinema.info.cluster_name} chain — a proudly
-                        locally owned theater system. Even as a domestic brand,{" "}
+                        locally owned cinema system. Even as a domestic brand,{" "}
                         {currentCinema.info.cinema_name} is committed to
                         delivering professional service, an
                         international-quality movie experience, and affordable

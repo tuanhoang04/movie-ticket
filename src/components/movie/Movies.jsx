@@ -111,7 +111,7 @@ export default function Movies() {
           <div className="flex flex-col mt-7 mb-20">
             <div ref={nowSRef} className="flex flex-row items-center mb-5">
               <img src="/icons/red-dot.png" className="w-9 h-9" />
-              <p className="text-white text-3xl drop-shadow-md ">Now Showing</p>
+              <p className="text-white text-3xl drop-shadow-md">Now Showing</p>
             </div>
             <div className="flex flex-wrap lg:gap-[3.75%] gap-[1%]">
               {currentNowShowings.map((item) => (
