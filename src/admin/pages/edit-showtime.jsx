@@ -11,7 +11,7 @@ export default function EditShowtimePage() {
       <Helmet>
         <title>
           {" "}
-          {`Edit Showtime Information | Admin Page for NHTT Movie Ticket Sales Website`}
+          {`Edit Showtime Information | Admin Page for Starlight Movie Ticket Sales Website`}
         </title>
       </Helmet>
 
