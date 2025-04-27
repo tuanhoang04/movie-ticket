@@ -162,7 +162,7 @@ export function ShowtimeView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
-            color: "white",
+            color: "#FFFFFF",
             fontWeight: "bold",
           }}
         >
@@ -180,7 +180,14 @@ export function ShowtimeView() {
         </Button>
       </Box>
 
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <ShowtimeTableToolbar
           numSelected={table.selected.length}
           filterName={filterName}
@@ -191,8 +198,8 @@ export function ShowtimeView() {
         />
 
         <Scrollbar>
-          <TableContainer sx={{ overflow: "unset" }}>
-            <Table sx={{ minWidth: 800 }}>
+          <TableContainer sx={{ overflow: "unset", bgcolor: "#323137" }}>
+            <Table sx={{ minWidth: 800, bgcolor: "#323137" }}>
               <ShowtimeTableHead
                 order={table.order}
                 orderBy={table.orderBy}
@@ -211,7 +218,7 @@ export function ShowtimeView() {
                   { id: "cinema_name", label: "Cinema name" },
                   { id: "room_name", label: "Room name" },
                   { id: "show_time", label: "Show time" },
-                  { id: "show_date", label: "show date" },
+                  { id: "show_date", label: "Show date" },
                   { id: "" },
                 ]}
               />
@@ -219,14 +226,17 @@ export function ShowtimeView() {
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={7}>
+                    <TableCell
+                      colSpan={7}
+                      sx={{ borderColor: "rgba(255, 255, 255, 0.3)" }}
+                    >
                       <Box
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
                         height="150px"
                       >
-                        <CircularProgress />
+                        <CircularProgress sx={{ color: "#FFFFFF" }} />
                       </Box>
                     </TableCell>
                   </TableRow>
@@ -271,7 +281,16 @@ export function ShowtimeView() {
             sx={{
               "& *": {
                 fontSize: "1.25rem",
+                color: "#FFFFFF",
+                borderColor: "#FFFFFF",
               },
+              "& .MuiTablePagination-selectIcon": {
+                color: "#FFFFFF",
+              },
+              "& .MuiIconButton-root": {
+                color: "#FFFFFF",
+              },
+              bgcolor: "#323137",
             }}
             component="div"
             page={table.page}
@@ -292,7 +311,7 @@ export function ShowtimeView() {
       >
         <Alert
           onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

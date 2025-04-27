@@ -156,7 +156,7 @@ export function OrderView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
-            color: "white",
+            color: "#FFFFFF",
             fontWeight: "bold",
           }}
         >
@@ -164,7 +164,14 @@ export function OrderView() {
         </Typography>
       </Box>
 
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <OrderTableToolbar
           numSelected={table.selected.length}
           filterName={filterName}
@@ -175,8 +182,8 @@ export function OrderView() {
         />
 
         <Scrollbar>
-          <TableContainer sx={{ overflow: "unset" }}>
-            <Table sx={{ minWidth: 800 }}>
+          <TableContainer sx={{ overflow: "unset", bgcolor: "#323137" }}>
+            <Table sx={{ minWidth: 800, bgcolor: "#323137" }}>
               <OrderTableHead
                 order={table.order}
                 orderBy={table.orderBy}
@@ -205,14 +212,17 @@ export function OrderView() {
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={7}>
+                    <TableCell
+                      colSpan={7}
+                      sx={{ borderColor: "rgba(255, 255, 255, 0.3)" }}
+                    >
                       <Box
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
                         height="150px"
                       >
-                        <CircularProgress />
+                        <CircularProgress sx={{ color: "#FFFFFF" }} />
                       </Box>
                     </TableCell>
                   </TableRow>
@@ -232,7 +242,7 @@ export function OrderView() {
                         onDelete={(id) => {
                           setSnackbar({
                             open: true,
-                            message: "Delete room successfully",
+                            message: "Delete order successfully",
                             severity: "success",
                           });
                           setOrders((prevOrders) =>
@@ -258,7 +268,16 @@ export function OrderView() {
             sx={{
               "& *": {
                 fontSize: "1.25rem",
+                color: "#FFFFFF",
+                borderColor: "#FFFFFF",
               },
+              "& .MuiTablePagination-selectIcon": {
+                color: "#FFFFFF",
+              },
+              "& .MuiIconButton-root": {
+                color: "#FFFFFF",
+              },
+              bgcolor: "#323137",
             }}
             component="div"
             page={table.page}
@@ -279,7 +298,7 @@ export function OrderView() {
       >
         <Alert
           onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

@@ -30,36 +30,57 @@ export function OrderTableToolbar({
   return (
     <Toolbar
       sx={{
-        height: 120, // Increased height to match MovieTableToolbar
+        height: 120,
         display: "flex",
         justifyContent: "space-between",
-        p: (theme) => theme.spacing(0, 2, 0, 4), // Adjusted padding
+        p: (theme) => theme.spacing(0, 2, 0, 4),
+        bgcolor: "#323137",
+        color: "#FFFFFF",
         ...(numSelected > 0 && {
-          color: "primary.main",
-          bgcolor: "primary.lighter",
+          bgcolor: "#4A494E",
+          color: "#FFFFFF",
         }),
       }}
     >
       {numSelected > 0 ? (
-        <Typography component="div" variant="h6"> {/* Larger variant */}
+        <Typography
+          component="div"
+          variant="h6"
+          sx={{ color: "#FFFFFF" }}
+        >
           {numSelected} selected
         </Typography>
       ) : (
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <FormControl sx={{ minWidth: 200, mr: 4 }}> {/* Increased width and margin */}
-            <InputLabel sx={{ fontSize: "1.1rem" }}>Filter</InputLabel> {/* Larger font */}
+          <FormControl sx={{ minWidth: 200, mr: 4 }}>
+            <InputLabel
+              sx={{
+                color: "#FFFFFF",
+                "&.Mui-focused": { color: "#FFFFFF" },
+              }}
+            >
+              Filter
+            </InputLabel>
             <Select
               value={selectedFilter}
               onChange={(e) => onFilterChange(e.target.value)}
               label="Filter"
               fullWidth
-              sx={{ height: 60, fontSize: "1.1rem" }} // Increased height and font size
+              sx={{
+                height: 60,
+                fontSize: "1.1rem",
+                color: "#FFFFFF",
+                "& .MuiSvgIcon-root": { color: "#FFFFFF" },
+                "& .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+                "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+              }}
             >
               {filterOptions.map((option) => (
                 <MenuItem
                   key={option.value}
                   value={option.value}
-                  sx={{ fontSize: "1.1rem" }} // Larger font for menu items
+                  sx={{ fontSize: "1.1rem", color: "#000000" }}
                 >
                   {option.label}
                 </MenuItem>
@@ -73,13 +94,21 @@ export function OrderTableToolbar({
             placeholder="Search..."
             startAdornment={
               <InputAdornment position="start">
-                <Iconify width={24} icon="eva:search-fill" /> {/* Larger icon */}
+                <Iconify
+                  width={24}
+                  icon="eva:search-fill"
+                  sx={{ color: "#FFFFFF" }}
+                />
               </InputAdornment>
             }
             sx={{
-              maxWidth: 400, // Slightly wider
-              height: 50, // Taller input
-              fontSize: "1.1rem", // Larger font
+              maxWidth: 400,
+              height: 50,
+              fontSize: "1.1rem",
+              color: "#FFFFFF",
+              "& .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+              "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
             }}
           />
         </Box>
@@ -90,11 +119,11 @@ export function OrderTableToolbar({
           <IconButton
             onClick={onDeleteSelected}
             sx={{
-              color: "error.main",
-              "&:hover": { backgroundColor: "action.hover" },
+              color: "#FF0000",
+              "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)" },
             }}
           >
-            <Iconify icon="solar:trash-bin-trash-bold" width={28} /> {/* Larger icon */}
+            <Iconify icon="solar:trash-bin-trash-bold" width={28} />
           </IconButton>
         </Tooltip>
       ) : null}

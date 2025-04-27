@@ -66,8 +66,9 @@ export function CreateMovieView() {
 
     fetchDirectorData();
   }, []);
+
   useEffect(() => {
-    const fetchDirectorData = async () => {
+    const fetchActorData = async () => {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/actor`,
@@ -91,8 +92,9 @@ export function CreateMovieView() {
       }
     };
 
-    fetchDirectorData();
+    fetchActorData();
   }, []);
+
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -119,6 +121,7 @@ export function CreateMovieView() {
 
   const handleImageReset = () => {
     setFormData((prev) => ({ ...prev, film_img: null }));
+    setPreview(null);
   };
 
   const handleAddPoster = (event) => {
@@ -139,16 +142,10 @@ export function CreateMovieView() {
       return;
     }
     const formData2 = new FormData();
-    console.log(formData.film_img);
-    console.log(formData.id);
-
     formData2.append("image", formData.film_img);
     formData2.append("name", formData.film_name);
 
     try {
-      // setUploadStatus("Uploading...");
-      console.log(formData.film_name);
-
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/uploadImage/film`,
         formData2,
@@ -160,25 +157,19 @@ export function CreateMovieView() {
       );
 
       if (response.data.success) {
-        // setUploadStatus("Upload successful!");
         console.log("URL ảnh:", response.data.message.url);
       } else {
         window.alert("fail upload");
-        // setUploadStatus("Upload failed!");
       }
     } catch (error) {
       console.error("Upload error:", error);
-      // setUploadStatus("Upload failed!");
     }
-    // console.log(uploadStatus);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formDataObj = new FormData();
-    /// console.log(formData);
-
     formDataObj.append("film_name", formData.film_name);
     formDataObj.append("film_trailer", formData.film_trailer);
     formDataObj.append("Release_date", formData.Release_date);
@@ -187,7 +178,6 @@ export function CreateMovieView() {
     formDataObj.append("duration", formData.duration);
     formDataObj.append("film_type", formData.film_type);
     formDataObj.append("country", formData.country);
-
     formDataObj.append("actors", formData.actors);
     formDataObj.append("directors", formData.directors);
     formDataObj.append("categories", formData.categories);
@@ -215,8 +205,6 @@ export function CreateMovieView() {
         throw new Error("Failed to create movie");
       }
 
-      // const result = await response.json();
-      // console.log(result);
       setSnackbar({
         open: true,
         message: "Adding film successfully",
@@ -224,7 +212,6 @@ export function CreateMovieView() {
       });
       setTimeout(() => navigate("/admin/movie"), 1000);
     } catch (error) {
-      // console.error(error);
       setFormData({
         film_name: "",
         film_img: null,
@@ -274,11 +261,26 @@ export function CreateMovieView() {
 
   return (
     <DashboardContent>
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <CardHeader
-          title={<Typography variant="h2">{"Movie creation form"}</Typography>}
+          title={
+            <Typography
+              variant="h3"
+              sx={{ color: "#FFFFFF", fontWeight: "bold" }}
+            >
+              Create Movie
+            </Typography>
+          }
+          sx={{ bgcolor: "#323137" }}
         />
-        <CardContent>
+        <CardContent sx={{ bgcolor: "#323137" }}>
           <form onSubmit={handleSubmit}>
             <Stack spacing={3}>
               <TextField
@@ -288,6 +290,32 @@ export function CreateMovieView() {
                 onChange={handleInputChange}
                 required
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                }}
+                InputProps={{
+                  sx: {
+                    "&::placeholder": {
+                      color: "rgba(255, 255, 255, 0.7)",
+                    },
+                  },
+                }}
               />
 
               <Box
@@ -302,8 +330,8 @@ export function CreateMovieView() {
                   sx={{
                     width: "300px",
                     height: "450px",
-                    backgroundColor: "#e0e0e0",
-                    border: "1px solid #ccc",
+                    backgroundColor: "#4A494E",
+                    border: "1px solid #FFFFFF",
                     borderRadius: "4px",
                     display: "flex",
                     justifyContent: "center",
@@ -326,8 +354,11 @@ export function CreateMovieView() {
                   ) : (
                     <Typography
                       variant="caption"
-                      color="textSecondary"
-                      sx={{ textAlign: "center" }}
+                      sx={{
+                        color: "#FFFFFF",
+                        textAlign: "center",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
                     >
                       No poster found
                     </Typography>
@@ -339,10 +370,18 @@ export function CreateMovieView() {
                     <Button
                       onClick={handleImageReset}
                       variant="outlined"
-                      color="error"
+                      sx={{
+                        color: "#FF0000",
+                        borderColor: "#FF0000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        "&:hover": {
+                          borderColor: "#FF0000",
+                          backgroundColor: "rgba(255, 0, 0, 0.1)",
+                        },
+                      }}
                       size="small"
                     >
-                      Delele poster
+                      Delete poster
                     </Button>
                   ) : (
                     <>
@@ -356,7 +395,15 @@ export function CreateMovieView() {
                       <label htmlFor="upload-poster">
                         <Button
                           variant="outlined"
-                          color="info"
+                          sx={{
+                            color: "#1976D2",
+                            borderColor: "#1976D2",
+                            fontSize: { xs: "1.1rem", md: "1.2rem" },
+                            "&:hover": {
+                              borderColor: "#1976D2",
+                              backgroundColor: "rgba(25, 118, 210, 0.1)",
+                            },
+                          }}
                           size="small"
                           component="span"
                         >
@@ -368,7 +415,6 @@ export function CreateMovieView() {
                 </Box>
               </Box>
 
-              {/* display trailer and trailer input */}
               {formData.film_trailer && (
                 <Box>
                   <iframe
@@ -387,6 +433,32 @@ export function CreateMovieView() {
                 value={formData.film_trailer}
                 onChange={handleInputChange}
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                }}
+                InputProps={{
+                  sx: {
+                    "&::placeholder": {
+                      color: "rgba(255, 255, 255, 0.7)",
+                    },
+                  },
+                }}
               />
 
               <TextField
@@ -398,6 +470,25 @@ export function CreateMovieView() {
                 onChange={handleInputChange}
                 required
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                }}
               />
 
               <TextField
@@ -409,13 +500,39 @@ export function CreateMovieView() {
                 rows={4}
                 required
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                }}
+                InputProps={{
+                  sx: {
+                    "&::placeholder": {
+                      color: "rgba(255, 255, 255, 0.7)",
+                    },
+                  },
+                }}
               />
 
               <Autocomplete
                 name="age_limit"
                 options={[5, 13, 16, 18]}
                 isOptionEqualToValue={(option, value) =>
-                  value !== null && option.value === value.value
+                  value !== null && option === value
                 }
                 value={formData.age_limit}
                 onChange={(event, newValue) => {
@@ -430,7 +547,45 @@ export function CreateMovieView() {
                     type="number"
                     fullWidth
                     required
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
                   />
+                )}
+                renderOption={(props, option) => (
+                  <MenuItem
+                    {...props}
+                    sx={{
+                      color: "#000000",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    }}
+                  >
+                    {option}
+                  </MenuItem>
                 )}
               />
 
@@ -442,6 +597,32 @@ export function CreateMovieView() {
                 onChange={handleInputChange}
                 required
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                }}
+                InputProps={{
+                  sx: {
+                    "&::placeholder": {
+                      color: "rgba(255, 255, 255, 0.7)",
+                    },
+                  },
+                }}
               />
 
               <TextField
@@ -452,9 +633,36 @@ export function CreateMovieView() {
                 onChange={handleInputChange}
                 required
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .MuiSvgIcon-root": { color: "#FFFFFF" },
+                }}
               >
                 {filmTypeOptions.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
+                  <MenuItem
+                    key={option.value}
+                    value={option.value}
+                    sx={{
+                      color: "#000000",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    }}
+                  >
                     {option.label}
                   </MenuItem>
                 ))}
@@ -468,9 +676,36 @@ export function CreateMovieView() {
                 onChange={handleInputChange}
                 required
                 fullWidth
+                sx={{
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .MuiSvgIcon-root": { color: "#FFFFFF" },
+                }}
               >
                 {countryOptions.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
+                  <MenuItem
+                    key={option.value}
+                    value={option.value}
+                    sx={{
+                      color: "#000000",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    }}
+                  >
                     {option.label}
                   </MenuItem>
                 ))}
@@ -509,55 +744,221 @@ export function CreateMovieView() {
                   <TextField
                     {...params}
                     label="Category"
-                    placeholder="Add categories "
+                    placeholder="Add categories"
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
                   />
                 )}
+                renderOption={(props, option) => (
+                  <MenuItem
+                    {...props}
+                    sx={{
+                      color: "#000000",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    }}
+                  >
+                    {option}
+                  </MenuItem>
+                )}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      {...getTagProps({ index })}
+                      label={option}
+                      sx={{
+                        bgcolor: "#1976D2",
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    />
+                  ))
+                }
               />
+
               <Autocomplete
                 multiple
                 freeSolo
                 options={directorList}
                 value={formData.directors}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Directors"
-                    placeholder="Add directors"
-                  />
-                )}
                 onChange={(event, value) => {
                   setFormData((prev) => ({
                     ...prev,
                     directors: value,
                   }));
                 }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Directors"
+                    placeholder="Add directors"
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
+                  />
+                )}
+                renderOption={(props, option) => (
+                  <MenuItem
+                    {...props}
+                    sx={{
+                      color: "#000000",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    }}
+                  >
+                    {option}
+                  </MenuItem>
+                )}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      {...getTagProps({ index })}
+                      label={option}
+                      sx={{
+                        bgcolor: "#1976D2",
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    />
+                  ))
+                }
               />
+
               <Autocomplete
                 multiple
                 freeSolo
                 options={actorList}
                 value={formData.actors}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Actors"
-                    placeholder="Add actors"
-                  />
-                )}
                 onChange={(event, value) => {
                   setFormData((prev) => ({
                     ...prev,
                     actors: value,
                   }));
                 }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Actors"
+                    placeholder="Add actors"
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
+                  />
+                )}
+                renderOption={(props, option) => (
+                  <MenuItem
+                    {...props}
+                    sx={{
+                      color: "#000000",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    }}
+                  >
+                    {option}
+                  </MenuItem>
+                )}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      {...getTagProps({ index })}
+                      label={option}
+                      sx={{
+                        bgcolor: "#1976D2",
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    />
+                  ))
+                }
               />
-            </Stack>
 
-            <Box mt={3} display="flex" justifyContent="flex-end">
-              <Button type="submit" variant="contained" color="primary">
-                Create film
-              </Button>
-            </Box>
+              <Box mt={3} display="flex" justifyContent="flex-end">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    bgcolor: "#1976D2",
+                    color: "#FFFFFF",
+                    fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    "&:hover": {
+                      bgcolor: "#1565C0",
+                    },
+                  }}
+                >
+                  Create film
+                </Button>
+              </Box>
+            </Stack>
           </form>
         </CardContent>
       </Card>
@@ -566,10 +967,11 @@ export function CreateMovieView() {
         open={snackbar.open}
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          sx={{ fontSize: "1.25rem" }}
           onClose={handleSnackbarClose}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

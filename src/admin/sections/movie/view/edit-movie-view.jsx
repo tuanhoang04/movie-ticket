@@ -74,8 +74,9 @@ export function EditMovieView({ movieId }) {
 
     fetchDirectorData();
   }, []);
+
   useEffect(() => {
-    const fetchDirectorData = async () => {
+    const fetchActorData = async () => {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/actor`,
@@ -99,18 +100,13 @@ export function EditMovieView({ movieId }) {
       }
     };
 
-    fetchDirectorData();
+    fetchActorData();
   }, []);
+
   const filmTypeOptions = [
     { value: 1, label: "Now showing" },
     { value: 0, label: "Upcoming" },
   ];
-
-  // const filmTypeOptions = [
-  //     { value: 0, label: "Ngừng chiếu" },
-  //     { value: 1, label: "Đang chiếu" },
-  //     { value: 2, label: "Sắp chiếu" },
-  // ];
 
   const countryOptions = [
     { value: "1", label: "Vietnam" },
@@ -150,10 +146,6 @@ export function EditMovieView({ movieId }) {
         }
         const data = await response.json();
 
-        // console.log(data.categories?.map((cat) => cat.category_name) || []);
-        // console.log(data.directors?.map((dir) => dir.director_name) || []);
-        // console.log(data.actors?.map((actor) => actor.actor_name) || []);
-
         const fetchedData = {
           film_name: data.film[0]?.film_name,
           film_img: data.film[0].film_img,
@@ -166,7 +158,6 @@ export function EditMovieView({ movieId }) {
           duration: data.film[0]?.duration,
           film_type: data.film[0]?.film_type,
           country: data.film[0]?.country,
-
           actors: [
             ...new Set(data.actors?.map((actor) => actor.actor_name) || []),
           ],
@@ -177,8 +168,6 @@ export function EditMovieView({ movieId }) {
             ...new Set(data.categories?.map((cat) => cat.category_name) || []),
           ],
         };
-
-        // console.log([...new Set(data.categories?.map((cat) => cat.category_name))]);
 
         setFormData(fetchedData);
         setPreview(fetchedData.film_img);
@@ -202,6 +191,7 @@ export function EditMovieView({ movieId }) {
 
   const handleImageReset = () => {
     setPreview(null);
+    setFormData((prev) => ({ ...prev, film_img: null }));
   };
 
   const handleAddPoster = (event) => {
@@ -219,8 +209,6 @@ export function EditMovieView({ movieId }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // console.log("Submitting form:", formData);
-
     const formDataObj = new FormData();
 
     formDataObj.append("film_name", formData.film_name);
@@ -233,20 +221,12 @@ export function EditMovieView({ movieId }) {
     formDataObj.append("country", formData.country);
 
     if (formData.film_img) {
-      formDataObj.append("film_img", formData.film_img); // Append the file as a Blob
+      formDataObj.append("film_img", formData.film_img);
     }
-
-    // console.log(formData.categories);
-    // console.log(formData.directors);
-    // console.log(formData.actors);
 
     formDataObj.append("categories", formData.categories);
     formDataObj.append("directors", formData.directors);
     formDataObj.append("actors", formData.actors);
-
-    // for (let pair of formDataObj.entries()) {
-    //     console.log(pair[0] + ": " + pair[1]);
-    // }
 
     try {
       const jwt = localStorage.getItem("jwt");
@@ -271,8 +251,6 @@ export function EditMovieView({ movieId }) {
         throw new Error("Failed to update movie");
       }
 
-      // const result = await response.json();
-      // console.log(result);
       setSnackbar({
         open: true,
         message: "Movie has been successfully updated!",
@@ -280,7 +258,6 @@ export function EditMovieView({ movieId }) {
       });
       setTimeout(() => navigate("/admin/movie"), 1000);
     } catch (error) {
-      //console.error(error);
       setSnackbar({
         open: true,
         message: "An error occurred while updating the movie!",
@@ -314,13 +291,26 @@ export function EditMovieView({ movieId }) {
 
   return (
     <DashboardContent>
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <CardHeader
           title={
-            <Typography variant="h2">{"Edit Film Information"}</Typography>
+            <Typography
+              variant="h3"
+              sx={{ color: "#FFFFFF", fontWeight: "bold" }}
+            >
+              Edit Film 
+            </Typography>
           }
+          sx={{ bgcolor: "#323137" }}
         />
-        <CardContent>
+        <CardContent sx={{ bgcolor: "#323137" }}>
           {loading ? (
             <Box
               display="flex"
@@ -328,12 +318,11 @@ export function EditMovieView({ movieId }) {
               alignItems="center"
               height="300px"
             >
-              <CircularProgress />
+              <CircularProgress sx={{ color: "#FFFFFF" }} />
             </Box>
           ) : (
             <form onSubmit={handleSubmit}>
               <Stack spacing={3}>
-                {/* film name input */}
                 <TextField
                   name="film_name"
                   label="Film name"
@@ -341,9 +330,34 @@ export function EditMovieView({ movieId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
+                  InputProps={{
+                    sx: {
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.7)",
+                      },
+                    },
+                  }}
                 />
 
-                {/* display image and image input */}
                 <Box
                   display="flex"
                   flexDirection="column"
@@ -356,8 +370,8 @@ export function EditMovieView({ movieId }) {
                     sx={{
                       width: "300px",
                       height: "450px",
-                      backgroundColor: "#e0e0e0",
-                      border: "1px solid #ccc",
+                      backgroundColor: "#4A494E",
+                      border: "1px solid #FFFFFF",
                       borderRadius: "4px",
                       display: "flex",
                       justifyContent: "center",
@@ -380,8 +394,11 @@ export function EditMovieView({ movieId }) {
                     ) : (
                       <Typography
                         variant="caption"
-                        color="textSecondary"
-                        sx={{ textAlign: "center" }}
+                        sx={{
+                          color: "#FFFFFF",
+                          textAlign: "center",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        }}
                       >
                         No Movie Poster Available
                       </Typography>
@@ -393,7 +410,15 @@ export function EditMovieView({ movieId }) {
                       <Button
                         onClick={handleImageReset}
                         variant="outlined"
-                        color="error"
+                        sx={{
+                          color: "#FF0000",
+                          borderColor: "#FF0000",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                          "&:hover": {
+                            borderColor: "#FF0000",
+                            backgroundColor: "rgba(255, 0, 0, 0.1)",
+                          },
+                        }}
                         size="small"
                       >
                         Delete Film Poster
@@ -410,7 +435,15 @@ export function EditMovieView({ movieId }) {
                         <label htmlFor="upload-poster">
                           <Button
                             variant="outlined"
-                            color="info"
+                            sx={{
+                              color: "#1976D2",
+                              borderColor: "#1976D2",
+                              fontSize: { xs: "1.1rem", md: "1.2rem" },
+                              "&:hover": {
+                                borderColor: "#1976D2",
+                                backgroundColor: "rgba(25, 118, 210, 0.1)",
+                              },
+                            }}
                             size="small"
                             component="span"
                           >
@@ -422,7 +455,6 @@ export function EditMovieView({ movieId }) {
                   </Box>
                 </Box>
 
-                {/* display trailer and trailer input */}
                 {formData.film_trailer && (
                   <Box>
                     <iframe
@@ -441,6 +473,32 @@ export function EditMovieView({ movieId }) {
                   value={formData.film_trailer}
                   onChange={handleInputChange}
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
+                  InputProps={{
+                    sx: {
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.7)",
+                      },
+                    },
+                  }}
                 />
 
                 <TextField
@@ -452,6 +510,25 @@ export function EditMovieView({ movieId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
                 />
 
                 <TextField
@@ -463,13 +540,39 @@ export function EditMovieView({ movieId }) {
                   rows={15}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
+                  InputProps={{
+                    sx: {
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.7)",
+                      },
+                    },
+                  }}
                 />
 
                 <Autocomplete
                   name="age_limit"
                   options={[5, 13, 16, 18]}
                   isOptionEqualToValue={(option, value) =>
-                    value !== null && option.value === value.value
+                    value !== null && option === value
                   }
                   value={formData.age_limit}
                   onChange={(event, newValue) => {
@@ -484,19 +587,47 @@ export function EditMovieView({ movieId }) {
                       type="number"
                       fullWidth
                       required
+                      sx={{
+                        "& .MuiInputBase-input": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
+                        sx: {
+                          "&::placeholder": {
+                            color: "rgba(255, 255, 255, 0.7)",
+                          },
+                        },
+                      }}
                     />
                   )}
+                  renderOption={(props, option) => (
+                    <MenuItem
+                      {...props}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
+                      {option}
+                    </MenuItem>
+                  )}
                 />
-
-                {/* <TextField
-                                    name="age_limit"
-                                    label="Giới hạn độ tuổi"
-                                    type="number"
-                                    value={formData.age_limit}
-                                    onChange={handleInputChange}
-                                    required
-                                    fullWidth
-                                /> */}
 
                 <TextField
                   name="duration"
@@ -506,6 +637,32 @@ export function EditMovieView({ movieId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                  }}
+                  InputProps={{
+                    sx: {
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.7)",
+                      },
+                    },
+                  }}
                 />
 
                 <TextField
@@ -516,9 +673,36 @@ export function EditMovieView({ movieId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .MuiSvgIcon-root": { color: "#FFFFFF" },
+                  }}
                 >
                   {filmTypeOptions.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem
+                      key={option.value}
+                      value={option.value}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
                       {option.label}
                     </MenuItem>
                   ))}
@@ -532,9 +716,36 @@ export function EditMovieView({ movieId }) {
                   onChange={handleInputChange}
                   required
                   fullWidth
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#FFFFFF",
+                    },
+                    "& .MuiSvgIcon-root": { color: "#FFFFFF" },
+                  }}
                 >
                   {countryOptions.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem
+                      key={option.value}
+                      value={option.value}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
                       {option.label}
                     </MenuItem>
                   ))}
@@ -570,23 +781,64 @@ export function EditMovieView({ movieId }) {
                       categories: value,
                     }));
                   }}
-                  renderTags={(value, getTagProps) =>
-                    value.map((option, index) => (
-                      <Chip
-                        variant="outlined"
-                        key={option}
-                        label={option}
-                        {...getTagProps({ index })}
-                      />
-                    ))
-                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}
                       label="Categories"
-                      placeholder="Add category "
+                      placeholder="Add category"
+                      sx={{
+                        "& .MuiInputBase-input": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
+                        sx: {
+                          "&::placeholder": {
+                            color: "rgba(255, 255, 255, 0.7)",
+                          },
+                        },
+                      }}
                     />
                   )}
+                  renderOption={(props, option) => (
+                    <MenuItem
+                      {...props}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
+                      {option}
+                    </MenuItem>
+                  )}
+                  renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                      <Chip
+                        {...getTagProps({ index })}
+                        label={option}
+                        sx={{
+                          bgcolor: "#1976D2",
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        }}
+                      />
+                    ))
+                  }
                 />
 
                 <Autocomplete
@@ -594,46 +846,160 @@ export function EditMovieView({ movieId }) {
                   freeSolo
                   options={directorList}
                   value={formData.directors}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Directors"
-                      placeholder="Add directors"
-                    />
-                  )}
                   onChange={(event, value) => {
                     setFormData((prev) => ({
                       ...prev,
                       directors: value,
                     }));
                   }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Directors"
+                      placeholder="Add directors"
+                      sx={{
+                        "& .MuiInputBase-input": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
+                        sx: {
+                          "&::placeholder": {
+                            color: "rgba(255, 255, 255, 0.7)",
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                  renderOption={(props, option) => (
+                    <MenuItem
+                      {...props}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
+                      {option}
+                    </MenuItem>
+                  )}
+                  renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                      <Chip
+                        {...getTagProps({ index })}
+                        label={option}
+                        sx={{
+                          bgcolor: "#1976D2",
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        }}
+                      />
+                    ))
+                  }
                 />
+
                 <Autocomplete
                   multiple
                   freeSolo
                   options={actorList}
                   value={formData.actors}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Actors"
-                      placeholder="Add actors"
-                    />
-                  )}
                   onChange={(event, value) => {
                     setFormData((prev) => ({
                       ...prev,
                       actors: value,
                     }));
                   }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Actors"
+                      placeholder="Add actors"
+                      sx={{
+                        "& .MuiInputBase-input": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#FFFFFF",
+                        },
+                      }}
+                      InputProps={{
+                        ...params.InputProps,
+                        sx: {
+                          "&::placeholder": {
+                            color: "rgba(255, 255, 255, 0.7)",
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                  renderOption={(props, option) => (
+                    <MenuItem
+                      {...props}
+                      sx={{
+                        color: "#000000",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      }}
+                    >
+                      {option}
+                    </MenuItem>
+                  )}
+                  renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                      <Chip
+                        {...getTagProps({ index })}
+                        label={option}
+                        sx={{
+                          bgcolor: "#1976D2",
+                          color: "#FFFFFF",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        }}
+                      />
+                    ))
+                  }
                 />
-              </Stack>
 
-              <Box mt={3} display="flex" justifyContent="flex-end">
-                <Button type="submit" variant="contained" color="primary">
-                  Update
-                </Button>
-              </Box>
+                <Box mt={3} display="flex" justifyContent="flex-end">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      bgcolor: "#1976D2",
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      "&:hover": {
+                        bgcolor: "#1565C0",
+                      },
+                    }}
+                  >
+                    Update
+                  </Button>
+                </Box>
+              </Stack>
             </form>
           )}
         </CardContent>
@@ -643,10 +1009,11 @@ export function EditMovieView({ movieId }) {
         open={snackbar.open}
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          sx={{ fontSize: "1.25rem" }}
           onClose={handleSnackbarClose}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

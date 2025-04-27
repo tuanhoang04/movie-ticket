@@ -166,7 +166,7 @@ export function RoomView() {
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },
-            color: "white",
+            color: "#FFFFFF",
             fontWeight: "bold",
           }}
         >
@@ -184,7 +184,14 @@ export function RoomView() {
         </Button>
       </Box>
 
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <RoomTableToolbar
           numSelected={table.selected.length}
           filterName={filterName}
@@ -195,8 +202,8 @@ export function RoomView() {
         />
 
         <Scrollbar>
-          <TableContainer sx={{ overflow: "unset" }}>
-            <Table sx={{ minWidth: 800 }}>
+          <TableContainer sx={{ overflow: "unset", bgcolor: "#323137" }}>
+            <Table sx={{ minWidth: 800, bgcolor: "#323137" }}>
               <RoomTableHead
                 order={table.order}
                 orderBy={table.orderBy}
@@ -219,14 +226,17 @@ export function RoomView() {
               <TableBody>
                 {loading && (
                   <TableRow>
-                    <TableCell colSpan={7}>
+                    <TableCell
+                      colSpan={7}
+                      sx={{ borderColor: "rgba(255, 255, 255, 0.3)" }}
+                    >
                       <Box
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
                         height="150px"
                       >
-                        <CircularProgress />
+                        <CircularProgress sx={{ color: "#FFFFFF" }} />
                       </Box>
                     </TableCell>
                   </TableRow>
@@ -273,7 +283,16 @@ export function RoomView() {
             sx={{
               "& *": {
                 fontSize: "1.25rem",
+                color: "#FFFFFF",
+                borderColor: "#FFFFFF",
               },
+              "& .MuiTablePagination-selectIcon": {
+                color: "#FFFFFF",
+              },
+              "& .MuiIconButton-root": {
+                color: "#FFFFFF",
+              },
+              bgcolor: "#323137",
             }}
             component="div"
             page={table.page}
@@ -294,7 +313,7 @@ export function RoomView() {
       >
         <Alert
           onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
           severity={snackbar.severity}
         >
           {snackbar.message}
