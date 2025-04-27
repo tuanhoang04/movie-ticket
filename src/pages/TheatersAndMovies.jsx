@@ -31,12 +31,6 @@ export default function TheatersAndMovies() {
       .then((response) => response.json())
       .then((responseData) => {
         const allFilms = responseData[0];
-        // Preload all images
-        allFilms.forEach((film) => {
-          const img = new Image();
-          img.src = film.film_img;
-        });
-
         setNowShowing(allFilms.filter((item) => item.film_type === 1));
         setIsLoading(false);
       })

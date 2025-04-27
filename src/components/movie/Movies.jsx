@@ -24,12 +24,6 @@ export default function Movies() {
       .then((responseData) => {
         console.log(responseData);
         const allFilms = responseData[0];
-        // Preload all images
-        allFilms.forEach((film) => {
-          const img = new Image();
-          img.src = film.film_img;
-        });
-
         setNowShowing(allFilms.filter((item) => item.film_type === 1));
         setUpcomings(allFilms.filter((item) => item.film_type === 0));
         setIsLoading(false);

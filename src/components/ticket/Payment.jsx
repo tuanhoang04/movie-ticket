@@ -89,7 +89,7 @@ export default function Payment({setNextStep}) {
         <img className="w-full" src="/payment-sample.png" />
       </div>
 
-      <div className="flex flex-row gap-4 justify-center mb-5">
+      <div className="flex flex-row gap-5 justify-center mb-5">
         <Button
           variant="text"
           className="text-white lg:text-base"

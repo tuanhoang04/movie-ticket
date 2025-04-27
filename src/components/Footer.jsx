@@ -57,7 +57,7 @@ export default function Footer() {
             href="/theaters"
             className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400 mb-1"
           >
-            Theaters
+            Cinemas
           </a>
           <a
             href="/news"
