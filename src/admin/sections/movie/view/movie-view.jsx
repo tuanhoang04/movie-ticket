@@ -227,7 +227,7 @@ export function MovieView() {
                         onSelectRow={() => table.onSelectRow(row.film_id)}
                         onDelete={(id) => {
                           setMovies((prevMovies) =>
-                            prevMovies.filter((movie) => movie.movie_id !== id)
+                            prevMovies.filter((movie) => movie.film_id !== id)
                           );
                           table.setSelected((prevSelected) =>
                             prevSelected.filter(
