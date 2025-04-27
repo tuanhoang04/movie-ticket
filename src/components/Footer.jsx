@@ -32,36 +32,36 @@ export default function Footer() {
             <img src="/ico.png" className="w-10 mr-3" />
             <p className="text-white font-medium text-3xl">S</p>
           </div>
-          <p className="text-white font-medium text-xl inline-flex mb-2">
+          <p className="text-white font-medium text-xl inline-flex mb-4">
             NAVIGATION
           </p>
           <a
             href="/home"
-            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400"
+            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400 mb-1"
           >
             Homepage
           </a>
           <a
             href="/movie/filter"
-            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400"
+            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400 mb-1"
           >
             Movies
           </a>
           <a
             href="/theater-movie"
-            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400"
+            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400 mb-1"
           >
             Buy Tickets
           </a>
           <a
             href="/theaters"
-            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400"
+            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400 mb-1"
           >
             Theaters
           </a>
           <a
             href="/news"
-            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400 mb-5"
+            className="text-[#8da1c5] font-light text-xl inline-flex hover:text-purple-400 mb-5 mb-1"
           >
             News
           </a>
