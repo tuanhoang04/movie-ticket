@@ -149,7 +149,7 @@ export default function NewsDetail() {
                       </div>
                       <div className="w-24 h-32 rounded-xl overflow-hidden">
                         <img
-                          src={item.new_img}
+                          src={item.new_img || "/image-placeholder.png"}
                           className="w-full h-full object-cover"
                           alt=""
                         />

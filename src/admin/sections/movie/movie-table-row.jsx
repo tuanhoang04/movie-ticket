@@ -16,6 +16,8 @@ import {
   TableRow,
   Tooltip,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
@@ -56,6 +58,15 @@ const deleteMovie = async (id) => {
 export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
 
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
@@ -81,7 +92,18 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
   const handleConfirmDelete = async () => {
     const success = await deleteMovie(row.film_id);
     if (success) {
+      setSnackbar({
+        open: true,
+        message: "Delete film successfully",
+        severity: "success",
+      });
       onDelete(row.film_id);
+    } else {
+      setSnackbar({
+        open: false,
+        message: "Delete Film Failed",
+        severity: "error",
+      });
     }
     setOpenDialog(false);
   };
@@ -127,7 +149,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
             //                 ? 'secondary' : 'default'
             // }
             // size="small"
-            sx={{ fontWeight: "bold" ,fontSize:"1rem" }}
+            sx={{ fontWeight: "bold", fontSize: "1rem" }}
           />
         </TableCell>
 
@@ -222,6 +244,20 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete }) {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          sx={{ width: "100%", fontSize: "1.25rem" }}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
@@ -233,36 +269,43 @@ export function MovieDescriptionCell({ row }) {
   const closeDialog = () => setIsDialogOpen(false);
 
   return (
-    <TableCell>
-      <Tooltip title={row.film_describe} placement="top" arrow>
-        <Typography
-          variant="body1"
-          sx={{
-            cursor: "pointer",
-            color: "primary.main",
-            display: "inline-block",
-            maxWidth: 200,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-          onClick={openDialog}
-        >
-          {row.film_describe}
-        </Typography>
-      </Tooltip>
+    <>
+      <TableCell>
+        <Tooltip title={row.film_describe} placement="top" arrow>
+          <Typography
+            variant="body1"
+            sx={{
+              cursor: "pointer",
+              color: "primary.main",
+              display: "inline-block",
+              maxWidth: 200,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+            onClick={openDialog}
+          >
+            {row.film_describe}
+          </Typography>
+        </Tooltip>
 
-      <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>Detail description</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1">{row.film_describe}</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialog} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </TableCell>
+        <Dialog
+          open={isDialogOpen}
+          onClose={closeDialog}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle>Detail description</DialogTitle>
+          <DialogContent>
+            <Typography variant="body1">{row.film_describe}</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeDialog} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </TableCell>
+    </>
   );
 }

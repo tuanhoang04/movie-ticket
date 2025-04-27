@@ -7,7 +7,7 @@ export default function EditCinemaPage() {
   return (
     <>
       <Helmet>
-        <title> {`Edit Cinema Information |Starlight Admin Panel`}</title>
+        <title> {`Edit Cinema Information | Starlight Movie Admin Panel`}</title>
       </Helmet>
 
       <EditCinemaView cinemaId={id} />
