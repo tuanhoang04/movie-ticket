@@ -200,10 +200,10 @@ export function EditUserView({ userId }) {
         <CardHeader
           title={
             <Typography
-              variant="h2"
+              variant="h3"
               sx={{ color: "#FFFFFF", fontWeight: "bold" }}
             >
-              Edit user information
+              Edit User
             </Typography>
           }
           sx={{ bgcolor: "#323137" }}
@@ -512,7 +512,7 @@ export function EditUserView({ userId }) {
               {formData.role === 0 ? (
                 <Box mt={5}>
                   <Typography
-                    variant="h2"
+                    variant="h3"
                     gutterBottom
                     sx={{ color: "#FFFFFF", fontWeight: "bold" }}
                   >
