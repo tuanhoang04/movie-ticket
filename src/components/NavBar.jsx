@@ -148,12 +148,12 @@ export default function NavBar({
         <a
           href="/theaters"
           className={`flex items-center text-white hover:text-purple-300 hover:scale-110 hover:drop-shadow-md transition-all duration-200 ease-in-out ${
-            currentPage === "Theaters"
+            currentPage === "Cinemas"
               ? "bg-gradient-to-r from-[#502A50] to-[#3A253F] rounded-md px-2 py-1 drop-shadow-md"
               : ""
           }`}
         >
-          Theaters
+          Cinemas
         </a>
       </Typography>
       <Typography as="li" variant="h5" className="p-1 font-light">
