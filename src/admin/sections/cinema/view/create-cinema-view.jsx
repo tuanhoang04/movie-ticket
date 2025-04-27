@@ -103,10 +103,10 @@ export function CreateCinemaView() {
         <CardHeader
           title={
             <Typography
-              variant="h2"
+              variant="h3"
               sx={{ color: "#FFFFFF", fontWeight: "bold" }}
             >
-              New Cinema Creation Template
+              Create Cinema
             </Typography>
           }
           sx={{ bgcolor: "#323137" }}

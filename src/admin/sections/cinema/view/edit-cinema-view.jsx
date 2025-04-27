@@ -163,10 +163,10 @@ export function EditCinemaView({ cinemaId }) {
         <CardHeader
           title={
             <Typography
-              variant="h2"
+              variant="h3"
               sx={{ color: "#FFFFFF", fontWeight: "bold" }}
             >
-              Edit Cinema Information
+              Edit Cinema
             </Typography>
           }
           sx={{ bgcolor: "#323137" }}
