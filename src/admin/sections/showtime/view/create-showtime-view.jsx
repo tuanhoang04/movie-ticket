@@ -323,7 +323,11 @@ export function CreateShowtimeView() {
                 isOptionEqualToValue={(option, value) => option === value}
                 value={formData.cinema_name}
                 onChange={(event, newValue) => {
-                  setFormData({ ...formData, cinema_name: newValue, room_name: "" });
+                  setFormData({
+                    ...formData,
+                    cinema_name: newValue,
+                    room_name: "",
+                  });
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -520,7 +524,7 @@ export function CreateShowtimeView() {
       >
         <Alert
           onClose={handleSnackbarClose}
-          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "black" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

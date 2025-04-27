@@ -461,7 +461,7 @@ export function EditShowtimeView({ showtimeId }) {
       >
         <Alert
           onClose={handleSnackbarClose}
-          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "black" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

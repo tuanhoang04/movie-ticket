@@ -268,7 +268,10 @@ export function RoomTableRow({
               variant="body1"
               fontWeight="medium"
               noWrap
-              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
+              sx={{
+                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                color: "#FFFFFF",
+              }}
             >
               {row.cinema_name}
             </Typography>
@@ -319,7 +322,10 @@ export function RoomTableRow({
               Edit
             </MenuItem>
             <MenuItem onClick={handleDeleteButton} sx={{ color: "#FF0000" }}>
-              <Iconify icon="solar:trash-bin-trash-bold" sx={{ color: "#FF0000" }} />
+              <Iconify
+                icon="solar:trash-bin-trash-bold"
+                sx={{ color: "#FF0000" }}
+              />
               Delete
             </MenuItem>
           </MenuList>
@@ -355,11 +361,23 @@ export function RoomTableRow({
                 sx={{
                   mb: 2,
                   mt: 2,
-                  "& .MuiInputBase-input": { color: "#FFFFFF", fontSize: "20px" },
-                  "& .MuiInputLabel-root": { color: "#FFFFFF", fontSize: "20px" },
-                  "& .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
-                  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
-                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: "20px",
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: "20px",
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
                 }}
               />
               <TextField
@@ -369,11 +387,23 @@ export function RoomTableRow({
                 fullWidth
                 sx={{
                   mb: 2,
-                  "& .MuiInputBase-input": { color: "#FFFFFF", fontSize: "20px" },
-                  "& .MuiInputLabel-root": { color: "#FFFFFF", fontSize: "20px" },
-                  "& .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
-                  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
-                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#FFFFFF" },
+                  "& .MuiInputBase-input": {
+                    color: "#FFFFFF",
+                    fontSize: "20px",
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FFFFFF",
+                    fontSize: "20px",
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
+                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#FFFFFF",
+                  },
                 }}
               />
             </>
@@ -438,7 +468,7 @@ export function RoomTableRow({
       >
         <Alert
           onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "black" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

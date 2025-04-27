@@ -305,7 +305,7 @@ export function EditMovieView({ movieId }) {
               variant="h3"
               sx={{ color: "#FFFFFF", fontWeight: "bold" }}
             >
-              Edit Film 
+              Edit Film
             </Typography>
           }
           sx={{ bgcolor: "#323137" }}
@@ -1013,7 +1013,7 @@ export function EditMovieView({ movieId }) {
       >
         <Alert
           onClose={handleSnackbarClose}
-          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "black" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

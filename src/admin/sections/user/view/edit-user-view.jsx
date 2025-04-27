@@ -181,7 +181,8 @@ export function EditUserView({ userId }) {
     } catch (error) {
       setSnackbar({
         open: true,
-        message: "An error occurred while updating user information: " + error.message,
+        message:
+          "An error occurred while updating user information: " + error.message,
         severity: "error",
       });
     }
@@ -534,7 +535,8 @@ export function EditUserView({ userId }) {
                               sx={{
                                 color: "#FFFFFF",
                                 fontSize: { xs: "1.1rem", md: "1.2rem" },
-                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                borderBottom:
+                                  "0.5px solid rgba(255, 255, 255, 0.3)",
                               }}
                             >
                               Order ID
@@ -543,7 +545,8 @@ export function EditUserView({ userId }) {
                               sx={{
                                 color: "#FFFFFF",
                                 fontSize: { xs: "1.1rem", md: "1.2rem" },
-                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                borderBottom:
+                                  "0.5px solid rgba(255, 255, 255, 0.3)",
                               }}
                             >
                               Booking Date
@@ -552,7 +555,8 @@ export function EditUserView({ userId }) {
                               sx={{
                                 color: "#FFFFFF",
                                 fontSize: { xs: "1.1rem", md: "1.2rem" },
-                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                borderBottom:
+                                  "0.5px solid rgba(255, 255, 255, 0.3)",
                               }}
                             >
                               Movie Name
@@ -561,7 +565,8 @@ export function EditUserView({ userId }) {
                               sx={{
                                 color: "#FFFFFF",
                                 fontSize: { xs: "1.1rem", md: "1.2rem" },
-                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                borderBottom:
+                                  "0.5px solid rgba(255, 255, 255, 0.3)",
                               }}
                             >
                               Cinema Name
@@ -570,7 +575,8 @@ export function EditUserView({ userId }) {
                               sx={{
                                 color: "#FFFFFF",
                                 fontSize: { xs: "1.1rem", md: "1.2rem" },
-                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                borderBottom:
+                                  "0.5px solid rgba(255, 255, 255, 0.3)",
                               }}
                             >
                               Room Name
@@ -579,7 +585,8 @@ export function EditUserView({ userId }) {
                               sx={{
                                 color: "#FFFFFF",
                                 fontSize: { xs: "1.1rem", md: "1.2rem" },
-                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                borderBottom:
+                                  "0.5px solid rgba(255, 255, 255, 0.3)",
                               }}
                             >
                               Show Date
@@ -588,7 +595,8 @@ export function EditUserView({ userId }) {
                               sx={{
                                 color: "#FFFFFF",
                                 fontSize: { xs: "1.1rem", md: "1.2rem" },
-                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                borderBottom:
+                                  "0.5px solid rgba(255, 255, 255, 0.3)",
                               }}
                             >
                               Total Amount
@@ -601,7 +609,8 @@ export function EditUserView({ userId }) {
                               key={order.order_id}
                               sx={{
                                 "&:hover": { bgcolor: "#4A494E" },
-                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                borderBottom:
+                                  "0.5px solid rgba(255, 255, 255, 0.3)",
                               }}
                             >
                               <TableCell
@@ -609,7 +618,8 @@ export function EditUserView({ userId }) {
                                   color: "#FFFFFF",
                                   fontSize: { xs: "1.1rem", md: "1.2rem" },
                                   fontWeight: "medium",
-                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                  borderBottom:
+                                    "0.5px solid rgba(255, 255, 255, 0.3)",
                                 }}
                               >
                                 {order.order_id}
@@ -619,7 +629,8 @@ export function EditUserView({ userId }) {
                                   color: "#FFFFFF",
                                   fontSize: { xs: "1.1rem", md: "1.2rem" },
                                   fontWeight: "medium",
-                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                  borderBottom:
+                                    "0.5px solid rgba(255, 255, 255, 0.3)",
                                 }}
                               >
                                 {new Date(
@@ -631,7 +642,8 @@ export function EditUserView({ userId }) {
                                   color: "#FFFFFF",
                                   fontSize: { xs: "1.1rem", md: "1.2rem" },
                                   fontWeight: "medium",
-                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                  borderBottom:
+                                    "0.5px solid rgba(255, 255, 255, 0.3)",
                                 }}
                               >
                                 {order.film_name}
@@ -641,7 +653,8 @@ export function EditUserView({ userId }) {
                                   color: "#FFFFFF",
                                   fontSize: { xs: "1.1rem", md: "1.2rem" },
                                   fontWeight: "medium",
-                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                  borderBottom:
+                                    "0.5px solid rgba(255, 255, 255, 0.3)",
                                 }}
                               >
                                 {order.cinema_name}
@@ -651,7 +664,8 @@ export function EditUserView({ userId }) {
                                   color: "#FFFFFF",
                                   fontSize: { xs: "1.1rem", md: "1.2rem" },
                                   fontWeight: "medium",
-                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                  borderBottom:
+                                    "0.5px solid rgba(255, 255, 255, 0.3)",
                                 }}
                               >
                                 {order.room_name}
@@ -661,7 +675,8 @@ export function EditUserView({ userId }) {
                                   color: "#FFFFFF",
                                   fontSize: { xs: "1.1rem", md: "1.2rem" },
                                   fontWeight: "medium",
-                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                  borderBottom:
+                                    "0.5px solid rgba(255, 255, 255, 0.3)",
                                 }}
                               >
                                 {new Date(order.show_date).toLocaleDateString()}
@@ -671,7 +686,8 @@ export function EditUserView({ userId }) {
                                   color: "#FFFFFF",
                                   fontSize: { xs: "1.1rem", md: "1.2rem" },
                                   fontWeight: "medium",
-                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                  borderBottom:
+                                    "0.5px solid rgba(255, 255, 255, 0.3)",
                                 }}
                               >
                                 {new Intl.NumberFormat("vi-VN", {
@@ -711,7 +727,7 @@ export function EditUserView({ userId }) {
       >
         <Alert
           onClose={handleSnackbarClose}
-          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "black" }}
           severity={snackbar.severity}
         >
           {snackbar.message}
