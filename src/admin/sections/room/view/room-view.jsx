@@ -164,6 +164,7 @@ export function RoomView() {
           startIcon={<Iconify icon="mingcute:add-line" />}
           component={Link}
           to="/admin/room/create"
+          sx={{ fontSize: "1.1rem" }}
         >
           Add room
         </Button>
