@@ -34,7 +34,6 @@ const deleteShowtime = async (id) => {
         headers: {
           Authorization: "Bearer " + jwt,
         },
-        // credentials: 'include',
       }
     );
 
@@ -79,24 +78,46 @@ export function ShowtimeTableRow({ row, selected, onSelectRow, onDelete }) {
     const success = await deleteShowtime(row.showtime_id);
     if (success) {
       onDelete(row.showtime_id);
-    } else {
-      setSnackbar({
-        open: false,
-        message: "Delete showtime failed",
-        severity: "eror",
-      });
     }
     setOpenDialog(false);
   };
 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
+      <TableRow
+        hover
+        tabIndex={-1}
+        role="checkbox"
+        selected={selected}
+        sx={{
+          bgcolor: "#323137",
+          "&:hover": { bgcolor: "#4A494E" },
+          borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+        }}
+      >
+        <TableCell
+          padding="checkbox"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
+          <Checkbox
+            disableRipple
+            checked={selected}
+            onChange={onSelectRow}
+            sx={{
+              color: "#FFFFFF",
+              "&.Mui-checked": { color: "#FFFFFF" },
+            }}
+          />
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Link
             to={`/admin/showtime/${row.showtime_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
@@ -105,14 +126,19 @@ export function ShowtimeTableRow({ row, selected, onSelectRow, onDelete }) {
               variant="body2"
               fontWeight="bold"
               noWrap
-              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
             >
               {row.showtime_id}
             </Typography>
           </Link>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Link
             to={`/admin/movie/${row.film_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
@@ -121,14 +147,19 @@ export function ShowtimeTableRow({ row, selected, onSelectRow, onDelete }) {
               variant="body2"
               fontWeight="bold"
               noWrap
-              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
             >
               {row.film_name}
             </Typography>
           </Link>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Link
             to={`/admin/cinema/${row.cinema_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
@@ -137,49 +168,69 @@ export function ShowtimeTableRow({ row, selected, onSelectRow, onDelete }) {
               variant="body2"
               fontWeight="medium"
               noWrap
-              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
             >
               {row.cinema_name}
             </Typography>
           </Link>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Typography
             variant="body2"
             fontWeight="medium"
             noWrap
-            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
           >
             {row.room_name}
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Typography
             variant="body2"
             textAlign="center"
             fontWeight="medium"
-            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
           >
             {row.show_time.split(":").slice(0, 2).join(":")}
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            color: "#FFFFFF",
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <Typography
             variant="body2"
             textAlign="center"
             fontWeight="medium"
-            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
           >
             {new Date(row.show_date).toLocaleDateString()}
           </Typography>
         </TableCell>
 
-        <TableCell align="right">
+        <TableCell
+          align="right"
+          sx={{
+            borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
           <IconButton onClick={handleOpenPopover} size="small">
-            <Iconify icon="eva:more-vertical-fill" />
+            <Iconify icon="eva:more-vertical-fill" sx={{ color: "#FFFFFF" }} />
           </IconButton>
         </TableCell>
 
@@ -198,41 +249,60 @@ export function ShowtimeTableRow({ row, selected, onSelectRow, onDelete }) {
               width: 140,
               display: "flex",
               flexDirection: "column",
+              bgcolor: "#323137",
+              color: "#FFFFFF",
               [`& .${menuItemClasses.root}`]: {
                 px: 1,
                 gap: 2,
                 borderRadius: 0.75,
+                color: "#FFFFFF",
                 [`&. ${menuItemClasses.selected}`]: {
-                  bgcolor: "action.selected",
+                  bgcolor: "#4A494E",
                 },
               },
             }}
           >
-            <MenuItem onClick={handleEditButton} sx={{ color: "primary.main" }}>
-              <Iconify icon="solar:pen-bold" />
+            <MenuItem onClick={handleEditButton} sx={{ color: "#1976D2" }}>
+              <Iconify icon="solar:pen-bold" sx={{ color: "#1976D2" }} />
               Edit
             </MenuItem>
-            <MenuItem onClick={handleDeleteButton} sx={{ color: "error.main" }}>
-              <Iconify icon="solar:trash-bin-trash-bold" />
+            <MenuItem onClick={handleDeleteButton} sx={{ color: "#FF0000" }}>
+              <Iconify icon="solar:trash-bin-trash-bold" sx={{ color: "#FF0000" }} />
               Delete
             </MenuItem>
           </MenuList>
         </Popover>
       </TableRow>
 
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Delete confirmation</DialogTitle>
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        sx={{
+          "& .MuiPaper-root": {
+            bgcolor: "#323137",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: "#FFFFFF" }}>Delete confirmation</DialogTitle>
         <DialogContent>
-          <Typography>
+          <Typography sx={{ color: "#FFFFFF" }}>
             Are you sure you want to delete the showtime{" "}
             <strong>{row.showtime_id}</strong> ?
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button
+            onClick={handleCloseDialog}
+            sx={{ color: "#1976D2", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleConfirmDelete} color="error">
+          <Button
+            onClick={handleConfirmDelete}
+            sx={{ color: "#FF0000", "&:hover": { bgcolor: "#4A494E" } }}
+          >
             Delete
           </Button>
         </DialogActions>
