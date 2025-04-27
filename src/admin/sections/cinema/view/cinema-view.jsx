@@ -24,7 +24,7 @@ import { CinemaTableHead } from "../cinema-table-head";
 import { TableNoData } from "../../table-no-data";
 import { CinemaTableRow } from "../cinema-table-row";
 import { Link } from "react-router-dom";
- 
+
 export function CinemaView() {
   const table = hook();
   const [filterName, setFilterName] = useState("");
@@ -45,22 +45,22 @@ export function CinemaView() {
     setFilterName(event.target.value);
     table.onResetPage();
   };
- 
+
   const handleFilterChange = (newFilter) => {
     setSelectedFilter(newFilter);
   };
- 
+
   const handleDeleteSelected = async () => {
     if (table.selected.length === 0) return;
- 
+
     try {
       const jwt = localStorage.getItem("jwt");
- 
+
       if (!jwt) {
         console.error("JWT token is missing");
         return;
       }
- 
+
       for (const cinemaId of table.selected) {
         const response = await fetch(
           `${
@@ -73,7 +73,7 @@ export function CinemaView() {
             },
           }
         );
- 
+
         if (!response.ok) {
           throw new Error(`Failed to delete cinema with ID: ${cinemaId}`);
         }
@@ -94,19 +94,19 @@ export function CinemaView() {
       console.error("Error deleting selected cinemas:", error);
     }
   };
- 
+
   useEffect(() => {
     const fetchCinemas = async () => {
       setLoading(true);
       setError(null);
       try {
         const jwt = localStorage.getItem("jwt");
- 
+
         if (!jwt) {
           console.error("JWT token is missing");
           return;
         }
- 
+
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/admin/cinemas`,
           {
@@ -116,9 +116,9 @@ export function CinemaView() {
             },
           }
         );
- 
+
         if (!response.ok) throw new Error("Failed to fetch cinemas");
- 
+
         const data = await response.json();
         setCinemas(data);
       } catch (err) {
@@ -127,10 +127,10 @@ export function CinemaView() {
         setLoading(false);
       }
     };
- 
+
     fetchCinemas();
   }, []);
- 
+
   const filteredData = useMemo(() => {
     return applyFilter({
       inputData: cinemas,
@@ -139,13 +139,13 @@ export function CinemaView() {
       attribute: selectedFilter,
     });
   }, [cinemas, table.order, table.orderBy, filterName, selectedFilter]);
- 
+
   useEffect(() => {
     setDataFiltered(filteredData);
   }, [filteredData]);
- 
+
   const notFound = !dataFiltered.length && filterName;
- 
+
   return (
     <DashboardContent>
       <Box
@@ -181,7 +181,7 @@ export function CinemaView() {
           Add Cinema
         </Button>
       </Box>
- 
+
       <Card
         sx={{
           bgcolor: "#323137",
@@ -198,7 +198,7 @@ export function CinemaView() {
           onFilterChange={handleFilterChange}
           onDeleteSelected={handleDeleteSelected}
         />
- 
+
         <Scrollbar>
           <TableContainer sx={{ overflow: "unset", bgcolor: "#323137" }}>
             <Table sx={{ minWidth: 800, bgcolor: "#323137" }}>
@@ -221,7 +221,7 @@ export function CinemaView() {
                   { id: "" },
                 ]}
               />
- 
+
               <TableBody>
                 {loading && (
                   <TableRow>
@@ -240,7 +240,7 @@ export function CinemaView() {
                     </TableCell>
                   </TableRow>
                 )}
- 
+
                 {error && (
                   <TableRow>
                     <TableCell
@@ -258,7 +258,7 @@ export function CinemaView() {
                     </TableCell>
                   </TableRow>
                 )}
- 
+
                 {!loading &&
                   !error &&
                   dataFiltered
@@ -291,13 +291,13 @@ export function CinemaView() {
                         }}
                       />
                     ))}
- 
+
                 {notFound && <TableNoData searchQuery={filterName} />}
               </TableBody>
             </Table>
           </TableContainer>
         </Scrollbar>
- 
+
         {dataFiltered.length > 0 && (
           <TablePagination
             sx={{
@@ -333,7 +333,7 @@ export function CinemaView() {
       >
         <Alert
           onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "black" }}
           severity={snackbar.severity}
         >
           {snackbar.message}

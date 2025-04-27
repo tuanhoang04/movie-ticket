@@ -93,7 +93,7 @@ export function EditCinemaView({ cinemaId }) {
       } catch (error) {
         setSnackbar({
           open: true,
-          message: "Error loading cinema information",
+          message: "Error loading cinema information" + error,
           severity: "error",
         });
         setLoading(false);

@@ -4,10 +4,14 @@ import { useParams } from "react-router-dom";
 
 export default function EditCinemaPage() {
   const { id } = useParams();
+
   return (
     <>
       <Helmet>
-        <title> {`Edit Cinema Information | Starlight Movie Admin Panel`}</title>
+        <title>
+          {" "}
+          {`Edit Cinema Information | Starlight Movie Admin Panel`}
+        </title>
       </Helmet>
 
       <EditCinemaView cinemaId={id} />

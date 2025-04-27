@@ -23,16 +23,16 @@ import {
 import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
 import { Link, useNavigate } from "react-router-dom";
- 
+
 const deleteCinema = async (id) => {
   try {
     const jwt = localStorage.getItem("jwt");
- 
+
     if (!jwt) {
       console.error("JWT token is missing");
       return;
     }
- 
+
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/admin/cinemas/delete/${id}`,
       {
@@ -42,19 +42,19 @@ const deleteCinema = async (id) => {
         },
       }
     );
- 
+
     if (!response.ok) {
       throw new Error("Failed to delete cinema");
     }
- 
+
     return true;
   } catch (error) {
     console.error("Error deleting cinema:", error);
- 
+
     return false;
   }
 };
- 
+
 function getBadgeStyle(clusterName) {
   switch (clusterName) {
     case "CGV Cinemas":
@@ -83,32 +83,32 @@ function getBadgeStyle(clusterName) {
       return { backgroundColor: "#e0e0e0", color: "#000" }; // Gray for unknown clusters
   }
 }
- 
+
 export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
- 
+
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
   }, []);
- 
+
   const handleClosePopover = useCallback(() => {
     setOpenPopover(null);
   }, []);
- 
+
   const navigate = useNavigate();
   const handleEditButton = () => {
     navigate(`/admin/cinema/${row.cinema_id}`);
   };
- 
+
   const handleDeleteButton = () => {
     setOpenDialog(true);
   };
- 
+
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
- 
+
   const handleConfirmDelete = async () => {
     const success = await deleteCinema(row.cinema_id);
     if (success) {
@@ -116,7 +116,7 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
     }
     setOpenDialog(false);
   };
- 
+
   return (
     <>
       <TableRow
@@ -146,7 +146,7 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
             }}
           />
         </TableCell>
- 
+
         <TableCell
           sx={{
             color: "#FFFFFF",
@@ -161,15 +161,18 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
               variant="body1"
               fontWeight="bold"
               noWrap
-              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "#FFFFFF" }}
+              sx={{
+                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                color: "#FFFFFF",
+              }}
             >
               {row.cinema_name}
             </Typography>
           </Link>
         </TableCell>
- 
+
         <CinemaAddressCell row={row} />
- 
+
         <TableCell
           sx={{
             color: "#FFFFFF",
@@ -190,7 +193,7 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
             {row.cluster_name}
           </Box>
         </TableCell>
- 
+
         <TableCell
           align="right"
           sx={{
@@ -201,7 +204,7 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
             <Iconify icon="eva:more-vertical-fill" sx={{ color: "#FFFFFF" }} />
           </IconButton>
         </TableCell>
- 
+
         <Popover
           open={Boolean(openPopover)}
           anchorEl={openPopover}
@@ -235,13 +238,16 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
               Edit
             </MenuItem>
             <MenuItem onClick={handleDeleteButton} sx={{ color: "#FF0000" }}>
-              <Iconify icon="solar:trash-bin-trash-bold" sx={{ color: "#FF0000" }} />
+              <Iconify
+                icon="solar:trash-bin-trash-bold"
+                sx={{ color: "#FF0000" }}
+              />
               Delete
             </MenuItem>
           </MenuList>
         </Popover>
       </TableRow>
- 
+
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
@@ -278,13 +284,13 @@ export function CinemaTableRow({ row, selected, onSelectRow, onDelete }) {
     </>
   );
 }
- 
+
 export function CinemaAddressCell({ row }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
- 
+
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
- 
+
   return (
     <TableCell
       sx={{
@@ -313,7 +319,7 @@ export function CinemaAddressCell({ row }) {
           {row.address}
         </Typography>
       </Tooltip>
- 
+
       <Dialog
         open={isDialogOpen}
         onClose={closeDialog}
