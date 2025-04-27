@@ -22,11 +22,11 @@ function DashboardLayout({ sx, children, header }) {
           slotProps={{
             container: {
               maxWidth: false,
-              sx: { px: { [layoutQuery]: 5 } },
+              sx: { px: { xs: 2, [layoutQuery]: 5 } }, // Thêm padding trên mobile
             },
           }}
           sx={{
-            background: "#1C1B21", // Gradient nền cho header
+            background: "#1C1B21",
             ...header?.sx,
           }}
           slots={{
@@ -37,7 +37,9 @@ function DashboardLayout({ sx, children, header }) {
                   onClick={() => setNavOpen(true)}
                   sx={{
                     ml: -1,
-                    [theme.breakpoints.up(layoutQuery)]: { display: "none" },
+                    display: { xs: "block", [layoutQuery]: "none" }, // Đảm bảo hiển thị trên mobile
+                    color: "white", // Đảm bảo biểu tượng menu có màu trắng để nhìn rõ trên nền gradient
+                    zIndex: 1000, // Đảm bảo MenuButton không bị che khuất
                   }}
                 />
                 <NavMobile

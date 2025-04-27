@@ -57,7 +57,6 @@ export function OrderView() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -95,14 +94,12 @@ export function OrderView() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
         if (!response.ok) throw new Error("Failed to fetch orders");
 
         const data = await response.json();
-        // console.log(data);
         setOrders(data);
       } catch (err) {
         console.error(err);
@@ -146,6 +143,7 @@ export function OrderView() {
             flexGrow: 1,
             marginBottom: { xs: 1 },
             color: "white",
+            fontWeight: "bold",
           }}
         >
           Orders Management

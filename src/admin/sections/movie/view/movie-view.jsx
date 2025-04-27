@@ -60,7 +60,6 @@ export function MovieView() {
             headers: {
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -104,7 +103,6 @@ export function MovieView() {
         if (!response.ok) throw new Error("Failed to fetch movies");
 
         const data = await response.json();
-        // console.log(data);
         setMovies(data);
       } catch (err) {
         console.error(err);
@@ -142,16 +140,17 @@ export function MovieView() {
         }}
         mb={5}
       >
-      <Typography
-        variant="h2"
-        sx={{
-          flexGrow: 1,
-          marginBottom: { xs: 1 },
-          color: "white", // Đổi màu từ đen sang trắng
-        }}
-      >
-        Movies Management
-      </Typography>
+        <Typography
+          variant="h2"
+          sx={{
+            flexGrow: 1,
+            marginBottom: { xs: 1 },
+            color: "white",
+            fontWeight: "bold",
+          }}
+        >
+          Movies Management
+        </Typography>
         <Button
           variant="contained"
           color="success"
@@ -159,7 +158,6 @@ export function MovieView() {
           component={Link}
           to="/admin/movie/create"
           sx={{ fontSize: "1.1rem" }}
-
         >
           Add film
         </Button>
@@ -228,13 +226,9 @@ export function MovieView() {
                         selected={table.selected.includes(row.film_id)}
                         onSelectRow={() => table.onSelectRow(row.film_id)}
                         onDelete={(id) => {
-                          console.log(movies);
-
                           setMovies((prevMovies) =>
                             prevMovies.filter((movie) => movie.movie_id !== id)
                           );
-                          console.log(movies);
-
                           table.setSelected((prevSelected) =>
                             prevSelected.filter(
                               (selectedId) => selectedId !== id
@@ -243,11 +237,6 @@ export function MovieView() {
                         }}
                       />
                     ))}
-
-                {/* <TableEmptyRows
-                                    height={68}
-                                    emptyRows={emptyRows(table.page, table.rowsPerPage, movies.length)}
-                                /> */}
 
                 {notFound && <TableNoData searchQuery={filterName} />}
               </TableBody>

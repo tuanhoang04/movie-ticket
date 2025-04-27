@@ -57,7 +57,6 @@ export function UserView() {
             headers: {
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
@@ -95,14 +94,12 @@ export function UserView() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + jwt,
             },
-            // credentials: 'include',
           }
         );
 
         if (!response.ok) throw new Error("Failed to fetch users");
 
         const data = await response.json();
-        // console.log(data);
         setUsers(data);
       } catch (err) {
         console.error(err);
@@ -146,6 +143,7 @@ export function UserView() {
             flexGrow: 1,
             marginBottom: { xs: 1 },
             color: "white",
+            fontWeight: "bold",
           }}
         >
           Users Management
@@ -226,11 +224,6 @@ export function UserView() {
                         }}
                       />
                     ))}
-
-                {/* <TableEmptyRows
-                                    height={68}
-                                    emptyRows={emptyRows(table.page, table.rowsPerPage, users.length)}
-                                /> */}
 
                 {notFound && <TableNoData searchQuery={filterName} />}
               </TableBody>

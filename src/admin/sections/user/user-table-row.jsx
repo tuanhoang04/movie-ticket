@@ -38,7 +38,6 @@ const deleteUser = async (id) => {
         headers: {
           Authorization: "Bearer " + jwt,
         },
-        // credentials: 'include',
       }
     );
 
@@ -49,12 +48,11 @@ const deleteUser = async (id) => {
     return true;
   } catch (error) {
     console.error("Error deleting user:", error);
-
     return false;
   }
 };
 
-export function UserTableRow({ row, selected, onSelectRow }) {
+export function UserTableRow({ row, selected, onSelectRow, onDelete }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -101,7 +99,12 @@ export function UserTableRow({ row, selected, onSelectRow }) {
               to={`/admin/user/${row.user_id}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Typography variant="body1" fontWeight="bold" noWrap>
+              <Typography
+                variant="body1"
+                fontWeight="bold"
+                noWrap
+                sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              >
                 {row.username}
               </Typography>
             </Link>
@@ -109,13 +112,23 @@ export function UserTableRow({ row, selected, onSelectRow }) {
         </TableCell>
 
         <TableCell>
-          <Typography variant="body1" fontWeight="medium" noWrap>
+          <Typography
+            variant="body1"
+            fontWeight="medium"
+            noWrap
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+          >
             {row.email}
           </Typography>
         </TableCell>
 
         <TableCell>
-          <Typography variant="body1" fontWeight="medium" noWrap>
+          <Typography
+            variant="body1"
+            fontWeight="medium"
+            noWrap
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+          >
             {row.phone_number}
           </Typography>
         </TableCell>
@@ -134,7 +147,7 @@ export function UserTableRow({ row, selected, onSelectRow }) {
               }
               size="small"
               sx={{
-                fontSize:"1rem",
+                fontSize: { xs: "1.1rem", md: "1.2rem" },
                 color:
                   row.role === 1
                     ? "primary.contrastText"
@@ -149,7 +162,10 @@ export function UserTableRow({ row, selected, onSelectRow }) {
         </TableCell>
 
         <TableCell>
-          <Label sx={{fontSize:"1.1rem"}} color={(row.status === 0 && "error") || "success"}>
+          <Label
+            sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            color={(row.status === 0 && "error") || "success"}
+          >
             {row.status === 0 ? "Inactive" : "Active"}
           </Label>
         </TableCell>

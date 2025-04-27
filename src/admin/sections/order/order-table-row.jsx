@@ -18,8 +18,6 @@ const deleteOrder = async (id) => {
             headers: {
                 'Authorization': 'Bearer ' + jwt,
             },
-            // credentials: 'include',
-
         });
 
         if (!response.ok) {
@@ -64,7 +62,12 @@ export function OrderTableRow({ row, selected, onSelectRow, onDelete }) {
               to={`/admin/order/${row.order_id}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Typography variant="body1" fontWeight="bold" noWrap>
+              <Typography
+                variant="body1"
+                fontWeight="bold"
+                noWrap
+                sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              >
                 {row.order_id}
               </Typography>
             </Link>
@@ -75,38 +78,67 @@ export function OrderTableRow({ row, selected, onSelectRow, onDelete }) {
               to={`/admin/user/${row.user_id}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Typography variant="body1" fontWeight="bold" noWrap>
+              <Typography
+                variant="body1"
+                fontWeight="bold"
+                noWrap
+                sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+              >
                 {row.username}
               </Typography>
             </Link>
           </TableCell>
 
           <TableCell>
-            <Typography variant="body1" fontWeight="bold" noWrap>
+            <Typography
+              variant="body1"
+              fontWeight="bold"
+              noWrap
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
               {row.film_name}
             </Typography>
           </TableCell>
 
           <TableCell>
-            <Typography variant="body1" fontWeight="medium" noWrap>
+            <Typography
+              variant="body1"
+              fontWeight="medium"
+              noWrap
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
               {row.cinema_name}
             </Typography>
           </TableCell>
 
           <TableCell>
-            <Typography variant="body1" fontWeight="medium" noWrap>
+            <Typography
+              variant="body1"
+              fontWeight="medium"
+              noWrap
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
               {row.room_name}
             </Typography>
           </TableCell>
 
           <TableCell>
-            <Typography variant="body1" sx={{ fontWeight: "medium" }}>
+            <Typography
+              variant="body1"
+              fontWeight="medium"
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
               {new Date(row.show_date).toLocaleDateString()}
             </Typography>
           </TableCell>
 
           <TableCell>
-            <Typography variant="body1" fontWeight="medium" noWrap>
+            <Typography
+              variant="body1"
+              fontWeight="medium"
+              noWrap
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
               {new Intl.NumberFormat("vi-VN", {
                 style: "currency",
                 currency: "VND",
@@ -115,7 +147,11 @@ export function OrderTableRow({ row, selected, onSelectRow, onDelete }) {
           </TableCell>
 
           <TableCell>
-            <Typography variant="body1" sx={{ fontWeight: "medium" }}>
+            <Typography
+              variant="body1"
+              fontWeight="medium"
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
               {new Date(row.order_date).toLocaleDateString()}
             </Typography>
           </TableCell>

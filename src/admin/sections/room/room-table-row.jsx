@@ -39,7 +39,6 @@ const deleteRoom = async (id) => {
         headers: {
           Authorization: "Bearer " + jwt,
         },
-        // credentials: 'include',
       }
     );
 
@@ -116,6 +115,7 @@ const editRoom = async (roomId, roomName, cinemaName) => {
     return false;
   }
 };
+
 export function RoomTableRow({
   row,
   selected,
@@ -211,10 +211,14 @@ export function RoomTableRow({
         </TableCell>
 
         <TableCell>
-          <Typography variant="body1" fontWeight="bold" noWrap>
-            <Link onClick={handleEditClick} sx={{ cursor: "pointer" }}>
-              {row.room_name}
-            </Link>
+          <Typography
+            variant="body1"
+            fontWeight="bold"
+            noWrap
+            sx={{ cursor: "pointer", fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            onClick={handleEditClick}
+          >
+            {row.room_name}
           </Typography>
         </TableCell>
 
@@ -223,7 +227,12 @@ export function RoomTableRow({
             to={`/admin/cinema/${row.cinema_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <Typography variant="body1" fontWeight="medium" noWrap>
+            <Typography
+              variant="body1"
+              fontWeight="medium"
+              noWrap
+              sx={{ fontSize: { xs: "1.1rem", md: "1.2rem" } }}
+            >
               {row.cinema_name}
             </Typography>
           </Link>
@@ -289,7 +298,7 @@ export function RoomTableRow({
                 sx={{ mb: 2, mt: 2 }}
                 slotProps={{
                   input: {
-                    style: { fontSize: "20px" }, // Chỉnh kích thước chữ trong input
+                    style: { fontSize: "20px" },
                   },
                   inputLabel: { style: { fontSize: "20px" } },
                 }}
