@@ -23,10 +23,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
 } from "@mui/material";
 
-// thiếu một số trường full_name, sex, date_of_birth, date
 export function EditUserView({ userId }) {
   const [formData, setFormData] = useState({
     username: "",
@@ -37,8 +35,13 @@ export function EditUserView({ userId }) {
     status: 0,
   });
   const [orderData, setOrderData] = useState([]);
-
   const [currentImage, setCurrentImage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const roleOptions = [
     { label: "User", value: 0 },
@@ -49,23 +52,23 @@ export function EditUserView({ userId }) {
     { label: "Inactive", value: 0 },
   ];
 
-  const [loading, setLoading] = useState(true);
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
   const navigate = useNavigate();
+
   const handleSnackbarClose = () =>
     setSnackbar((prev) => ({ ...prev, open: false }));
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
+        setLoading(true);
         const jwt = localStorage.getItem("jwt");
 
         if (!jwt) {
-          console.error("JWT token is missing");
+          setSnackbar({
+            open: true,
+            message: "JWT token is missing",
+            severity: "error",
+          });
           return;
         }
 
@@ -87,22 +90,21 @@ export function EditUserView({ userId }) {
         const user = data.user[0] || {};
 
         setFormData({
-          username: user.username,
-          user_img: user.user_img,
-          email: user.email,
-          phone_number: user.phone_number,
-          role: user.role,
-          status: user.status,
+          username: user.username || "",
+          user_img: user.user_img || "",
+          email: user.email || "",
+          phone_number: user.phone_number || "",
+          role: user.role || 0,
+          status: user.status || 0,
         });
 
         setOrderData(data.order || []);
         setCurrentImage(user.user_img || "");
         setLoading(false);
       } catch (error) {
-        console.error(error);
         setSnackbar({
           open: true,
-          message: "Error loading user information.",
+          message: "Error loading user information: " + error.message,
           severity: "error",
         });
         setLoading(false);
@@ -146,7 +148,11 @@ export function EditUserView({ userId }) {
       const jwt = localStorage.getItem("jwt");
 
       if (!jwt) {
-        console.error("JWT token is missing");
+        setSnackbar({
+          open: true,
+          message: "JWT token is missing",
+          severity: "error",
+        });
         return;
       }
 
@@ -167,7 +173,7 @@ export function EditUserView({ userId }) {
 
       setSnackbar({
         open: true,
-        message: "User information has been successfully updated!.",
+        message: "User information has been successfully updated!",
         severity: "success",
       });
 
@@ -175,7 +181,7 @@ export function EditUserView({ userId }) {
     } catch (error) {
       setSnackbar({
         open: true,
-        message: "An error occurred while updating user information!.",
+        message: "An error occurred while updating user information: " + error.message,
         severity: "error",
       });
     }
@@ -183,13 +189,26 @@ export function EditUserView({ userId }) {
 
   return (
     <DashboardContent>
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
         <CardHeader
           title={
-            <Typography variant="h2">{"Edit user information"}</Typography>
+            <Typography
+              variant="h2"
+              sx={{ color: "#FFFFFF", fontWeight: "bold" }}
+            >
+              Edit user information
+            </Typography>
           }
+          sx={{ bgcolor: "#323137" }}
         />
-        <CardContent>
+        <CardContent sx={{ bgcolor: "#323137" }}>
           {loading ? (
             <Box
               display="flex"
@@ -197,7 +216,7 @@ export function EditUserView({ userId }) {
               alignItems="center"
               height="300px"
             >
-              <CircularProgress />
+              <CircularProgress sx={{ color: "#FFFFFF" }} />
             </Box>
           ) : (
             <>
@@ -205,11 +224,37 @@ export function EditUserView({ userId }) {
                 <Stack spacing={3}>
                   <TextField
                     fullWidth
-                    label="Tên người dùng"
+                    label="Username"
                     name="username"
                     value={formData.username}
                     onChange={handleInputChange}
                     required
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
                   />
 
                   <TextField
@@ -220,6 +265,32 @@ export function EditUserView({ userId }) {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
                   />
 
                   <Box
@@ -253,12 +324,18 @@ export function EditUserView({ userId }) {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
-                          border: "1px dashed gray",
+                          border: "1px dashed #FFFFFF",
                           borderRadius: "8px",
-                          backgroundColor: "#f4f6f8",
+                          backgroundColor: "#4A494E",
                         }}
                       >
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: "#FFFFFF",
+                            fontSize: { xs: "1.1rem", md: "1.2rem" },
+                          }}
+                        >
                           No avatar available
                         </Typography>
                       </Box>
@@ -269,9 +346,14 @@ export function EditUserView({ userId }) {
                       component="label"
                       size="small"
                       sx={{
-                        color: "gray",
-                        borderColor: "gray",
+                        color: "#1976D2",
+                        borderColor: "#1976D2",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
                         textTransform: "none",
+                        "&:hover": {
+                          borderColor: "#1976D2",
+                          backgroundColor: "rgba(25, 118, 210, 0.1)",
+                        },
                       }}
                     >
                       Upload avatar
@@ -291,6 +373,32 @@ export function EditUserView({ userId }) {
                     value={formData.phone_number}
                     onChange={handleInputChange}
                     required
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                      },
+                    }}
                   />
 
                   <TextField
@@ -300,9 +408,36 @@ export function EditUserView({ userId }) {
                     name="role"
                     value={formData.role}
                     onChange={handleInputChange}
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .MuiSvgIcon-root": { color: "#FFFFFF" },
+                    }}
                   >
                     {roleOptions.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                      <MenuItem
+                        key={option.value}
+                        value={option.value}
+                        sx={{
+                          color: "#000000",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        }}
+                      >
                         {option.label}
                       </MenuItem>
                     ))}
@@ -315,9 +450,36 @@ export function EditUserView({ userId }) {
                     name="status"
                     value={formData.status}
                     onChange={handleInputChange}
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FFFFFF",
+                      },
+                      "& .MuiSvgIcon-root": { color: "#FFFFFF" },
+                    }}
                   >
                     {statusOptions.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                      <MenuItem
+                        key={option.value}
+                        value={option.value}
+                        sx={{
+                          color: "#000000",
+                          fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        }}
+                      >
                         {option.label}
                       </MenuItem>
                     ))}
@@ -328,7 +490,18 @@ export function EditUserView({ userId }) {
                   <Button
                     type="submit"
                     variant="contained"
-                    color="primary"
+                    sx={{
+                      bgcolor: "#1976D2",
+                      color: "#FFFFFF",
+                      fontSize: { xs: "1.1rem", md: "1.2rem" },
+                      "&:hover": {
+                        bgcolor: "#1565C0",
+                      },
+                      "&:disabled": {
+                        bgcolor: "#4A494E",
+                        color: "rgba(255, 255, 255, 0.5)",
+                      },
+                    }}
                     disabled={loading}
                   >
                     Update
@@ -336,51 +509,171 @@ export function EditUserView({ userId }) {
                 </Box>
               </form>
 
-              {/* Order Data Table */}
-              {formData.role == 0 ? (
+              {formData.role === 0 ? (
                 <Box mt={5}>
-                  <Typography variant="h2" gutterBottom>
+                  <Typography
+                    variant="h2"
+                    gutterBottom
+                    sx={{ color: "#FFFFFF", fontWeight: "bold" }}
+                  >
                     Booking History
                   </Typography>
 
                   {orderData.length > 0 ? (
-                    <TableContainer component={Paper}>
+                    <TableContainer
+                      sx={{
+                        bgcolor: "#323137",
+                        borderRadius: "8px",
+                        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+                      }}
+                    >
                       <Table>
                         <TableHead>
                           <TableRow>
-                            <TableCell>Order ID</TableCell>
-                            <TableCell>Booking Date</TableCell>
-                            <TableCell>Movie Name</TableCell>
-                            <TableCell>Cinema Name</TableCell>
-                            <TableCell>Room Name</TableCell>
-                            <TableCell>Show Date</TableCell>
-                            <TableCell>Total Amount</TableCell>
+                            <TableCell
+                              sx={{
+                                color: "#FFFFFF",
+                                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                              }}
+                            >
+                              Order ID
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                color: "#FFFFFF",
+                                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                              }}
+                            >
+                              Booking Date
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                color: "#FFFFFF",
+                                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                              }}
+                            >
+                              Movie Name
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                color: "#FFFFFF",
+                                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                              }}
+                            >
+                              Cinema Name
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                color: "#FFFFFF",
+                                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                              }}
+                            >
+                              Room Name
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                color: "#FFFFFF",
+                                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                              }}
+                            >
+                              Show Date
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                color: "#FFFFFF",
+                                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                              }}
+                            >
+                              Total Amount
+                            </TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
                           {orderData.map((order) => (
-                            <TableRow key={order.order_id}>
-                              <TableCell sx={{ fontWeight: "medium" }}>
+                            <TableRow
+                              key={order.order_id}
+                              sx={{
+                                "&:hover": { bgcolor: "#4A494E" },
+                                borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                              }}
+                            >
+                              <TableCell
+                                sx={{
+                                  color: "#FFFFFF",
+                                  fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                  fontWeight: "medium",
+                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                }}
+                              >
                                 {order.order_id}
                               </TableCell>
-                              <TableCell sx={{ fontWeight: "medium" }}>
+                              <TableCell
+                                sx={{
+                                  color: "#FFFFFF",
+                                  fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                  fontWeight: "medium",
+                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                }}
+                              >
                                 {new Date(
                                   order.order_date
                                 ).toLocaleDateString()}
                               </TableCell>
-                              <TableCell sx={{ fontWeight: "medium" }}>
+                              <TableCell
+                                sx={{
+                                  color: "#FFFFFF",
+                                  fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                  fontWeight: "medium",
+                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                }}
+                              >
                                 {order.film_name}
                               </TableCell>
-                              <TableCell sx={{ fontWeight: "medium" }}>
+                              <TableCell
+                                sx={{
+                                  color: "#FFFFFF",
+                                  fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                  fontWeight: "medium",
+                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                }}
+                              >
                                 {order.cinema_name}
                               </TableCell>
-                              <TableCell sx={{ fontWeight: "medium" }}>
+                              <TableCell
+                                sx={{
+                                  color: "#FFFFFF",
+                                  fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                  fontWeight: "medium",
+                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                }}
+                              >
                                 {order.room_name}
                               </TableCell>
-                              <TableCell sx={{ fontWeight: "medium" }}>
+                              <TableCell
+                                sx={{
+                                  color: "#FFFFFF",
+                                  fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                  fontWeight: "medium",
+                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                }}
+                              >
                                 {new Date(order.show_date).toLocaleDateString()}
                               </TableCell>
-                              <TableCell sx={{ fontWeight: "medium" }}>
+                              <TableCell
+                                sx={{
+                                  color: "#FFFFFF",
+                                  fontSize: { xs: "1.1rem", md: "1.2rem" },
+                                  fontWeight: "medium",
+                                  borderBottom: "0.5px solid rgba(255, 255, 255, 0.3)",
+                                }}
+                              >
                                 {new Intl.NumberFormat("vi-VN", {
                                   style: "currency",
                                   currency: "VND",
@@ -392,7 +685,14 @@ export function EditUserView({ userId }) {
                       </Table>
                     </TableContainer>
                   ) : (
-                    <Typography variant="body1" color="text.secondary" mt={2}>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: "#FFFFFF",
+                        fontSize: { xs: "1.1rem", md: "1.2rem" },
+                        mt: 2,
+                      }}
+                    >
                       No orders have been placed.
                     </Typography>
                   )}
@@ -401,22 +701,22 @@ export function EditUserView({ userId }) {
             </>
           )}
         </CardContent>
-
-        <Snackbar
-          open={snackbar.open}
-          autoHideDuration={4000}
-          onClose={handleSnackbarClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        >
-          <Alert
-            sx={{ fontSize: "1.25rem" }}
-            onClose={handleSnackbarClose}
-            severity={snackbar.severity}
-          >
-            {snackbar.message}
-          </Alert>
-        </Snackbar>
       </Card>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          sx={{ width: "100%", fontSize: "1.25rem", color: "#FFFFFF" }}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </DashboardContent>
   );
 }
