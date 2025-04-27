@@ -79,6 +79,8 @@ export default function Profile() {
       .then((response) => response.json())
       .then((responseData) => {
         if (responseData) {
+          console.log("orders:", responseData);
+
           setBookedTickets(responseData);
         } else {
           console.error("Failed to fetch booked tickets");
