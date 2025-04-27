@@ -34,13 +34,18 @@ export function MovieTableToolbar({
       }}
     >
       {numSelected > 0 ? (
-        <Typography component="div" variant="h6"> {/* Larger variant */}
+        <Typography component="div" variant="h6">
+          {" "}
+          {/* Larger variant */}
           {numSelected} selected
         </Typography>
       ) : (
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <FormControl sx={{ minWidth: 200, mr: 4 }}> {/* Increased width and margin */}
-            <InputLabel sx={{ fontSize: "1.1rem" }}>Filter</InputLabel> {/* Larger font */}
+          <FormControl sx={{ minWidth: 200, mr: 4 }}>
+            {" "}
+            {/* Increased width and margin */}
+            <InputLabel sx={{ fontSize: "1.1rem" }}>Filter</InputLabel>{" "}
+            {/* Larger font */}
             <Select
               value={selectedFilter}
               onChange={(e) => onFilterChange(e.target.value)}
@@ -66,7 +71,8 @@ export function MovieTableToolbar({
             placeholder="Search..."
             startAdornment={
               <InputAdornment position="start">
-                <Iconify width={24} icon="eva:search-fill" /> {/* Larger icon */}
+                <Iconify width={24} icon="eva:search-fill" />{" "}
+                {/* Larger icon */}
               </InputAdornment>
             }
             sx={{
@@ -79,7 +85,7 @@ export function MovieTableToolbar({
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="delete">
           <IconButton
             onClick={onDeleteSelected}
             sx={{
@@ -87,7 +93,8 @@ export function MovieTableToolbar({
               "&:hover": { backgroundColor: "action.hover" },
             }}
           >
-            <Iconify icon="solar:trash-bin-trash-bold" width={28} /> {/* Larger icon */}
+            <Iconify icon="solar:trash-bin-trash-bold" width={28} />{" "}
+            {/* Larger icon */}
           </IconButton>
         </Tooltip>
       ) : null}

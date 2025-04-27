@@ -14,6 +14,8 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { RoomTableToolbar } from "../room-table-toolbar";
 import { Scrollbar } from "../../../components/scrollbar";
@@ -30,7 +32,15 @@ export function RoomView() {
   const [loading, setLoading] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("room_name");
   const [dataFiltered, setDataFiltered] = useState([]);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
     table.onResetPage();
@@ -66,7 +76,11 @@ export function RoomView() {
           throw new Error(`Failed to delete room with ID: ${roomId}`);
         }
       }
-
+      setSnackbar({
+        open: true,
+        message: "Delete room successfully",
+        severity: "success",
+      });
       setRooms((prevRooms) =>
         prevRooms.filter((room) => !table.selected.includes(room.room_id))
       );
@@ -230,6 +244,11 @@ export function RoomView() {
                         selected={table.selected.includes(row.room_id)}
                         onSelectRow={() => table.onSelectRow(row.room_id)}
                         onDelete={(id) => {
+                          setSnackbar({
+                            open: true,
+                            message: "Delete room successfully",
+                            severity: "success",
+                          });
                           setRooms((prevRooms) =>
                             prevRooms.filter((room) => room.room_id !== id)
                           );
@@ -267,6 +286,20 @@ export function RoomView() {
           />
         )}
       </Card>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          sx={{ width: "100%", fontSize: "1.25rem" }}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </DashboardContent>
   );
 }

@@ -11,6 +11,8 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { Iconify } from "../../../components/iconify";
 import { MovieTableToolbar } from "../movie-table-toolbar";
@@ -31,6 +33,14 @@ export function MovieView() {
   const [loading, setLoading] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("film_name");
   const [dataFiltered, setDataFiltered] = useState([]);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
 
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
@@ -53,8 +63,10 @@ export function MovieView() {
       }
 
       for (const movieId of table.selected) {
+        console.log(movieId);
+
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/admin/movies/delete/${movieId}`,
+          `${import.meta.env.VITE_API_URL}/api/admin/films/delete/${movieId}`,
           {
             method: "DELETE",
             headers: {
@@ -64,10 +76,16 @@ export function MovieView() {
         );
 
         if (!response.ok) {
+          console.log("failed");
+
           throw new Error(`Failed to delete movie with ID: ${movieId}`);
         }
       }
-
+      setSnackbar({
+        open: true,
+        message: "Delete film successfully",
+        severity: "success",
+      });
       setMovies((prevMovies) =>
         prevMovies.filter((movie) => !table.selected.includes(movie.movie_id))
       );
@@ -226,6 +244,11 @@ export function MovieView() {
                         selected={table.selected.includes(row.film_id)}
                         onSelectRow={() => table.onSelectRow(row.film_id)}
                         onDelete={(id) => {
+                          setSnackbar({
+                            open: true,
+                            message: "Delete film successfully",
+                            severity: "success",
+                          });
                           setMovies((prevMovies) =>
                             prevMovies.filter((movie) => movie.film_id !== id)
                           );
@@ -262,6 +285,20 @@ export function MovieView() {
           />
         )}
       </Card>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          sx={{ width: "100%", fontSize: "1.25rem" }}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </DashboardContent>
   );
 }

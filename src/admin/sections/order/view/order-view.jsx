@@ -13,6 +13,8 @@ import {
   TableRow,
   TableCell,
   CircularProgress,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { OrderTableToolbar } from "../order-table-toolbar";
 import { Scrollbar } from "../../../components/scrollbar";
@@ -27,7 +29,15 @@ export function OrderView() {
   const [loading, setLoading] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("username");
   const [dataFiltered, setDataFiltered] = useState([]);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
     table.onResetPage();
@@ -64,7 +74,11 @@ export function OrderView() {
           throw new Error(`Failed to delete order with ID: ${orderId}`);
         }
       }
-
+      setSnackbar({
+        open: true,
+        message: "Delete order successfully",
+        severity: "success",
+      });
       setOrders((prevOrders) =>
         prevOrders.filter((order) => !table.selected.includes(order.order_id))
       );
@@ -148,7 +162,7 @@ export function OrderView() {
         >
           Orders Management
         </Typography>
-        </Box>
+      </Box>
 
       <Card>
         <OrderTableToolbar
@@ -216,6 +230,11 @@ export function OrderView() {
                         selected={table.selected.includes(row.order_id)}
                         onSelectRow={() => table.onSelectRow(row.order_id)}
                         onDelete={(id) => {
+                          setSnackbar({
+                            open: true,
+                            message: "Delete room successfully",
+                            severity: "success",
+                          });
                           setOrders((prevOrders) =>
                             prevOrders.filter((order) => order.order_id !== id)
                           );
@@ -252,6 +271,20 @@ export function OrderView() {
           />
         )}
       </Card>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          sx={{ width: "100%", fontSize: "1.25rem" }}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </DashboardContent>
   );
 }

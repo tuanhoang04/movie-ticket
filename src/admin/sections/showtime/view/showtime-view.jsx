@@ -13,7 +13,9 @@ import {
   TableContainer,
   TablePagination,
   Typography,
+  Snackbar,
   TableBody,
+  Alert,
 } from "@mui/material";
 import { ShowtimeTableToolbar } from "../showtime-table-toolbar";
 import { Scrollbar } from "../../../components/scrollbar";
@@ -30,6 +32,15 @@ export function ShowtimeView() {
   const [loading, setLoading] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("film_name");
   const [dataFiltered, setDataFiltered] = useState([]);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
 
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
@@ -68,7 +79,11 @@ export function ShowtimeView() {
           throw new Error(`Failed to delete showtime with ID: ${showtimeId}`);
         }
       }
-
+      setSnackbar({
+        open: true,
+        message: "Delete showtime successfully",
+        severity: "success",
+      });
       setShowtimes((prevShowtimes) =>
         prevShowtimes.filter(
           (showtime) => !table.selected.includes(showtime.showtime_id)
@@ -228,6 +243,11 @@ export function ShowtimeView() {
                       selected={table.selected.includes(row.showtime_id)}
                       onSelectRow={() => table.onSelectRow(row.showtime_id)}
                       onDelete={(id) => {
+                        setSnackbar({
+                          open: true,
+                          message: "Delete showtime successfully",
+                          severity: "success",
+                        });
                         setShowtimes((prevShowtimes) =>
                           prevShowtimes.filter(
                             (showtime) => showtime.showtime_id !== id
@@ -264,6 +284,20 @@ export function ShowtimeView() {
           />
         )}
       </Card>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          sx={{ width: "100%", fontSize: "1.25rem" }}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </DashboardContent>
   );
 }

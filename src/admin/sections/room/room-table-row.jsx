@@ -18,7 +18,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
 import { Link } from "react-router-dom";
 
@@ -173,20 +173,7 @@ export function RoomTableRow({
   const handleConfirmDelete = async () => {
     const success = await deleteRoom(row.room_id);
     if (success) {
-       setSnackbar({
-         open: true,
-         message: "Delete room successfully",
-         severity: "success",
-       });
-       setTimeout(() => {
-         onDelete(row.room_id);
-       }, 1000);
-    }else{
-      setSnackbar({
-        open: false,
-        message: "Delete room failed.Try again!",
-        severity: "error",
-      });
+      onDelete(row.room_id);
     }
     setOpenDialog(false);
   };

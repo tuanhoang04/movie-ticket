@@ -16,8 +16,6 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import { useCallback, useState } from "react";
 import { Iconify } from "../../components/iconify";
@@ -57,14 +55,6 @@ const deleteMovie = async (id) => {
 export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
-  const handleCloseSnackbar = () => {
-    setSnackbar((prev) => ({ ...prev, open: false }));
-  };
 
   const handleOpenPopover = useCallback((event) => {
     setOpenPopover(event.currentTarget);
@@ -90,20 +80,7 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
   const handleConfirmDelete = async () => {
     const success = await deleteMovie(row.film_id);
     if (success) {
-      setSnackbar({
-        open: true,
-        message: "Delete film successfully",
-        severity: "success",
-      });
-      setTimeout(() => {
-        onDelete(row.film_id);
-      }, 1000);
-    } else {
-      setSnackbar({
-        open: false,
-        message: "Delete Film Failed",
-        severity: "error",
-      });
+      onDelete(row.film_id);
     }
     setOpenDialog(false);
   };
@@ -241,20 +218,6 @@ export function MovieTableRow({ row, selected, onSelectRow, onDelete, sx }) {
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          sx={{ width: "100%", fontSize: "1.25rem" }}
-          severity={snackbar.severity}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
     </>
   );
 }
