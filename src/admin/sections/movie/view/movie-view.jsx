@@ -181,7 +181,16 @@ export function MovieView() {
         </Button>
       </Box>
 
-      <Card sx={{ bgcolor: "#323137", border: "none", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)", borderRadius: "10px" }}> {/* Match row separator style */}
+      <Card
+        sx={{
+          bgcolor: "#323137",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          borderRadius: "10px",
+        }}
+      >
+        {" "}
+        {/* Match row separator style */}
         <MovieTableToolbar
           numSelected={table.selected.length}
           filterName={filterName}
@@ -190,7 +199,6 @@ export function MovieView() {
           onFilterChange={handleFilterChange}
           onDeleteSelected={handleDeleteSelected}
         />
-
         <Scrollbar>
           <TableContainer sx={{ overflow: "unset", bgcolor: "#323137" }}>
             <Table sx={{ minWidth: 800, bgcolor: "#323137" }}>
@@ -250,7 +258,7 @@ export function MovieView() {
                             severity: "success",
                           });
                           setMovies((prevMovies) =>
-                            prevMovies.filter((movie) => movie.movie_id !== id)
+                            prevMovies.filter((movie) => movie.film_id !== id)
                           );
                           table.setSelected((prevSelected) =>
                             prevSelected.filter(
@@ -266,7 +274,6 @@ export function MovieView() {
             </Table>
           </TableContainer>
         </Scrollbar>
-
         {dataFiltered.length > 0 && (
           <TablePagination
             sx={{
