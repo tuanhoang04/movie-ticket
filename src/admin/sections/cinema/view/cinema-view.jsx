@@ -158,7 +158,7 @@ export function CinemaView() {
         }}
       >
         <Typography
-          variant="h2"
+          variant="h3"
           sx={{
             flexGrow: 1,
             marginBottom: { xs: 1 },

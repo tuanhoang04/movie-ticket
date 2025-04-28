@@ -227,6 +227,13 @@ export default function MovieDetail() {
     }
   };
 
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setMessage("");
+    }, 4000);
+  }, [message]);
+
   return (
     <div className="bg-[#1C1B21] flex flex-col min-h-screen">
       <NavBar
