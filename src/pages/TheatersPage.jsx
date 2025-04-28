@@ -170,7 +170,7 @@ export default function TheatersPage() {
         <div className="min-h-screen p-4">
           {currentAreaName && (
             <div className=" p-4 md:p-6 lg:p-12 xl:p-20 2xl:p-32 pt-10 2xl:!pt-12 grid grid-cols-1 xl:grid-cols-7 gap-5 text-white h-fit xl:min-h-[400px]  ">
-              <div className="col-span-1 xl:col-span-2 h-full min-h-[300px] xl:min-h-[800px] bg-white bg-opacity-10 rounded-lg border-gray-600 shadow-lg">
+              <div className="col-span-1 xl:col-span-2 h-fit min-h-[300px] xl:min-h-[800px] bg-white bg-opacity-10 rounded-lg border-gray-600 shadow-lg ">
                 <p className=" p-5 pb-0 text-3xl font-bold ">
                   Cinemas in {currentAreaName}
                 </p>
@@ -322,8 +322,8 @@ export default function TheatersPage() {
                                           src={value[key].film_img}
                                           alt=""
                                         />
-                                        <div className=" flex flex-col xl:flex-row gap-10 justify-between text-xl p-3 py-5 ">
-                                          <div className="flex flex-col xl:flex-row justify-between gap-5 w-full">
+                                        <div className=" flex flex-col xl:flex-row gap-10 justify-between text-xl p-3 py-5 w-full">
+                                          <div className=" flex flex-col xl:flex-row justify-between gap-5 w-full">
                                             <div className="p-2 flex flex-col items-center md:items-start gap-2 xl:w-4/5">
                                               <p className="text-2xl font-bold line-clamp-2">
                                                 {value[key].film_name}
